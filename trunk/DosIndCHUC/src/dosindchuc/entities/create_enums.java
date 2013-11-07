@@ -10,7 +10,7 @@ package dosindchuc.entities;
  */
 public class create_enums {
     
-    public enum categoryType {
+    public enum staff_category {
          Médico 
         , Físico
         , Técnico
@@ -19,10 +19,10 @@ public class create_enums {
         , Auxiliar 
     }
     
-    public enum sexType { M , F }
+    public enum staff_sex { M , F }
     
     
-    public enum departmentType {
+    public enum staff_department {
          Radioterapia 
         , Imagiologia
         , Ortopedia
@@ -30,6 +30,33 @@ public class create_enums {
         , MedicinaNuclear
     }
     
-    public enum statusType { Activo , Inactivo }
+    public enum status { Activo , Inactivo }
+    
+    
+    public enum dsmt_type { Body , Anel }
+    
+    
+    public enum dsmt_periodicity { Anual , Trimestral }
+    
+    
+    public enum dsmt_supplier {
+
+        MedicalConsult("Medical Consult"),
+        Fluencia("Fluência"),
+        ITN("ITN");
+
+        private String displayName;
+
+        dsmt_supplier(String displayName) {
+            this.displayName = displayName;
+        }
+
+        public String displayName() { return displayName; }
+
+        // Optionally and/or additionally, toString.
+        @Override public String toString() { return displayName; }
+    }
+    
+    public enum note_status { Open , Close }
     
 }
