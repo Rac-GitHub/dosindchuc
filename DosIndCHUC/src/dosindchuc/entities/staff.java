@@ -6,10 +6,11 @@ package dosindchuc.entities;
 
 //
 
-import dosindchuc.entities.create_enums.categoryType;
-import dosindchuc.entities.create_enums.departmentType;
-import dosindchuc.entities.create_enums.sexType;
-import dosindchuc.entities.create_enums.statusType;
+
+import dosindchuc.entities.create_enums.staff_category;
+import dosindchuc.entities.create_enums.staff_department;
+import dosindchuc.entities.create_enums.staff_sex;
+import dosindchuc.entities.create_enums.status;
 import java.util.Objects;
 
 
@@ -30,14 +31,14 @@ public class staff {
   private String nif;
   private String birth;
   
-  private sexType sex; 
-  private categoryType category;
-  private departmentType department;
+  private staff_sex sex; 
+  private staff_category category;
+  private staff_department department;
   private String sector;
 
   private String comments;
   private String timestamp;
-  private statusType status;
+  private status status;
   private String status_timestamp;
 
   // constructors
@@ -45,7 +46,9 @@ public class staff {
 
     }
 
-    public staff(short pk_id, short id_mec, String name, String nick, String BI, String nationality, String nif, String birth, sexType sex, categoryType category, departmentType department, String sector, String timestamp, statusType status, String status_timestamp) {
+    public staff(short pk_id, short id_mec, String name, String nick, String BI, String nationality, String nif, 
+            String birth, staff_sex sex, staff_category category, staff_department department, String sector, 
+            String timestamp, status status, String status_timestamp) {
         this.pk_id = pk_id;
         this.id_mec = id_mec;
         this.name = name;
@@ -129,27 +132,27 @@ public class staff {
         this.birth = birth;
     }
 
-    public sexType getSex() {
+    public staff_sex getSex() {
         return sex;
     }
 
-    public void setSex(sexType sex) {
+    public void setSex(staff_sex sex) {
         this.sex = sex;
     }
 
-    public categoryType getCategory() {
+    public staff_category getCategory() {
         return category;
     }
 
-    public void setCategory(categoryType category) {
+    public void setCategory(staff_category category) {
         this.category = category;
     }
 
-    public departmentType getDepartment() {
+    public staff_department getDepartment() {
         return department;
     }
 
-    public void setDepartment(departmentType department) {
+    public void setDepartment(staff_department department) {
         this.department = department;
     }
 
@@ -177,11 +180,11 @@ public class staff {
         this.timestamp = timestamp;
     }
 
-    public statusType getStatus() {
+    public status getStatus() {
         return status;
     }
 
-    public void setStatus(statusType status) {
+    public void setStatus(status status) {
         this.status = status;
     }
 
