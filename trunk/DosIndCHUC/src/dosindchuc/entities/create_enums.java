@@ -23,18 +23,61 @@ public class create_enums {
     
     
     public enum staff_department {
-         Radioterapia 
-        , Imagiologia
-        , Ortopedia
-        , BOC
-        , MedicinaNuclear
+        
+        RT("Radioterapia"),
+        IM("Imagiologia"),
+        Orto("Ortopedia"),
+        BOC("Bloco Operatório"),
+        MN("Medicina Nuclear");
+        
+        private String displayName;
+
+        staff_department(String displayName) {
+            this.displayName = displayName;
+        }
+
+        public String displayName() { return displayName; }
+
+        // Optionally and/or additionally, toString.
+        @Override public String toString() { return displayName; }
+        
     }
     
-    public enum status { Activo , Inactivo }
+    public enum status { 
+        
+        A("Activo"),
+        I("Inactivo");
+        
+        private String displayName;
+
+        status(String displayName) {
+            this.displayName = displayName;
+        }
+
+        public String displayName() { return displayName; }
+
+        // Optionally and/or additionally, toString.
+        @Override public String toString() { return displayName; }
+        
+    }
     
+    public enum dsmt_type { 
+        
+        Body("Corpo Inteiro"),
+        Anel("Anel");
     
-    public enum dsmt_type { Body , Anel }
-    
+        private String displayName;
+
+        dsmt_type(String displayName) {
+            this.displayName = displayName;
+        }
+
+        public String displayName() { return displayName; }
+
+        // Optionally and/or additionally, toString.
+        @Override public String toString() { return displayName; }
+    }
+        
     
     public enum dsmt_periodicity { Anual , Trimestral }
     
@@ -57,6 +100,47 @@ public class create_enums {
         @Override public String toString() { return displayName; }
     }
     
-    public enum note_status { Open , Close }
+    
+    public enum note_status { 
+        
+        O("Open"),
+        C("Close");
+        
+        private String displayName;
+
+        note_status(String displayName) {
+            this.displayName = displayName;
+        }
+
+        public String displayName() { return displayName; }
+
+        // Optionally and/or additionally, toString.
+        @Override public String toString() { return displayName; }
+    
+    }
+    
+    
+    public enum note_alertlevel { 
+        
+        N("Normal"),
+        PI("Pouco Importante"),
+        I("Importante"),
+        MI("Muito Importante"),
+        C("Crítica");
+        
+        private String displayName;
+
+        note_alertlevel(String displayName) {
+            this.displayName = displayName;
+        }
+
+        public String displayName() { return displayName; }
+
+        // Optionally and/or additionally, toString.
+        @Override public String toString() { return displayName; }
+    
+    }
+    
+    
     
 }
