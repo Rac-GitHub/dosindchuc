@@ -16,7 +16,7 @@ import java.util.Objects;
  *
  * @author ir
  */
-public class dosimeter {
+public class Dosimeter {
     
     private short pk_dsmt;
     private String id;
@@ -34,11 +34,11 @@ public class dosimeter {
     
     // constructors
     
-    public dosimeter() {
+    public Dosimeter() {
         
     }
 
-    public dosimeter(short pk_dsmt, String id, String label, dsmt_type type, dsmt_periodicity periodicity,
+    public Dosimeter(short pk_dsmt, String id, String label, dsmt_type type, dsmt_periodicity periodicity,
             dsmt_supplier supplier, String comments, String timestamp, short pk_id, status status, String status_timestamp) {
         this.pk_dsmt = pk_dsmt;
         this.id = id;
@@ -117,7 +117,7 @@ public class dosimeter {
     }
 
     public void setTimestamp(String timestamp) {
-        this.timestamp = timestamp;
+        this.timestamp = new help_entities().currDateTime();
     }
 
     public short getPk_id() {
@@ -141,7 +141,7 @@ public class dosimeter {
     }
 
     public void setStatus_timestamp(String status_timestamp) {
-        this.status_timestamp = status_timestamp;
+        this.status_timestamp = new help_entities().currDateTime();
     }
     
     
@@ -173,7 +173,7 @@ public class dosimeter {
         if (getClass() != obj.getClass()) {
             return false;
         }
-        final dosimeter other = (dosimeter) obj;
+        final Dosimeter other = (Dosimeter) obj;
         if (this.pk_dsmt != other.pk_dsmt) {
             return false;
         }

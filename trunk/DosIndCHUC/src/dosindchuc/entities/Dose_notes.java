@@ -6,30 +6,29 @@ package dosindchuc.entities;
 
 
 import dosindchuc.entities.create_enums.note_status;
-import java.util.Date;
 import java.util.Objects;
 
 /**
  *
  * @author ir
  */
-public class dose_notes {
+public class Dose_notes {
     
     
     private short pk_notes_dose;
     private String note;
-    private Date timestamp;
+    private String timestamp;
     private note_status status;
-    private Date status_timestamp;
+    private String status_timestamp;
     private int pk_dose;
     
     
     // constructors
 
-    public dose_notes() {
+    public Dose_notes() {
     }
 
-    public dose_notes(short pk_notes_dose, String note, Date timestamp, note_status status, Date status_timestamp, int pk_dose) {
+    public Dose_notes(short pk_notes_dose, String note, String timestamp, note_status status, String status_timestamp, int pk_dose) {
         this.pk_notes_dose = pk_notes_dose;
         this.note = note;
         this.timestamp = timestamp;
@@ -57,13 +56,13 @@ public class dose_notes {
         this.note = note;
     }
 
-    public Date getTimestamp() {
+    public String getTimestamp() {
         return timestamp;
     }
 
-    public void setTimestamp(Date timestamp) {
-        this.timestamp = timestamp;
-    }
+    public void setTimestamp(String timestamp) {
+        this.timestamp = new help_entities().currDateTime();
+     }
 
     public note_status getStatus() {
         return status;
@@ -73,12 +72,12 @@ public class dose_notes {
         this.status = status;
     }
 
-    public Date getStatus_timestamp() {
+    public String getStatus_timestamp() {
         return status_timestamp;
     }
 
-    public void setStatus_timestamp(Date status_timestamp) {
-        this.status_timestamp = status_timestamp;
+    public void setStatus_timestamp(String status_timestamp) {
+        this.status_timestamp = new help_entities().currDateTime();
     }
 
     public int getPk_dose() {
@@ -113,7 +112,7 @@ public class dose_notes {
         if (getClass() != obj.getClass()) {
             return false;
         }
-        final dose_notes other = (dose_notes) obj;
+        final Dose_notes other = (Dose_notes) obj;
         if (this.pk_notes_dose != other.pk_notes_dose) {
             return false;
         }

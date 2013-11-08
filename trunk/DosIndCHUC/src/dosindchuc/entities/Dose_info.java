@@ -4,17 +4,18 @@
  */
 package dosindchuc.entities;
 
+import dosindchuc.entities.create_enums.Trimester;
 import java.util.Objects;
 
 /**
  *
  * @author ir
  */
-public class dose_info {
+public class Dose_info {
     
     private int pk_dose;
     private String year;
-    private String trimester;
+    private Trimester trimester;
     private float hp007;
     private float hp10;
     private String comments;
@@ -24,10 +25,10 @@ public class dose_info {
     
     // constructors
 
-    public dose_info() {
+    public Dose_info() {
     }
 
-    public dose_info(int pk_dose, String year, String trimester, float hp007, 
+    public Dose_info(int pk_dose, String year, Trimester trimester, float hp007, 
             float hp10, String comments, String timestamp, short pk_dsmt) {
         this.pk_dose = pk_dose;
         this.year = year;
@@ -58,11 +59,11 @@ public class dose_info {
         this.year = year;
     }
 
-    public String getTrimester() {
+    public Trimester getTrimester() {
         return trimester;
     }
 
-    public void setTrimester(String trimester) {
+    public void setTrimester(Trimester trimester) {
         this.trimester = trimester;
     }
 
@@ -95,7 +96,7 @@ public class dose_info {
     }
 
     public void setTimestamp(String timestamp) {
-        this.timestamp = timestamp;
+        this.timestamp = new help_entities().currDateTime();
     }
 
     public short getPk_dsmt() {
@@ -132,7 +133,7 @@ public class dose_info {
         if (getClass() != obj.getClass()) {
             return false;
         }
-        final dose_info other = (dose_info) obj;
+        final Dose_info other = (Dose_info) obj;
         if (this.pk_dose != other.pk_dose) {
             return false;
         }
