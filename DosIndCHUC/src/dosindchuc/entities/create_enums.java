@@ -8,7 +8,10 @@ package dosindchuc.entities;
  *
  * @author ir
  */
+
 public class create_enums {
+    
+    
     
     public enum staff_category {
          Médico 
@@ -19,7 +22,10 @@ public class create_enums {
         , Auxiliar 
     }
     
+    
+    
     public enum staff_sex { M , F }
+    
     
     
     public enum staff_department {
@@ -39,9 +45,29 @@ public class create_enums {
         public String displayName() { return displayName; }
 
         // Optionally and/or additionally, toString.
-        @Override public String toString() { return displayName; }
+  //      @Override public String toString() { return displayName; }
         
     }
+  
+    
+    public enum Trimester {
+        
+        Primeiro(1),
+        Segundo(2),
+        Terceiro(3),
+        Quarto(4);
+  
+        private final int value;
+
+        private Trimester(final int newValue) {
+            value = newValue;
+        }
+
+        public int getValue() { return value; }
+        
+    }
+    
+    
     
     public enum status { 
         
@@ -57,9 +83,11 @@ public class create_enums {
         public String displayName() { return displayName; }
 
         // Optionally and/or additionally, toString.
-        @Override public String toString() { return displayName; }
+ //       @Override public String toString() { return displayName; }
         
     }
+    
+    
     
     public enum dsmt_type { 
         
@@ -75,11 +103,15 @@ public class create_enums {
         public String displayName() { return displayName; }
 
         // Optionally and/or additionally, toString.
-        @Override public String toString() { return displayName; }
+  //      @Override public String toString() { return displayName; }
     }
         
     
+    
+    
     public enum dsmt_periodicity { Anual , Trimestral }
+    
+    
     
     
     public enum dsmt_supplier {
@@ -97,8 +129,10 @@ public class create_enums {
         public String displayName() { return displayName; }
 
         // Optionally and/or additionally, toString.
-        @Override public String toString() { return displayName; }
+   //     @Override public String toString() { return displayName; }
     }
+    
+    
     
     
     public enum note_status { 
@@ -115,9 +149,11 @@ public class create_enums {
         public String displayName() { return displayName; }
 
         // Optionally and/or additionally, toString.
-        @Override public String toString() { return displayName; }
+ //       @Override public String toString() { return displayName; }
     
     }
+    
+    
     
     
     public enum note_alertlevel { 
@@ -137,7 +173,7 @@ public class create_enums {
         public String displayName() { return displayName; }
 
         // Optionally and/or additionally, toString.
-        @Override public String toString() { return displayName; }
+ //       @Override public String toString() { return displayName; }
     
     }
     

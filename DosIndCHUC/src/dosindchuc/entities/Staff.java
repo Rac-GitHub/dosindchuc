@@ -19,7 +19,7 @@ import java.util.Objects;
  *
  * @author ir
  */
-public class staff {
+public class Staff {
   
     
   private short pk_id;
@@ -42,11 +42,11 @@ public class staff {
   private String status_timestamp;
 
   // constructors
-    public staff() {
+    public Staff() {
 
     }
 
-    public staff(short pk_id, short id_mec, String name, String nick, String BI, String nationality, String nif, 
+    public Staff(short pk_id, short id_mec, String name, String nick, String BI, String nationality, String nif, 
             String birth, staff_sex sex, staff_category category, staff_department department, String sector, 
             String timestamp, status status, String status_timestamp) {
         this.pk_id = pk_id;
@@ -177,7 +177,7 @@ public class staff {
     }
 
     public void setTimestamp(String timestamp) {
-        this.timestamp = timestamp;
+        this.timestamp = new help_entities().currDateTime();
     }
 
     public status getStatus() {
@@ -193,7 +193,7 @@ public class staff {
     }
 
     public void setStatus_timestamp(String status_timestamp) {
-        this.status_timestamp = status_timestamp;
+        this.status_timestamp = new help_entities().currDateTime();
     }
 
  // hashCode and equals   
@@ -228,7 +228,7 @@ public class staff {
         if (getClass() != obj.getClass()) {
             return false;
         }
-        final staff other = (staff) obj;
+        final Staff other = (Staff) obj;
         if (this.pk_id != other.pk_id) {
             return false;
         }

@@ -11,7 +11,7 @@ import java.util.Objects;
  *
  * @author ir
  */
-public class dosimeter_notes {
+public class Dosimeter_notes {
     
    private short pk_notes_dsmt;
    private String note;
@@ -20,13 +20,12 @@ public class dosimeter_notes {
    private String status_timestamp;
    private short pk_dsmt;
     
-   
-   // constructors
+      // constructors
 
-    public dosimeter_notes() {
+    public Dosimeter_notes() {
     }
 
-    public dosimeter_notes(short pk_notes_dsmt, String note, String timestamp, status status, String status_timestamp, short pk_dsmt) {
+    public Dosimeter_notes(short pk_notes_dsmt, String note, String timestamp, status status, String status_timestamp, short pk_dsmt) {
         this.pk_notes_dsmt = pk_notes_dsmt;
         this.note = note;
         this.timestamp = timestamp;
@@ -58,7 +57,7 @@ public class dosimeter_notes {
     }
 
     public void setTimestamp(String timestamp) {
-        this.timestamp = timestamp;
+        this.timestamp = new help_entities().currDateTime();
     }
 
     public status getStatus() {
@@ -74,7 +73,7 @@ public class dosimeter_notes {
     }
 
     public void setStatus_timestamp(String status_timestamp) {
-        this.status_timestamp = status_timestamp;
+        this.status_timestamp = new help_entities().currDateTime();
     }
 
     public short getPk_dsmt() {
@@ -108,7 +107,7 @@ public class dosimeter_notes {
         if (getClass() != obj.getClass()) {
             return false;
         }
-        final dosimeter_notes other = (dosimeter_notes) obj;
+        final Dosimeter_notes other = (Dosimeter_notes) obj;
         if (this.pk_notes_dsmt != other.pk_notes_dsmt) {
             return false;
         }

@@ -14,10 +14,7 @@ import java.util.Date;
 public class help_entities {
 
     
-    public help_entities() {
-    
-    }
-   
+     
      public String currDate () {
 
         Date dNow = new Date();
@@ -26,5 +23,13 @@ public class help_entities {
               
      }
     
+     public String currDateTime () {
+
+        Date dNow = new Date();
+        SimpleDateFormat ft = new SimpleDateFormat ("yyyy-MM-dd HH-mm-ss");
+        return ft.format(dNow);
+              
+     }
+     
          
 }
