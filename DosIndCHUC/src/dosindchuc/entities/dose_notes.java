@@ -6,6 +6,7 @@ package dosindchuc.entities;
 
 
 import dosindchuc.entities.create_enums.note_status;
+import java.util.Date;
 import java.util.Objects;
 
 /**
@@ -17,9 +18,9 @@ public class dose_notes {
     
     private short pk_notes_dose;
     private String note;
-    private String timestamp;
+    private Date timestamp;
     private note_status status;
-    private String status_timestamp;
+    private Date status_timestamp;
     private int pk_dose;
     
     
@@ -28,7 +29,7 @@ public class dose_notes {
     public dose_notes() {
     }
 
-    public dose_notes(short pk_notes_dose, String note, String timestamp, note_status status, String status_timestamp, int pk_dose) {
+    public dose_notes(short pk_notes_dose, String note, Date timestamp, note_status status, Date status_timestamp, int pk_dose) {
         this.pk_notes_dose = pk_notes_dose;
         this.note = note;
         this.timestamp = timestamp;
@@ -56,11 +57,11 @@ public class dose_notes {
         this.note = note;
     }
 
-    public String getTimestamp() {
+    public Date getTimestamp() {
         return timestamp;
     }
 
-    public void setTimestamp(String timestamp) {
+    public void setTimestamp(Date timestamp) {
         this.timestamp = timestamp;
     }
 
@@ -72,11 +73,11 @@ public class dose_notes {
         this.status = status;
     }
 
-    public String getStatus_timestamp() {
+    public Date getStatus_timestamp() {
         return status_timestamp;
     }
 
-    public void setStatus_timestamp(String status_timestamp) {
+    public void setStatus_timestamp(Date status_timestamp) {
         this.status_timestamp = status_timestamp;
     }
 
