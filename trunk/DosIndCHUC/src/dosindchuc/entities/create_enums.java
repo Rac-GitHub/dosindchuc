@@ -13,32 +13,35 @@ public class create_enums {
     
     
     
-    public enum staff_category {
-         Médico 
+    public enum worker_category {
+         
+          Médico 
         , Físico
         , Técnico
         , Secretário
         , Enfermeiro
-        , Auxiliar 
+        , Auxiliar
+        , NP
     }
     
     
     
-    public enum staff_sex { M , F }
+    public enum worker_sex { M , F }
     
     
     
-    public enum staff_department {
+    public enum worker_department {
         
         RT("Radioterapia"),
-        IM("Imagiologia"),
+        Img("Imagiologia"),
         Orto("Ortopedia"),
         BOC("Bloco Operatório"),
-        MN("Medicina Nuclear");
+        MN("Medicina Nuclear"),
+        NP("nao esta preenchido");
         
         private String displayName;
 
-        staff_department(String displayName) {
+        worker_department(String displayName) {
             this.displayName = displayName;
         }
 
@@ -71,19 +74,8 @@ public class create_enums {
     
     public enum status { 
         
-        A("Activo"),
-        I("Inactivo");
-        
-        private String displayName;
-
-        status(String displayName) {
-            this.displayName = displayName;
-        }
-
-        public String displayName() { return displayName; }
-
-        // Optionally and/or additionally, toString.
- //       @Override public String toString() { return displayName; }
+          Activo
+        , Inactivo
         
     }
     
@@ -91,7 +83,7 @@ public class create_enums {
     
     public enum dsmt_type { 
         
-        Body("Corpo Inteiro"),
+        CI("Corpo Inteiro"),
         Anel("Anel");
     
         private String displayName;
