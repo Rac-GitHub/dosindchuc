@@ -7,9 +7,9 @@ package dosindchuc.entities;
 //
 
 
-import dosindchuc.entities.create_enums.staff_category;
-import dosindchuc.entities.create_enums.staff_department;
-import dosindchuc.entities.create_enums.staff_sex;
+import dosindchuc.entities.create_enums.worker_category;
+import dosindchuc.entities.create_enums.worker_department;
+import dosindchuc.entities.create_enums.worker_sex;
 import dosindchuc.entities.create_enums.status;
 import java.util.Objects;
 
@@ -19,7 +19,7 @@ import java.util.Objects;
  *
  * @author ir
  */
-public class Staff {
+public class Worker {
   
     
   private short pk_id;
@@ -31,9 +31,9 @@ public class Staff {
   private String nif;
   private String birth;
   
-  private staff_sex sex; 
-  private staff_category category;
-  private staff_department department;
+  private worker_sex sex; 
+  private worker_category category;
+  private worker_department department;
   private String sector;
 
   private String comments;
@@ -42,12 +42,12 @@ public class Staff {
   private String status_timestamp;
 
   // constructors
-    public Staff() {
+    public Worker() {
 
     }
 
-    public Staff(short pk_id, short id_mec, String name, String nick, String BI, String nationality, String nif, 
-            String birth, staff_sex sex, staff_category category, staff_department department, String sector, 
+    public Worker(short pk_id, short id_mec, String name, String nick, String BI, String nationality, String nif, 
+            String birth, worker_sex sex, worker_category category, worker_department department, String sector, 
             String timestamp, status status, String status_timestamp) {
         this.pk_id = pk_id;
         this.id_mec = id_mec;
@@ -132,27 +132,27 @@ public class Staff {
         this.birth = birth;
     }
 
-    public staff_sex getSex() {
+    public worker_sex getSex() {
         return sex;
     }
 
-    public void setSex(staff_sex sex) {
+    public void setSex(worker_sex sex) {
         this.sex = sex;
     }
 
-    public staff_category getCategory() {
+    public worker_category getCategory() {
         return category;
     }
 
-    public void setCategory(staff_category category) {
+    public void setCategory(worker_category category) {
         this.category = category;
     }
 
-    public staff_department getDepartment() {
+    public worker_department getDepartment() {
         return department;
     }
 
-    public void setDepartment(staff_department department) {
+    public void setDepartment(worker_department department) {
         this.department = department;
     }
 
@@ -177,7 +177,7 @@ public class Staff {
     }
 
     public void setTimestamp(String timestamp) {
-        this.timestamp = new help_entities().currDateTime();
+        this.timestamp = timestamp;
     }
 
     public status getStatus() {
@@ -193,7 +193,7 @@ public class Staff {
     }
 
     public void setStatus_timestamp(String status_timestamp) {
-        this.status_timestamp = new help_entities().currDateTime();
+        this.status_timestamp = status_timestamp;
     }
 
  // hashCode and equals   
@@ -228,7 +228,7 @@ public class Staff {
         if (getClass() != obj.getClass()) {
             return false;
         }
-        final Staff other = (Staff) obj;
+        final Worker other = (Worker) obj;
         if (this.pk_id != other.pk_id) {
             return false;
         }
