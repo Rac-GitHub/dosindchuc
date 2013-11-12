@@ -19,6 +19,7 @@ import java.util.Objects;
 public class Dosimeter {
     
     private short pk_dsmt;
+    private short pk_id;
     private String id;
     private String label;
     private dsmt_type type;
@@ -26,9 +27,9 @@ public class Dosimeter {
     private dsmt_supplier supplier;
     private String comments;
     private String timestamp;
-    private short pk_id;
     private status status;
     private String status_timestamp;
+    private String lastchange;
 
     
     
@@ -38,9 +39,11 @@ public class Dosimeter {
         
     }
 
-    public Dosimeter(short pk_dsmt, String id, String label, dsmt_type type, dsmt_periodicity periodicity,
-            dsmt_supplier supplier, String comments, String timestamp, short pk_id, status status, String status_timestamp) {
+    public Dosimeter(short pk_dsmt, short pk_id, String id, String label, dsmt_type type,
+            dsmt_periodicity periodicity, dsmt_supplier supplier, String comments, String timestamp,
+            status status, String status_timestamp, String lastchange) {
         this.pk_dsmt = pk_dsmt;
+        this.pk_id = pk_id;
         this.id = id;
         this.label = label;
         this.type = type;
@@ -48,11 +51,12 @@ public class Dosimeter {
         this.supplier = supplier;
         this.comments = comments;
         this.timestamp = timestamp;
-        this.pk_id = pk_id;
         this.status = status;
         this.status_timestamp = status_timestamp;
+        this.lastchange = lastchange;
     }
-    
+
+        
     
     // set and getters
 
@@ -117,7 +121,7 @@ public class Dosimeter {
     }
 
     public void setTimestamp(String timestamp) {
-        this.timestamp = new help_entities().currDateTime();
+        this.timestamp = timestamp;
     }
 
     public short getPk_id() {
@@ -141,8 +145,18 @@ public class Dosimeter {
     }
 
     public void setStatus_timestamp(String status_timestamp) {
-        this.status_timestamp = new help_entities().currDateTime();
+        this.status_timestamp = status_timestamp;
     }
+
+    public String getLastchange() {
+        return lastchange;
+    }
+
+    public void setLastchange(String lastchange) {
+        this.lastchange = lastchange;
+    }
+    
+    
     
     
     
@@ -211,16 +225,14 @@ public class Dosimeter {
     }
 
     // toString
-    
+
     @Override
     public String toString() {
-        return "dosimeter{" + "pk_dsmt=" + pk_dsmt + ", id=" + id + ", label=" + label + ", type=" + type + 
-                ", periodicity=" + periodicity + ", supplier=" + supplier + ", comments=" + comments + 
-                ", timestamp=" + timestamp + ", pk_id=" + pk_id + ", status=" + status + ", status_timestamp=" + 
-                status_timestamp + '}';
+        return "Dosimeter{" + "pk_dsmt=" + pk_dsmt + ", pk_id=" + pk_id + ", id=" 
+                + id + ", label=" + label + ", type=" + type + ", periodicity=" + periodicity + ", supplier=" 
+                + supplier + ", comments=" + comments + ", timestamp=" + timestamp + ", status=" + status 
+                + ", status_timestamp=" + status_timestamp + ", lastchange=" + lastchange + '}';
     }
-    
-    
     
     
     

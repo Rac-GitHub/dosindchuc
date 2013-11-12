@@ -8,6 +8,6 @@ package dosindchuc.entities;
  *
  * @author ir
  */
-public class Staff_job {
+public class Worker_job {
     
 }

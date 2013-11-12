@@ -7,10 +7,10 @@ package dosindchuc.entities;
 //
 
 
+import dosindchuc.entities.create_enums.status;
 import dosindchuc.entities.create_enums.worker_category;
 import dosindchuc.entities.create_enums.worker_department;
 import dosindchuc.entities.create_enums.worker_sex;
-import dosindchuc.entities.create_enums.status;
 import java.util.Objects;
 
 
@@ -40,20 +40,22 @@ public class Worker {
   private String timestamp;
   private status status;
   private String status_timestamp;
+  private String lastchange;
 
+  
+  
   // constructors
     public Worker() {
 
     }
 
-    public Worker(short pk_id, short id_mec, String name, String nick, String BI, String nationality, String nif, 
+    public Worker(short pk_id, short id_mec, String name, String nick, String nationality, String nif, 
             String birth, worker_sex sex, worker_category category, worker_department department, String sector, 
-            String timestamp, status status, String status_timestamp) {
+            String comments, String timestamp, status status, String status_timestamp, String lastchange) {
         this.pk_id = pk_id;
         this.id_mec = id_mec;
         this.name = name;
         this.nick = nick;
-        this.BI = BI;
         this.nationality = nationality;
         this.nif = nif;
         this.birth = birth;
@@ -61,10 +63,14 @@ public class Worker {
         this.category = category;
         this.department = department;
         this.sector = sector;
+        this.comments = comments;
         this.timestamp = timestamp;
         this.status = status;
         this.status_timestamp = status_timestamp;
+        this.lastchange = lastchange;
     }
+
+    
  
   // getters and setters  
     
@@ -196,6 +202,18 @@ public class Worker {
         this.status_timestamp = status_timestamp;
     }
 
+    public String getLastchange() {
+        return lastchange;
+    }
+
+    public void setLastchange(String lastchange) {
+        this.lastchange = lastchange;
+    }
+
+    
+    
+    
+    
  // hashCode and equals   
     
     @Override
@@ -282,18 +300,17 @@ public class Worker {
 
     
     // to string
-    
+
     @Override
     public String toString() {
-        return "staff{" + "pk_id=" + pk_id + 
-                ", id_mec=" + id_mec + ", name=" + name + "," +
-                " nick=" + nick + ", BI=" + BI + ", nationality=" + nationality +
-                ", nif=" + nif + ", birth=" + birth + ", sex=" + sex + 
-                ", category=" + category + ", department=" + department + 
-                ", sector=" + sector + ", comments=" + comments + 
-                ", timestamp=" + timestamp + ", status=" + status + ", status_timestamp=" + status_timestamp + '}';
+        return "Worker{" + "pk_id=" + pk_id + ", id_mec=" + id_mec + ", name=" + name + ", nick=" 
+                + nick + ", BI=" + BI + ", nationality=" + nationality + ", nif=" + nif + ", birth=" + birth + ", sex=" 
+                + sex + ", category=" + category + ", department=" + department + ", sector=" + sector + ", comments=" 
+                + comments + ", timestamp=" + timestamp + ", status=" + status + ", status_timestamp=" 
+                + status_timestamp + ", lastchange=" + lastchange + '}';
     }
-  
+    
+    
   
     
     
