@@ -5,6 +5,7 @@
 package dosindchuc.entities;
 
 
+import dosindchuc.entities.create_enums.note_alertlevel;
 import dosindchuc.entities.create_enums.note_status;
 import java.util.Objects;
 
@@ -16,11 +17,14 @@ public class Dose_notes {
     
     
     private short pk_notes_dose;
+    private int pk_dose;
     private String note;
     private String timestamp;
     private note_status status;
     private String status_timestamp;
-    private int pk_dose;
+    private note_alertlevel alert_level;
+    private String lastchange;
+
     
     
     // constructors
@@ -28,14 +32,18 @@ public class Dose_notes {
     public Dose_notes() {
     }
 
-    public Dose_notes(short pk_notes_dose, String note, String timestamp, note_status status, String status_timestamp, int pk_dose) {
+    public Dose_notes(short pk_notes_dose, int pk_dose, String note, String timestamp, note_status status, String status_timestamp, note_alertlevel alert_level, String lastchange) {
         this.pk_notes_dose = pk_notes_dose;
+        this.pk_dose = pk_dose;
         this.note = note;
         this.timestamp = timestamp;
         this.status = status;
         this.status_timestamp = status_timestamp;
-        this.pk_dose = pk_dose;
+        this.alert_level = alert_level;
+        this.lastchange = lastchange;
     }
+
+   
     
     
     // getter and setters
@@ -87,20 +95,39 @@ public class Dose_notes {
     public void setPk_dose(int pk_dose) {
         this.pk_dose = pk_dose;
     }
+
+    public note_alertlevel getAlert_level() {
+        return alert_level;
+    }
+
+    public void setAlert_level(note_alertlevel alert_level) {
+        this.alert_level = alert_level;
+    }
+
+    public String getLastchange() {
+        return lastchange;
+    }
+
+    public void setLastchange(String lastchange) {
+        this.lastchange = lastchange;
+    }
+
     
     
     
     // hash and equals
-
+    
+    
     @Override
     public int hashCode() {
-        int hash = 7;
+        int hash = 3;
         hash = 53 * hash + this.pk_notes_dose;
+        hash = 53 * hash + this.pk_dose;
         hash = 53 * hash + Objects.hashCode(this.note);
         hash = 53 * hash + Objects.hashCode(this.timestamp);
         hash = 53 * hash + (this.status != null ? this.status.hashCode() : 0);
         hash = 53 * hash + Objects.hashCode(this.status_timestamp);
-        hash = 53 * hash + this.pk_dose;
+        hash = 53 * hash + (this.alert_level != null ? this.alert_level.hashCode() : 0);
         return hash;
     }
 
@@ -116,6 +143,9 @@ public class Dose_notes {
         if (this.pk_notes_dose != other.pk_notes_dose) {
             return false;
         }
+        if (this.pk_dose != other.pk_dose) {
+            return false;
+        }
         if (!Objects.equals(this.note, other.note)) {
             return false;
         }
@@ -128,21 +158,28 @@ public class Dose_notes {
         if (!Objects.equals(this.status_timestamp, other.status_timestamp)) {
             return false;
         }
-        if (this.pk_dose != other.pk_dose) {
+        if (this.alert_level != other.alert_level) {
             return false;
         }
         return true;
     }
     
+    
+    
+    
+    // hash and equals
+
+    
+    
     // toString
 
     @Override
     public String toString() {
-        return "dose_notes{" + "pk_notes_dose=" + pk_notes_dose + ", note=" + note + ", timestamp=" + timestamp + 
-                ", status=" + status + ", status_timestamp=" + status_timestamp + ", pk_dose=" + pk_dose + '}';
+        return "Dose_notes{" + "pk_notes_dose=" + pk_notes_dose + ", pk_dose=" + pk_dose + ", note=" + note + ", timestamp=" 
+                + timestamp + ", status=" + status + ", status_timestamp=" + status_timestamp + ", alert_level=" 
+                + alert_level + ", lastchange=" + lastchange + '}';
     }
-    
-    
-    
+
+  
     
 }

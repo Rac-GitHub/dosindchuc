@@ -4,6 +4,7 @@
  */
 package dosindchuc.entities;
 
+import dosindchuc.entities.create_enums.note_alertlevel;
 import dosindchuc.entities.create_enums.status;
 import java.util.Objects;
 
@@ -14,25 +15,35 @@ import java.util.Objects;
 public class Dosimeter_notes {
     
    private short pk_notes_dsmt;
+   private short pk_dsmt;
    private String note;
    private String timestamp;
    private status status;
    private String status_timestamp;
-   private short pk_dsmt;
-    
+   private note_alertlevel alert_level;
+   private String lastchange;
+
+   
+   
       // constructors
 
     public Dosimeter_notes() {
+        
     }
 
-    public Dosimeter_notes(short pk_notes_dsmt, String note, String timestamp, status status, String status_timestamp, short pk_dsmt) {
+    public Dosimeter_notes(short pk_notes_dsmt, short pk_dsmt, String note, String timestamp, status status, String status_timestamp, note_alertlevel alert_level, String lastchange) {
         this.pk_notes_dsmt = pk_notes_dsmt;
+        this.pk_dsmt = pk_dsmt;
         this.note = note;
         this.timestamp = timestamp;
         this.status = status;
         this.status_timestamp = status_timestamp;
-        this.pk_dsmt = pk_dsmt;
+        this.alert_level = alert_level;
+        this.lastchange = lastchange;
     }
+
+    
+    
    
     // getter and setters
 
@@ -84,18 +95,37 @@ public class Dosimeter_notes {
         this.pk_dsmt = pk_dsmt;
     }
     
+     public note_alertlevel getAlert_level() {
+        return alert_level;
+    }
+
+    public void setAlert_level(note_alertlevel alert_level) {
+        this.alert_level = alert_level;
+    }
+
+    public String getLastchange() {
+        return lastchange;
+    }
+
+    public void setLastchange(String lastchange) {
+        this.lastchange = lastchange;
+    }
+   
+    
+       
     
     // hash and equals
 
     @Override
     public int hashCode() {
-        int hash = 5;
-        hash = 11 * hash + this.pk_notes_dsmt;
-        hash = 11 * hash + Objects.hashCode(this.note);
-        hash = 11 * hash + Objects.hashCode(this.timestamp);
-        hash = 11 * hash + (this.status != null ? this.status.hashCode() : 0);
-        hash = 11 * hash + Objects.hashCode(this.status_timestamp);
-        hash = 11 * hash + this.pk_dsmt;
+        int hash = 7;
+        hash = 13 * hash + this.pk_notes_dsmt;
+        hash = 13 * hash + this.pk_dsmt;
+        hash = 13 * hash + Objects.hashCode(this.note);
+        hash = 13 * hash + Objects.hashCode(this.timestamp);
+        hash = 13 * hash + (this.status != null ? this.status.hashCode() : 0);
+        hash = 13 * hash + Objects.hashCode(this.status_timestamp);
+        hash = 13 * hash + (this.alert_level != null ? this.alert_level.hashCode() : 0);
         return hash;
     }
 
@@ -111,6 +141,9 @@ public class Dosimeter_notes {
         if (this.pk_notes_dsmt != other.pk_notes_dsmt) {
             return false;
         }
+        if (this.pk_dsmt != other.pk_dsmt) {
+            return false;
+        }
         if (!Objects.equals(this.note, other.note)) {
             return false;
         }
@@ -123,21 +156,21 @@ public class Dosimeter_notes {
         if (!Objects.equals(this.status_timestamp, other.status_timestamp)) {
             return false;
         }
-        if (this.pk_dsmt != other.pk_dsmt) {
+        if (this.alert_level != other.alert_level) {
             return false;
         }
         return true;
     }
-    
-    
-    // toString
+
+    // to String
 
     @Override
     public String toString() {
-        return "dosimeter_notes{" + "pk_notes_dsmt=" + pk_notes_dsmt + ", note=" + note + ", timestamp=" + timestamp + 
-                ", status=" + status + ", status_timestamp=" + status_timestamp + ", pk_dsmt=" + pk_dsmt + '}';
+        return "Dosimeter_notes{" + "pk_notes_dsmt=" + pk_notes_dsmt + ", pk_dsmt=" + pk_dsmt + ", note=" + note + ", timestamp=" 
+                + timestamp + ", status=" + status + ", status_timestamp=" + status_timestamp + ", alert_level=" 
+                + alert_level + ", lastchange=" + lastchange + '}';
     }
-    
+
         
     
 }

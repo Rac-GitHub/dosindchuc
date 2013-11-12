@@ -36,23 +36,19 @@ public class DosimeterDao {
 				public List<Dosimeter> mapping(ResultSet rset) throws SQLException {
 					while (rset.next()) {
 						Dosimeter dosimeter = new Dosimeter();
-						worker.setPk_id( rset.getShort("pk_id") );
-						worker.setId_mec( rset.getShort("id_mec") );
-						worker.setName( rset.getString("name") );
-						worker.setNick( rset.getString("nick") );
-						worker.setBI( rset.getString("BI") );
-						worker.setNationality( rset.getString("nationality") );
-						worker.setNif( rset.getString("nif") );
-						worker.setBirth( rset.getString("birth") );
-						worker.setSex( create_enums.worker_sex.valueOf( rset.getString("sex") ) );
-						worker.setCategory( create_enums.worker_category.valueOf( rset.getString("category") ) );
-                                                worker.setDepartment( create_enums.worker_department.valueOf( rset.getString("department") ) );
-                                                worker.setSector( rset.getString("sector") );
-						worker.setComments( rset.getString("comments") );
-						worker.setTimestamp( rset.getString("timestamp") );
-                                                worker.setStatus( create_enums.status.valueOf( rset.getString("status") ) );
-                                                worker.setStatus_timestamp( rset.getString("status_timestamp") );
-                                                workers.add(worker);
+						dosimeter.setPk_dsmt( rset.getShort("pk_dsmt") );
+						dosimeter.setPk_id( rset.getShort("pk_id") );
+						dosimeter.setId( rset.getString("id") );
+						dosimeter.setLabel( rset.getString("label") );
+						dosimeter.setType( create_enums.dsmt_type.valueOf( rset.getString("type")) );
+						dosimeter.setPeriodicity( create_enums.dsmt_periodicity.valueOf( rset.getString("periodicity")) );
+						dosimeter.setSupplier( create_enums.dsmt_supplier.valueOf( rset.getString("supplier")) );
+						dosimeter.setComments( rset.getString("comments") );
+						dosimeter.setTimestamp( rset.getString("timestamp") );
+                                                dosimeter.setStatus( create_enums.status.valueOf( rset.getString("status") ) );
+                                                dosimeter.setStatus_timestamp( rset.getString("status_timestamp") );
+                                                dosimeter.setLastchange( rset.getString("lastchange") );
+                                                dosimeters.add(dosimeter);
 					}
 					return dosimeters;
 				}

@@ -57,6 +57,7 @@ public class WorkerDao {
 						worker.setTimestamp( rset.getString("timestamp") );
                                                 worker.setStatus( create_enums.status.valueOf( rset.getString("status") ) );
                                                 worker.setStatus_timestamp( rset.getString("status_timestamp") );
+                                                worker.setLastchange( rset.getString("lastchange") );
                                                 workers.add(worker);
 					}
 					return workers;

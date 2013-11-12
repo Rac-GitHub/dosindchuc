@@ -14,31 +14,39 @@ import java.util.Objects;
 public class Dose_info {
     
     private int pk_dose;
+    private short pk_dsmt;
+    private short pk_id;
     private String year;
     private Trimester trimester;
     private float hp007;
     private float hp10;
     private String comments;
     private String timestamp;
-    private short pk_dsmt;
+    private String lastchange;
+
     
     
     // constructors
 
     public Dose_info() {
+        
     }
 
-    public Dose_info(int pk_dose, String year, Trimester trimester, float hp007, 
-            float hp10, String comments, String timestamp, short pk_dsmt) {
+    public Dose_info(int pk_dose, short pk_dsmt, short pk_id, String year, Trimester trimester, float hp10, String comments
+            , String timestamp, String lastchange) {
         this.pk_dose = pk_dose;
+        this.pk_dsmt = pk_dsmt;
+        this.pk_id = pk_id;
         this.year = year;
         this.trimester = trimester;
         this.hp007 = hp007;
         this.hp10 = hp10;
         this.comments = comments;
         this.timestamp = timestamp;
-        this.pk_dsmt = pk_dsmt;
+        this.lastchange = lastchange;
     }
+
+   
     
     
     // getter and setters
@@ -106,6 +114,22 @@ public class Dose_info {
     public void setPk_dsmt(short pk_dsmt) {
         this.pk_dsmt = pk_dsmt;
     }
+
+    public short getPk_id() {
+        return pk_id;
+    }
+
+    public void setPk_id(short pk_id) {
+        this.pk_id = pk_id;
+    }
+
+    public String getLastchange() {
+        return lastchange;
+    }
+
+    public void setLastchange(String lastchange) {
+        this.lastchange = lastchange;
+    }
     
     
     
@@ -113,15 +137,16 @@ public class Dose_info {
 
     @Override
     public int hashCode() {
-        int hash = 5;
-        hash = 19 * hash + this.pk_dose;
-        hash = 19 * hash + Objects.hashCode(this.year);
-        hash = 19 * hash + Objects.hashCode(this.trimester);
-        hash = 19 * hash + Float.floatToIntBits(this.hp007);
-        hash = 19 * hash + Float.floatToIntBits(this.hp10);
-        hash = 19 * hash + Objects.hashCode(this.comments);
-        hash = 19 * hash + Objects.hashCode(this.timestamp);
-        hash = 19 * hash + this.pk_dsmt;
+        int hash = 7;
+        hash = 89 * hash + this.pk_dose;
+        hash = 89 * hash + this.pk_dsmt;
+        hash = 89 * hash + this.pk_id;
+        hash = 89 * hash + Objects.hashCode(this.year);
+        hash = 89 * hash + (this.trimester != null ? this.trimester.hashCode() : 0);
+        hash = 89 * hash + Float.floatToIntBits(this.hp007);
+        hash = 89 * hash + Float.floatToIntBits(this.hp10);
+        hash = 89 * hash + Objects.hashCode(this.comments);
+        hash = 89 * hash + Objects.hashCode(this.timestamp);
         return hash;
     }
 
@@ -137,10 +162,16 @@ public class Dose_info {
         if (this.pk_dose != other.pk_dose) {
             return false;
         }
+        if (this.pk_dsmt != other.pk_dsmt) {
+            return false;
+        }
+        if (this.pk_id != other.pk_id) {
+            return false;
+        }
         if (!Objects.equals(this.year, other.year)) {
             return false;
         }
-        if (!Objects.equals(this.trimester, other.trimester)) {
+        if (this.trimester != other.trimester) {
             return false;
         }
         if (Float.floatToIntBits(this.hp007) != Float.floatToIntBits(other.hp007)) {
@@ -155,20 +186,20 @@ public class Dose_info {
         if (!Objects.equals(this.timestamp, other.timestamp)) {
             return false;
         }
-        if (this.pk_dsmt != other.pk_dsmt) {
-            return false;
-        }
         return true;
     }
-    
+
+      
     
     // toString
 
     @Override
     public String toString() {
-        return "dose_info{" + "pk_dose=" + pk_dose + ", year=" + year + ", trimester=" + trimester + ", hp007=" + hp007 + ","
-                + " hp10=" + hp10 + ", comments=" + comments + ", timestamp=" + timestamp + ", pk_dsmt=" + pk_dsmt + '}';
+        return "Dose_info{" + "pk_dose=" + pk_dose + ", pk_dsmt=" + pk_dsmt + ", pk_id=" + pk_id + ", year=" 
+                + year + ", trimester=" + trimester + ", hp007=" + hp007 + ", hp10=" + hp10 + ", comments=" 
+                + comments + ", timestamp=" + timestamp + ", lastchange=" + lastchange + '}';
     }
+
     
     
     

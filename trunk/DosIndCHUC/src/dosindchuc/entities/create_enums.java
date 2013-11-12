@@ -47,26 +47,24 @@ public class create_enums {
 
         public String displayName() { return displayName; }
 
-        // Optionally and/or additionally, toString.
-  //      @Override public String toString() { return displayName; }
-        
     }
   
     
     public enum Trimester {
         
-        Primeiro(1),
-        Segundo(2),
-        Terceiro(3),
-        Quarto(4);
+        P(1),
+        S(2),
+        T(3),
+        Q(4),
+        Mensal(5);
   
-        private final int value;
+        private final int displayName;
 
-        private Trimester(final int newValue) {
-            value = newValue;
+        private Trimester(int displayName) {
+            this.displayName = displayName;
         }
 
-        public int getValue() { return value; }
+        public int displayName() { return this.displayName; }
         
     }
     
@@ -94,8 +92,6 @@ public class create_enums {
 
         public String displayName() { return displayName; }
 
-        // Optionally and/or additionally, toString.
-  //      @Override public String toString() { return displayName; }
     }
         
     
@@ -110,7 +106,8 @@ public class create_enums {
 
         MedicalConsult("Medical Consult"),
         Fluencia("Fluência"),
-        ITN("ITN");
+        ITN("ITN"),
+        DPR("DPR");
 
         private String displayName;
 
@@ -120,8 +117,6 @@ public class create_enums {
 
         public String displayName() { return displayName; }
 
-        // Optionally and/or additionally, toString.
-   //     @Override public String toString() { return displayName; }
     }
     
     
@@ -140,9 +135,6 @@ public class create_enums {
 
         public String displayName() { return displayName; }
 
-        // Optionally and/or additionally, toString.
- //       @Override public String toString() { return displayName; }
-    
     }
     
     
@@ -164,9 +156,6 @@ public class create_enums {
 
         public String displayName() { return displayName; }
 
-        // Optionally and/or additionally, toString.
- //       @Override public String toString() { return displayName; }
-    
     }
     
     
