@@ -41,8 +41,8 @@ public class WorkerDao {
 				public List<Worker> mapping(ResultSet rset) throws SQLException {
 					while (rset.next()) {
 						Worker worker = new Worker();
-						worker.setPk_id( rset.getShort("pk_id") );
-						worker.setId_mec( rset.getShort("id_mec") );
+						worker.setPk_id( rset.getInt("pk_id") );
+						worker.setId_mec( rset.getString("id_mec") );
 						worker.setName( rset.getString("name") );
 						worker.setNick( rset.getString("nick") );
 						worker.setBI( rset.getString("BI") );
@@ -73,9 +73,11 @@ public class WorkerDao {
 		
 	}
     
+   
     
-    
-    public void insert (Worker worker) throws SQLException {
+    public Worker insert (Worker worker) {
+        
+       // final List<Worker> workers = new ArrayList<>();
         
         Connection conn = null;
         PreparedStatement pstmt = null;
@@ -84,27 +86,52 @@ public class WorkerDao {
         try {
             conn = daoHelper.getConnection();
             
-            pstmt = conn.prepareStatement("insert into staff (nome, sexo) values ( ? , ? )"
+            pstmt = conn.prepareStatement("insert into worker (id_mec, name, nick, BI, nationality, nif, birth, sex, category,"
+                    + " department, sector, comments, timestamps, status, status_timestatus\") "
+                    + " values ( ? , ? , ? , ? , ? , ? , ? , ? , ? , ? , ? , ? , ? , ? , ? )"
                     , PreparedStatement.RETURN_GENERATED_KEYS );
             
             int index = 0;
+            pstmt.setString(++index, worker.getId_mec());
             pstmt.setString(++index, worker.getName());
+            pstmt.setString(++index, worker.getNick());
+            pstmt.setString(++index, worker.getBI());
+            pstmt.setString(++index, worker.getNationality());
+            pstmt.setString(++index, worker.getNif());
+            pstmt.setString(++index, worker.getBirth());
             pstmt.setString(++index, worker.getSex().toString());
+            pstmt.setString(++index, worker.getCategory().toString());
+            pstmt.setString(++index, worker.getDepartment().toString());
+            pstmt.setString(++index, worker.getSector());
+            pstmt.setString(++index, worker.getComments());
+            pstmt.setString(++index, worker.getTimestamp());
+            pstmt.setString(++index, worker.getStatus().toString());
+            pstmt.setString(++index, worker.getStatus_timestamp());
             pstmt.executeUpdate();
             
             rset = pstmt.getGeneratedKeys();
             if (rset.next()) {
-                worker.setPk_id(rset.getShort(1));
+                worker.setPk_id(rset.getInt(1));
             }
             
+            worker.setLastchange(null);
+            
         } catch (SQLException ex) {
-            throw new SQLException("dadadad", ex);
+            try {
+                throw new SQLException("dadadad", ex);
+            } catch (SQLException ex1) {
+                Logger.getLogger(WorkerDao.class.getName()).log(Level.SEVERE, null, ex1);
+            }
+        } finally {
+            daoHelper.releaseAll(conn, pstmt);
         }
         
-        daoHelper.releaseAll(conn, pstmt);
+        //workers.add(worker);
+        return worker;
         
     }
     
+  
     
     
     public void select () {
