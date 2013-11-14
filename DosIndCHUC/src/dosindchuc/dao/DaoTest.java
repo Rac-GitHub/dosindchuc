@@ -8,9 +8,11 @@ import dosindchuc.entities.Dose_info;
 import dosindchuc.entities.Dosimeter;
 import dosindchuc.entities.Worker;
 import dosindchuc.entities.create_enums;
+import dosindchuc.entities.help_entities;
 import java.util.Arrays;
 import java.util.Date;
 import java.util.List;
+import java.util.Locale;
 
 /**
  *
@@ -69,11 +71,21 @@ public class DaoTest {
                System.out.println(create_enums.Trimester.Mensal.displayName());
                
                 
-              //  Worker worker = new Worker();  
+               //Worker worker = new Worker();
+               Worker prof;
                 
               //  dao.select();
+         prof = new Worker("18181", "Paulo rachinhas", "rac", "19876", "Portuguese", "1929929", 
+         "1969-06-08", create_enums.worker_sex.M, create_enums.worker_category.Físico, 
+         create_enums.worker_department.RT, "", "teste inserir worker", "2013-14-15",
+                 create_enums.status.Activo, "2013-14-16");
 	
-                
+         
+         prof = daow.insert(prof);
+         
+         System.out.println(prof);
+         
+         
 	}
 
 }
