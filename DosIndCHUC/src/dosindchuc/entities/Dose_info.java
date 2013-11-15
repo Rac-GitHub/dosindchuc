@@ -5,6 +5,7 @@
 package dosindchuc.entities;
 
 import dosindchuc.entities.create_enums.Trimester;
+import dosindchuc.entities.create_enums.month;
 import java.util.Objects;
 
 /**
@@ -14,10 +15,11 @@ import java.util.Objects;
 public class Dose_info {
     
     private int pk_dose;
-    private short pk_dsmt;
-    private short pk_id;
+    private int pk_dsmt;
+    private int pk_id;
     private String year;
     private Trimester trimester;
+    private month month;
     private float hp007;
     private float hp10;
     private String comments;
@@ -32,18 +34,30 @@ public class Dose_info {
         
     }
 
-    public Dose_info(int pk_dose, short pk_dsmt, short pk_id, String year, Trimester trimester, float hp10, String comments
-            , String timestamp, String lastchange) {
+    public Dose_info(int pk_dose, int pk_dsmt, int pk_id, String year, Trimester trimester, month month, float hp007, float hp10, String comments, String timestamp, String lastchange) {
         this.pk_dose = pk_dose;
         this.pk_dsmt = pk_dsmt;
         this.pk_id = pk_id;
         this.year = year;
         this.trimester = trimester;
+        this.month = month;
         this.hp007 = hp007;
         this.hp10 = hp10;
         this.comments = comments;
         this.timestamp = timestamp;
         this.lastchange = lastchange;
+    }
+
+    public Dose_info(int pk_dsmt, int pk_id, String year, Trimester trimester, month month, float hp007, float hp10, String comments, String timestamp) {
+        this.pk_dsmt = pk_dsmt;
+        this.pk_id = pk_id;
+        this.year = year;
+        this.trimester = trimester;
+        this.month = month;
+        this.hp007 = hp007;
+        this.hp10 = hp10;
+        this.comments = comments;
+        this.timestamp = timestamp;
     }
 
    
@@ -75,6 +89,14 @@ public class Dose_info {
         this.trimester = trimester;
     }
 
+    public month getMonth() {
+        return month;
+    }
+
+    public void setMonth(month month) {
+        this.month = month;
+    }
+    
     public float getHp007() {
         return hp007;
     }
@@ -107,7 +129,7 @@ public class Dose_info {
         this.timestamp = new help_entities().currDateTime();
     }
 
-    public short getPk_dsmt() {
+    public int getPk_dsmt() {
         return pk_dsmt;
     }
 
@@ -115,7 +137,7 @@ public class Dose_info {
         this.pk_dsmt = pk_dsmt;
     }
 
-    public short getPk_id() {
+    public int getPk_id() {
         return pk_id;
     }
 
@@ -195,12 +217,11 @@ public class Dose_info {
 
     @Override
     public String toString() {
-        return "Dose_info{" + "pk_dose=" + pk_dose + ", pk_dsmt=" + pk_dsmt + ", pk_id=" + pk_id + ", year=" 
-                + year + ", trimester=" + trimester + ", hp007=" + hp007 + ", hp10=" + hp10 + ", comments=" 
-                + comments + ", timestamp=" + timestamp + ", lastchange=" + lastchange + '}';
+        return "Dose_info{" + "pk_dose=" + pk_dose + ", pk_dsmt=" + pk_dsmt + ", pk_id=" + pk_id + ", year=" + year 
+                + ", trimester=" + trimester + ", month=" + month + ", hp007=" + hp007 + ", hp10=" + hp10 
+                + ", comments=" + comments + ", timestamp=" + timestamp + ", lastchange=" + lastchange + '}';
     }
 
-    
     
     
     

@@ -138,13 +138,13 @@ public class DaoHelper {
     
     
     
-     public long executePreparedUpdateAndReturnGeneratedKeys(Connection conn,
+     public int executePreparedUpdateAndReturnGeneratedKeys(Connection conn,
             String query, Object... params)
             throws SQLException {
 
         PreparedStatement pstmt = null;
         ResultSet rset = null;
-        long result = 0l;
+        int result = 0;
         try {
             pstmt = conn.prepareStatement(query,
                     PreparedStatement.RETURN_GENERATED_KEYS);
@@ -158,7 +158,7 @@ public class DaoHelper {
             rset = pstmt.getGeneratedKeys();
 
             if (rset.next()) {
-                result = rset.getLong(1);
+                result = rset.getInt(1);
             }
 
         } finally {
