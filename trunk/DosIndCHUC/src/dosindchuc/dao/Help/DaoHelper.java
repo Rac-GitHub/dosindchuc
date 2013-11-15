@@ -25,12 +25,7 @@ public class DaoHelper {
     
     private static final ThreadLocal<Connection> context = new ThreadLocal<>();
 
-    
-//    public DaoHelper() {
-//    
-//    }
-    
-    
+
     
     /**
      * Connection to the database
@@ -62,6 +57,7 @@ public class DaoHelper {
  
     
     
+    
     public void beginTransaction () throws SQLException {
         if (isTransactionStarted()) {
             return; // << 13 -- provide support to transaction propagation
@@ -71,6 +67,7 @@ public class DaoHelper {
         context.set(conn);
     
     }
+    
     
       private boolean isTransactionStarted() {
         return (context.get() != null);
@@ -82,16 +79,14 @@ public class DaoHelper {
         releaseTransaction();
     }
     
-    
-    
+        
     public void releaseTransaction () throws SQLException {
         Connection conn = context.get();
         release(conn);
         context.remove();
     }
     
-    
-    
+        
      public void rollbackTransaction() {
         Connection conn;
         try {
