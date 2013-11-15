@@ -2,7 +2,7 @@
  * To change this template, choose Tools | Templates
  * and open the template in the editor.
  */
-package dosindchuc.entities;
+package dosindchuc.entities.Help;
 
 import java.text.SimpleDateFormat;
 import java.util.Date;

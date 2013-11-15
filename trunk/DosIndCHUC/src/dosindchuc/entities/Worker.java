@@ -7,10 +7,10 @@ package dosindchuc.entities;
 //
 
 
-import dosindchuc.entities.create_enums.status;
-import dosindchuc.entities.create_enums.worker_category;
-import dosindchuc.entities.create_enums.worker_department;
-import dosindchuc.entities.create_enums.worker_sex;
+import dosindchuc.entities.Help.create_enums.status;
+import dosindchuc.entities.Help.create_enums.worker_category;
+import dosindchuc.entities.Help.create_enums.worker_department;
+import dosindchuc.entities.Help.create_enums.worker_sex;
 import java.util.Objects;
 
 

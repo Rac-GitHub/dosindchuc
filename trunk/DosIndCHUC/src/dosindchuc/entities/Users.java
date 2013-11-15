@@ -4,7 +4,7 @@
  */
 package dosindchuc.entities;
 
-import dosindchuc.entities.create_enums.worker_category;
+import dosindchuc.entities.Help.create_enums.worker_category;
 import java.util.Objects;
 
 /**
@@ -13,7 +13,7 @@ import java.util.Objects;
  */
 public class Users {
     
-    private short pk_users;
+    private int pk_users;
     private String name;
     private String username;
     private String password;
@@ -29,7 +29,7 @@ public class Users {
         
     }
 
-    public Users(short pk_users, String name, String username, String password, worker_category job, String department, String comments, String timestamp, String lastchange) {
+    public Users(int pk_users, String name, String username, String password, worker_category job, String department, String comments, String timestamp, String lastchange) {
         this.pk_users = pk_users;
         this.name = name;
         this.username = username;
@@ -45,11 +45,11 @@ public class Users {
     
     // getter and setters
 
-    public short getPk_users() {
+    public int getPk_users() {
         return pk_users;
     }
 
-    public void setPk_users(short pk_users) {
+    public void setPk_users(int pk_users) {
         this.pk_users = pk_users;
     }
 

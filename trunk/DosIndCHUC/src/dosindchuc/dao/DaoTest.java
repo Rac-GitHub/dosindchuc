@@ -5,10 +5,12 @@
 package dosindchuc.dao;
 
 import dosindchuc.entities.Dose_info;
+import dosindchuc.entities.Dose_notes;
 import dosindchuc.entities.Dosimeter;
+import dosindchuc.entities.Dosimeter_notes;
 import dosindchuc.entities.Worker;
-import dosindchuc.entities.create_enums;
-import dosindchuc.entities.help_entities;
+import dosindchuc.entities.Help.create_enums;
+import dosindchuc.entities.Help.help_entities;
 import java.util.Arrays;
 import java.util.Date;
 import java.util.List;
@@ -114,13 +116,40 @@ public class DaoTest {
                
                Dose_info dose = new Dose_info(235, pkid, "2013", create_enums.Trimester.NoDef, create_enums.month.Jan, 0.23f, 0.487f, "minha dose", "2013-11-14");
                
-               dose = dao_dinfo.insert(dose);
+  //             dose = dao_dinfo.insert(dose);
                
                System.out.println(dose);
                
 //                
                List<Dose_info> listdose = dao_dinfo.listDose(10,10);
                System.out.println(Arrays.toString(listdose.toArray()));
+    
+               
+               // dose note --- 
+               
+               Dose_notesDao dao_dnotes = new Dose_notesDao();
+               
+               Dose_notes dnotes = new Dose_notes(2400, "foi resol vido probs com a leitura", "2013-11-15 12:13:10", create_enums.note_status.C, "2013-11-15 12:13:10", create_enums.note_alertlevel.N);
+               
+        //       dnotes = dao_dnotes.update(dnotes,1);
+               
+               System.out.println(dnotes);
+               
+               
+               // dsmt notes
+               
+               Dosimeter_notesDao dao_dsmtnotes = new Dosimeter_notesDao();
+               
+               Dosimeter_notes dsmtnotes = new Dosimeter_notes(235, "foi resol vido probs com a leitura", "2013-11-15 12:13:10", create_enums.note_status.C, "2013-11-15 12:13:10", create_enums.note_alertlevel.C);
+               
+               //dsmtnotes = dao_dsmtnotes.insert(dsmtnotes);
+             //  dsmtnotes = dao_dsmtnotes.update(dsmtnotes,1);
+               
+               System.out.println(dsmtnotes);
+               
+               // delete patient
+               
+               daow.delete(241);
                
          
 	}

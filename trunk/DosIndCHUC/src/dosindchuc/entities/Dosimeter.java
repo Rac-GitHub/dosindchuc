@@ -4,10 +4,10 @@
  */
 package dosindchuc.entities;
 
-import dosindchuc.entities.create_enums.dsmt_periodicity;
-import dosindchuc.entities.create_enums.dsmt_supplier;
-import dosindchuc.entities.create_enums.dsmt_type;
-import dosindchuc.entities.create_enums.status;
+import dosindchuc.entities.Help.create_enums.dsmt_periodicity;
+import dosindchuc.entities.Help.create_enums.dsmt_supplier;
+import dosindchuc.entities.Help.create_enums.dsmt_type;
+import dosindchuc.entities.Help.create_enums.status;
 import java.util.Objects;
 
 

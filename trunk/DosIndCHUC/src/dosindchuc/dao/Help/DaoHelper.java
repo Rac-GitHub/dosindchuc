@@ -2,7 +2,7 @@
  * To change this template, choose Tools | Templates
  * and open the template in the editor.
  */
-package dosindchuc.dao;
+package dosindchuc.dao.Help;
 
 import java.sql.Connection;
 import java.sql.DriverManager;
