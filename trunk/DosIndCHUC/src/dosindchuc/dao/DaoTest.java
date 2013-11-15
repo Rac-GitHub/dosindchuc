@@ -47,44 +47,81 @@ public class DaoTest {
 //		dao.inserir(paciente);
          //      dao = 
 		
-		List<Worker> listw = daow.listAllFromAllWorkers();
+	//	List<Worker> listw = daow.listWorkers(10);
                
-                System.out.println(Arrays.toString(listw.toArray()));
+         //       System.out.println(Arrays.toString(listw.toArray()));
                 
                 
                 // Dosimeter
                 
                 DosimeterDao daod = new DosimeterDao();
                 
-                List<Dosimeter> listd = daod.listAllFromAllDosimeters();
-                System.out.println(Arrays.toString(listd.toArray()));
+ //               List<Dosimeter> listd = daod.listAllFromAllDosimeters();
+ //               System.out.println(Arrays.toString(listd.toArray()));
                 
                 // Dose values
                 
                Dose_infoDao dao_dinfo = new Dose_infoDao();
-                
-               List<Dose_info> listdose = dao_dinfo.listAllFromAllDose();
-               System.out.println(Arrays.toString(listdose.toArray()));
-                
-               
-               System.out.println(create_enums.worker_department.Img.displayName());
-               System.out.println(create_enums.Trimester.Mensal.displayName());
-               
+//                
+//               List<Dose_info> listdose = dao_dinfo.listAllFromAllDose();
+//               System.out.println(Arrays.toString(listdose.toArray()));
+//                
+//               
+//               System.out.println(create_enums.worker_department.Img.displayName());
+//               System.out.println(create_enums.Trimester.Mensal.displayName());
+//               
                 
                //Worker worker = new Worker();
                Worker prof;
                 
               //  dao.select();
-         prof = new Worker("18181", "Paulo rachinhas", "rac", "19876", "Portuguese", "1929929", 
-         "1969-06-08", create_enums.worker_sex.M, create_enums.worker_category.Físico, 
-         create_enums.worker_department.RT, "", "teste inserir worker", "2013-14-15",
+         prof = new Worker("28229", "Paulo Rachinhas", "rac", "19743876", "Portuguese", "194346929", 
+         "1969-06-08", create_enums.worker_sex.M, create_enums.worker_category.Médico, 
+         create_enums.worker_department.RT, "", "teste update Worker", "2013-14-15",
                  create_enums.status.Activo, "2013-14-16");
-	
-         
-         prof = daow.insert(prof);
-         
+//	
+//         
+//         prof = daow.insert(prof);
+//         
          System.out.println(prof);
+               int pkid = 241;
+//               prof = daow.update(prof, pkid);
+//         
+//               
+//               System.out.println(prof);
+               
+               List<Worker> listw = daow.listWorkers(pkid);
+               System.out.println(Arrays.toString(listw.toArray()));
          
+               
+               Dosimeter dsmt;
+               dsmt= new Dosimeter(pkid, "1151", "Label", create_enums.dsmt_type.CI, create_enums.dsmt_periodicity.Trimestral, 
+                       create_enums.dsmt_supplier.Fluencia, null, null, create_enums.status.Activo, null);
+               
+             // dsmt = daod.insert(dsmt);
+               
+             // System.out.println(dsmt);
+               
+//               int dsmt_id=0;
+               List<Dosimeter> listd = daod.listDosimeters(0,pkid);
+//               
+               System.out.println(Arrays.toString(listd.toArray()));
+               
+               
+               //Dose
+               
+         //      Dose_infoDao dao_dinfo = new Dose_infoDao();
+               
+               Dose_info dose = new Dose_info(235, pkid, "2013", create_enums.Trimester.NoDef, create_enums.month.Jan, 0.23f, 0.487f, "minha dose", "2013-11-14");
+               
+               dose = dao_dinfo.insert(dose);
+               
+               System.out.println(dose);
+               
+//                
+               List<Dose_info> listdose = dao_dinfo.listDose(10,10);
+               System.out.println(Arrays.toString(listdose.toArray()));
+               
          
 	}
 

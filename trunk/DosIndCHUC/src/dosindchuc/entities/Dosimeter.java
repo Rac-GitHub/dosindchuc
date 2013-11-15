@@ -18,8 +18,8 @@ import java.util.Objects;
  */
 public class Dosimeter {
     
-    private short pk_dsmt;
-    private short pk_id;
+    private int pk_dsmt;
+    private int pk_id;
     private String id;
     private String label;
     private dsmt_type type;
@@ -39,7 +39,7 @@ public class Dosimeter {
         
     }
 
-    public Dosimeter(short pk_dsmt, short pk_id, String id, String label, dsmt_type type,
+    public Dosimeter(int pk_dsmt, int pk_id, String id, String label, dsmt_type type,
             dsmt_periodicity periodicity, dsmt_supplier supplier, String comments, String timestamp,
             status status, String status_timestamp, String lastchange) {
         this.pk_dsmt = pk_dsmt;
@@ -56,15 +56,32 @@ public class Dosimeter {
         this.lastchange = lastchange;
     }
 
-        
+    public Dosimeter(int pk_id, String id, String label, dsmt_type type, dsmt_periodicity periodicity, dsmt_supplier supplier
+            , String comments, String timestamp, status status, String status_timestamp) {
+        this.pk_id = pk_id;
+        this.id = id;
+        this.label = label;
+        this.type = type;
+        this.periodicity = periodicity;
+        this.supplier = supplier;
+        this.comments = comments;
+        this.timestamp = timestamp;
+        this.status = status;
+        this.status_timestamp = status_timestamp;
+    }
+
+    
+    
+    
+    
     
     // set and getters
 
-    public short getPk_dsmt() {
+    public int getPk_dsmt() {
         return pk_dsmt;
     }
 
-    public void setPk_dsmt(short pk_dsmt) {
+    public void setPk_dsmt(int pk_dsmt) {
         this.pk_dsmt = pk_dsmt;
     }
 
@@ -124,11 +141,11 @@ public class Dosimeter {
         this.timestamp = timestamp;
     }
 
-    public short getPk_id() {
+    public int getPk_id() {
         return pk_id;
     }
 
-    public void setPk_id(short pk_id) {
+    public void setPk_id(int pk_id) {
         this.pk_id = pk_id;
     }
 

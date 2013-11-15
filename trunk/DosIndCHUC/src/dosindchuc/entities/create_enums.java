@@ -21,7 +21,7 @@ public class create_enums {
         , Secretário
         , Enfermeiro
         , Auxiliar
-        , NP
+        , NoDef
     }
     
     
@@ -37,7 +37,7 @@ public class create_enums {
         Orto("Ortopedia"),
         BOC("Bloco Operatório"),
         MN("Medicina Nuclear"),
-        NP("nao esta preenchido");
+        NoDef("No defined");
         
         private String displayName;
 
@@ -56,7 +56,7 @@ public class create_enums {
         S(2),
         T(3),
         Q(4),
-        Mensal(5);
+        NoDef(5);
   
         private final int displayName;
 
@@ -65,6 +65,25 @@ public class create_enums {
         }
 
         public int displayName() { return this.displayName; }
+        
+    }
+    
+    
+    public enum month { 
+        
+          Jan
+        , Fev
+        , Mar
+        , Abr
+        , Mai
+        , Jun
+        , Jul
+        , Ago
+        , Set
+        , Out
+        , Nov
+        , Dez
+        , NoDef
         
     }
     
@@ -107,7 +126,8 @@ public class create_enums {
         MedicalConsult("Medical Consult"),
         Fluencia("Fluência"),
         ITN("ITN"),
-        DPR("DPR");
+        DPR("DPR"),
+        NoDef("No defined");
 
         private String displayName;
 

@@ -6,20 +6,18 @@ package dosindchuc.dao;
 
 import dosindchuc.entities.Worker;
 import dosindchuc.entities.create_enums;
-import java.sql.Connection;
-import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
-import java.util.logging.Level;
-import java.util.logging.Logger;
+
 
 /**
  *
  * @author ir
  */
 public class WorkerDao {
+    
     
     
     private DaoHelper daoHelper;
@@ -29,13 +27,22 @@ public class WorkerDao {
 	daoHelper = new DaoHelper();
     }
     
-    public List<Worker> listAllFromAllWorkers() {
+    
+    
+    public List<Worker> listWorkers(int worker_id) {
 		
 		final List<Worker> workers = new ArrayList<>();
 		
-		try {
-		
-			daoHelper.executePreparedQuery("select * from worker", new QueryMapper<Worker>() {
+		try {   
+                    
+                        String query = "";
+                        if (worker_id == 0) {
+                            query = "SELECT * from worker";
+                        } else {
+                            query = "SELECT * FROM worker WHERE pk_id = " + worker_id;
+                        }
+  
+			daoHelper.executePreparedQuery(query, new QueryMapper<Worker>() {
 
 				@Override
 				public List<Worker> mapping(ResultSet rset) throws SQLException {
@@ -72,107 +79,133 @@ public class WorkerDao {
 		return workers;
 		
 	}
+
     
-   
-    
-    public Worker insert (Worker worker) {
-        
-       // final List<Worker> workers = new ArrayList<>();
-        
-        Connection conn = null;
-        PreparedStatement pstmt = null;
-        ResultSet rset = null;
-        
+         
+    public Worker insert(Worker worker) throws CreateDaoException {
+
         try {
-            conn = daoHelper.getConnection();
-            
-            pstmt = conn.prepareStatement("insert into worker (id_mec, name, nick, BI, nationality, nif, birth, sex, category,"
-                    + " department, sector, comments, timestamps, status, status_timestatus\") "
-                    + " values ( ? , ? , ? , ? , ? , ? , ? , ? , ? , ? , ? , ? , ? , ? , ? )"
-                    , PreparedStatement.RETURN_GENERATED_KEYS );
-            
-            int index = 0;
-            pstmt.setString(++index, worker.getId_mec());
-            pstmt.setString(++index, worker.getName());
-            pstmt.setString(++index, worker.getNick());
-            pstmt.setString(++index, worker.getBI());
-            pstmt.setString(++index, worker.getNationality());
-            pstmt.setString(++index, worker.getNif());
-            pstmt.setString(++index, worker.getBirth());
-            pstmt.setString(++index, worker.getSex().toString());
-            pstmt.setString(++index, worker.getCategory().toString());
-            pstmt.setString(++index, worker.getDepartment().toString());
-            pstmt.setString(++index, worker.getSector());
-            pstmt.setString(++index, worker.getComments());
-            pstmt.setString(++index, worker.getTimestamp());
-            pstmt.setString(++index, worker.getStatus().toString());
-            pstmt.setString(++index, worker.getStatus_timestamp());
-            pstmt.executeUpdate();
-            
-            rset = pstmt.getGeneratedKeys();
-            if (rset.next()) {
-                worker.setPk_id(rset.getInt(1));
-            }
-            
-            worker.setLastchange(null);
-            
-        } catch (SQLException ex) {
-            try {
-                throw new SQLException("dadadad", ex);
-            } catch (SQLException ex1) {
-                Logger.getLogger(WorkerDao.class.getName()).log(Level.SEVERE, null, ex1);
-            }
-        } finally {
-            daoHelper.releaseAll(conn, pstmt);
+
+            daoHelper.beginTransaction();
+
+            int id = daoHelper.executePreparedUpdateAndReturnGeneratedKeys(daoHelper.getConnectionFromContext(), "INSERT INTO worker "
+                    + "(id_mec, name, nick, BI, nationality, nif, birth, sex, category, department, sector"
+                    + ", comments, timestamp, status, status_timestamp) VALUES "
+                    + "( ? , ? , ? , ? , ? , ? , ? , ? , ? , ? , ? , ? , ? , ? , ? )"
+                    , worker.getId_mec()
+                    , worker.getName()
+                    , worker.getNick()
+                    , worker.getBI()
+                    , worker.getNationality()
+                    , worker.getNif()
+                    , worker.getBirth()
+                    , worker.getSex().toString()
+                    , worker.getCategory().toString()
+                    , worker.getDepartment().toString()
+                    , worker.getSector()
+                    , worker.getComments()
+                    , worker.getTimestamp()
+                    , worker.getStatus().toString()
+                    , worker.getStatus_timestamp());
+
+            worker.setPk_id(id);
+            daoHelper.endTransaction();
+
+        } catch (SQLException e) {
+
+            daoHelper.rollbackTransaction();
+            throw new CreateDaoException("Not possible to make the transaction ", e);
+
         }
-        
-        //workers.add(worker);
+
         return worker;
-        
+
     }
     
   
     
-    
-    public void select () {
-        
-        Connection conn = null;
-        PreparedStatement pstmt = null;
-        ResultSet rset = null;
-        
+    public Worker update(Worker worker, int worker_id) throws CreateDaoException {
+
         try {
-            conn = daoHelper.getConnection();
-            
-            pstmt = conn.prepareStatement("SELECT pk_id, name, category FROM worker WHERE pk_id = 20");
-       //     pstmt = conn.prepareStatement("SELECT name FROM worker WHERE pk_id = 20");
-            rset = pstmt.executeQuery();
-            
-            System.out.println("aqui");
-            System.out.println("Moving cursor to the first row...");
-          
-           // rset.first();
-            rset.next();
-          //  int index = 0;
-              rset.getString("name");  
-                      System.out.println("aqui");
-           // while (rset.next()) {
-                
-                System.out.println(rset.getString("name"));
-                System.out.println(rset.getLong("pk_id"));
-                //System.out
-           // }
-            
-            
-        } catch (SQLException ex) {
-            throw new CreateDaoException("lllll", ex);
-        } finally { 
-           daoHelper.releaseAll(conn, pstmt); 
-        }        
-        
-        
+
+            daoHelper.beginTransaction();
+
+            daoHelper.executePreparedUpdate(daoHelper.getConnectionFromContext(), "UPDATE worker SET id_mec = ? "
+                    + ", name = ? , nick = ?, BI = ? , nationality = ? , nif = ?, birth = ? , sex = ? , category = ? "
+                    + ", department = ? , sector = ? , comments = ? , timestamp = ? , status = ? "
+                    + ", status_timestamp = ?  WHERE pk_id = " + worker_id
+                    , worker.getId_mec()
+                    , worker.getName()
+                    , worker.getNick()
+                    , worker.getBI()
+                    , worker.getNationality()
+                    , worker.getNif()
+                    , worker.getBirth()
+                    , worker.getSex().toString()
+                    , worker.getCategory().toString()
+                    , worker.getDepartment().toString()
+                    , worker.getSector()
+                    , worker.getComments()
+                    , worker.getTimestamp()
+                    , worker.getStatus().toString()
+                    , worker.getStatus_timestamp());
+
+            daoHelper.endTransaction();
+
+        } catch (SQLException e) {
+
+            daoHelper.rollbackTransaction();
+            throw new CreateDaoException("Not possible to make the transaction ", e);
+
+        }
+
+        return worker;
+
     }
     
     
+//    
+//    
+//    public void select () {
+//        
+//                
+//        Connection conn = null;
+//        PreparedStatement pstmt = null;
+//        ResultSet rset = null;
+//        
+//        try {
+//            conn = daoHelper.getConnection();
+//            
+//            pstmt = conn.prepareStatement("SELECT pk_id, name, category FROM worker WHERE pk_id = 20");
+//       //     pstmt = conn.prepareStatement("SELECT name FROM worker WHERE pk_id = 20");
+//            rset = pstmt.executeQuery();
+//            
+//            System.out.println("aqui");
+//            System.out.println("Moving cursor to the first row...");
+//          
+//           // rset.first();
+//            rset.next();
+//          //  int index = 0;
+//              rset.getString("name");  
+//                      System.out.println("aqui");
+//           // while (rset.next()) {
+//                
+//                System.out.println(rset.getString("name"));
+//                System.out.println(rset.getLong("pk_id"));
+//                //System.out
+//           // }
+//            
+//            
+//        } catch (SQLException ex) {
+//            throw new CreateDaoException("lllll", ex);
+//        } finally { 
+//           daoHelper.releaseAll(conn, pstmt); 
+//        }        
+//        
+//        
+//    }
+//    
+//    
     
     
     
