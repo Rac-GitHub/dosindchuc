@@ -4,8 +4,12 @@
  */
 package dosindchuc.dao;
 
+import dosindchuc.dao.Help.CreateDaoException;
+import dosindchuc.dao.Help.DaoHelper;
+import dosindchuc.dao.Help.QueryMapper;
+import dosindchuc.dao.Help.UpdateDaoException;
 import dosindchuc.entities.Dose_notes;
-import dosindchuc.entities.create_enums;
+import dosindchuc.entities.Help.create_enums;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
@@ -27,17 +31,17 @@ public class Dose_notesDao {
    
     
       
-    public List<Dose_notes> listDosimeters(int dsmt_id) {
+    public List<Dose_notes> listDose_notes(int dose_id) {
 		
 		final List<Dose_notes> dose_notes = new ArrayList<>();
 		
 		try {
                     
                         String query = null;
-                        if (dsmt_id == 0) {
+                        if (dose_id == 0) {
                             query = "SELECT * from dose_notes";
-                        } 
-                            query = "SELECT * FROM dose_notes WHERE pk_dsmt = " + dsmt_id;
+                        } else {
+                            query = "SELECT * FROM dose_notes WHERE pk_dose= " + dose_id;
                         }
                             
                             
@@ -69,76 +73,72 @@ public class Dose_notesDao {
 		
 	}
     
+
     
     
-    
-    public Dosimeter insert(Dosimeter dosimeter) throws CreateDaoException {
+    public Dose_notes insert(Dose_notes dose_note) throws CreateDaoException {
 
         try {
 
             daoHelper.beginTransaction();
 
-            int id = daoHelper.executePreparedUpdateAndReturnGeneratedKeys(daoHelper.getConnectionFromContext(), "INSERT INTO dosimeter "
-                    + "(pk_id, id, label, type, periodicity, supplier, comments, timestamp, status, status_timestamp) VALUES "
-                    + "( ? , ? , ? , ? , ? , ? , ? , ? , ? , ? )"
-                    , dosimeter.getPk_id()
-                    , dosimeter.getId()
-                    , dosimeter.getLabel()
-                    , dosimeter.getType().toString()
-                    , dosimeter.getPeriodicity().toString()
-                    , dosimeter.getSupplier().toString()
-                    , dosimeter.getComments()
-                    , dosimeter.getTimestamp()
-                    , dosimeter.getStatus().toString()
-                    , dosimeter.getStatus_timestamp() );
+            final String query = "INSERT INTO dose_notes "
+                    + "(pk_dose, note, timestamp, status, status_timestamp, alert_level) VALUES "
+                    + "( ? , ? , ? , ? , ? , ? )";
+            
+            int id = daoHelper.executePreparedUpdateAndReturnGeneratedKeys(daoHelper.getConnectionFromContext(), query
+                    , dose_note.getPk_dose()
+                    , dose_note.getNote()
+                    , dose_note.getTimestamp()
+                    , dose_note.getStatus().toString()
+                    , dose_note.getStatus_timestamp()
+                    , dose_note.getAlert_level().toString() );
+                  
                     
-            dosimeter.setPk_dsmt(id);
             daoHelper.endTransaction();
 
         } catch (SQLException e) {
 
             daoHelper.rollbackTransaction();
-            throw new CreateDaoException("Not possible to make the transaction ", e);
+            throw new CreateDaoException("Not possible to make the transaction: ", e);
 
         }
 
-        return dosimeter;
+        return dose_note;
 
     }
     
   
     
     
-    public Dosimeter update(Dosimeter dosimeter, int dsmt_id) throws CreateDaoException {
+    public Dose_notes update(Dose_notes dose_note, int dose_note_id) throws UpdateDaoException {
 
         try {
 
             daoHelper.beginTransaction();
+            
+            final String query = "UPDATE dose_notes SET pk_dose = ? "
+                    + ", note = ? , timestamp = ? , status = ? "
+                    + ", status_timestamp = ? , alert_level = ?  WHERE pk_notes_dose = " + dose_note_id;
 
-            daoHelper.executePreparedUpdate(daoHelper.getConnectionFromContext(), "UPDATE dosimeter SET pk_id = ? "
-                    + ", id = ? , label = ?, type = ? , periodicity = ? , supplier = ? , comments = ? , timestamp = ? , status = ? "
-                    + ", status_timestamp = ?  WHERE pk_dsmt = " + dsmt_id
-                    , dosimeter.getPk_id()
-                    , dosimeter.getId()
-                    , dosimeter.getLabel()
-                    , dosimeter.getType().toString()
-                    , dosimeter.getPeriodicity().toString()
-                    , dosimeter.getSupplier().toString()
-                    , dosimeter.getComments()
-                    , dosimeter.getTimestamp()
-                    , dosimeter.getStatus().toString()
-                    , dosimeter.getStatus_timestamp() );
+            daoHelper.executePreparedUpdate(daoHelper.getConnectionFromContext(), query
+                    , dose_note.getPk_dose()
+                    , dose_note.getNote()
+                    , dose_note.getTimestamp()
+                    , dose_note.getStatus().toString()
+                    , dose_note.getStatus_timestamp()
+                    , dose_note.getAlert_level().toString() );
 
             daoHelper.endTransaction();
 
         } catch (SQLException e) {
 
             daoHelper.rollbackTransaction();
-            throw new CreateDaoException("Not possible to make the transaction ", e);
+            throw new UpdateDaoException("Not possible to make the transaction: ", e);
 
         }
 
-        return dosimeter;
+        return dose_note;
 
     }
     

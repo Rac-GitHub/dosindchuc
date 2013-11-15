@@ -4,8 +4,12 @@
  */
 package dosindchuc.dao;
 
+import dosindchuc.dao.Help.CreateDaoException;
+import dosindchuc.dao.Help.DaoHelper;
+import dosindchuc.dao.Help.QueryMapper;
+import dosindchuc.dao.Help.UpdateDaoException;
 import dosindchuc.entities.Dosimeter;
-import dosindchuc.entities.create_enums;
+import dosindchuc.entities.Help.create_enums;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
@@ -32,7 +36,7 @@ public class DosimeterDao {
 		
 		try {
                     
-                        String query = "";
+                        String query = null;
                         if (worker_id == 0 && dsmt_id == 0) {
                             query = "SELECT * from dosimeter";
                         } else if (worker_id != 0 && dsmt_id == 0) {
@@ -86,9 +90,11 @@ public class DosimeterDao {
 
             daoHelper.beginTransaction();
 
-            int id = daoHelper.executePreparedUpdateAndReturnGeneratedKeys(daoHelper.getConnectionFromContext(), "INSERT INTO dosimeter "
+            final String query = "INSERT INTO dosimeter "
                     + "(pk_id, id, label, type, periodicity, supplier, comments, timestamp, status, status_timestamp) VALUES "
-                    + "( ? , ? , ? , ? , ? , ? , ? , ? , ? , ? )"
+                    + "( ? , ? , ? , ? , ? , ? , ? , ? , ? , ? )";
+            
+            int id = daoHelper.executePreparedUpdateAndReturnGeneratedKeys(daoHelper.getConnectionFromContext(), query
                     , dosimeter.getPk_id()
                     , dosimeter.getId()
                     , dosimeter.getLabel()
@@ -117,15 +123,17 @@ public class DosimeterDao {
   
     
     
-    public Dosimeter update(Dosimeter dosimeter, int dsmt_id) throws CreateDaoException {
+    public Dosimeter update(Dosimeter dosimeter, int dsmt_id) throws UpdateDaoException {
 
         try {
 
             daoHelper.beginTransaction();
-
-            daoHelper.executePreparedUpdate(daoHelper.getConnectionFromContext(), "UPDATE dosimeter SET pk_id = ? "
+            
+            final String query = "UPDATE dosimeter SET pk_id = ? "
                     + ", id = ? , label = ?, type = ? , periodicity = ? , supplier = ? , comments = ? , timestamp = ? , status = ? "
-                    + ", status_timestamp = ?  WHERE pk_dsmt = " + dsmt_id
+                    + ", status_timestamp = ?  WHERE pk_dsmt = " + dsmt_id;
+
+            daoHelper.executePreparedUpdate(daoHelper.getConnectionFromContext(), query
                     , dosimeter.getPk_id()
                     , dosimeter.getId()
                     , dosimeter.getLabel()
@@ -142,57 +150,13 @@ public class DosimeterDao {
         } catch (SQLException e) {
 
             daoHelper.rollbackTransaction();
-            throw new CreateDaoException("Not possible to make the transaction ", e);
+            throw new UpdateDaoException("Not possible to make the transaction ", e);
 
         }
 
         return dosimeter;
 
     }
-    
-    
-//    
-//    
-//    public void select () {
-//        
-//                
-//        Connection conn = null;
-//        PreparedStatement pstmt = null;
-//        ResultSet rset = null;
-//        
-//        try {
-//            conn = daoHelper.getConnection();
-//            
-//            pstmt = conn.prepareStatement("SELECT pk_id, name, category FROM worker WHERE pk_id = 20");
-//       //     pstmt = conn.prepareStatement("SELECT name FROM worker WHERE pk_id = 20");
-//            rset = pstmt.executeQuery();
-//            
-//            System.out.println("aqui");
-//            System.out.println("Moving cursor to the first row...");
-//          
-//           // rset.first();
-//            rset.next();
-//          //  int index = 0;
-//              rset.getString("name");  
-//                      System.out.println("aqui");
-//           // while (rset.next()) {
-//                
-//                System.out.println(rset.getString("name"));
-//                System.out.println(rset.getLong("pk_id"));
-//                //System.out
-//           // }
-//            
-//            
-//        } catch (SQLException ex) {
-//            throw new CreateDaoException("lllll", ex);
-//        } finally { 
-//           daoHelper.releaseAll(conn, pstmt); 
-//        }        
-//        
-//        
-//    }
-//    
-//    
     
     
     

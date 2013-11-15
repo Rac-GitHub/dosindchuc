@@ -4,8 +4,9 @@
  */
 package dosindchuc.entities;
 
-import dosindchuc.entities.create_enums.Trimester;
-import dosindchuc.entities.create_enums.month;
+import dosindchuc.entities.Help.help_entities;
+import dosindchuc.entities.Help.create_enums.Trimester;
+import dosindchuc.entities.Help.create_enums.month;
 import java.util.Objects;
 
 /**

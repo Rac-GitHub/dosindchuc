@@ -4,9 +4,12 @@
  */
 package dosindchuc.dao;
 
+import dosindchuc.dao.Help.CreateDaoException;
+import dosindchuc.dao.Help.DaoHelper;
+import dosindchuc.dao.Help.QueryMapper;
+import dosindchuc.dao.Help.UpdateDaoException;
 import dosindchuc.entities.Dose_info;
-import dosindchuc.entities.Dosimeter;
-import dosindchuc.entities.create_enums;
+import dosindchuc.entities.Help.create_enums;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
@@ -34,7 +37,7 @@ class Dose_infoDao {
 		
 		try {
                         
-                         String query = "";
+                        String query = null;
                         if (worker_id == 0 && dsmt_id == 0) {
                             query = "SELECT * from dose_info";
                         } else if (worker_id != 0 && dsmt_id == 0) {
@@ -119,7 +122,7 @@ class Dose_infoDao {
   
     
     
-    public Dose_info update(Dose_info dose, int dsmt_id) throws CreateDaoException {
+    public Dose_info update(Dose_info dose, int dsmt_id) throws UpdateDaoException {
 
         try {
 
@@ -145,7 +148,7 @@ class Dose_infoDao {
         } catch (SQLException e) {
 
             daoHelper.rollbackTransaction();
-            throw new CreateDaoException("Not possible to make the transaction ", e);
+            throw new UpdateDaoException("Not possible to make the transaction ", e);
 
         }
 
@@ -153,50 +156,6 @@ class Dose_infoDao {
 
     }
     
-    
-//    
-//    
-//    public void select () {
-//        
-//                
-//        Connection conn = null;
-//        PreparedStatement pstmt = null;
-//        ResultSet rset = null;
-//        
-//        try {
-//            conn = daoHelper.getConnection();
-//            
-//            pstmt = conn.prepareStatement("SELECT pk_id, name, category FROM worker WHERE pk_id = 20");
-//       //     pstmt = conn.prepareStatement("SELECT name FROM worker WHERE pk_id = 20");
-//            rset = pstmt.executeQuery();
-//            
-//            System.out.println("aqui");
-//            System.out.println("Moving cursor to the first row...");
-//          
-//           // rset.first();
-//            rset.next();
-//          //  int index = 0;
-//              rset.getString("name");  
-//                      System.out.println("aqui");
-//           // while (rset.next()) {
-//                
-//                System.out.println(rset.getString("name"));
-//                System.out.println(rset.getLong("pk_id"));
-//                //System.out
-//           // }
-//            
-//            
-//        } catch (SQLException ex) {
-//            throw new CreateDaoException("lllll", ex);
-//        } finally { 
-//           daoHelper.releaseAll(conn, pstmt); 
-//        }        
-//        
-//        
-//    }
-//    
-//    
-    
-    
+
     
 }

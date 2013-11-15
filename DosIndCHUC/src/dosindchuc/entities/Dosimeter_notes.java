@@ -4,8 +4,9 @@
  */
 package dosindchuc.entities;
 
-import dosindchuc.entities.create_enums.note_alertlevel;
-import dosindchuc.entities.create_enums.status;
+import dosindchuc.entities.Help.help_entities;
+import dosindchuc.entities.Help.create_enums.note_alertlevel;
+import dosindchuc.entities.Help.create_enums.note_status;
 import java.util.Objects;
 
 /**
@@ -14,11 +15,11 @@ import java.util.Objects;
  */
 public class Dosimeter_notes {
     
-   private short pk_notes_dsmt;
-   private short pk_dsmt;
+   private int pk_notes_dsmt;
+   private int pk_dsmt;
    private String note;
    private String timestamp;
-   private status status;
+   private note_status status;
    private String status_timestamp;
    private note_alertlevel alert_level;
    private String lastchange;
@@ -31,7 +32,7 @@ public class Dosimeter_notes {
         
     }
 
-    public Dosimeter_notes(short pk_notes_dsmt, short pk_dsmt, String note, String timestamp, status status, String status_timestamp, note_alertlevel alert_level, String lastchange) {
+    public Dosimeter_notes(int pk_notes_dsmt, int pk_dsmt, String note, String timestamp, note_status status, String status_timestamp, note_alertlevel alert_level, String lastchange) {
         this.pk_notes_dsmt = pk_notes_dsmt;
         this.pk_dsmt = pk_dsmt;
         this.note = note;
@@ -42,16 +43,26 @@ public class Dosimeter_notes {
         this.lastchange = lastchange;
     }
 
+    public Dosimeter_notes(int pk_dsmt, String note, String timestamp, note_status status, String status_timestamp, note_alertlevel alert_level) {
+        this.pk_dsmt = pk_dsmt;
+        this.note = note;
+        this.timestamp = timestamp;
+        this.status = status;
+        this.status_timestamp = status_timestamp;
+        this.alert_level = alert_level;
+    }
+
+    
     
     
    
     // getter and setters
 
-    public short getPk_notes_dsmt() {
+    public int getPk_notes_dsmt() {
         return pk_notes_dsmt;
     }
 
-    public void setPk_notes_dsmt(short pk_notes_dsmt) {
+    public void setPk_notes_dsmt(int pk_notes_dsmt) {
         this.pk_notes_dsmt = pk_notes_dsmt;
     }
 
@@ -71,11 +82,11 @@ public class Dosimeter_notes {
         this.timestamp = new help_entities().currDateTime();
     }
 
-    public status getStatus() {
+    public note_status getStatus() {
         return status;
     }
 
-    public void setStatus(status status) {
+    public void setStatus(note_status status) {
         this.status = status;
     }
 
@@ -87,11 +98,11 @@ public class Dosimeter_notes {
         this.status_timestamp = new help_entities().currDateTime();
     }
 
-    public short getPk_dsmt() {
+    public int getPk_dsmt() {
         return pk_dsmt;
     }
 
-    public void setPk_dsmt(short pk_dsmt) {
+    public void setPk_dsmt(int pk_dsmt) {
         this.pk_dsmt = pk_dsmt;
     }
     

@@ -5,8 +5,9 @@
 package dosindchuc.entities;
 
 
-import dosindchuc.entities.create_enums.note_alertlevel;
-import dosindchuc.entities.create_enums.note_status;
+import dosindchuc.entities.Help.help_entities;
+import dosindchuc.entities.Help.create_enums.note_alertlevel;
+import dosindchuc.entities.Help.create_enums.note_status;
 import java.util.Objects;
 
 /**
@@ -16,7 +17,7 @@ import java.util.Objects;
 public class Dose_notes {
     
     
-    private short pk_notes_dose;
+    private int pk_notes_dose;
     private int pk_dose;
     private String note;
     private String timestamp;
@@ -32,7 +33,7 @@ public class Dose_notes {
     public Dose_notes() {
     }
 
-    public Dose_notes(short pk_notes_dose, int pk_dose, String note, String timestamp, note_status status, String status_timestamp, note_alertlevel alert_level, String lastchange) {
+    public Dose_notes(int pk_notes_dose, int pk_dose, String note, String timestamp, note_status status, String status_timestamp, note_alertlevel alert_level, String lastchange) {
         this.pk_notes_dose = pk_notes_dose;
         this.pk_dose = pk_dose;
         this.note = note;
@@ -43,16 +44,26 @@ public class Dose_notes {
         this.lastchange = lastchange;
     }
 
-   
+    public Dose_notes(int pk_dose, String note, String timestamp, note_status status, String status_timestamp, note_alertlevel alert_level) {
+        this.pk_dose = pk_dose;
+        this.note = note;
+        this.timestamp = timestamp;
+        this.status = status;
+        this.status_timestamp = status_timestamp;
+        this.alert_level = alert_level;
+    }
+
+    
+     
     
     
     // getter and setters
 
-    public short getPk_notes_dose() {
+    public int getPk_notes_dose() {
         return pk_notes_dose;
     }
 
-    public void setPk_notes_dose(short pk_notes_dose) {
+    public void setPk_notes_dose(int pk_notes_dose) {
         this.pk_notes_dose = pk_notes_dose;
     }
 
