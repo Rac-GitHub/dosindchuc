@@ -219,8 +219,88 @@ public class DaoHelper {
 
     }
     
-    
-    
+    //___________________________________________________________________________________ Soy una barra separadora :)
+/* METODO PARA REALIZAR UNA CONSULTA A LA BASE DE DATOS
+ * INPUT:  
+ *      table => nombre de la tabla donde se realizara la consulta, puede utilizarse tambien INNER JOIN
+ *      fields => String con los nombres de los campos a devolver Ej.: campo1,campo2campo_n
+ *      where => condicion para la consulta
+ * OUTPUT: un object[][] con los datos resultantes, sino retorna NULL
+ */
+   /**
+    * 
+    * @param table
+    * @param fields
+    * @param where
+    * @return
+    */
+    public Object[][] executeSelectivePreparedQuery(String table, String fields, String where) {
+
+        int registros = 0;
+        String colname[] = fields.split(",");
+
+        Connection conn = null;
+        PreparedStatement pstmt = null;
+        ResultSet rset = null;
+
+        Object[][] data = null;
+
+        //Consultas SQL
+        String q = "SELECT " + fields + " FROM " + table;
+        String q2 = "SELECT count(*) as total FROM " + table;
+
+        if (where != null) {
+            q += " WHERE " + where;
+            q2 += " WHERE " + where;
+        }
+
+        System.out.print("aqui " + q);
+        
+        try {
+
+            beginTransaction();
+            conn = getConnectionFromContext();
+
+            pstmt = conn.prepareStatement(q2);
+            rset = pstmt.executeQuery();
+            rset.next();
+            registros = rset.getInt("total");
+
+            release(rset);
+            release(pstmt);
+
+            System.out.print("aqui2 " + registros);
+            //se crea una matriz con tantas filas y columnas que necesite
+            data = new String[registros][fields.split(",").length];
+            //realizamos la consulta sql y llenamos los datos en la matriz "Object"
+
+
+            pstmt = conn.prepareStatement(q);
+            rset = pstmt.executeQuery();
+
+            int i = 0;
+            while (rset.next()) {
+                for (int j = 0; j <= fields.split(",").length - 1; j++) {
+                    data[i][j] = rset.getString(colname[j].trim());
+                }
+                i++;
+            }
+
+            System.out.println("jjj");
+
+
+        } catch (SQLException e) {
+            throw new CreateDaoException("Not possible to make the transaction ", e);
+        }
+
+        return data;
+        
+    }
+
+
+
+
+
     /**
      * Close Statement
      * 
