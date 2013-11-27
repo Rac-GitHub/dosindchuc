@@ -34,14 +34,13 @@ public class WorkerDao {
     
     
     
-    public List<Worker> listWorkers(int worker_id) {
+    public List<Worker> getWorkersInfo(String worker_id) {
 		
 		final List<Worker> workers = new ArrayList<>();
 		
 		try {   
-                    
                         String query = null;
-                        if (worker_id == 0) {
+                        if (worker_id.isEmpty()) {
                             query = "SELECT * from worker";
                         } else {
                             query = "SELECT * FROM worker WHERE pk_id = " + worker_id;

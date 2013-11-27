@@ -5,7 +5,7 @@
 package dosindchuc.UI.controller;
 
 import dosindchuc.UI.swing.MainFrm;
-import dosindchuc.UI.swing.Management;
+import dosindchuc.UI.swing.ManagementFrm;
 import dosindchuc.model.dao.UsersDao;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
@@ -15,19 +15,19 @@ import javax.swing.JOptionPane;
  *
  * @author ir
  */
-public final class MainActionListener implements ActionListener{
+public final class MainActionListener implements ActionListener {
     
     
     private MainFrm frm;
-    private Management frmMan;
     private UsersDao service;
+    private DisablePanel panel;
  
+    
     public MainActionListener(MainFrm frm) {
-     
+        
         this.frm = frm;
         service = new UsersDao();
         addListeners();
-        
         initState();
  //       inicializaTableModel();
     }
@@ -39,24 +39,32 @@ public final class MainActionListener implements ActionListener{
     public void actionPerformed(ActionEvent aevent) {
       
         System.out.println(aevent);
-        
+
         String command = aevent.getActionCommand();
-        
+
         if (command.equalsIgnoreCase("LoginOK")) {
             login();
-           
+
         } else if (command.equalsIgnoreCase("LoginCancel")) {
-                this.frm.txtUsername.setText(null);
-                this.frm.txtPassword.setText(null);
-        
+            this.frm.txtUsername.setText(null);
+            this.frm.txtPassword.setText(null);
+
         } else if (command.equalsIgnoreCase("LoginCancel")) {
-                this.frm.txtUsername.setText(null);
-                this.frm.txtPassword.setText(null);
-        
+            this.frm.txtUsername.setText(null);
+            this.frm.txtPassword.setText(null);
+
         } else if (command.equalsIgnoreCase("Management")) {
-                this.frmMan.setVisible(true);
-                
-        }
+
+        java.awt.EventQueue.invokeLater(new Runnable() {
+            @Override
+            public void run() {
+                ManagementFrm frmMan = new ManagementFrm();
+                frmMan.setVisible(true);
+                    //             panel.disable(frmMan.panelWorkerInfo);   // nao funciona
+            }
+         });
+
+         }
         
     }
     

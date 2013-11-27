@@ -31,7 +31,7 @@ class Dose_infoDao {
     
     
     
-    public List<Dose_info> listDose(int dsmt_id, int worker_id) {
+    public List<Dose_info> getDoseInfo(int dsmt_id, int worker_id) {
 		
 		final List<Dose_info> doses = new ArrayList<>();
 		

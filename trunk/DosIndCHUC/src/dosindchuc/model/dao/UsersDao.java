@@ -5,13 +5,6 @@
 package dosindchuc.model.dao;
 
 import dosindchuc.model.dao.Help.DaoHelper;
-import dosindchuc.model.dao.Help.QueryMapper;
-import dosindchuc.model.entities.Users;
-import dosindchuc.model.entities.Worker;
-import java.sql.ResultSet;
-import java.sql.SQLException;
-import java.util.ArrayList;
-import java.util.List;
 
 /**
  *
@@ -34,7 +27,8 @@ public class UsersDao {
         
         System.out.println(username);
         
-        String where = "username = '" + username + "' AND password = '" + password + "'";
+    //    String where = "username = '" + username + "' AND password = '" + password + "'";
+        String [][][] where = { {{"username", "null", username}}, {{"password", "null", password}} };
        
         Object [][] loginUsers = daoHelper.executeSelectivePreparedQuery("users", "name, username, password ", where);
         
