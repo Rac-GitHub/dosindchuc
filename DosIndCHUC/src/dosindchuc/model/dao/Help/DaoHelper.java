@@ -234,7 +234,7 @@ public class DaoHelper {
     * @param where
     * @return
     */
-    public Object[][] executeSelectivePreparedQuery(String table, String fields, String where) {
+    public Object[][] executeSelectivePreparedQuery(String table, String fields, String [][][] searchWhere) {
 
         int registros = 0;
         String colname[] = fields.split(",");
@@ -243,6 +243,8 @@ public class DaoHelper {
         PreparedStatement pstmt = null;
         ResultSet rset = null;
 
+        String where = buildQueryWhere(searchWhere);
+        
         Object[][] data = null;
 
         //Consultas SQL
@@ -298,7 +300,41 @@ public class DaoHelper {
     }
 
 
+    public String buildQueryWhere(String[][][] searchWhere) {
 
+ 
+        String  where = "";
+         
+        int iand = 0;
+        String newWhere = null;
+        for (int i = 0; i <= searchWhere. length - 1; i++) {
+              if ( ( ! searchWhere[i][0][2].isEmpty() ) && ( ! searchWhere[i][0][2].equalsIgnoreCase("NoDef") ) ) {
+                  
+                  switch (searchWhere[i][0][1]) {
+                      case "LIKE": 
+                          newWhere = " " + searchWhere[i][0][0] + " LIKE " + "'%" + searchWhere[i][0][2] + "%'";
+                          break;
+                      default: newWhere = " " + searchWhere[i][0][0] + " = " + "'" + searchWhere[i][0][2] + "'";
+                          
+                  }
+                   
+                  if (  iand > 0 ) {
+                    where = where + " AND" + newWhere;
+                  } else {
+                    where = where + newWhere;
+                  }
+                  iand++;
+              }
+        }
+         
+        
+        if (where.isEmpty()) {
+            where = null;
+        }
+        
+        return where;
+        
+    }
 
 
     /**

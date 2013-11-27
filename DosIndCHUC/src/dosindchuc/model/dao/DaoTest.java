@@ -56,7 +56,7 @@ public class DaoTest {
 //		dao.inserir(paciente);
          //      dao = 
 		
-	//	List<Worker> listw = daow.listWorkers(10);
+	//	List<Worker> listw = daow.getWorkersInfo(10);
                
          //       System.out.println(Arrays.toString(listw.toArray()));
                 
@@ -99,7 +99,7 @@ public class DaoTest {
 //               
 //               System.out.println(prof);
                
-               List<Worker> listw = daow.listWorkers(pkid);
+               List<Worker> listw = daow.getWorkersInfo(pkid);
                System.out.println(Arrays.toString(listw.toArray()));
          
                
@@ -128,7 +128,7 @@ public class DaoTest {
  ///              System.out.println(dose);
                
 //                
-               List<Dose_info> listdose = dao_dinfo.listDose(10,10);
+               List<Dose_info> listdose = dao_dinfo.getDoseInfo(10,10);
                System.out.println(Arrays.toString(listdose.toArray()));   */
     
                
