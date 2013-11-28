@@ -5,11 +5,14 @@
 package dosindchuc.UI.controller;
 
 import dosindchuc.UI.swing.ManagementFrm;
+import dosindchuc.model.entities.Dose_info;
 import dosindchuc.model.service.ManagementSearch;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
+import java.util.List;
+
 
 /**
  *
@@ -51,9 +54,12 @@ public final class ManagementSearchActionListener implements ActionListener, Mou
            
             service.cleanWorkers();
             
+        } else if (command.equalsIgnoreCase("cbDoseNoteIndex")) {
+           
+            service.fillDoseNotesInfo();
         }
         
-        
+     
     }
     
       /**
@@ -61,22 +67,49 @@ public final class ManagementSearchActionListener implements ActionListener, Mou
      */
     public void addListeners() {
         
-        frmMan.getSearchBtSeach().addActionListener(this);
-        frmMan.getSearchBtClean().addActionListener(this);
-        frmMan.getSearchTable().addMouseListener(this);
+        frmMan.searchBtSeach.addActionListener(this);
+        frmMan.searchBtClean.addActionListener(this);
+        frmMan.searchTable.addMouseListener(new java.awt.event.MouseAdapter() {
+            @Override
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                searchTableMouseClicked(evt);
+            }
+        });
+   //     frmMan.searchTable.addMouseListener(this);
+        
+        frmMan.tableDoseInfo.addMouseListener(new java.awt.event.MouseAdapter() {
+            @Override
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                tableDoseInfoMouseClicked(evt);
+            }
+        });
+        
+        
+        frmMan.tableDosimeterInfo.addMouseListener(new java.awt.event.MouseAdapter() {
+            @Override
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                tableDosimeterInfoMouseClicked(evt);
+            }
+        });
+        
+        frmMan.cbDoseNoteIndex.addActionListener(this);
+        
+        
         
     }
       
       
       private void initState () {
     
+          frmMan.getCbDoseNoteIndex().setEnabled(false);
+          frmMan.getCbDosimeterNotesIndex().setEnabled(false);
           
  //         DisablePanel.disable();
                 
     } 
 
-    @Override
-    public void mouseClicked(MouseEvent mevent) {
+
+    public void searchTableMouseClicked(MouseEvent mevent) {
         
         System.out.println(mevent);
         
@@ -86,6 +119,43 @@ public final class ManagementSearchActionListener implements ActionListener, Mou
 
         }    
         
+    }
+    
+    public void tableDoseInfoMouseClicked(MouseEvent mevent) {
+        
+        System.out.println(mevent);
+        
+     //   List<Dose_info> dose_info = null;
+        
+        service.fillDoseNotesCBIndex(); //, workerList);
+        
+        
+        
+        
+
+        }    
+        
+    public void tableDosimeterInfoMouseClicked(MouseEvent mevent) {
+        
+        System.out.println(mevent);
+        
+     //   List<Dose_info> dose_info = null;
+        
+        service.fillDosimeterNotesCBIndex(); //, workerList);
+        
+        
+        
+        
+
+        }    
+    
+    
+    
+    // generic listeners
+    
+    @Override
+    public void mouseClicked(MouseEvent me) {
+       
     }
 
     @Override
@@ -107,6 +177,7 @@ public final class ManagementSearchActionListener implements ActionListener, Mou
     public void mouseExited(MouseEvent me) {
         
     }
-      
+        
+   
     
 }

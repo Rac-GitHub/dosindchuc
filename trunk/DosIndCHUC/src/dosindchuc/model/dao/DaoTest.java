@@ -112,7 +112,7 @@ public class DaoTest {
              // System.out.println(dsmt);
                
 //               int dsmt_id=0;
-               List<Dosimeter> listd = daod.listDosimeters(0,pkid);
+               List<Dosimeter> listd = daod.getDosimetersInfo(0,pkid);
 //               
                System.out.println(Arrays.toString(listd.toArray()));
                

@@ -31,19 +31,25 @@ public class Dose_notesDao {
    
     
       
-    public List<Dose_notes> listDose_notes(int dose_id) {
+    public List<Dose_notes> getDose_notesInfo(String dose_id) {
 		
 		final List<Dose_notes> dose_notes = new ArrayList<>();
 		
+                
+                System.out.println("dose_id??? " + dose_id);
+                
 		try {
-                    
+                        System.out.println("dose_id??? " + dose_id);
                         String query = null;
-                        if (dose_id == 0) {
-                            query = "SELECT * from dose_notes";
+                        if ( dose_id.isEmpty() ) {
+                            query = "SELECT * from dose_notes ORDER BY pk_notes_dose DESC";
+                  //          query = "SELECT * from dose_notes";
                         } else {
-                            query = "SELECT * FROM dose_notes WHERE pk_dose= " + dose_id;
+                            query = "SELECT * FROM dose_notes WHERE pk_dose= " + dose_id + " ORDER BY pk_notes_dose DESC";
+                  //          query = "SELECT * FROM dose_notes WHERE pk_dose= " + dose_id;
                         }
-                            
+                           
+                        System.out.println("dose_id??? " + query);
                             
 			daoHelper.executePreparedQuery(query, new QueryMapper<Dose_notes>() {
 
@@ -51,6 +57,7 @@ public class Dose_notesDao {
 				public List<Dose_notes> mapping(ResultSet rset) throws SQLException {
 					while (rset.next()) {
 						Dose_notes dose_note = new Dose_notes();
+                                                dose_note.setPk_notes_dose( rset.getInt("pk_notes_dose") );
 						dose_note.setPk_dose( rset.getInt("pk_dose") );
 						dose_note.setNote( rset.getString("note") );
 						dose_note.setTimestamp( rset.getString("timestamp") );

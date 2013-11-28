@@ -19,7 +19,7 @@ import java.util.List;
  *
  * @author ir
  */
-class Dose_infoDao {
+public class Dose_infoDao {
     
     
     
@@ -31,23 +31,24 @@ class Dose_infoDao {
     
     
     
-    public List<Dose_info> getDoseInfo(int dsmt_id, int worker_id) {
+    public List<Dose_info> getDoseInfo(int dsmt_id, String worker_id) {
 		
 		final List<Dose_info> doses = new ArrayList<>();
 		
 		try {
                         
                         String query = null;
-                        if (worker_id == 0 && dsmt_id == 0) {
+                        if (worker_id.isEmpty() && dsmt_id == 0) {
                             query = "SELECT * from dose_info";
-                        } else if (worker_id != 0 && dsmt_id == 0) {
+                        } else if ( ! worker_id.isEmpty() && dsmt_id == 0) {
                             query = "SELECT * FROM dose_info WHERE pk_id = " + worker_id;
-                        } else if (dsmt_id != 0 && worker_id == 0) {
+                        } else if (dsmt_id != 0 && worker_id.isEmpty()) {
                             query = "SELECT * FROM dose_info WHERE pk_dsmt = " + dsmt_id;
                         } else {
                             query = "SELECT * FROM dose_info WHERE pk_dsmt = " + dsmt_id + " AND pk_id = " + worker_id;
                         }
-                    
+                        
+                        System.out.println("get dose Info  " + query);
                     
 			daoHelper.executePreparedQuery(query, new QueryMapper<Dose_info>() {
 
