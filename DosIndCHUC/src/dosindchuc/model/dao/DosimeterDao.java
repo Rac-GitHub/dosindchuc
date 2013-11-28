@@ -30,18 +30,18 @@ public class DosimeterDao {
     }
     
     
-    public List<Dosimeter> listDosimeters(int dsmt_id, int worker_id) {
+    public List<Dosimeter> getDosimetersInfo(int dsmt_id, String worker_id) {
 		
 		final List<Dosimeter> dosimeters = new ArrayList<>();
 		
 		try {
                     
                         String query = null;
-                        if (worker_id == 0 && dsmt_id == 0) {
+                        if (worker_id.isEmpty() && dsmt_id == 0) {
                             query = "SELECT * from dosimeter";
-                        } else if (worker_id != 0 && dsmt_id == 0) {
-                            query = "SELECT * FROM dosimeter WHERE pk_id = " + worker_id;
-                        } else if (dsmt_id != 0 && worker_id == 0) {
+                        } else if ( ! (worker_id.isEmpty()) && dsmt_id == 0) {
+                            query = "SELECT * FROM dosimeter WHERE pk_id = " + worker_id + " ORDER BY pk_dsmt DESC";
+                        } else if (dsmt_id != 0 && worker_id.isEmpty()) {
                             query = "SELECT * FROM dosimeter WHERE pk_dsmt = " + dsmt_id;
                         } else {
                             query = "SELECT * FROM dosimeter WHERE pk_dsmt = " + dsmt_id + " AND pk_id = " + worker_id;
