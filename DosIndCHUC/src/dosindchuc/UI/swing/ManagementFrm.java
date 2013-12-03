@@ -329,6 +329,8 @@ public class ManagementFrm extends javax.swing.JFrame {
 
         btDosimeterInfoUpdate.setText("Update");
 
+        cbDosimeterNotesIndex.setActionCommand("cbDosimeterNotesIndex");
+
         cbDosimeterNotesAlert.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "PI", "N", "I", "MI", "C" }));
         cbDosimeterNotesAlert.setActionCommand("cbDosimeterNotesAlert");
 

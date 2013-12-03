@@ -4,6 +4,7 @@
  */
 package dosindchuc.model.service;
 
+import dosindchuc.UI.controller.ManagementSearchActionListener;
 import dosindchuc.UI.swing.ManagementFrm;
 import dosindchuc.model.dao.Dose_infoDao;
 import dosindchuc.model.dao.Dose_notesDao;
@@ -16,6 +17,7 @@ import dosindchuc.model.entities.Dose_notes;
 import dosindchuc.model.entities.Dosimeter;
 import dosindchuc.model.entities.Dosimeter_notes;
 import dosindchuc.model.entities.Worker;
+import java.awt.event.ActionListener;
 import java.util.Arrays;
 import java.util.List;
 import javax.swing.table.DefaultTableModel;
@@ -45,8 +47,11 @@ public class ManagementSearch {
     private List<Dosimeter> dosimeter_info;
     private List<Dosimeter_notes> dosimeterNotes;
     
+    private ManagementSearchActionListener Listeners;
+  
     
-    public ManagementSearch(ManagementFrm frmMan) {
+    
+    public ManagementSearch(ManagementFrm frmMan, ManagementSearchActionListener Listeners) {
 
         daoHelper = new DaoHelper();
         this.frmMan = frmMan;
@@ -55,7 +60,7 @@ public class ManagementSearch {
         doseNotesDao = new Dose_notesDao();
         dosimeterdao = new DosimeterDao();
         dosimeterNotesDao = new Dosimeter_notesDao();
-        
+        this.Listeners = Listeners;
         
     }
 
@@ -179,10 +184,7 @@ public class ManagementSearch {
     
      public List fillDoseInfo (String worker_id) {
         
-       //  List<Dose_info> dose_info =  doseinfodao.getDoseInfo(0, worker_id);
          dose_info =  doseinfodao.getDoseInfo(0, worker_id);
-         
-  //       this.dose_info = dose_info;
             
          int nResults = dose_info.size();
         
@@ -202,7 +204,7 @@ public class ManagementSearch {
              model.addRow(newRow);
          
          }
-         System.out.println(Arrays.toString(dose_info.toArray()));
+ 
          return dose_info;
          
     }
@@ -214,38 +216,30 @@ public class ManagementSearch {
      
      public void fillDoseNotesCBIndex () {
          
-         
-         System.out.println("Estou no fill DNInfo" + Arrays.toString(dose_info.toArray()));
-         
+         clearDoseNotesInfo ();
+          
          int row = frmMan.tableDoseInfo.getSelectedRow();
-         System.out.println(row);
-         
          int pk_dose = dose_info.get(row).getPk_dose();
-          System.out.println(pk_dose);
-          System.out.println(Integer.toString(pk_dose));
          
          dosenotes =  doseNotesDao.getDose_notesInfo(Integer.toString(pk_dose));
          
          int nResults = dosenotes.size();
-         
-         System.out.println(nResults);
         
          if ( ! (nResults > 0) ) {
               return;
          } 
          
+ 
          for (int i = 0; i < nResults; i++) {
             frmMan.getCbDoseNoteIndex().addItem(i+1);
          }
          
            frmMan.getCbDoseNoteIndex().setSelectedIndex(0); 
            frmMan.getCbDoseNoteIndex().setEnabled(true);
-           
-           
+          
      }
      
-     
-     
+         
      
      public void fillDoseNotesInfo () {
          
@@ -260,20 +254,33 @@ public class ManagementSearch {
          frmMan.getCbDoseNoteStatus().setSelectedItem(dose_notes.getStatus().name());
          frmMan.getTxtDoseNoteStatusDate().setText(dose_notes.getStatus_timestamp());
          
-         
-         
-         
      }
+    
+     
+     public void clearDoseNotesInfo () {
+         
+         frmMan.cbDoseNoteIndex.removeActionListener(Listeners);
+         frmMan.getCbDoseNoteIndex().removeAllItems();
+         frmMan.getCbDoseNoteIndex().setEnabled(false);
+         frmMan.cbDoseNoteIndex.addActionListener(Listeners);
+ 
+         frmMan.getTxtDoseNotesDateCreated().setText("");
+         frmMan.getTxtDoseNote().setText("");
+         frmMan.getCbDoseNoteLevel().setSelectedItem(1);
+      //   frmMan.getTxtDoseNoteLevelDate().setText(dose_notes.get);
+         frmMan.getCbDoseNoteStatus().setSelectedItem(1);
+         frmMan.getTxtDoseNoteStatusDate().setText("");
+   
+     }
+     
+     
      
     /*                          */
     // dosimeter
      
       public List fillDosimeterInfo (String worker_id) {
-        
-       //  List<Dose_info> dose_info =  doseinfodao.getDoseInfo(0, worker_id);
+  
          dosimeter_info =  dosimeterdao.getDosimetersInfo(0, worker_id);
-         
-  //       this.dose_info = dose_info;
             
          int nResults = dosimeter_info.size();
         
@@ -293,69 +300,77 @@ public class ManagementSearch {
              model.addRow(newRow);
          
          }
-         System.out.println(Arrays.toString(dosimeter_info.toArray()));
+  
          return dosimeter_info;
          
     }
     
      
      
-     /*
      
      
-     public void fillDoseNotesCBIndex () {
+     
+     public void fillDosimeterNotesCBIndex () {
          
+         clearDosimeterNotesInfo();
+        
+         int row = frmMan.tableDosimeterInfo.getSelectedRow();
+         int pk_dsmt = dosimeter_info.get(row).getPk_dsmt();
          
-         System.out.println("Estou no fill DNInfo" + Arrays.toString(dose_info.toArray()));
+         dosimeterNotes =  dosimeterNotesDao.getDosimetry_notes(Integer.toString(pk_dsmt));
          
-         int row = frmMan.tableDoseInfo.getSelectedRow();
-         System.out.println(row);
-         
-         int pk_dose = dose_info.get(row).getPk_dose();
-          System.out.println(pk_dose);
-          System.out.println(Integer.toString(pk_dose));
-         
-         dosenotes =  doseNotesDao.getDose_notesInfo(Integer.toString(pk_dose));
-         
-         int nResults = dosenotes.size();
-         
-         System.out.println(nResults);
+         int nResults = dosimeterNotes.size();
         
          if ( ! (nResults > 0) ) {
               return;
          } 
          
          for (int i = 0; i < nResults; i++) {
-            frmMan.getCbDoseNoteIndex().addItem(i+1);
+            frmMan.getCbDosimeterNotesIndex().addItem(i+1);
          }
          
-           frmMan.getCbDoseNoteIndex().setSelectedIndex(0); 
-           frmMan.getCbDoseNoteIndex().setEnabled(true);
-           
+           frmMan.getCbDosimeterNotesIndex().setSelectedIndex(0); 
+           frmMan.getCbDosimeterNotesIndex().setEnabled(true);
            
      }
      
      
      
      
-     public void fillDoseNotesInfo () {
+     public void fillDosimeterNotesInfo () {
          
-         int index = frmMan.getCbDoseNoteIndex().getSelectedIndex();
+         int index = frmMan.getCbDosimeterNotesIndex().getSelectedIndex();
          
-         Dose_notes dose_notes = dosenotes.get(index);
+         Dosimeter_notes dsmt_notes = dosimeterNotes.get(index);
          
-         frmMan.getTxtDoseNotesDateCreated().setText(dose_notes.getTimestamp());
-         frmMan.getTxtDoseNote().setText(dose_notes.getNote());
-         frmMan.getCbDoseNoteLevel().setSelectedItem(dose_notes.getAlert_level().name());
+         frmMan.getTxtDosimeterNotesDateCreated().setText(dsmt_notes.getTimestamp());
+         frmMan.getTxtDosimeterNote().setText(dsmt_notes.getNote());
+         frmMan.getCbDosimeterNotesAlert().setSelectedItem(dsmt_notes.getAlert_level().name());
       //   frmMan.getTxtDoseNoteLevelDate().setText(dose_notes.get);
-         frmMan.getCbDoseNoteStatus().setSelectedItem(dose_notes.getStatus().name());
-         frmMan.getTxtDoseNoteStatusDate().setText(dose_notes.getStatus_timestamp());
-         
-         
-         
+         frmMan.getCbDosimeterNotesStatus().setSelectedItem(dsmt_notes.getStatus().name());
+         frmMan.getTxtDosimeterNoteStatusDate().setText(dsmt_notes.getStatus_timestamp());
+        
          
      }
-     */
+    
+     
+       public void clearDosimeterNotesInfo () {
+         
+         frmMan.cbDosimeterNotesIndex.removeActionListener(Listeners);
+         frmMan.getCbDosimeterNotesIndex().removeAllItems();
+         frmMan.getCbDosimeterNotesIndex().setEnabled(false);
+         frmMan.cbDosimeterNotesIndex.removeActionListener(Listeners);
+         
+         frmMan.getTxtDosimeterNotesDateCreated().setText("");
+         frmMan.getTxtDosimeterNote().setText("");
+         frmMan.getCbDosimeterNotesAlert().setSelectedItem(1);
+      //   frmMan.getTxtDoseNoteLevelDate().setText(dose_notes.get);
+         frmMan.getCbDosimeterNotesStatus().setSelectedItem(1);
+         frmMan.getTxtDosimeterNoteStatusDate().setText("");
+   
+     }
+     
+     
      
      
 }

@@ -31,17 +31,17 @@ public class Dosimeter_notesDao {
    
     
       
-    public List<Dosimeter_notes> listDose_notes(int dsmt_id) {
+    public List<Dosimeter_notes> getDosimetry_notes(String dsmt_id) {
 		
 		final List<Dosimeter_notes> dsmt_notes = new ArrayList<>();
 		
 		try {
                     
                         String query = null;
-                        if (dsmt_id == 0) {
+                        if (dsmt_id.isEmpty()) {
                             query = "SELECT * from dosimeter_notes";
                         } else {
-                            query = "SELECT * FROM dosimeter_notes WHERE pk_dsmt= " + dsmt_id;
+                            query = "SELECT * FROM dosimeter_notes WHERE pk_dsmt= " + dsmt_id + " ORDER BY pk_notes_dsmt DESC";
                         }
                             
                             
@@ -51,6 +51,7 @@ public class Dosimeter_notesDao {
 				public List<Dosimeter_notes> mapping(ResultSet rset) throws SQLException {
 					while (rset.next()) {
 						Dosimeter_notes dsmt_note = new Dosimeter_notes();
+                                                dsmt_note.setPk_notes_dsmt( rset.getInt("pk_notes_dsmt"));
 						dsmt_note.setPk_dsmt( rset.getInt("pk_dsmt") );
 						dsmt_note.setNote( rset.getString("note") );
 						dsmt_note.setTimestamp( rset.getString("timestamp") );
