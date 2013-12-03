@@ -24,13 +24,17 @@ public final class ManagementSearchActionListener implements ActionListener, Mou
     public ManagementFrm frmMan;
     public ManagementSearch service;
     public Object [][] workerList = null;
+    public ActionListener cbIndexListener;
  //   private 
     
     
     public ManagementSearchActionListener(ManagementFrm frmMan) {
      
         this.frmMan = frmMan;
-        service = new ManagementSearch(this.frmMan);
+        cbIndexListener = this;
+        System.err.println(" MSA   " + cbIndexListener);
+        
+        service = new ManagementSearch(this.frmMan, this);
         addListeners();
         initState();
  //       inicializaTableModel();
@@ -46,6 +50,8 @@ public final class ManagementSearchActionListener implements ActionListener, Mou
         
         String command = aevent.getActionCommand();
         
+        System.out.println(command);
+        
         if (command.equalsIgnoreCase("searchManagement")) {
             
             service.searchWorkers();
@@ -57,6 +63,10 @@ public final class ManagementSearchActionListener implements ActionListener, Mou
         } else if (command.equalsIgnoreCase("cbDoseNoteIndex")) {
            
             service.fillDoseNotesInfo();
+            
+        } else if (command.equalsIgnoreCase("cbDosimeterNotesIndex")) {
+           
+            service.fillDosimeterNotesInfo();
         }
         
      
@@ -67,19 +77,23 @@ public final class ManagementSearchActionListener implements ActionListener, Mou
      */
     public void addListeners() {
         
+        System.out.println("noa add listenesrs --- " + this);
+        
         frmMan.searchBtSeach.addActionListener(this);
         frmMan.searchBtClean.addActionListener(this);
+ 
         frmMan.searchTable.addMouseListener(new java.awt.event.MouseAdapter() {
             @Override
             public void mouseClicked(java.awt.event.MouseEvent evt) {
                 searchTableMouseClicked(evt);
             }
         });
-   //     frmMan.searchTable.addMouseListener(this);
+
         
         frmMan.tableDoseInfo.addMouseListener(new java.awt.event.MouseAdapter() {
             @Override
             public void mouseClicked(java.awt.event.MouseEvent evt) {
+                System.out.println("evento tabela::::  " + evt);
                 tableDoseInfoMouseClicked(evt);
             }
         });
@@ -92,10 +106,12 @@ public final class ManagementSearchActionListener implements ActionListener, Mou
             }
         });
         
+       System.out.println("noa add listenesrs --- " + this);
         frmMan.cbDoseNoteIndex.addActionListener(this);
+
+        frmMan.cbDosimeterNotesIndex.addActionListener(this);
         
-        
-        
+      
     }
       
       
@@ -142,19 +158,16 @@ public final class ManagementSearchActionListener implements ActionListener, Mou
      //   List<Dose_info> dose_info = null;
         
         service.fillDosimeterNotesCBIndex(); //, workerList);
-        
-        
-        
-        
-
+  
         }    
-    
+      
     
     
     // generic listeners
     
     @Override
     public void mouseClicked(MouseEvent me) {
+        System.out.println(me);
        
     }
 
