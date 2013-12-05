@@ -12,8 +12,8 @@ import dosindchuc.model.entities.Dose_notes;
 import dosindchuc.model.entities.Dosimeter;
 import dosindchuc.model.entities.Dosimeter_notes;
 import dosindchuc.model.entities.Worker;
-import dosindchuc.model.entities.Help.create_enums;
-import dosindchuc.model.entities.Help.help_entities;
+import dosindchuc.model.entities.Help.SetEnums;
+import dosindchuc.model.entities.Help.DateAndTime;
 import java.util.Arrays;
 import java.util.Date;
 import java.util.List;
@@ -76,8 +76,8 @@ public class DaoTest {
 //               System.out.println(Arrays.toString(listdose.toArray()));
 //                
 //               
-//               System.out.println(create_enums.worker_department.Img.displayName());
-//               System.out.println(create_enums.Trimester.Mensal.displayName());
+//               System.out.println(SetEnums.worker_department.Img.displayName());
+//               System.out.println(SetEnums.Trimester.Mensal.displayName());
 //               
                 
                //Worker worker = new Worker();
@@ -85,9 +85,9 @@ public class DaoTest {
                 
               //  dao.select();
          prof = new Worker("28229", "Paulo Rachinhas", "rac", "19743876", "Portuguese", "194346929", 
-         "1969-06-08", create_enums.worker_sex.M, create_enums.worker_category.Médico, 
-         create_enums.worker_department.RT, "", "teste update Worker", "2013-14-15",
-                 create_enums.status.Activo, "2013-14-16");
+         "1969-06-08", SetEnums.worker_sex.M, SetEnums.worker_category.Médico, 
+         SetEnums.worker_department.RT, "", "teste update Worker", "2013-14-15",
+                 SetEnums.status.Activo, "2013-14-16");
 //	
 //         
 //         prof = daow.insert(prof);
@@ -104,8 +104,8 @@ public class DaoTest {
          
                
                Dosimeter dsmt;
-               dsmt= new Dosimeter(pkid, "1151", "Label", create_enums.dsmt_type.CI, create_enums.dsmt_periodicity.Trimestral, 
-                       create_enums.dsmt_supplier.Fluencia, null, null, create_enums.status.Activo, null);
+               dsmt= new Dosimeter(pkid, "1151", "Label", SetEnums.dsmt_type.CI, SetEnums.dsmt_periodicity.Trimestral, 
+                       SetEnums.dsmt_supplier.Fluencia, null, null, SetEnums.status.Activo, null);
                
              // dsmt = daod.insert(dsmt);
                
@@ -121,7 +121,7 @@ public class DaoTest {
                
          //      Dose_infoDao dao_dinfo = new Dose_infoDao();
                
-////               Dose_info dose = new Dose_info(235, pkid, "2013", create_enums.Trimester.NoDef, create_enums.month.Jan, 0.23f, 0.487f, "minha dose", "2013-11-14");
+////               Dose_info dose = new Dose_info(235, pkid, "2013", SetEnums.Trimester.NoDef, SetEnums.month.Jan, 0.23f, 0.487f, "minha dose", "2013-11-14");
                
   //             dose = dao_dinfo.insert(dose);
                
@@ -162,7 +162,7 @@ public class DaoTest {
                
 //               Dose_notesDao dao_dnotes = new Dose_notesDao();
                
-//               Dose_notes dnotes = new Dose_notes(2400, "foi resol vido probs com a leitura", "2013-11-15 12:13:10", create_enums.note_status.C, "2013-11-15 12:13:10", create_enums.note_alertlevel.N);
+//               Dose_notes dnotes = new Dose_notes(2400, "foi resol vido probs com a leitura", "2013-11-15 12:13:10", SetEnums.note_status.C, "2013-11-15 12:13:10", SetEnums.note_alertlevel.N);
                
         //       dnotes = dao_dnotes.update(dnotes,1);
                
@@ -173,7 +173,7 @@ public class DaoTest {
                
 /*               Dosimeter_notesDao dao_dsmtnotes = new Dosimeter_notesDao();
                
-               Dosimeter_notes dsmtnotes = new Dosimeter_notes(235, "foi resol vido probs com a leitura", "2013-11-15 12:13:10", create_enums.note_status.C, "2013-11-15 12:13:10", create_enums.note_alertlevel.C);
+               Dosimeter_notes dsmtnotes = new Dosimeter_notes(235, "foi resol vido probs com a leitura", "2013-11-15 12:13:10", SetEnums.note_status.C, "2013-11-15 12:13:10", SetEnums.note_alertlevel.C);
                
                //dsmtnotes = dao_dsmtnotes.insert(dsmtnotes);
              //  dsmtnotes = dao_dsmtnotes.update(dsmtnotes,1);

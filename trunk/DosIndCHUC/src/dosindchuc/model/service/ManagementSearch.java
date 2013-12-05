@@ -11,14 +11,12 @@ import dosindchuc.model.dao.Dose_notesDao;
 import dosindchuc.model.dao.DosimeterDao;
 import dosindchuc.model.dao.Dosimeter_notesDao;
 import dosindchuc.model.dao.Help.DaoHelper;
-import dosindchuc.model.dao. WorkerDao;
+import dosindchuc.model.dao.WorkerDao;
 import dosindchuc.model.entities.Dose_info;
 import dosindchuc.model.entities.Dose_notes;
 import dosindchuc.model.entities.Dosimeter;
 import dosindchuc.model.entities.Dosimeter_notes;
 import dosindchuc.model.entities.Worker;
-import java.awt.event.ActionListener;
-import java.util.Arrays;
 import java.util.List;
 import javax.swing.table.DefaultTableModel;
 
@@ -48,6 +46,7 @@ public class ManagementSearch {
     private List<Dosimeter_notes> dosimeterNotes;
     
     private ManagementSearchActionListener Listeners;
+
   
     
     
@@ -66,24 +65,26 @@ public class ManagementSearch {
 
     
     
+    
+    /* ###############################################  */
+    /*                                                  */ 
+    /*               Search worker                      */
+    /*                                                  */ 
+    /* ###############################################  */ 
+     
+    
     public Object [][] searchWorkers() {
-        
- //       Object [][] workerList = null;
+
         int nFields = 6; // numeros de campos retirados da base de dados
 
         String[][][] searchWhere = {{{"name", "LIKE", frmMan.getSearchWorkerName().getText()}},
             {{"department", "null", frmMan.getSearchCBdepartment().getSelectedItem().toString()}},
             {{"category", "null", frmMan.getSearchCBCategory().getSelectedItem().toString()}},
             {{"id_mec", "LIKE", frmMan.getSearchTxtMec().getText()}}};
-//           
 
         workerList = daoHelper.executeSelectivePreparedQuery("worker", "pk_id, id_mec, name, category, department, status", searchWhere);
        
-   
         int nResults = workerList.length;
-        
-        System.out.println(" nresu = " + nResults);
-
           
         model = frmMan.setSettingsSearchTable();
 
@@ -104,7 +105,8 @@ public class ManagementSearch {
         
     }
     
-    /*                     */
+    
+    
     
     public void cleanWorkers() {
         
@@ -120,28 +122,33 @@ public class ManagementSearch {
     
     
     
-    /*     */
     
+    /* ###############################################  */
+    /*                                                  */ 
+    /*        Fill All Management info                  */
+    /*                                                  */ 
+    /* ###############################################  */ 
+     
     
     public void fillAllManagement() { 
         
-       
         String worker_id =  this.workerList[frmMan.searchTable.getSelectedRow()][0].toString();
-    
+
         fillWorkerInfo(worker_id);
-        
-         System.out.println(" preenchimento - all " + worker_id );
-         
         fillDoseInfo(worker_id);
-        
         fillDosimeterInfo(worker_id);
-      
     
     }
     
     
     
-    /*             */
+    
+    /* ###############################################  */
+    /*                                                  */ 
+    /*               Worker  info                       */
+    /*                                                  */ 
+    /* ###############################################  */ 
+    
     
     public void fillWorkerInfo (String worker_id) {
         
@@ -173,14 +180,18 @@ public class ManagementSearch {
         frmMan.getTxtWorkerCreateTimeStamp().setText(worker.getTimestamp());
         
         frmMan.getCbWorkerStatus().setSelectedItem(worker.getStatus().name()); 
-         
         
     }
     
     
     
-    /*                      */
- 
+    
+    /* ###############################################  */
+    /*                                                  */ 
+    /*             Fill Worker dose info                */
+    /*                                                  */ 
+    /* ###############################################  */ 
+     
     
      public List fillDoseInfo (String worker_id) {
         
@@ -192,15 +203,14 @@ public class ManagementSearch {
              dose_info = null;
              return dose_info;
          } 
-//      
          
          model = frmMan.setSettingsDoseTable();
         
          for (int i = 0; i < nResults; i++) {
             
              Dose_info worker_dose = dose_info.get(i);
-             Object newRow[] = new Object [] {worker_dose.getYear(), worker_dose.getTrimester(), worker_dose.getMonth(), worker_dose.getHp007()
-                     , worker_dose.getHp10(), worker_dose.getComments(), worker_dose.getLastchange()};
+             Object newRow[] = new Object [] {worker_dose.getYear(), worker_dose.getTrimester(), worker_dose.getMonth()
+                     , worker_dose.getHp007(), worker_dose.getHp10(), worker_dose.getComments(), worker_dose.getLastchange()};
              model.addRow(newRow);
          
          }
@@ -209,10 +219,7 @@ public class ManagementSearch {
          
     }
     
-     
-     
-     
-     /*                      */
+  
      
      public void fillDoseNotesCBIndex () {
          
@@ -228,7 +235,6 @@ public class ManagementSearch {
          if ( ! (nResults > 0) ) {
               return;
          } 
-         
  
          for (int i = 0; i < nResults; i++) {
             frmMan.getCbDoseNoteIndex().addItem(i+1);
@@ -275,8 +281,11 @@ public class ManagementSearch {
      
      
      
-    /*                          */
-    // dosimeter
+    /* ###############################################  */
+    /*                                                  */ 
+    /*             Fill Worker dosimeter  info          */
+    /*                                                  */ 
+    /* ###############################################  */ 
      
       public List fillDosimeterInfo (String worker_id) {
   
@@ -288,8 +297,7 @@ public class ManagementSearch {
              dosimeter_info = null;
              return dosimeter_info;
          } 
-//      
-         
+        
          model = frmMan.setSettingsDosimeterTable();
         
          for (int i = 0; i < nResults; i++) {
@@ -305,9 +313,6 @@ public class ManagementSearch {
          
     }
     
-     
-     
-     
      
      
      public void fillDosimeterNotesCBIndex () {
@@ -369,8 +374,6 @@ public class ManagementSearch {
          frmMan.getTxtDosimeterNoteStatusDate().setText("");
    
      }
-     
-     
-     
+       
      
 }

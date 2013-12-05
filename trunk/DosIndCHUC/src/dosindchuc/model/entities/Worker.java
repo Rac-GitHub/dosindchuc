@@ -7,10 +7,10 @@ package dosindchuc.model.entities;
 //
 
 
-import dosindchuc.model.entities.Help.create_enums.status;
-import dosindchuc.model.entities.Help.create_enums.worker_category;
-import dosindchuc.model.entities.Help.create_enums.worker_department;
-import dosindchuc.model.entities.Help.create_enums.worker_sex;
+import dosindchuc.model.entities.Help.SetEnums.status;
+import dosindchuc.model.entities.Help.SetEnums.worker_category;
+import dosindchuc.model.entities.Help.SetEnums.worker_department;
+import dosindchuc.model.entities.Help.SetEnums.worker_sex;
 import java.util.Objects;
 
 
@@ -337,6 +337,22 @@ public class Worker {
                 + sex + ", category=" + category + ", department=" + department + ", sector=" + sector + ", comments=" 
                 + comments + ", timestamp=" + timestamp + ", status=" + status + ", status_timestamp=" 
                 + status_timestamp + ", lastchange=" + lastchange + '}';
+    }
+
+    public void setStatus(String name) {
+        status.valueOf(name);
+    }
+
+    public void setSex(String name) {
+        sex.valueOf(name);
+    }
+
+    public void setCategory(String name) {
+        sex.valueOf(name);
+    }
+
+    public void setDepartment(String name) {
+        department.valueOf(name);
     }
     
     

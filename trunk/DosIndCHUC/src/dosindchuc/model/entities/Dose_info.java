@@ -4,9 +4,9 @@
  */
 package dosindchuc.model.entities;
 
-import dosindchuc.model.entities.Help.help_entities;
-import dosindchuc.model.entities.Help.create_enums.Trimester;
-import dosindchuc.model.entities.Help.create_enums.month;
+import dosindchuc.model.entities.Help.DateAndTime;
+import dosindchuc.model.entities.Help.SetEnums.Trimester;
+import dosindchuc.model.entities.Help.SetEnums.month;
 import java.util.Objects;
 
 /**
@@ -127,7 +127,7 @@ public class Dose_info {
     }
 
     public void setTimestamp(String timestamp) {
-        this.timestamp = new help_entities().currDateTime();
+        this.timestamp = new DateAndTime().currDateTime();
     }
 
     public int getPk_dsmt() {

@@ -4,7 +4,7 @@
  */
 package dosindchuc.model.entities;
 
-import dosindchuc.model.entities.Help.create_enums.worker_category;
+import dosindchuc.model.entities.Help.SetEnums.worker_category;
 import java.util.Objects;
 
 /**

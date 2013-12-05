@@ -5,13 +5,12 @@
 package dosindchuc.UI.controller;
 
 import dosindchuc.UI.swing.ManagementFrm;
-import dosindchuc.model.entities.Dose_info;
 import dosindchuc.model.service.ManagementSearch;
+import dosindchuc.model.service.ManagementWorker;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
-import java.util.List;
 
 
 /**
@@ -22,21 +21,24 @@ public final class ManagementSearchActionListener implements ActionListener, Mou
 
     
     public ManagementFrm frmMan;
-    public ManagementSearch service;
+    public ManagementSearch serviceSearch;
+    private ManagementWorker serviceWorker;
     public Object [][] workerList = null;
-    public ActionListener cbIndexListener;
+    public ActionListener Listeners;
+
  //   private 
     
     
     public ManagementSearchActionListener(ManagementFrm frmMan) {
      
         this.frmMan = frmMan;
-        cbIndexListener = this;
-        System.err.println(" MSA   " + cbIndexListener);
+        Listeners = this;
         
-        service = new ManagementSearch(this.frmMan, this);
+        serviceSearch = new ManagementSearch(this.frmMan, this);
+        serviceWorker = new ManagementWorker(this.frmMan, this);
+        
         addListeners();
-        initState();
+ //       initState();
  //       inicializaTableModel();
     }
     
@@ -54,19 +56,26 @@ public final class ManagementSearchActionListener implements ActionListener, Mou
         
         if (command.equalsIgnoreCase("searchManagement")) {
             
-            service.searchWorkers();
+            serviceSearch.searchWorkers();
           
         } else if (command.equalsIgnoreCase("cleanManagement")) {
            
-            service.cleanWorkers();
+            serviceSearch.cleanWorkers();
             
         } else if (command.equalsIgnoreCase("cbDoseNoteIndex")) {
            
-            service.fillDoseNotesInfo();
+            serviceSearch.fillDoseNotesInfo();
             
         } else if (command.equalsIgnoreCase("cbDosimeterNotesIndex")) {
            
-            service.fillDosimeterNotesInfo();
+            serviceSearch.fillDosimeterNotesInfo();
+            
+            
+           /*   for worker */ 
+            
+        } else if (command.equalsIgnoreCase("btNewWorker")) {
+           
+            serviceWorker.newWorker();
         }
         
      
@@ -111,53 +120,38 @@ public final class ManagementSearchActionListener implements ActionListener, Mou
 
         frmMan.cbDosimeterNotesIndex.addActionListener(this);
         
-      
+        // buttons Worker
+        
+        frmMan.btWorkerNew.addActionListener(this);
+        
+        
+     
     }
-      
-      
-      private void initState () {
+
     
-          frmMan.getCbDoseNoteIndex().setEnabled(false);
-          frmMan.getCbDosimeterNotesIndex().setEnabled(false);
-          
- //         DisablePanel.disable();
-                
-    } 
-
-
+    
     public void searchTableMouseClicked(MouseEvent mevent) {
         
         System.out.println(mevent);
         
         if (mevent.getClickCount() == 2) {
             
-            service.fillAllManagement(); //, workerList);
-
+            
+            serviceSearch.fillAllManagement();
         }    
         
     }
     
     public void tableDoseInfoMouseClicked(MouseEvent mevent) {
-        
-        System.out.println(mevent);
-        
-     //   List<Dose_info> dose_info = null;
-        
-        service.fillDoseNotesCBIndex(); //, workerList);
-        
-        
-        
-        
-
+ 
+        serviceSearch.fillDoseNotesCBIndex();
+ 
         }    
-        
+ 
+    
     public void tableDosimeterInfoMouseClicked(MouseEvent mevent) {
         
-        System.out.println(mevent);
-        
-     //   List<Dose_info> dose_info = null;
-        
-        service.fillDosimeterNotesCBIndex(); //, workerList);
+        serviceSearch.fillDosimeterNotesCBIndex();
   
         }    
       
