@@ -9,7 +9,7 @@ import dosindchuc.model.dao.Help.DaoHelper;
 import dosindchuc.model.dao.Help.QueryMapper;
 import dosindchuc.model.dao.Help.UpdateDaoException;
 import dosindchuc.model.entities.Dose_notes;
-import dosindchuc.model.entities.Help.create_enums;
+import dosindchuc.model.entities.Help.SetEnums;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
@@ -61,9 +61,9 @@ public class Dose_notesDao {
 						dose_note.setPk_dose( rset.getInt("pk_dose") );
 						dose_note.setNote( rset.getString("note") );
 						dose_note.setTimestamp( rset.getString("timestamp") );
-                                                dose_note.setStatus(create_enums.note_status.valueOf( rset.getString("status") ) );
+                                                dose_note.setStatus(SetEnums.note_status.valueOf( rset.getString("status") ) );
                                                 dose_note.setStatus_timestamp( rset.getString("status_timestamp") );
-                                                dose_note.setAlert_level(create_enums.note_alertlevel.valueOf( rset.getString("alert_level") ) );
+                                                dose_note.setAlert_level(SetEnums.note_alertlevel.valueOf( rset.getString("alert_level") ) );
                                                 dose_note.setLastchange( rset.getString("lastchange") );
                                                 dose_notes.add(dose_note);
 					}

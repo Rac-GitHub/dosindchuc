@@ -11,7 +11,12 @@ import java.util.Date;
  *
  * @author ir
  */
-public class help_entities {
+public class DateAndTime {
+
+    
+    public DateAndTime() {
+    
+    }
 
     
      

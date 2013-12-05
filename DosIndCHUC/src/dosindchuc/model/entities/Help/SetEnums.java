@@ -9,7 +9,7 @@ package dosindchuc.model.entities.Help;
  * @author ir
  */
 
-public class create_enums {
+public class SetEnums {
     
     
     
