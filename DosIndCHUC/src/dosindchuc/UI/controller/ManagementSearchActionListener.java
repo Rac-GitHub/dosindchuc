@@ -4,6 +4,7 @@
  */
 package dosindchuc.UI.controller;
 
+import dosindchuc.UI.swing.Help.ManagementClean;
 import dosindchuc.UI.swing.ManagementFrm;
 import dosindchuc.model.service.ManagementSearch;
 import dosindchuc.model.service.ManagementWorker;
@@ -20,8 +21,9 @@ import java.awt.event.MouseListener;
 public final class ManagementSearchActionListener implements ActionListener, MouseListener {
 
     
-    public ManagementFrm frmMan;
-    public ManagementSearch serviceSearch;
+    private ManagementFrm frmMan;
+    private ManagementClean serviceClean;
+    private ManagementSearch serviceSearch;
     private ManagementWorker serviceWorker;
     public Object [][] workerList = null;
     public ActionListener Listeners;
@@ -34,12 +36,12 @@ public final class ManagementSearchActionListener implements ActionListener, Mou
         this.frmMan = frmMan;
         Listeners = this;
         
+        serviceClean = new ManagementClean(this.frmMan);
         serviceSearch = new ManagementSearch(this.frmMan, this);
         serviceWorker = new ManagementWorker(this.frmMan, this);
         
         addListeners();
- //       initState();
- //       inicializaTableModel();
+
     }
     
     
@@ -54,32 +56,25 @@ public final class ManagementSearchActionListener implements ActionListener, Mou
         
         System.out.println(command);
         
-        if (command.equalsIgnoreCase("searchManagement")) {
-            
-            serviceSearch.searchWorkers();
-          
-        } else if (command.equalsIgnoreCase("cleanManagement")) {
-           
-            serviceSearch.cleanWorkers();
-            
-        } else if (command.equalsIgnoreCase("cbDoseNoteIndex")) {
-           
-            serviceSearch.fillDoseNotesInfo();
-            
-        } else if (command.equalsIgnoreCase("cbDosimeterNotesIndex")) {
-           
-            serviceSearch.fillDosimeterNotesInfo();
-            
-            
-           /*   for worker */ 
-            
-        } else if (command.equalsIgnoreCase("btNewWorker")) {
-           
-            serviceWorker.newWorker();
+        switch (command) {
+            case "searchManagement":  
+                     serviceClean.cleanAllInfo();
+                     serviceSearch.searchWorkers();
+                     break;
+            case "cleanManagement":  serviceClean.cleanAllInfoWithSearch();
+                     break;
+            case "cbDoseNoteIndex":  serviceSearch.fillDoseNotesInfo();
+                     break;
+            case "cbDosimeterNotesIndex":  serviceSearch.fillDosimeterNotesInfo();
+                     break;
+            case "btNewWorker":  serviceWorker.newWorker();
+                     break;
+            case "btSaveWorker":  serviceWorker.saveWorker();
+                     break;
         }
-        
-     
     }
+    
+    
     
       /**
      *
@@ -120,9 +115,12 @@ public final class ManagementSearchActionListener implements ActionListener, Mou
 
         frmMan.cbDosimeterNotesIndex.addActionListener(this);
         
+        
+        
         // buttons Worker
         
         frmMan.btWorkerNew.addActionListener(this);
+        frmMan.btWorkerSave.addActionListener(this);
         
         
      
@@ -131,12 +129,8 @@ public final class ManagementSearchActionListener implements ActionListener, Mou
     
     
     public void searchTableMouseClicked(MouseEvent mevent) {
-        
-        System.out.println(mevent);
-        
+ 
         if (mevent.getClickCount() == 2) {
-            
-            
             serviceSearch.fillAllManagement();
         }    
         
@@ -155,6 +149,9 @@ public final class ManagementSearchActionListener implements ActionListener, Mou
   
         }    
       
+    
+    
+    
     
     
     // generic listeners

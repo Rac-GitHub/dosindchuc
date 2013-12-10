@@ -5,6 +5,9 @@
 package dosindchuc.model.service;
 
 import dosindchuc.UI.controller.ManagementSearchActionListener;
+import dosindchuc.UI.swing.Help.ManagementButtons;
+import dosindchuc.UI.swing.Help.ManagementClean;
+import dosindchuc.UI.swing.Help.ManagementFields;
 import dosindchuc.UI.swing.ManagementFrm;
 import dosindchuc.model.dao.Dose_infoDao;
 import dosindchuc.model.dao.Dose_notesDao;
@@ -16,10 +19,11 @@ import dosindchuc.model.entities.Dose_info;
 import dosindchuc.model.entities.Dose_notes;
 import dosindchuc.model.entities.Dosimeter;
 import dosindchuc.model.entities.Dosimeter_notes;
-import dosindchuc.model.entities.Help.SetEnums;
-import dosindchuc.model.entities.Help.SetEnums.status;
 import dosindchuc.model.entities.Help.DateAndTime;
+import dosindchuc.model.entities.Help.SetEnums;
 import dosindchuc.model.entities.Worker;
+import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
 import javax.swing.table.DefaultTableModel;
 
@@ -47,7 +51,10 @@ public class ManagementWorker {
     
     private ManagementSearchActionListener Listeners;
     
-    private DateAndTime dateAndTime;
+    private DateAndTime dateAndTime = new DateAndTime();
+    private ManagementFields setFieldsState;
+    private ManagementButtons setButtonsState;
+    private ManagementClean setCleanState;
     
     
     public ManagementWorker (ManagementFrm frmMan, ManagementSearchActionListener Listeners) {
@@ -59,7 +66,11 @@ public class ManagementWorker {
         doseNotesDao = new Dose_notesDao();
         dosimeterdao = new DosimeterDao();
         dosimeterNotesDao = new Dosimeter_notesDao();
+        setFieldsState = new ManagementFields(this.frmMan);
+        setButtonsState = new ManagementButtons(this.frmMan);
+        setCleanState = new ManagementClean(this.frmMan);
         this.Listeners = Listeners;
+        
    
     
     }
@@ -74,23 +85,30 @@ public class ManagementWorker {
     
     private Worker getWorkerInfo () {
         
-        Worker worker = null;
-        
-        worker.setName(frmMan.getTxtWorkerName().toString());
-        worker.setNick(frmMan.getTxtWorkerNick().toString());
-        worker.setStatus(frmMan.getCbWorkerStatus().getSelectedItem().toString());
-        worker.setId_mec(frmMan.getTxtWorkerMec().toString());
-// birth yyyy-mm-dd 
-        worker.setBirth(frmMan.getTxtWorkerBirthYear().toString() + "-" + frmMan.getTxtWorkerBirthMonth().toString() + "-" + frmMan.getTxtWorkerBirthDay().toString());
-//
-        worker.setBI(frmMan.getTxtWorkerBI().toString());
-        worker.setSex(frmMan.getCbWorkerSex().getSelectedItem().toString());
-        worker.setCategory(frmMan.getCbWorkerCat().getSelectedItem().toString());
-        worker.setDepartment(frmMan.getCbWorkerDept().getSelectedItem().toString());
-        worker.setSector(frmMan.getTxtWorkerSector().toString());
-        worker.setNif(frmMan.getTxtWorkerNIF().toString());
-        worker.setNationality(frmMan.getTxtWorkerNationality().toString());
-        worker.setComments(frmMan.getTxtWorkerComments().toString());
+        Worker worker = new Worker();
+    
+        worker.setName(this.frmMan.getTxtWorkerName().getText());
+        worker.setNick(this.frmMan.getTxtWorkerNick().getText());
+        worker.setStatus(SetEnums.status.valueOf(this.frmMan.getCbWorkerStatus().getSelectedItem().toString()));
+        worker.setId_mec(this.frmMan.getTxtWorkerMec().getText());
+ // birth yyyy-mm-dd
+        String birthYear = this.frmMan.getTxtWorkerBirthYear().getText();
+        String birthMonth = this.frmMan.getTxtWorkerBirthMonth().getText();
+        String birthDay = this.frmMan.getTxtWorkerBirthDay().getText();
+        if ( birthYear.isEmpty() || birthMonth.isEmpty() || birthDay.isEmpty() ) {
+            worker.setBirth("");
+        } else {
+        worker.setBirth(birthYear + "-" + birthMonth + "-" + birthDay);
+        }
+//        
+        worker.setBI(this.frmMan.getTxtWorkerBI().getText());
+        worker.setSex(SetEnums.worker_sex.valueOf(this.frmMan.cbWorkerSex.getSelectedItem().toString()));
+        worker.setCategory(SetEnums.worker_category.valueOf(this.frmMan.getCbWorkerCat().getSelectedItem().toString()));
+        worker.setDepartment(SetEnums.worker_department.valueOf(this.frmMan.getCbWorkerDept().getSelectedItem().toString()));
+        worker.setSector(this.frmMan.getTxtWorkerSector().getText());
+        worker.setNif(this.frmMan.getTxtWorkerNIF().getText());
+        worker.setNationality(this.frmMan.getTxtWorkerNationality().getText());
+        worker.setComments(this.frmMan.getTxtWorkerComments().getText());
 //      creation date and time
         worker.setTimestamp(dateAndTime.currDateTime());
         worker.setStatus_timestamp(dateAndTime.currDateTime());
@@ -100,16 +118,47 @@ public class ManagementWorker {
     }
     
     
+  
+    
+    
+    
     public void newWorker () {
         
-        Worker worker = getWorkerInfo();
+        /* tudo ok para escrever */
         
+        setFieldsState.setWorkerAllEdit(true);
+        setButtonsState.setAllWorkerBtsInitAndNew(false);
+        setCleanState.cleanAllInfo();
         
-        
+        this.frmMan.txtInfoAction.setText("Inserting a New Worker");
+
         
     }
     
     
+    // insert in database 
+    
+    public void saveWorker () {
+        
+        Worker worker = getWorkerInfo ();
+        
+  //      ArrayList<ArrayList<Object>> hhh1 = hhhh(worker);
+        
+        
+ //       System.out.println("saveW -- " + hhh1.get(6).get(2));
+        
+        worker.setPk_id(workerdao.prepareToInsertWorker(worker));
+        
+        
+        
+        setFieldsState.setWorkerAllEdit(false);
+        
+        this.frmMan.txtInfoAction.setText("Worker saved into database");
+        
+        // actualiza info
+        
+        
+    }
     
     
 }
