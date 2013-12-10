@@ -7,6 +7,7 @@ package dosindchuc.model.entities;
 //
 
 
+import dosindchuc.model.entities.Help.SetEnums;
 import dosindchuc.model.entities.Help.SetEnums.status;
 import dosindchuc.model.entities.Help.SetEnums.worker_category;
 import dosindchuc.model.entities.Help.SetEnums.worker_department;
@@ -47,6 +48,8 @@ public class Worker {
   // constructors
     public Worker() {
 
+        this.nationality = "Portuguese";
+        
     }
 
     public Worker(int pk_id, String id_mec, String name, String nick, String nationality, String nif, 
@@ -339,6 +342,8 @@ public class Worker {
                 + status_timestamp + ", lastchange=" + lastchange + '}';
     }
 
+    
+    
     public void setStatus(String name) {
         status.valueOf(name);
     }

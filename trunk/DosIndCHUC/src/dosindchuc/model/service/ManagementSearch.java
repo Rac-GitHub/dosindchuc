@@ -107,22 +107,6 @@ public class ManagementSearch {
     
     
     
-    
-    public void cleanWorkers() {
-        
-        frmMan.getSearchWorkerName().setText("");
-        frmMan.getSearchCBdepartment().setSelectedItem("NoDef");
-        frmMan.getSearchCBCategory().setSelectedItem("NoDef");
-        frmMan.getSearchTxtMec().setText("");
-//        
-        model = frmMan.setSettingsSearchTable();
-        
-        
-    }
-    
-    
-    
-    
     /* ###############################################  */
     /*                                                  */ 
     /*        Fill All Management info                  */

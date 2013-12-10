@@ -5,7 +5,9 @@
 package dosindchuc.UI.swing;
 
 
+import dosindchuc.UI.swing.Help.ManagementFields;
 import dosindchuc.UI.controller.ManagementSearchActionListener;
+import dosindchuc.UI.swing.Help.ManagementButtons;
 import javax.swing.JButton;
 import javax.swing.JComboBox;
 import javax.swing.JTabbedPane;
@@ -21,7 +23,8 @@ import javax.swing.table.DefaultTableModel;
 public class ManagementFrm extends javax.swing.JFrame {
 
     ManagementSearchActionListener listeners;
-    ManagementFieldStates setFieldsState;
+    ManagementFields setFieldsState;
+    ManagementButtons setButtonsState;
     
     
     /**
@@ -32,7 +35,8 @@ public class ManagementFrm extends javax.swing.JFrame {
         initComponents();
    
         listeners = new ManagementSearchActionListener(this);
-        setFieldsState = new ManagementFieldStates(this);
+        setFieldsState = new ManagementFields(this);
+        setButtonsState = new ManagementButtons(this);
         
         initState ();
        
@@ -999,6 +1003,7 @@ public class ManagementFrm extends javax.swing.JFrame {
         getCbDoseNoteIndex().setEnabled(false);
         getCbDosimeterNotesIndex().setEnabled(false);
         setFieldsState.setAllEdit(false,false,false);
+        setButtonsState.setAllWorkerBtsInitAndNew(true);
                 
     } 
     

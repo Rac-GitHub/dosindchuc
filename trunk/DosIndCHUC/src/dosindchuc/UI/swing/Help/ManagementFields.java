@@ -2,19 +2,21 @@
  * To change this template, choose Tools | Templates
  * and open the template in the editor.
  */
-package dosindchuc.UI.swing;
+package dosindchuc.UI.swing.Help;
+
+import dosindchuc.UI.swing.ManagementFrm;
 
 /**
  *
  * @author ir
  */
-public class ManagementFieldStates {
+public class ManagementFields {
     
     private ManagementFrm frmMan;
     
     
     
-    public ManagementFieldStates(ManagementFrm frmMan) {
+    public ManagementFields(ManagementFrm frmMan) {
 
         this.frmMan = frmMan;
         
@@ -29,7 +31,7 @@ public class ManagementFieldStates {
     }
     
     
-    private void setWorkerAllEdit (boolean workerEdit) {
+    public void setWorkerAllEdit (boolean workerEdit) {
         
         this.frmMan.txtWorkerName.setEditable(workerEdit);
         this.frmMan.txtWorkerBI.setEditable(workerEdit);
@@ -49,24 +51,25 @@ public class ManagementFieldStates {
         
     }
     
-     private void setAllDosimeterEdit (boolean dsmtEdit) {
+     public void setAllDosimeterEdit (boolean dsmtEdit) {
         
         this.frmMan.txtDosimeterNote.setEditable(dsmtEdit);
         this.frmMan.cbDosimeterNotesIndex.setEnabled(dsmtEdit);
-        this.frmMan.cbDosimeterNotesAlert.setEnabled(dsmtEdit);;
-        this.frmMan.cbDosimeterNotesStatus.setEnabled(dsmtEdit);;
+        this.frmMan.cbDosimeterNotesAlert.setEnabled(dsmtEdit);
+        this.frmMan.cbDosimeterNotesStatus.setEnabled(dsmtEdit);
         
     }
     
-     private void setAllDoseEdit (boolean doseEdit) {
+     public void setAllDoseEdit (boolean doseEdit) {
         
         this.frmMan.txtDoseNote.setEditable(doseEdit);
         this.frmMan.cbDoseNoteIndex.setEnabled(doseEdit);
-        this.frmMan.cbDoseNoteLevel.setEnabled(doseEdit);;
-        this.frmMan.cbDoseNoteStatus.setEnabled(doseEdit);;
+        this.frmMan.cbDoseNoteLevel.setEnabled(doseEdit);
+        this.frmMan.cbDoseNoteStatus.setEnabled(doseEdit);
         
     }
 
+   
      
-    
+     
 }
