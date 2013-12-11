@@ -27,6 +27,7 @@ public final class ManagementSearchActionListener implements ActionListener, Mou
     private ManagementWorker serviceWorker;
     public Object [][] workerList = null;
     public ActionListener Listeners;
+    private String worker_id = null;
 
  //   private 
     
@@ -38,7 +39,7 @@ public final class ManagementSearchActionListener implements ActionListener, Mou
         
         serviceClean = new ManagementClean(this.frmMan);
         serviceSearch = new ManagementSearch(this.frmMan, this);
-        serviceWorker = new ManagementWorker(this.frmMan, this);
+        serviceWorker = new ManagementWorker(this.frmMan);
         
         addListeners();
 
@@ -69,7 +70,11 @@ public final class ManagementSearchActionListener implements ActionListener, Mou
                      break;
             case "btNewWorker":  serviceWorker.newWorker();
                      break;
-            case "btSaveWorker":  serviceWorker.saveWorker();
+            case "btSaveWorkerNew":  worker_id = serviceWorker.saveNewWorker();
+                     break;
+            case "btUpdateWorker":  serviceWorker.updateWorker();
+                     break;
+            case "btSaveWorkerUpdate":  serviceWorker.saveUpdateWorker(worker_id);
                      break;
         }
     }
@@ -120,7 +125,9 @@ public final class ManagementSearchActionListener implements ActionListener, Mou
         // buttons Worker
         
         frmMan.btWorkerNew.addActionListener(this);
-        frmMan.btWorkerSave.addActionListener(this);
+        frmMan.btSaveWorkerNew.addActionListener(this);
+        frmMan.btWorkerUpdate.addActionListener(this);
+        frmMan.btSaveWorkerUpdate.addActionListener(this);
         
         
      
@@ -128,11 +135,16 @@ public final class ManagementSearchActionListener implements ActionListener, Mou
 
     
     
-    public void searchTableMouseClicked(MouseEvent mevent) {
+    public String searchTableMouseClicked(MouseEvent mevent) {
  
+        worker_id = null;
         if (mevent.getClickCount() == 2) {
-            serviceSearch.fillAllManagement();
+            worker_id = serviceSearch.fillAllManagement();
+            frmMan.btWorkerUpdate.setEnabled(true);
+  
         }    
+        
+        return worker_id;
         
     }
     

@@ -4,28 +4,14 @@
  */
 package dosindchuc.model.service;
 
-import dosindchuc.UI.controller.ManagementSearchActionListener;
 import dosindchuc.UI.swing.Help.ManagementButtons;
 import dosindchuc.UI.swing.Help.ManagementClean;
 import dosindchuc.UI.swing.Help.ManagementFields;
 import dosindchuc.UI.swing.ManagementFrm;
-import dosindchuc.model.dao.Dose_infoDao;
-import dosindchuc.model.dao.Dose_notesDao;
-import dosindchuc.model.dao.DosimeterDao;
-import dosindchuc.model.dao.Dosimeter_notesDao;
-import dosindchuc.model.dao.Help.DaoHelper;
 import dosindchuc.model.dao.WorkerDao;
-import dosindchuc.model.entities.Dose_info;
-import dosindchuc.model.entities.Dose_notes;
-import dosindchuc.model.entities.Dosimeter;
-import dosindchuc.model.entities.Dosimeter_notes;
 import dosindchuc.model.entities.Help.DateAndTime;
 import dosindchuc.model.entities.Help.SetEnums;
 import dosindchuc.model.entities.Worker;
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.List;
-import javax.swing.table.DefaultTableModel;
 
 /**
  *
@@ -33,45 +19,25 @@ import javax.swing.table.DefaultTableModel;
  */
 public class ManagementWorker {
 
-    private DaoHelper daoHelper;
-    private DefaultTableModel model;
-    private Object [][] workerList;
     private ManagementFrm frmMan;
     private WorkerDao workerdao;
-    
-    private Dose_infoDao doseinfodao;
-    private Dose_notesDao doseNotesDao;
-    private List<Dose_info> dose_info;
-    private List<Dose_notes> dosenotes; 
-    
-    private DosimeterDao dosimeterdao;
-    private Dosimeter_notesDao dosimeterNotesDao;
-    private List<Dosimeter> dosimeter_info;
-    private List<Dosimeter_notes> dosimeterNotes;
-    
-    private ManagementSearchActionListener Listeners;
-    
+
     private DateAndTime dateAndTime = new DateAndTime();
     private ManagementFields setFieldsState;
     private ManagementButtons setButtonsState;
     private ManagementClean setCleanState;
+    private ManagementSearch setWorkerInfo;
     
     
-    public ManagementWorker (ManagementFrm frmMan, ManagementSearchActionListener Listeners) {
+    public ManagementWorker (ManagementFrm frmMan) {
 
-        daoHelper = new DaoHelper();
+     
         this.frmMan = frmMan;
         workerdao = new WorkerDao();
-        doseinfodao = new Dose_infoDao();
-        doseNotesDao = new Dose_notesDao();
-        dosimeterdao = new DosimeterDao();
-        dosimeterNotesDao = new Dosimeter_notesDao();
         setFieldsState = new ManagementFields(this.frmMan);
         setButtonsState = new ManagementButtons(this.frmMan);
         setCleanState = new ManagementClean(this.frmMan);
-        this.Listeners = Listeners;
-        
-   
+        setWorkerInfo = new ManagementSearch(this.frmMan, null);
     
     }
     
@@ -83,7 +49,7 @@ public class ManagementWorker {
     /* ###############################################  */ 
     
     
-    private Worker getWorkerInfo () {
+    private Worker getWorkerInfo (String newOrUpdate) {
         
         Worker worker = new Worker();
     
@@ -109,9 +75,15 @@ public class ManagementWorker {
         worker.setNif(this.frmMan.getTxtWorkerNIF().getText());
         worker.setNationality(this.frmMan.getTxtWorkerNationality().getText());
         worker.setComments(this.frmMan.getTxtWorkerComments().getText());
+        
+        if (newOrUpdate.equalsIgnoreCase("new")) {
 //      creation date and time
-        worker.setTimestamp(dateAndTime.currDateTime());
-        worker.setStatus_timestamp(dateAndTime.currDateTime());
+            worker.setTimestamp(dateAndTime.currDateTime());
+            worker.setStatus_timestamp(dateAndTime.currDateTime());
+            worker.setLastchange(dateAndTime.currDateTime());
+         } else {
+            worker.setTimestamp(this.frmMan.getTxtWorkerCretedDate().getText());
+        }
         
         return worker;
         
@@ -127,10 +99,10 @@ public class ManagementWorker {
         /* tudo ok para escrever */
         
         setFieldsState.setWorkerAllEdit(true);
-        setButtonsState.setAllWorkerBtsInitAndNew(false);
+        setButtonsState.setSaveWorkerNew(false);
         setCleanState.cleanAllInfo();
         
-        this.frmMan.txtInfoAction.setText("Inserting a New Worker");
+        this.frmMan.getTxtInfoAction().setText("Inserting a New Worker");
 
         
     }
@@ -138,25 +110,50 @@ public class ManagementWorker {
     
     // insert in database 
     
-    public void saveWorker () {
+    public String saveNewWorker () {
         
-        Worker worker = getWorkerInfo ();
-        
-  //      ArrayList<ArrayList<Object>> hhh1 = hhhh(worker);
-        
-        
- //       System.out.println("saveW -- " + hhh1.get(6).get(2));
-        
-        worker.setPk_id(workerdao.prepareToInsertWorker(worker));
-        
-        
-        
+        Worker worker = getWorkerInfo ("new");
+        worker.setPk_id(workerdao.insertWorker(worker));
         setFieldsState.setWorkerAllEdit(false);
         
-        this.frmMan.txtInfoAction.setText("Worker saved into database");
+        String id = Integer.toString(worker.getPk_id());
+        this.frmMan.getTxtInfoAction().setText("Worker with id= "+ id + "saved into database");
         
         // actualiza info
+        setWorkerInfo.fillWorkerInfo(id);
+        setButtonsState.setAllWorkerBtsInit(true);
         
+        return id;
+        
+    }
+    
+    /**
+     *
+     */
+    public void updateWorker () {
+        
+        setFieldsState.setWorkerAllEdit(true);
+        setButtonsState.setSaveWorkerUpdate(false);
+        
+        this.frmMan.getTxtInfoAction().setText("Updating Worker with Id: ");
+        
+    }
+    
+    
+    public void saveUpdateWorker (String worker_id) {
+        
+        Worker worker = getWorkerInfo ("update");
+        setFieldsState.setWorkerAllEdit(false);
+        
+        System.out.println("save update    " +  worker_id);
+        workerdao.updateWorker(worker, worker_id);
+        
+        this.frmMan.getTxtInfoAction().setText("Worker with id= "+ worker_id + " updated into database");
+        
+        // actualiza info
+        setWorkerInfo.fillWorkerInfo(worker_id);
+        setButtonsState.setAllWorkerBtsInit(true);
+        this.frmMan.btWorkerUpdate.setEnabled(true);
         
     }
     
