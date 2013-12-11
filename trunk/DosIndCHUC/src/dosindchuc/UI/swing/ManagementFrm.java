@@ -5,9 +5,9 @@
 package dosindchuc.UI.swing;
 
 
-import dosindchuc.UI.swing.Help.ManagementFields;
 import dosindchuc.UI.controller.ManagementSearchActionListener;
 import dosindchuc.UI.swing.Help.ManagementButtons;
+import dosindchuc.UI.swing.Help.ManagementFields;
 import javax.swing.JButton;
 import javax.swing.JComboBox;
 import javax.swing.JTabbedPane;
@@ -83,8 +83,6 @@ public class ManagementFrm extends javax.swing.JFrame {
         jScrollPane1 = new javax.swing.JScrollPane();
         txtWorkerComments = new javax.swing.JTextArea();
         btWorkerNew = new javax.swing.JButton();
-        btWorkerSave = new javax.swing.JButton();
-        btWorkerCancel = new javax.swing.JButton();
         txtWorkerLastModified = new javax.swing.JTextField();
         jLabel23 = new javax.swing.JLabel();
         jLabel24 = new javax.swing.JLabel();
@@ -94,6 +92,10 @@ public class ManagementFrm extends javax.swing.JFrame {
         txtWorkerNIF = new javax.swing.JTextField();
         jLabel5 = new javax.swing.JLabel();
         jLabel33 = new javax.swing.JLabel();
+        jLayeredPane1 = new javax.swing.JLayeredPane();
+        btSaveWorkerNew = new javax.swing.JButton();
+        btWorkerCancel = new javax.swing.JButton();
+        btSaveWorkerUpdate = new javax.swing.JButton();
         jPanel5 = new javax.swing.JPanel();
         jScrollPane4 = new javax.swing.JScrollPane();
         tableDosimeterInfo = new javax.swing.JTable();
@@ -215,19 +217,30 @@ public class ManagementFrm extends javax.swing.JFrame {
 
         jLabel1.setText("Name:");
 
+        txtWorkerName.setFont(new java.awt.Font("Dialog", 1, 10)); // NOI18N
         txtWorkerName.setOpaque(false);
 
         jLabel2.setText("BI:");
 
         jLabel3.setText("Nick:");
 
+        txtWorkerNick.setFont(new java.awt.Font("Dialog", 0, 10)); // NOI18N
+
         jLabel4.setText("Mec.");
+
+        txtWorkerMec.setFont(new java.awt.Font("Dialog", 1, 10)); // NOI18N
 
         jLabel7.setText("Birth:");
 
+        txtWorkerBirthYear.setFont(new java.awt.Font("Dialog", 0, 10)); // NOI18N
+
         jLabel8.setText("/");
 
+        txtWorkerBirthMonth.setFont(new java.awt.Font("Dialog", 0, 10)); // NOI18N
+
         jLabel9.setText("/");
+
+        txtWorkerBirthDay.setFont(new java.awt.Font("Dialog", 0, 10)); // NOI18N
 
         jLabel10.setText("Sex:");
 
@@ -235,6 +248,7 @@ public class ManagementFrm extends javax.swing.JFrame {
 
         jLabel11.setText("Category:");
 
+        cbWorkerCat.setFont(new java.awt.Font("Dialog", 1, 10)); // NOI18N
         cbWorkerCat.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "Médico", "Físico", "Técnico", "Secretário", "Enfermeiro", "Auxiliar", "NoDef" }));
 
         jLabel12.setText("Department:");
@@ -254,12 +268,6 @@ public class ManagementFrm extends javax.swing.JFrame {
         btWorkerNew.setText("New");
         btWorkerNew.setActionCommand("btNewWorker");
 
-        btWorkerSave.setText("Save");
-        btWorkerSave.setActionCommand("btSaveWorker");
-
-        btWorkerCancel.setText("Cancel");
-        btWorkerCancel.setActionCommand("btCancelWorker");
-
         txtWorkerLastModified.setEditable(false);
         txtWorkerLastModified.setFont(new java.awt.Font("Dialog", 0, 10)); // NOI18N
 
@@ -272,57 +280,73 @@ public class ManagementFrm extends javax.swing.JFrame {
 
         jLabel6.setText("Nacionality:");
 
+        txtWorkerNationality.setFont(new java.awt.Font("Dialog", 0, 10)); // NOI18N
+
+        txtWorkerNIF.setFont(new java.awt.Font("Dialog", 0, 10)); // NOI18N
+
         jLabel5.setText("NIF:");
 
         jLabel33.setFont(new java.awt.Font("Dialog", 3, 12)); // NOI18N
         jLabel33.setText("Last modified @");
+
+        jLayeredPane1.setFocusable(false);
+
+        btSaveWorkerNew.setText("Save");
+        btSaveWorkerNew.setActionCommand("btSaveWorkerNew");
+        btSaveWorkerNew.setBounds(20, 40, 68, 25);
+        jLayeredPane1.add(btSaveWorkerNew, javax.swing.JLayeredPane.DEFAULT_LAYER);
+        btSaveWorkerNew.getAccessibleContext().setAccessibleName("btSaveWorkerNew");
+
+        btWorkerCancel.setText("Cancel");
+        btWorkerCancel.setActionCommand("btCancelWorker");
+        btWorkerCancel.setBounds(130, 40, 81, 25);
+        jLayeredPane1.add(btWorkerCancel, javax.swing.JLayeredPane.DEFAULT_LAYER);
+
+        btSaveWorkerUpdate.setText("Save");
+        btSaveWorkerUpdate.setActionCommand("btSaveWorkerUpdate");
+        btSaveWorkerUpdate.setBounds(20, 40, 68, 25);
+        jLayeredPane1.add(btSaveWorkerUpdate, javax.swing.JLayeredPane.DEFAULT_LAYER);
+        btSaveWorkerUpdate.getAccessibleContext().setAccessibleName("btSaveWorkerUpdate");
 
         javax.swing.GroupLayout jPanel3Layout = new javax.swing.GroupLayout(jPanel3);
         jPanel3.setLayout(jPanel3Layout);
         jPanel3Layout.setHorizontalGroup(
             jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel3Layout.createSequentialGroup()
+                .addGap(35, 35, 35)
+                .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                    .addGroup(jPanel3Layout.createSequentialGroup()
+                        .addComponent(jLabel5)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(txtWorkerNIF, javax.swing.GroupLayout.PREFERRED_SIZE, 111, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(113, 113, 113)
+                        .addComponent(jLabel6)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(txtWorkerNationality, javax.swing.GroupLayout.PREFERRED_SIZE, 146, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addGroup(jPanel3Layout.createSequentialGroup()
+                        .addComponent(jLabel14)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                        .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 510, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(txtWorkerLastModified, javax.swing.GroupLayout.PREFERRED_SIZE, 127, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jLabel33))
+                .addGap(49, 49, 49))
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel3Layout.createSequentialGroup()
                 .addGap(22, 22, 22)
                 .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jLabel24)
-                    .addComponent(jLabel23))
-                .addContainerGap())
-            .addGroup(jPanel3Layout.createSequentialGroup()
-                .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(jPanel3Layout.createSequentialGroup()
-                        .addGap(35, 35, 35)
-                        .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                            .addGroup(jPanel3Layout.createSequentialGroup()
-                                .addComponent(jLabel5)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addComponent(txtWorkerNIF, javax.swing.GroupLayout.PREFERRED_SIZE, 111, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addGap(113, 113, 113)
-                                .addComponent(jLabel6)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addComponent(txtWorkerNationality, javax.swing.GroupLayout.PREFERRED_SIZE, 146, javax.swing.GroupLayout.PREFERRED_SIZE))
-                            .addGroup(jPanel3Layout.createSequentialGroup()
-                                .addComponent(jLabel14)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 510, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                        .addGap(60, 60, 60))
                     .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel3Layout.createSequentialGroup()
-                        .addGap(30, 30, 30)
+                        .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(jLabel24)
+                            .addComponent(jLabel23))
+                        .addGap(742, 742, 742))
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel3Layout.createSequentialGroup()
                         .addComponent(btWorkerNew)
                         .addGap(58, 58, 58)
                         .addComponent(btWorkerUpdate)
-                        .addGap(171, 171, 171)
-                        .addComponent(btWorkerSave)))
-                .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(jPanel3Layout.createSequentialGroup()
-                        .addGap(47, 47, 47)
-                        .addComponent(btWorkerCancel)
-                        .addGap(0, 0, Short.MAX_VALUE))
-                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel3Layout.createSequentialGroup()
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                        .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(txtWorkerLastModified, javax.swing.GroupLayout.PREFERRED_SIZE, 127, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(jLabel33))
-                        .addGap(49, 49, 49))))
+                        .addGap(140, 140, 140)
+                        .addComponent(jLayeredPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 228, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(59, 59, 59))))
         );
         jPanel3Layout.setVerticalGroup(
             jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -340,17 +364,20 @@ public class ManagementFrm extends javax.swing.JFrame {
                 .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 54, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jLabel14))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 82, Short.MAX_VALUE)
-                .addComponent(jLabel23)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addComponent(jLabel24)
-                .addGap(86, 86, 86)
-                .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(btWorkerNew)
-                    .addComponent(btWorkerSave)
-                    .addComponent(btWorkerCancel)
-                    .addComponent(btWorkerUpdate))
-                .addGap(45, 45, 45))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 84, Short.MAX_VALUE)
+                .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel3Layout.createSequentialGroup()
+                        .addComponent(jLabel23)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                        .addComponent(jLabel24)
+                        .addGap(86, 86, 86)
+                        .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                            .addComponent(btWorkerNew)
+                            .addComponent(btWorkerUpdate))
+                        .addGap(45, 45, 45))
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel3Layout.createSequentialGroup()
+                        .addComponent(jLayeredPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 100, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addContainerGap())))
         );
 
         tbPanelWorker.addTab("More Info", jPanel3);
@@ -686,6 +713,7 @@ public class ManagementFrm extends javax.swing.JFrame {
 
         txtInfoAction.setEditable(false);
         txtInfoAction.setFont(new java.awt.Font("Dialog", 2, 10)); // NOI18N
+        txtInfoAction.setHorizontalAlignment(javax.swing.JTextField.RIGHT);
         txtInfoAction.setBorder(null);
         txtInfoAction.setOpaque(false);
 
@@ -697,6 +725,7 @@ public class ManagementFrm extends javax.swing.JFrame {
         jLabel32.setText("Created @");
 
         txtWorkerCretedDate.setEditable(false);
+        txtWorkerCretedDate.setFont(new java.awt.Font("Dialog", 0, 10)); // NOI18N
 
         javax.swing.GroupLayout panelWorkerInfoLayout = new javax.swing.GroupLayout(panelWorkerInfo);
         panelWorkerInfo.setLayout(panelWorkerInfoLayout);
@@ -771,7 +800,7 @@ public class ManagementFrm extends javax.swing.JFrame {
                                 .addGap(0, 0, Short.MAX_VALUE))))
                     .addGroup(panelWorkerInfoLayout.createSequentialGroup()
                         .addGap(0, 0, Short.MAX_VALUE)
-                        .addComponent(txtInfoAction, javax.swing.GroupLayout.PREFERRED_SIZE, 132, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                        .addComponent(txtInfoAction, javax.swing.GroupLayout.PREFERRED_SIZE, 195, javax.swing.GroupLayout.PREFERRED_SIZE)))
                 .addGap(27, 27, 27))
         );
         panelWorkerInfoLayout.setVerticalGroup(
@@ -820,14 +849,18 @@ public class ManagementFrm extends javax.swing.JFrame {
 
         jLabel19.setText("Name:");
 
+        searchWorkerName.setFont(new java.awt.Font("Dialog", 0, 10)); // NOI18N
+
         jLabel20.setText("Department:");
 
+        searchCBCategory.setFont(new java.awt.Font("Dialog", 1, 10)); // NOI18N
         searchCBCategory.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "Médico", "Físico", "Técnico", "Secretário", "Enfermeiro", "Auxiliar", "NoDef" }));
         searchCBCategory.setSelectedIndex(6);
         searchCBCategory.setToolTipText("");
 
         jLabel21.setText("Category:");
 
+        searchCBdepartment.setFont(new java.awt.Font("Dialog", 1, 10)); // NOI18N
         searchCBdepartment.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "RT", "Img", "Orto", "BOC", "MN", "NoDef" }));
         searchCBdepartment.setSelectedIndex(5);
 
@@ -854,6 +887,8 @@ public class ManagementFrm extends javax.swing.JFrame {
         searchTable.getAccessibleContext().setAccessibleName("tableSearch");
 
         jLabel22.setText("Nº Mec:");
+
+        searchTxtMec.setFont(new java.awt.Font("Dialog", 0, 10)); // NOI18N
 
         searchBtClean.setIcon(new javax.swing.ImageIcon(getClass().getResource("/images/clear48.png"))); // NOI18N
         searchBtClean.setActionCommand("cleanManagement");
@@ -1003,7 +1038,8 @@ public class ManagementFrm extends javax.swing.JFrame {
         getCbDoseNoteIndex().setEnabled(false);
         getCbDosimeterNotesIndex().setEnabled(false);
         setFieldsState.setAllEdit(false,false,false);
-        setButtonsState.setAllWorkerBtsInitAndNew(true);
+        setButtonsState.setAllWorkerBtsInit(true);
+        btWorkerUpdate.setEnabled(false);
                 
     } 
     
@@ -1168,6 +1204,14 @@ public class ManagementFrm extends javax.swing.JFrame {
         this.searchTable = searchTable;
     }
 
+    public JTextField getTxtInfoAction() {
+        return txtInfoAction;
+    }
+
+    public void setTxtInfoAction(JTextField txtInfoAction) {
+        this.txtInfoAction = txtInfoAction;
+    }
+
     
     
     
@@ -1181,14 +1225,26 @@ public class ManagementFrm extends javax.swing.JFrame {
         this.btWorkerNew = btWorkerNew;
     }
 
-    public JButton getBtWorkerSave() {
-        return btWorkerSave;
+    public JButton getBtWorkerSaveNew() {
+        return btSaveWorkerNew;
     }
 
-    public void setBtWorkerSave(JButton btWorkerSave) {
-        this.btWorkerSave = btWorkerSave;
+    public void setBtSaveWorkerNew(JButton btSaveWorkerNew) {
+        this.btSaveWorkerNew = btSaveWorkerNew;
     }
 
+    public JButton getBtSaveWorkerUpdate() {
+        return btSaveWorkerUpdate;
+    }
+
+    public void setBtSaveWorkerUpdate(JButton btSaveWorkerUpdate) {
+        this.btSaveWorkerUpdate = btSaveWorkerUpdate;
+    }
+
+    
+    
+    
+    
     public JButton getBtWorkerUpdate() {
         return btWorkerUpdate;
     }
@@ -1325,13 +1381,22 @@ public class ManagementFrm extends javax.swing.JFrame {
         this.cbWorkerStatus = cbWorkerStatus;
     }
 
-    public JTextField getTxtWorkerCreateTimeStamp() {
+    public JTextField getTxtWorkerCretedDate() {
+        return txtWorkerCretedDate;
+    }
+
+    public void setTxtWorkerCretedDate(JTextField txtWorkerCretedDate) {
+        this.txtWorkerCretedDate = txtWorkerCretedDate;
+    }
+
+    public JTextField getTxtWorkerLastModified() {
         return txtWorkerLastModified;
     }
 
-    public void setTxtWorkerCreateTimeStamp(JTextField txtWorkerCreateTimeStamp) {
-        this.txtWorkerLastModified = txtWorkerCreateTimeStamp;
+    public void setTxtWorkerLastModified(JTextField txtWorkerLastModified) {
+        this.txtWorkerLastModified = txtWorkerLastModified;
     }
+
 
     
     
@@ -1477,11 +1542,12 @@ public class ManagementFrm extends javax.swing.JFrame {
     private javax.swing.JButton btDosimeterInfoUpdate;
     public javax.swing.JButton btNewNote;
     public javax.swing.JButton btNewNoteDosimeter;
+    public javax.swing.JButton btSaveWorkerNew;
+    public javax.swing.JButton btSaveWorkerUpdate;
     public javax.swing.JButton btUpdateNote;
     public javax.swing.JButton btUpdateNoteDosimeter;
     public javax.swing.JButton btWorkerCancel;
     public javax.swing.JButton btWorkerNew;
-    public javax.swing.JButton btWorkerSave;
     public javax.swing.JButton btWorkerUpdate;
     public javax.swing.JComboBox cbDoseNoteIndex;
     public javax.swing.JComboBox cbDoseNoteLevel;
@@ -1528,6 +1594,7 @@ public class ManagementFrm extends javax.swing.JFrame {
     private javax.swing.JLabel jLabel7;
     private javax.swing.JLabel jLabel8;
     private javax.swing.JLabel jLabel9;
+    private javax.swing.JLayeredPane jLayeredPane1;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JPanel jPanel3;
     private javax.swing.JPanel jPanel4;

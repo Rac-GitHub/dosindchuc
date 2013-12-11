@@ -42,6 +42,7 @@ public class ManagementClean {
         cleanWorker ();
         cleanDosimeter ();
         cleanDose ();
+        frmMan.btWorkerUpdate.setEnabled(false);
         
     }
     

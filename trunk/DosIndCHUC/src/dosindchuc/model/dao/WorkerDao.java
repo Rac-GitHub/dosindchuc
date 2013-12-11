@@ -4,6 +4,7 @@
  */
 package dosindchuc.model.dao;
 
+import dosindchuc.model.dao.Help.ArrayList2D;
 import dosindchuc.model.dao.Help.CreateDaoException;
 import dosindchuc.model.dao.Help.DaoHelper;
 import dosindchuc.model.dao.Help.DeleteDaoException;
@@ -26,10 +27,12 @@ public class WorkerDao {
     
     
     private DaoHelper daoHelper;
+    private ArrayList2D queryList;
     
 	
     public WorkerDao () {
 	daoHelper = new DaoHelper();
+        queryList = new ArrayList2D();
     }
     
     
@@ -92,20 +95,14 @@ public class WorkerDao {
      * @return
      * @throws CreateDaoException
      */
-    public int insert(String query, Object... param  ) throws CreateDaoException {
+    public int insert(String query, Object [] param  ) throws CreateDaoException {
 
         int id = 0;
-        
-        
-        System.out.println("Worker+++ ... 8 " + 7);
-        System.out.println("Worker+++ ... 8 " + query);
-        System.out.println("Worker+++ ... 8 " + param);
-        
+ 
         try {
      
             daoHelper.beginTransaction();
-            
-    
+   
             id = daoHelper.executePreparedUpdateAndReturnGeneratedKeys(daoHelper.getConnectionFromContext(), query, param);
        
             daoHelper.endTransaction();
@@ -126,34 +123,14 @@ public class WorkerDao {
     
   
     
-    public Worker update(Worker worker, int worker_id) throws UpdateDaoException {
+    public void update(String query, Object [] param) throws UpdateDaoException {
 
         try {
 
             daoHelper.beginTransaction();
-            
-            final String query = "UPDATE worker SET id_mec = ? "
-                    + ", name = ? , nick = ?, BI = ? , nationality = ? , nif = ?, birth = ? , sex = ? , category = ? "
-                    + ", department = ? , sector = ? , comments = ? , timestamp = ? , status = ? "
-                    + ", status_timestamp = ?  WHERE pk_id = " + worker_id;
-
-            daoHelper.executePreparedUpdate(daoHelper.getConnectionFromContext(), query
-                    , worker.getId_mec()
-                    , worker.getName()
-                    , worker.getNick()
-                    , worker.getBI()
-                    , worker.getNationality()
-                    , worker.getNif()
-                    , worker.getBirth()
-                    , worker.getSex().toString()
-                    , worker.getCategory().toString()
-                    , worker.getDepartment().toString()
-                    , worker.getSector()
-                    , worker.getComments()
-                    , worker.getTimestamp()
-                    , worker.getStatus().toString()
-                    , worker.getStatus_timestamp());
-
+         
+            daoHelper.executePreparedUpdate(daoHelper.getConnectionFromContext(), query, param);
+   
             daoHelper.endTransaction();
 
         } catch (SQLException e) {
@@ -163,7 +140,7 @@ public class WorkerDao {
 
         }
 
-        return worker;
+ //       return worker;
  
 
     }
@@ -194,292 +171,159 @@ public class WorkerDao {
     
     
       
-    public int  prepareToInsertWorker (Worker worker) {
+    public void prepareQuery (Worker worker, String newOrUpdate) {
        
-        
-        List<Object []> params = new ArrayList<>();
-        Object values [] = new Object[3];
-          
-        List teste = new ArrayList<>();
-        List teste1 = new ArrayList<>();
-        
-  //      Object mmm [] = new Object[2];
-        
-        teste1.add("claro");
-        teste1.add("pois");
-        teste1.add("ultimo");
-        teste.add(teste1);
-        
-        teste1.clear();
-        teste1.add("claro1");
-        teste1.add("pois1");
-        teste1.add("ultimo1");
-        teste.add(teste1);
-        
-        
-        
-        System.out.println("ttttt + " + teste.get(1));
-//        System.out.println("ttttt + " + teste.get(1)[1]);
-//        System.out.println("ttttt + " + teste.get(2)[0]);
-        
-        
-        
-        params.clear();
+
         int i=0;
         if (worker.getName().isEmpty()) {
         }
-        values [0] = "name";
-        values [1] = " ? ";
-        values [2] = worker.getName();
-        
-        params.add (i,values);
-        
-        System.out.println("Worker ... 1 " + values[0]);
-        System.out.println("Worker ... 1 " + values[1]);
-        System.out.println("Worker ... 1 " + values[2]);
-        System.out.println("Worker ... 1 " + values.length);
-        
-   //     va = 
-        
-   //     params.add(i, {values[0], values[1], values [3]});
-        
-    //    params.get(i)[0];
- /*       
-         
-        values.set(1," ? ");
-        values.set(2,worker.getName()); */
-
-   //     params.get(0).toString()
-        System.out.println("Worker ... 1 " + i);
-        System.out.println("Worker ... 1 " + params.get(i)[0]);
-        System.out.println("Worker ... 1 " + params.get(i)[1]);
-        System.out.println("Worker ... 1 " + params.get(i)[2]);
-        
-  //      values[0] = params.get(i);
-        
+        queryList.Add("name",i);
+        queryList.Add(" ? ",i);
+        queryList.Add(worker.getName(),i);
   
         i+=1;
         if (worker.getId_mec().isEmpty()) {
         }
-        values [0] = ", id_mec";
-        values [1] = ", ? "; 
-        values [2] = worker.getId_mec();
-        params.add(i,values);
-        
-        System.out.println("Worker ... 1 " + i);
-        System.out.println("Worker ... 1 " + params.get(i)[0]);
-        System.out.println("Worker ... 1 " + params.get(i)[1]);
-        System.out.println("Worker ... 1 " + params.get(i)[2]);
- 
-        System.out.println("Worker ... NNNN " + params.get(1)[0]);
-        System.out.println("Worker ... NNNN " + params.size());
-        
-     //   System.out.println("size ... "+ params.size());
+        queryList.Add(", id_mec",i);
+        queryList.Add(", ? ",i); 
+        queryList.Add(worker.getId_mec(),i);
+  
           
-//        if (! worker.getNick().isEmpty()) {
-//            i+=1;
-//            values.add(0, ", nick");
-//            values.add(1, ", ? ");
-//            values.add(2, worker.getNick());
-//            params.add(values);
-//        }
-//        System.out.println("Worker ... 1 " + i);
-//        System.out.println("Worker ... 1 " + params.get(i).get(0));
-//        System.out.println("Worker ... 1 " + params.get(i).get(1));
-//        System.out.println("Worker ... 1 " + params.get(i).get(2));
-//        values.removeAll(values);
-//        
-//        if (! worker.getBI().isEmpty()) {
-//            i+=1;
-//            values.add(0, ", BI");
-//            values.add(1, ", ? ");
-//            values.add(2, worker.getBI());
-//            params.add(values);
-//        }
-//        
-//        if (! worker.getNationality().isEmpty()) {
-//            i+=1;
-//            values.add(0, ", nationality");
-//            values.add(1, ", ? ");
-//            values.add(2, worker.getNationality());
-//            params.add(values);
-//        }
-//        
-//        if (! worker.getNif().isEmpty()) {
-//            i+=1;
-//            values.add(0, ", nif");
-//            values.add(1, ", ? ");
-//            values.add(2, worker.getNif());
-//            params.add(values);
-//        }
-//        
-//        if (! worker.getBirth().isEmpty()) {
-//            i+=1;
-//            values.add(0, ", birth");
-//            values.add(1, ", ? ");
-//            values.add(2, worker.getBirth());
-//            params.add(i, values);
-//        }
-//        
-//        i+=1;
-//        values.add(0, ", sex");
-//        values.add(1, ", ? ");
-//        values.add(2, worker.getSex().toString());
-//        params.add(values);
-//        System.out.println("Worker ... 1 " + i);
-//        System.out.println("Worker ... 1 " + params.get(i).get(0));
-//        System.out.println("Worker ... 1 " + params.get(i).get(1));
-//        System.out.println("Worker ... 1 " + params.get(i).get(2));
-//        values.removeAll(values);
-//        i+=1;
-//        values.add(0, ", category");
-//        values.add(1, ", ? ");
-//        values.add(2, worker.getCategory().toString());
-//        params.add(values);
-//        System.out.println("Worker ... 1 " + i);
-//        System.out.println("Worker ... 1 " + params.get(i).get(0));
-//        System.out.println("Worker ... 1 " + params.get(i).get(1));
-//        System.out.println("Worker ... 1 " + params.get(i).get(2));
-//        System.out.println("Worker ... AGORA " + params.get(0).get(0));
-// values.removeAll(values);
-//        i+=1;
-//        values.add(0, ", department");
-//        values.add(1, ", ? ");
-//        values.add(2, worker.getDepartment().toString());
-//        params.add(i, values);
-//        System.out.println("Worker ... 1 " + i);
-//        System.out.println("Worker ... 1 " + params.get(i).get(0));
-//        System.out.println("Worker ... 1 " + params.get(i).get(1));
-//        System.out.println("Worker ... 1 " + params.get(i).get(2));
-//        
-//        if (! worker.getSector().isEmpty()) {
-//            i+=1;
-//            values.add(0, ", sector");
-//            values.add(1, ", ? ");
-//            values.add(2, worker.getSector());
-//            params.add(i, values);
-//        }
-//        
-//        if (! worker.getComments().isEmpty()) {
-//            i+=1;
-//            values.add(0, ", comments");
-//            values.add(1, ", ? ");
-//            values.add(2, worker.getComments());
-//            params.add(i, values);
-//        }
-// 
-//        i+=1;
-//        values.add(0, ", timestamp");
-//        values.add(1, ", ? ");
-//        values.add(2, worker.getTimestamp());
-//        params.add(i, values);
-//        System.out.println("Worker ... 1 " + i);
-//        System.out.println("Worker ... 1 " + params.get(i).get(0));
-//        System.out.println("Worker ... 1 " + params.get(i).get(1));
-//        System.out.println("Worker ... 1 " + params.get(i).get(2));
-//        
-//        i+=1;
-//        values.add(0, ", status");
-//        values.add(1, ", ? ");
-//        values.add(2, worker.getStatus().toString());
-//        params.add(i, values);
-//        
-//        System.out.println("Worker ... 1 " + i);
-//        System.out.println("Worker ... 1 " + params.get(i).get(0));
-//        System.out.println("Worker ... 1 " + params.get(i).get(1));
-//        System.out.println("Worker ... 1 " + params.get(i).get(2));
-//        i+=1;
-//        values.add(0, ", status_timestamp");
-//        values.add(1, ", ? ");
-//        values.add(2, worker.getStatus_timestamp());
-//        params.add(i, values);
-//    
-//        System.out.println("Worker ... 1 " + i);
-//        System.out.println("Worker ... 1 " + params.get(i).get(0));
-//        System.out.println("Worker ... 1 " + params.get(i).get(1));
-//        System.out.println("Worker ... 1 " + params.get(i).get(2));
-//  //      System.out.println("Worker ... size " + params.size());
-//        System.out.println("Worker ... 9 rep " + params.get(0).get(2));
-//        
-////  prepare query
-//        int sizeparam = params.size();
-//   //     String query = "INSERT INTO worker (";
-//   //     String valuesInt = " VALUES (";
-//    //    Object param [] = new Object[params.size()];
-//                       
-//            for ( i=0; i < sizeparam; i++ ) {
-//       //         params.get(i).get(0);
-//       //         query += params.get(i).get(0);
-//       //         System.out.println("Worker ... 9 " + query);
-//                System.out.println("Worker ... ciclo " + params.get(i).get(0)); 
-//         //       System.out.println("Worker ... 9 " + params.size());
-//         //       valuesInt += params.get(i).get(1);
-//         //       param[i] = params.get(i).get(2);
-//            } 
-//            
-//     //       query += ")";
-//     //       valuesInt += ")";
-//            
-//     //       query += valuesInt;
-//        
-////   insert worker        
-//     //  return insert(query, param);    
-        return 4;
-   
-        
-    }
-    
-    
-    
-    public Worker oldInsert(Worker worker) throws CreateDaoException {
-
-        try {
-
-            
-            
-            daoHelper.beginTransaction();
-            
-           final String query = "INSERT INTO worker "
-                    + "(id_mec, name, nick, BI, nationality, nif, birth, sex, category, department, sector"
-                    + ", comments, timestamp, status, status_timestamp) VALUES "
-                    + "( ? , ? , ? , ? , ? , ? , ? , ? , ? , ? , ? , ? , ? , ? , ? )"; 
-            
-     
-            
-
-           int id = daoHelper.executePreparedUpdateAndReturnGeneratedKeys(daoHelper.getConnectionFromContext(), query
-                    , worker.getId_mec()
-                    , worker.getName()
-                    , worker.getNick()
-                    , worker.getBI()
-                    , worker.getNationality()
-                    , worker.getNif()
-                    , worker.getBirth()
-                    , worker.getSex().toString()
-                    , worker.getCategory().toString()
-                    , worker.getDepartment().toString()
-                    , worker.getSector()
-                    , worker.getComments()
-                    , worker.getTimestamp()
-                    , worker.getStatus().toString()
-                    , worker.getStatus_timestamp()); 
-            
-    
-            worker.setPk_id(id);
-            daoHelper.endTransaction();
-
-        } catch (SQLException e) {
-
-            daoHelper.rollbackTransaction();
-            throw new CreateDaoException("Not possible to make the transaction ", e);
-
+        if (! worker.getNick().isEmpty()) {
+            i+=1;
+            queryList.Add(", nick",i);
+            queryList.Add(", ? ",i);
+            queryList.Add(worker.getNick(),i);
         }
+ 
+        if (! worker.getBI().isEmpty()) {
+            i+=1;
+            queryList.Add(", BI",i);
+            queryList.Add(", ? ",i);
+            queryList.Add(worker.getBI(),i);
+        }
+        
+        if (! worker.getNationality().isEmpty()) {
+            i+=1;
+            queryList.Add(", nationality",i);
+            queryList.Add( ", ? ", i);
+            queryList.Add(worker.getNationality(), i);
+       }
+        
+        if (! worker.getNif().isEmpty()) {
+            i+=1;
+            queryList.Add(", nif", i);
+            queryList.Add(", ? ", i);
+            queryList.Add(worker.getNif(), i);
+       }
+        
+        if (! worker.getBirth().isEmpty()) {
+            i+=1;
+            queryList.Add(", birth", i);
+            queryList.Add(", ? ", i);
+            queryList.Add(worker.getBirth(), i);
+        }
+        
+        i+=1;
+        queryList.Add(", sex", i);
+        queryList.Add(", ? ", i);
+        queryList.Add(worker.getSex().toString(), i);
 
-        return worker;
+        i+=1;
+        queryList.Add(", category", i);
+        queryList.Add(", ? ", i);
+        queryList.Add(worker.getCategory().toString(), i);
+ 
+  
+        i+=1;
+        queryList.Add(", department", i);
+        queryList.Add(", ? ", i);
+        queryList.Add(worker.getDepartment().toString(), i);
+        
+        if (! worker.getSector().isEmpty()) {
+            i+=1;
+            queryList.Add(", sector", i);
+            queryList.Add(", ? ", i);
+            queryList.Add(worker.getSector(), i);
+        }
+        
+        if (! worker.getComments().isEmpty()) {
+            i+=1;
+            queryList.Add(", comments", i);
+            queryList.Add(", ? ", i);
+            queryList.Add(worker.getComments(), i);
+        }
+ 
+        i+=1;
+        queryList.Add(", timestamp", i);
+        queryList.Add(", ? ", i);
+        queryList.Add(worker.getTimestamp(), i);
+      
+        i+=1;
+        queryList.Add(", status", i);
+        queryList.Add(", ? ", i);
+        queryList.Add(worker.getStatus().toString(), i);
+  
+        if (newOrUpdate.equalsIgnoreCase("new")) {
+            i += 1;
+            queryList.Add(", status_timestamp", i);
+            queryList.Add(", ? ", i);
+            queryList.Add(worker.getStatus_timestamp(), i);
 
+            i += 1;
+            queryList.Add(", lastchange", i);
+            queryList.Add(", ? ", i);
+            queryList.Add(worker.getLastchange(), i);
+        }
+ 
     }
     
     
+        public int  insertWorker (Worker worker) {
+      
+            prepareQuery(worker,"new");
+
+            int sizeNparam = queryList.getNumRows();
+
+            String query = "INSERT INTO worker (";
+            String valuesInt = " VALUES (";
+            Object param[] = new Object[sizeNparam];
+
+            for (int i = 0; i < sizeNparam; i++) {
+                query += queryList.get(i, 0);
+                valuesInt += queryList.get(i, 1);
+                param[i] = queryList.get(i, 2);
+            }
+
+            query += ")";
+            valuesInt += ")";
+            query += valuesInt;
+
+            return insert(query, param);
+
+    }
+
+        
+        
+     public void updateWorker (Worker worker, String worker_id) {
+      
+            prepareQuery(worker,"update");
+
+            int sizeNparam = queryList.getNumRows();
+            String query = "UPDATE worker SET ";
+            Object param[] = new Object[sizeNparam];
+
+            for (int i = 0; i < sizeNparam; i++) {
+                query += queryList.get(i, 0) + " = ? " ;
+                param[i] = queryList.get(i, 2);
+            }
+
+            query += " WHERE pk_id = " + worker_id;
+
+            update(query, param);
+
+    }
+        
     
     
 }

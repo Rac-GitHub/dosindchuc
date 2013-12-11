@@ -114,13 +114,15 @@ public class ManagementSearch {
     /* ###############################################  */ 
      
     
-    public void fillAllManagement() { 
+    public String fillAllManagement() { 
         
         String worker_id =  this.workerList[frmMan.searchTable.getSelectedRow()][0].toString();
 
         fillWorkerInfo(worker_id);
         fillDoseInfo(worker_id);
         fillDosimeterInfo(worker_id);
+        
+        return worker_id;
     
     }
     
@@ -156,15 +158,24 @@ public class ManagementSearch {
         frmMan.getCbWorkerCat().setSelectedItem(worker.getCategory().name());
         frmMan.getCbWorkerDept().setSelectedItem(worker.getDepartment().name());
 // birth yyyy-mm-dd 
-        frmMan.getTxtWorkerBirthYear().setText(worker.getBirth().split("-")[0]);
-        frmMan.getTxtWorkerBirthMonth().setText(worker.getBirth().split("-")[1]);
-        frmMan.getTxtWorkerBirthDay().setText(worker.getBirth().split("-")[2]);
+        
+        System.out.println("Birth day -- " + worker.getBirth());
+        if ( ! (worker.getBirth() == null)  ) { 
+            frmMan.getTxtWorkerBirthYear().setText(worker.getBirth().split("-")[0]);
+            frmMan.getTxtWorkerBirthMonth().setText(worker.getBirth().split("-")[1]);
+            frmMan.getTxtWorkerBirthDay().setText(worker.getBirth().split("-")[2]);
+        } else {
+            frmMan.getTxtWorkerBirthYear().setText("0000");
+            frmMan.getTxtWorkerBirthMonth().setText("00");
+            frmMan.getTxtWorkerBirthDay().setText("00");
+        }
 // 
         frmMan.getTxtWorkerComments().setText(worker.getComments());
-        frmMan.getTxtWorkerCreateTimeStamp().setText(worker.getTimestamp());
+        frmMan.getTxtWorkerCretedDate().setText(worker.getTimestamp());
         
         frmMan.getCbWorkerStatus().setSelectedItem(worker.getStatus().name()); 
         
+        frmMan.getTxtWorkerLastModified().setText(worker.getLastchange());
     }
     
     

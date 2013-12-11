@@ -20,7 +20,7 @@ public final class MainActionListener implements ActionListener {
     
     private MainFrm frm;
     private UsersDao service;
-    private DisablePanel panel;
+ //   private DisablePanel panel;
  
     
     public MainActionListener(MainFrm frm) {

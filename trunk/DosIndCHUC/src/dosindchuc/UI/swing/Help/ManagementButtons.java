@@ -26,32 +26,44 @@ public class ManagementButtons {
   
    // worker     
      
-     public void setAllWorkerBtsInitAndNew (boolean workerBts) {
+     public void setAllWorkerBtsInit (boolean workerBts) {
          
          this.frmMan.btWorkerNew.setEnabled(workerBts);
          this.frmMan.btWorkerUpdate.setEnabled(workerBts);
-         this.frmMan.btWorkerSave.setEnabled(!workerBts);
+         this.frmMan.btSaveWorkerNew.setEnabled(!workerBts);
+         this.frmMan.btSaveWorkerUpdate.setEnabled(!workerBts);
          this.frmMan.btWorkerCancel.setEnabled(!workerBts);
+  
          
          
      }
      
-    public void setNewWorkerBtsInit (boolean workerBts) {
+    public void setSaveWorkerNew (boolean workerBts) {
          
-         this.frmMan.btWorkerNew.setEnabled(workerBts);
-         this.frmMan.btWorkerUpdate.setEnabled(workerBts);
-         this.frmMan.btWorkerSave.setEnabled(!workerBts);
-         this.frmMan.btWorkerCancel.setEnabled(!workerBts);
+         setAllWorkerBtsInit(workerBts);
+         this.frmMan.btSaveWorkerUpdate.setEnabled(workerBts);
+         this.frmMan.btSaveWorkerUpdate.setVisible(workerBts);
+         this.frmMan.btSaveWorkerNew.setVisible(!workerBts);
          
+    }
          
-     }
-     
+    public void setSaveWorkerUpdate (boolean workerBts) {
+         
+         setAllWorkerBtsInit(workerBts);
+         this.frmMan.btSaveWorkerUpdate.setEnabled(!workerBts);
+         this.frmMan.btSaveWorkerNew.setVisible(workerBts);
+         this.frmMan.btSaveWorkerUpdate.setVisible(!workerBts);
+         
+    }
     
-    
-    
-    
-    
-    
-    
-    
+         
 }
+     
+    
+    
+    
+    
+    
+    
+    
+   
