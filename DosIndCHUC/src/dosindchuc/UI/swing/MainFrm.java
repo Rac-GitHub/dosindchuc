@@ -22,7 +22,6 @@ public class MainFrm extends javax.swing.JFrame {
      */
     public MainFrm() {
         initComponents();
-        
         listeners = new MainActionListener(this);
     }
 
@@ -57,7 +56,7 @@ public class MainFrm extends javax.swing.JFrame {
         panelShadow2 = new org.edisoncor.gui.panel.PanelShadow();
         txtNameOfUser = new org.edisoncor.gui.textField.TextFieldRound();
 
-        setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+        setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
 
         panel2.setColorPrimario(new java.awt.Color(204, 204, 255));
         panel2.setIcon(new javax.swing.ImageIcon(getClass().getResource("/images/dosimetry1.jpg"))); // NOI18N
@@ -199,7 +198,7 @@ public class MainFrm extends javax.swing.JFrame {
         );
 
         btProfInfo.setIcon(new javax.swing.ImageIcon(getClass().getResource("/images/couple48.png"))); // NOI18N
-        btProfInfo.setText("Info");
+        btProfInfo.setText("Worker");
         btProfInfo.setActionCommand("Management");
         btProfInfo.setBorderPainted(false);
         btProfInfo.setContentAreaFilled(false);
@@ -396,7 +395,7 @@ public class MainFrm extends javax.swing.JFrame {
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
-
+    
       /**
      * @param args the command line arguments
      */

@@ -16,16 +16,14 @@ public class UsersService {
             
     public boolean login(String username, String password) {
          Object[][] res = null;
-        if( res.length > 0)
-        {
+        if( res.length > 0) {
             user.setUsername( res[0][0].toString() );
             user.setPassword( res[0][1].toString() );
             return true;
-        }        
-        else
+        } else {
             return false;
-      }
+        }
     
-    
+    }
     
 }

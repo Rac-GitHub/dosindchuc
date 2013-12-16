@@ -5,7 +5,7 @@
 package dosindchuc.model.dao;
 
 import dosindchuc.model.dao.Help.CreateDaoException;
-import dosindchuc.model.dao.Help.DaoHelper;
+import dosindchuc.model.dao.Help.DaoConnections;
 import dosindchuc.model.dao.Help.QueryMapper;
 import dosindchuc.model.dao.Help.UpdateDaoException;
 import dosindchuc.model.entities.Dosimeter;
@@ -23,10 +23,10 @@ public class DosimeterDao {
  
     
     
-    private DaoHelper daoHelper;
+    private DaoConnections daoConnection;
 	
     public DosimeterDao () {
-        daoHelper = new DaoHelper();
+        daoConnection = new DaoConnections();
     }
     
     
@@ -46,9 +46,8 @@ public class DosimeterDao {
                         } else {
                             query = "SELECT * FROM dosimeter WHERE pk_dsmt = " + dsmt_id + " AND pk_id = " + worker_id;
                         }
-                            
-                            
-			daoHelper.executePreparedQuery(query, new QueryMapper<Dosimeter>() {
+                           
+			daoConnection.executePreparedQuery(query, new QueryMapper<Dosimeter>() {
 
 				@Override
 				public List<Dosimeter> mapping(ResultSet rset) throws SQLException {
@@ -68,7 +67,7 @@ public class DosimeterDao {
                                                 dosimeter.setLastchange( rset.getString("lastchange") );
                                                 dosimeters.add(dosimeter);
 					}
-					return dosimeters;
+ 					return dosimeters;
 				}
 				
 			});
@@ -88,13 +87,11 @@ public class DosimeterDao {
 
         try {
 
-            daoHelper.beginTransaction();
-
             final String query = "INSERT INTO dosimeter "
                     + "(pk_id, id, label, type, periodicity, supplier, comments, timestamp, status, status_timestamp) VALUES "
                     + "( ? , ? , ? , ? , ? , ? , ? , ? , ? , ? )";
             
-            int id = daoHelper.executePreparedUpdateAndReturnGeneratedKeys(daoHelper.getConnectionFromContext(), query
+            int id = daoConnection.executePreparedUpdateAndReturnGeneratedKeys(query
                     , dosimeter.getPk_id()
                     , dosimeter.getId()
                     , dosimeter.getLabel()
@@ -107,13 +104,9 @@ public class DosimeterDao {
                     , dosimeter.getStatus_timestamp() );
                     
             dosimeter.setPk_dsmt(id);
-            daoHelper.endTransaction();
 
         } catch (SQLException e) {
-
-            daoHelper.rollbackTransaction();
             throw new CreateDaoException("Not possible to make the transaction ", e);
-
         }
 
         return dosimeter;
@@ -126,14 +119,12 @@ public class DosimeterDao {
     public Dosimeter update(Dosimeter dosimeter, int dsmt_id) throws UpdateDaoException {
 
         try {
-
-            daoHelper.beginTransaction();
             
             final String query = "UPDATE dosimeter SET pk_id = ? "
                     + ", id = ? , label = ?, type = ? , periodicity = ? , supplier = ? , comments = ? , timestamp = ? , status = ? "
                     + ", status_timestamp = ?  WHERE pk_dsmt = " + dsmt_id;
 
-            daoHelper.executePreparedUpdate(daoHelper.getConnectionFromContext(), query
+            daoConnection.executePreparedUpdate(query
                     , dosimeter.getPk_id()
                     , dosimeter.getId()
                     , dosimeter.getLabel()
@@ -145,13 +136,8 @@ public class DosimeterDao {
                     , dosimeter.getStatus().toString()
                     , dosimeter.getStatus_timestamp() );
 
-            daoHelper.endTransaction();
-
         } catch (SQLException e) {
-
-            daoHelper.rollbackTransaction();
             throw new UpdateDaoException("Not possible to make the transaction ", e);
-
         }
 
         return dosimeter;

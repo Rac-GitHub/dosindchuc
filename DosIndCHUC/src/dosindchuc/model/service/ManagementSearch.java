@@ -10,7 +10,7 @@ import dosindchuc.model.dao.Dose_infoDao;
 import dosindchuc.model.dao.Dose_notesDao;
 import dosindchuc.model.dao.DosimeterDao;
 import dosindchuc.model.dao.Dosimeter_notesDao;
-import dosindchuc.model.dao.Help.DaoHelper;
+import dosindchuc.model.dao.Help.DaoConnections;
 import dosindchuc.model.dao.WorkerDao;
 import dosindchuc.model.entities.Dose_info;
 import dosindchuc.model.entities.Dose_notes;
@@ -29,7 +29,7 @@ import javax.swing.table.DefaultTableModel;
  */
 public class ManagementSearch {
     
-    private DaoHelper daoHelper;
+    private DaoConnections daoHelper;
     private DefaultTableModel model;
     private Object [][] workerList;
     private ManagementFrm frmMan;
@@ -52,7 +52,7 @@ public class ManagementSearch {
     
     public ManagementSearch(ManagementFrm frmMan, ManagementSearchActionListener Listeners) {
 
-        daoHelper = new DaoHelper();
+        daoHelper = new DaoConnections();
         this.frmMan = frmMan;
         workerdao = new WorkerDao();
         doseinfodao = new Dose_infoDao();

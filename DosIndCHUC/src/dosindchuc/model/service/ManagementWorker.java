@@ -42,7 +42,7 @@ public class ManagementWorker {
     }
     
     
-     /* ###############################################  */
+     /* ############################################### */
     /*                                                  */ 
     /*               Worker  info                       */
     /*                                                  */ 
@@ -57,6 +57,9 @@ public class ManagementWorker {
         worker.setNick(this.frmMan.getTxtWorkerNick().getText());
         worker.setStatus(SetEnums.status.valueOf(this.frmMan.getCbWorkerStatus().getSelectedItem().toString()));
         worker.setId_mec(this.frmMan.getTxtWorkerMec().getText());
+        
+        System.out.println("worker info mec  " + this.frmMan.getTxtWorkerMec().getText());
+        
  // birth yyyy-mm-dd
         String birthYear = this.frmMan.getTxtWorkerBirthYear().getText();
         String birthMonth = this.frmMan.getTxtWorkerBirthMonth().getText();
@@ -127,6 +130,8 @@ public class ManagementWorker {
         
     }
     
+    
+    
     /**
      *
      */
@@ -135,7 +140,7 @@ public class ManagementWorker {
         setFieldsState.setWorkerAllEdit(true);
         setButtonsState.setSaveWorkerUpdate(false);
         
-        this.frmMan.getTxtInfoAction().setText("Updating Worker with Id: ");
+        this.frmMan.getTxtInfoAction().setText("Updating Worker info");
         
     }
     

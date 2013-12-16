@@ -141,6 +141,7 @@ public final class ManagementSearchActionListener implements ActionListener, Mou
         if (mevent.getClickCount() == 2) {
             worker_id = serviceSearch.fillAllManagement();
             frmMan.btWorkerUpdate.setEnabled(true);
+            this.frmMan.getTxtInfoAction().setText("");
   
         }    
         

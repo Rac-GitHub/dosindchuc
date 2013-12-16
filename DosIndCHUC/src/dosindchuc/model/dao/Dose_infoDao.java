@@ -5,7 +5,7 @@
 package dosindchuc.model.dao;
 
 import dosindchuc.model.dao.Help.CreateDaoException;
-import dosindchuc.model.dao.Help.DaoHelper;
+import dosindchuc.model.dao.Help.DaoConnections;
 import dosindchuc.model.dao.Help.QueryMapper;
 import dosindchuc.model.dao.Help.UpdateDaoException;
 import dosindchuc.model.entities.Dose_info;
@@ -23,10 +23,10 @@ public class Dose_infoDao {
     
     
     
-    private DaoHelper daoHelper;
+    private DaoConnections daoConnection;
 	
     public Dose_infoDao () {
-        daoHelper = new DaoHelper();
+        daoConnection = new DaoConnections();
     }
     
     
@@ -38,6 +38,7 @@ public class Dose_infoDao {
 		try {
                         
                         String query = null;
+                        
                         if (worker_id.isEmpty() && dsmt_id == 0) {
                             query = "SELECT * from dose_info";
                         } else if ( ! worker_id.isEmpty() && dsmt_id == 0) {
@@ -50,7 +51,7 @@ public class Dose_infoDao {
                         
                         System.out.println("get dose Info  " + query);
                     
-			daoHelper.executePreparedQuery(query, new QueryMapper<Dose_info>() {
+			daoConnection.executePreparedQuery(query, new QueryMapper<Dose_info>() {
 
 				@Override
 				public List<Dose_info> mapping(ResultSet rset) throws SQLException {
@@ -84,17 +85,15 @@ public class Dose_infoDao {
     
  
       
-    public Dose_info insert(Dose_info dose) throws CreateDaoException {
+    public Dose_info insert(Dose_info dose) throws SQLException  {
 
         try {
-
-            daoHelper.beginTransaction();
 
             final String query =  "INSERT INTO dose_info "
                     + "(pk_dsmt, pk_id, year, trimester, month, hp007, hp10, comments, timestamp) VALUES "
                     + "( ? , ? , ? , ? , ? , ? , ? , ? , ? )";
             
-            int id = daoHelper.executePreparedUpdateAndReturnGeneratedKeys(daoHelper.getConnectionFromContext(), query
+            int id = daoConnection.executePreparedUpdateAndReturnGeneratedKeys(query
                     , dose.getPk_dsmt()
                     , dose.getPk_id()
                     , dose.getYear()
@@ -104,18 +103,13 @@ public class Dose_infoDao {
                     , dose.getHp10()
                     , dose.getComments()
                     , dose.getTimestamp() );
-             
                     
             dose.setPk_dose(id);
-            daoHelper.endTransaction();
-
+            
         } catch (SQLException e) {
-
-            daoHelper.rollbackTransaction();
             throw new CreateDaoException("Not possible to make the transaction ", e);
-
         }
-
+ 
         return dose;
 
     }
@@ -126,14 +120,12 @@ public class Dose_infoDao {
     public Dose_info update(Dose_info dose, int dsmt_id) throws UpdateDaoException {
 
         try {
-
-            daoHelper.beginTransaction();
             
             final String query = "UPDATE dosimeter SET pk_id = ? "
                     + ", id = ? , label = ?, type = ? , periodicity = ? , supplier = ? , comments = ? , timestamp = ? , status = ? "
                     + ", status_timestamp = ?  WHERE pk_dsmt = " + dsmt_id;
 
-            daoHelper.executePreparedUpdate(daoHelper.getConnectionFromContext(), query
+            daoConnection.executePreparedUpdate(query
                     , dose.getPk_dsmt()
                     , dose.getPk_id()
                     , dose.getYear()
@@ -144,13 +136,8 @@ public class Dose_infoDao {
                     , dose.getComments()
                     , dose.getTimestamp() );
 
-            daoHelper.endTransaction();
-
         } catch (SQLException e) {
-
-            daoHelper.rollbackTransaction();
             throw new UpdateDaoException("Not possible to make the transaction ", e);
-
         }
 
         return dose;

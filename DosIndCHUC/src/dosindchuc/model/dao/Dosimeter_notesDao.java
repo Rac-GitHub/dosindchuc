@@ -5,7 +5,7 @@
 package dosindchuc.model.dao;
 
 import dosindchuc.model.dao.Help.CreateDaoException;
-import dosindchuc.model.dao.Help.DaoHelper;
+import dosindchuc.model.dao.Help.DaoConnections;
 import dosindchuc.model.dao.Help.QueryMapper;
 import dosindchuc.model.dao.Help.UpdateDaoException;
 import dosindchuc.model.entities.Dosimeter_notes;
@@ -23,10 +23,10 @@ public class Dosimeter_notesDao {
     
     
     
-    private DaoHelper daoHelper;
+    private DaoConnections daoConnection;
 	
     public Dosimeter_notesDao () {
-        daoHelper = new DaoHelper();
+        daoConnection = new DaoConnections();
     }
    
     
@@ -45,7 +45,7 @@ public class Dosimeter_notesDao {
                         }
                             
                             
-			daoHelper.executePreparedQuery(query, new QueryMapper<Dosimeter_notes>() {
+			daoConnection.executePreparedQuery(query, new QueryMapper<Dosimeter_notes>() {
 
 				@Override
 				public List<Dosimeter_notes> mapping(ResultSet rset) throws SQLException {
@@ -81,28 +81,20 @@ public class Dosimeter_notesDao {
 
         try {
 
-            daoHelper.beginTransaction();
-
             final String query = "INSERT INTO dosimeter_notes "
                     + "(pk_dsmt, note, timestamp, status, status_timestamp, alert_level) VALUES "
                     + "( ? , ? , ? , ? , ? , ? )";
             
-            int id = daoHelper.executePreparedUpdateAndReturnGeneratedKeys(daoHelper.getConnectionFromContext(), query
+            int id = daoConnection.executePreparedUpdateAndReturnGeneratedKeys(query
                     , dsmt_note.getPk_dsmt()
                     , dsmt_note.getNote()
                     , dsmt_note.getTimestamp()
                     , dsmt_note.getStatus().toString()
                     , dsmt_note.getStatus_timestamp()
                     , dsmt_note.getAlert_level().toString() );
-                  
-                    
-            daoHelper.endTransaction();
-
+ 
         } catch (SQLException e) {
-
-            daoHelper.rollbackTransaction();
             throw new CreateDaoException("Not possible to make the transaction: ", e);
-
         }
 
         return dsmt_note;
@@ -115,14 +107,12 @@ public class Dosimeter_notesDao {
     public Dosimeter_notes update(Dosimeter_notes dsmt_note, int dsmt_note_id) throws UpdateDaoException {
 
         try {
-
-            daoHelper.beginTransaction();
-            
+           
             final String query = "UPDATE dosimeter_notes SET pk_dsmt = ? "
                     + ", note = ? , timestamp = ? , status = ? "
                     + ", status_timestamp = ? , alert_level = ?  WHERE pk_notes_dsmt = " + dsmt_note_id;
 
-            daoHelper.executePreparedUpdate(daoHelper.getConnectionFromContext(), query
+            daoConnection.executePreparedUpdate(query
                     , dsmt_note.getPk_dsmt()
                     , dsmt_note.getNote()
                     , dsmt_note.getTimestamp()
@@ -130,13 +120,8 @@ public class Dosimeter_notesDao {
                     , dsmt_note.getStatus_timestamp()
                     , dsmt_note.getAlert_level().toString() );
 
-            daoHelper.endTransaction();
-
         } catch (SQLException e) {
-
-            daoHelper.rollbackTransaction();
             throw new UpdateDaoException("Not possible to make the transaction: ", e);
-
         }
 
         return dsmt_note;

@@ -6,7 +6,7 @@ package dosindchuc.model.dao;
 
 import dosindchuc.model.dao.Help.ArrayList2D;
 import dosindchuc.model.dao.Help.CreateDaoException;
-import dosindchuc.model.dao.Help.DaoHelper;
+import dosindchuc.model.dao.Help.DaoConnections;
 import dosindchuc.model.dao.Help.DeleteDaoException;
 import dosindchuc.model.dao.Help.QueryMapper;
 import dosindchuc.model.dao.Help.UpdateDaoException;
@@ -26,12 +26,12 @@ public class WorkerDao {
     
     
     
-    private DaoHelper daoHelper;
+    private DaoConnections daoConnection;
     private ArrayList2D queryList;
     
 	
     public WorkerDao () {
-	daoHelper = new DaoHelper();
+	daoConnection = new DaoConnections();
         queryList = new ArrayList2D();
     }
     
@@ -49,7 +49,7 @@ public class WorkerDao {
                             query = "SELECT * FROM worker WHERE pk_id = " + worker_id;
                         }
   
-			daoHelper.executePreparedQuery(query, new QueryMapper<Worker>() {
+			daoConnection.executePreparedQuery(query, new QueryMapper<Worker>() {
 
 				@Override
 				public List<Worker> mapping(ResultSet rset) throws SQLException {
@@ -74,7 +74,7 @@ public class WorkerDao {
                                                 worker.setLastchange( rset.getString("lastchange") );
                                                 workers.add(worker);
 					}
-					return workers;
+                                	return workers;
 				}
 				
 			});
@@ -100,18 +100,11 @@ public class WorkerDao {
         int id = 0;
  
         try {
-     
-            daoHelper.beginTransaction();
-   
-            id = daoHelper.executePreparedUpdateAndReturnGeneratedKeys(daoHelper.getConnectionFromContext(), query, param);
-       
-            daoHelper.endTransaction();
-
+  
+            id = daoConnection.executePreparedUpdateAndReturnGeneratedKeys(query, param);
+  
         } catch (SQLException e) {
-
-            daoHelper.rollbackTransaction();
-            throw new CreateDaoException("Not possible to make the transaction ", e);
-
+          throw new CreateDaoException("Not possible to make the transaction ", e);
         }
 
         return id;
@@ -126,44 +119,37 @@ public class WorkerDao {
     public void update(String query, Object [] param) throws UpdateDaoException {
 
         try {
-
-            daoHelper.beginTransaction();
-         
-            daoHelper.executePreparedUpdate(daoHelper.getConnectionFromContext(), query, param);
-   
-            daoHelper.endTransaction();
-
+            System.out.println("Query: " + query);
+            System.out.println("Param: " + param[0] + " " 
+                    + param[1] + " "
+                    + param[2] + " "
+                    + param[3] + " "
+                    + param[4] + " "
+                    + param[5] + " "
+                    + param[6] + " "
+                    + param[7] + " ");
+            daoConnection.executePreparedUpdate(query, param);
+ 
         } catch (SQLException e) {
-
-            daoHelper.rollbackTransaction();
             throw new UpdateDaoException("Not possible to make the transaction ", e);
-
         }
 
- //       return worker;
- 
-
     }
+    
+    
+    
     
 
     public void delete(int worker_id) throws DeleteDaoException {
 
         try {
 
-            daoHelper.beginTransaction();
-            
             final String query = "DELETE FROM worker WHERE pk_id = " + worker_id;
 
-            daoHelper.executePreparedUpdate(daoHelper.getConnectionFromContext(), query);
-              
-
-            daoHelper.endTransaction();
+            daoConnection.executePreparedUpdate(query);
 
         } catch (SQLException e) {
-
-            daoHelper.rollbackTransaction();
             throw new DeleteDaoException("Not possible to make the transaction: ", e);
-
         }
 
        
@@ -173,7 +159,6 @@ public class WorkerDao {
       
     public void prepareQuery (Worker worker, String newOrUpdate) {
        
-
         int i=0;
         if (worker.getName().isEmpty()) {
         }
@@ -185,8 +170,11 @@ public class WorkerDao {
         if (worker.getId_mec().isEmpty()) {
         }
         queryList.Add(", id_mec",i);
-        queryList.Add(", ? ",i); 
+        queryList.Add(", ? ",i);
+        System.out.println("prepare query .... " + worker.getId_mec());
+        
         queryList.Add(worker.getId_mec(),i);
+        System.out.println("prepare query .... " + queryList.get(1, 2));
   
           
         if (! worker.getNick().isEmpty()) {
@@ -279,7 +267,7 @@ public class WorkerDao {
     }
     
     
-        public int  insertWorker (Worker worker) {
+         public int insertWorker (Worker worker) {
       
             prepareQuery(worker,"new");
 
@@ -295,20 +283,23 @@ public class WorkerDao {
                 param[i] = queryList.get(i, 2);
             }
 
+            queryList.remove();
+            
             query += ")";
             valuesInt += ")";
             query += valuesInt;
-
+            
             return insert(query, param);
-
+ 
     }
 
         
         
      public void updateWorker (Worker worker, String worker_id) {
       
+            System.out.println("Worker info no update Worker id mec" + worker.getId_mec());
             prepareQuery(worker,"update");
-
+            
             int sizeNparam = queryList.getNumRows();
             String query = "UPDATE worker SET ";
             Object param[] = new Object[sizeNparam];
@@ -321,6 +312,8 @@ public class WorkerDao {
             query += " WHERE pk_id = " + worker_id;
 
             update(query, param);
+            
+            queryList.remove();
 
     }
         

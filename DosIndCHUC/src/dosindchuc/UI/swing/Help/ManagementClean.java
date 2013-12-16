@@ -32,7 +32,7 @@ public class ManagementClean {
         cleanWorker ();
         cleanDosimeter ();
         cleanDose ();
-        
+  
     }
     
     
@@ -42,8 +42,7 @@ public class ManagementClean {
         cleanWorker ();
         cleanDosimeter ();
         cleanDose ();
-        frmMan.btWorkerUpdate.setEnabled(false);
-        
+  
     }
     
       
@@ -79,6 +78,10 @@ public class ManagementClean {
         this.frmMan.cbWorkerDept.setSelectedIndex(1);
         this.frmMan.cbWorkerSex.setSelectedIndex(0);
         this.frmMan.cbWorkerStatus.setSelectedIndex(0);
+        
+        frmMan.btWorkerUpdate.setEnabled(false);
+        frmMan.getTxtInfoAction().setText(null);
+        
         
     }
     

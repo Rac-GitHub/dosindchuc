@@ -4,7 +4,8 @@
  */
 package dosindchuc.model.dao;
 
-import dosindchuc.model.dao.Help.DaoHelper;
+
+import dosindchuc.model.dao.Help.DaoConnections;
 
 /**
  *
@@ -13,26 +14,20 @@ import dosindchuc.model.dao.Help.DaoHelper;
 public class UsersDao {
     
     
-    
-     private DaoHelper daoHelper;
+    private DaoConnections daoConnection;
     
 	
     public UsersDao () {
-	daoHelper = new DaoHelper();
+	daoConnection = new DaoConnections();
     }
     
     
     public String loginUsers (String username, String password) {
         
-        
-        System.out.println(username);
-        
-    //    String where = "username = '" + username + "' AND password = '" + password + "'";
+  
         String [][][] where = { {{"username", "null", username}}, {{"password", "null", password}} };
-       
-        Object [][] loginUsers = daoHelper.executeSelectivePreparedQuery("users", "name, username, password ", where);
+        Object [][] loginUsers = daoConnection.executeSelectivePreparedQuery("users", "name, username, password ", where);
         
-        System.out.println(loginUsers.length);
         if (loginUsers.length > 0) {
             return loginUsers[0][0].toString();
         } else {
