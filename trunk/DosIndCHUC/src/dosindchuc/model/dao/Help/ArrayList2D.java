@@ -80,8 +80,15 @@ public class ArrayList2D {
 	public void remove(int row, int col)
 	{
 		array.get(row).remove(col);
+                
 	}
  
+        public void remove()
+	{
+		array.clear();
+                
+	}
+        
         
 	public boolean contains(Object data)
 	{
