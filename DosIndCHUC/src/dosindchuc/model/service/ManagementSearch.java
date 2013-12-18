@@ -4,7 +4,8 @@
  */
 package dosindchuc.model.service;
 
-import dosindchuc.UI.controller.ManagementSearchActionListener;
+import dosindchuc.UI.controller.ManagementActionListener;
+import dosindchuc.UI.swing.Help.ManagementTablesModel;
 import dosindchuc.UI.swing.ManagementFrm;
 import dosindchuc.model.dao.Dose_infoDao;
 import dosindchuc.model.dao.Dose_notesDao;
@@ -12,6 +13,7 @@ import dosindchuc.model.dao.DosimeterDao;
 import dosindchuc.model.dao.Dosimeter_notesDao;
 import dosindchuc.model.dao.Help.DaoConnections;
 import dosindchuc.model.dao.WorkerDao;
+import dosindchuc.model.entities.DbPkIDs;
 import dosindchuc.model.entities.Dose_info;
 import dosindchuc.model.entities.Dose_notes;
 import dosindchuc.model.entities.Dosimeter;
@@ -34,26 +36,31 @@ public class ManagementSearch {
     private Object [][] workerList;
     private ManagementFrm frmMan;
     private WorkerDao workerdao;
+    private DbPkIDs dbPkIDs;
     
     private Dose_infoDao doseinfodao;
     private Dose_notesDao doseNotesDao;
     private List<Dose_info> dose_info;
     private List<Dose_notes> dosenotes; 
     
+    private ManagementTablesModel tableModel;
+    
     private DosimeterDao dosimeterdao;
     private Dosimeter_notesDao dosimeterNotesDao;
     private List<Dosimeter> dosimeter_info;
     private List<Dosimeter_notes> dosimeterNotes;
     
-    private ManagementSearchActionListener Listeners;
+    private ManagementActionListener Listeners;
 
   
     
     
-    public ManagementSearch(ManagementFrm frmMan, ManagementSearchActionListener Listeners) {
+    public ManagementSearch(ManagementFrm frmMan, ManagementActionListener Listeners) {
 
         daoHelper = new DaoConnections();
         this.frmMan = frmMan;
+        tableModel = new ManagementTablesModel(this.frmMan);
+        dbPkIDs = new DbPkIDs();
         workerdao = new WorkerDao();
         doseinfodao = new Dose_infoDao();
         doseNotesDao = new Dose_notesDao();
@@ -85,9 +92,10 @@ public class ManagementSearch {
         workerList = daoHelper.executeSelectivePreparedQuery("worker", "pk_id, id_mec, name, category, department, status", searchWhere);
        
         int nResults = workerList.length;
-          
-        model = frmMan.setSettingsSearchTable();
-
+        
+        tableModel.setDefaultSearchTable();
+        model = tableModel.getSearchTable();
+        
         if (nResults > 0) {
            
            Object newRow[] = new Object[nFields - 1 ];   //  por causa do  pk_id
@@ -114,15 +122,19 @@ public class ManagementSearch {
     /* ###############################################  */ 
      
     
-    public String fillAllManagement() { 
+    public void fillAllManagement() { 
         
         String worker_id =  this.workerList[frmMan.searchTable.getSelectedRow()][0].toString();
+        
+        System.out.println("fill all man  worker_id" + worker_id);
+        
+        dbPkIDs.setWorker_id(worker_id);
+        
+        System.out.println("fill all man  worker_id" + dbPkIDs.getWorker_id());
 
         fillWorkerInfo(worker_id);
         fillDoseInfo(worker_id);
         fillDosimeterInfo(worker_id);
-        
-        return worker_id;
     
     }
     
@@ -176,6 +188,7 @@ public class ManagementSearch {
         frmMan.getCbWorkerStatus().setSelectedItem(worker.getStatus().name()); 
         
         frmMan.getTxtWorkerLastModified().setText(worker.getLastchange());
+        
     }
     
     
@@ -199,7 +212,9 @@ public class ManagementSearch {
              return dose_info;
          } 
          
-         model = frmMan.setSettingsDoseTable();
+         
+        tableModel.setDefaultDoseTable();
+        model = tableModel.getDoseTable();
         
          for (int i = 0; i < nResults; i++) {
             
@@ -293,17 +308,18 @@ public class ManagementSearch {
              return dosimeter_info;
          } 
         
-         model = frmMan.setSettingsDosimeterTable();
+        tableModel.setDefaultDsmtTable("readonly");
+        model = tableModel.getDsmtTable();
         
-         for (int i = 0; i < nResults; i++) {
+        for (int i = 0; i < nResults; i++) {
             
              Dosimeter dosimeter = dosimeter_info.get(i);
              Object newRow[] = new Object [] {dosimeter.getId(), dosimeter.getLabel(), dosimeter.getType(), dosimeter.getPeriodicity()
-                     , dosimeter.getSupplier(), dosimeter.getStatus(), dosimeter.getLastchange()};
+                     , dosimeter.getSupplier(), dosimeter.getTimestamp(), dosimeter.getComments(), dosimeter.getStatus(), dosimeter.getLastchange()};
              model.addRow(newRow);
          
          }
-  
+        
          return dosimeter_info;
          
     }

@@ -5,7 +5,9 @@
 package dosindchuc.UI.controller;
 
 import dosindchuc.UI.swing.Help.ManagementClean;
+import dosindchuc.UI.swing.Help.ManagementButtons;
 import dosindchuc.UI.swing.ManagementFrm;
+import dosindchuc.model.service.ManagementDosimeter;
 import dosindchuc.model.service.ManagementSearch;
 import dosindchuc.model.service.ManagementWorker;
 import java.awt.event.ActionEvent;
@@ -18,28 +20,30 @@ import java.awt.event.MouseListener;
  *
  * @author ir
  */
-public final class ManagementSearchActionListener implements ActionListener, MouseListener {
+public final class ManagementActionListener implements ActionListener, MouseListener {
 
     
     private ManagementFrm frmMan;
     private ManagementClean serviceClean;
+    private ManagementButtons serviceBtns;
     private ManagementSearch serviceSearch;
     private ManagementWorker serviceWorker;
+    private ManagementDosimeter serviceDosimeter;
     public Object [][] workerList = null;
     public ActionListener Listeners;
-    private String worker_id = null;
 
- //   private 
     
-    
-    public ManagementSearchActionListener(ManagementFrm frmMan) {
+    public ManagementActionListener(ManagementFrm frmMan) {
      
         this.frmMan = frmMan;
         Listeners = this;
         
         serviceClean = new ManagementClean(this.frmMan);
+        serviceBtns = new ManagementButtons(this.frmMan);
+        
         serviceSearch = new ManagementSearch(this.frmMan, this);
         serviceWorker = new ManagementWorker(this.frmMan);
+        serviceDosimeter = new ManagementDosimeter(this.frmMan);
         
         addListeners();
 
@@ -62,7 +66,8 @@ public final class ManagementSearchActionListener implements ActionListener, Mou
                      serviceClean.cleanAllInfo();
                      serviceSearch.searchWorkers();
                      break;
-            case "cleanManagement":  serviceClean.cleanAllInfoWithSearch();
+            case "cleanManagement":  
+                serviceClean.cleanAllInfoWithSearch();
                      break;
             case "cbDoseNoteIndex":  serviceSearch.fillDoseNotesInfo();
                      break;
@@ -70,11 +75,16 @@ public final class ManagementSearchActionListener implements ActionListener, Mou
                      break;
             case "btNewWorker":  serviceWorker.newWorker();
                      break;
-            case "btSaveWorkerNew":  worker_id = serviceWorker.saveNewWorker();
+            case "btSaveWorkerNew":  serviceWorker.saveNewWorker();
                      break;
             case "btUpdateWorker":  serviceWorker.updateWorker();
                      break;
-            case "btSaveWorkerUpdate":  serviceWorker.saveUpdateWorker(worker_id);
+            case "btSaveWorkerUpdate":  serviceWorker.saveUpdateWorker();
+                     break;
+                
+            case "btDosimeterInfoNew":  serviceDosimeter.newDosimeter();
+                     break;
+            case "btDosimeterInfoSaveNew":  serviceDosimeter.saveNewDsmt();
                      break;
         }
     }
@@ -130,37 +140,50 @@ public final class ManagementSearchActionListener implements ActionListener, Mou
         frmMan.btSaveWorkerUpdate.addActionListener(this);
         
         
+        // buttons dosimeter
+        
+        frmMan.btDosimeterInfoNew.addActionListener(this);
+        frmMan.btDosimeterInfoUpdate.addActionListener(this);
+        frmMan.btDosimeterInfoSaveNew.addActionListener(this);
+        frmMan.btDosimeterInfoSaveUpdate.addActionListener(this);
+        
+        
+        
+        
      
     }
 
+  
     
-    
-    public String searchTableMouseClicked(MouseEvent mevent) {
- 
-        worker_id = null;
+    public void searchTableMouseClicked(MouseEvent mevent) {
+
         if (mevent.getClickCount() == 2) {
-            worker_id = serviceSearch.fillAllManagement();
+            serviceSearch.fillAllManagement();
             frmMan.btWorkerUpdate.setEnabled(true);
+            serviceBtns.setDosimeterBtsSearch(true);
             this.frmMan.getTxtInfoAction().setText("");
   
         }    
         
-        return worker_id;
-        
     }
+
     
     public void tableDoseInfoMouseClicked(MouseEvent mevent) {
  
-        serviceSearch.fillDoseNotesCBIndex();
+        if (mevent.getClickCount() == 2) {
+            serviceSearch.fillDoseNotesCBIndex();
+        }
  
-        }    
+    }    
  
     
     public void tableDosimeterInfoMouseClicked(MouseEvent mevent) {
         
-        serviceSearch.fillDosimeterNotesCBIndex();
-  
-        }    
+        if (mevent.getClickCount() == 2) {
+           serviceSearch.fillDosimeterNotesCBIndex();
+           
+        }  
+    }
       
     
     
