@@ -9,6 +9,7 @@ import dosindchuc.UI.swing.Help.ManagementClean;
 import dosindchuc.UI.swing.Help.ManagementFields;
 import dosindchuc.UI.swing.ManagementFrm;
 import dosindchuc.model.dao.WorkerDao;
+import dosindchuc.model.entities.DbPkIDs;
 import dosindchuc.model.entities.Help.DateAndTime;
 import dosindchuc.model.entities.Help.SetEnums;
 import dosindchuc.model.entities.Worker;
@@ -21,6 +22,7 @@ public class ManagementWorker {
 
     private ManagementFrm frmMan;
     private WorkerDao workerdao;
+    private DbPkIDs dbPkIDs;
 
     private DateAndTime dateAndTime = new DateAndTime();
     private ManagementFields setFieldsState;
@@ -33,6 +35,7 @@ public class ManagementWorker {
 
      
         this.frmMan = frmMan;
+        dbPkIDs = new DbPkIDs();
         workerdao = new WorkerDao();
         setFieldsState = new ManagementFields(this.frmMan);
         setButtonsState = new ManagementButtons(this.frmMan);
@@ -57,9 +60,7 @@ public class ManagementWorker {
         worker.setNick(this.frmMan.getTxtWorkerNick().getText());
         worker.setStatus(SetEnums.status.valueOf(this.frmMan.getCbWorkerStatus().getSelectedItem().toString()));
         worker.setId_mec(this.frmMan.getTxtWorkerMec().getText());
-        
-        System.out.println("worker info mec  " + this.frmMan.getTxtWorkerMec().getText());
-        
+
  // birth yyyy-mm-dd
         String birthYear = this.frmMan.getTxtWorkerBirthYear().getText();
         String birthMonth = this.frmMan.getTxtWorkerBirthMonth().getText();
@@ -70,6 +71,7 @@ public class ManagementWorker {
         worker.setBirth(birthYear + "-" + birthMonth + "-" + birthDay);
         }
 //        
+
         worker.setBI(this.frmMan.getTxtWorkerBI().getText());
         worker.setSex(SetEnums.worker_sex.valueOf(this.frmMan.cbWorkerSex.getSelectedItem().toString()));
         worker.setCategory(SetEnums.worker_category.valueOf(this.frmMan.getCbWorkerCat().getSelectedItem().toString()));
@@ -111,9 +113,9 @@ public class ManagementWorker {
     }
     
     
-    // insert in database 
+    // insert into the database 
     
-    public String saveNewWorker () {
+    public void saveNewWorker () {
         
         Worker worker = getWorkerInfo ("new");
         worker.setPk_id(workerdao.insertWorker(worker));
@@ -126,8 +128,8 @@ public class ManagementWorker {
         setWorkerInfo.fillWorkerInfo(id);
         setButtonsState.setAllWorkerBtsInit(true);
         
-        return id;
-        
+        dbPkIDs.setWorker_id(id);
+         
     }
     
     
@@ -145,10 +147,12 @@ public class ManagementWorker {
     }
     
     
-    public void saveUpdateWorker (String worker_id) {
+    public void saveUpdateWorker () {
         
         Worker worker = getWorkerInfo ("update");
         setFieldsState.setWorkerAllEdit(false);
+        
+        String worker_id = dbPkIDs.getWorker_id();
         
         System.out.println("save update    " +  worker_id);
         workerdao.updateWorker(worker, worker_id);

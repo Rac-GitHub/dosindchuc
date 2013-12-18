@@ -16,12 +16,14 @@ public class ManagementClean {
     
     private DefaultTableModel model;
     private ManagementFrm frmMan;
+    private ManagementTablesModel tableModel;
     
     
     
     public ManagementClean (ManagementFrm frmMan) {
 
         this.frmMan = frmMan;
+        tableModel = new ManagementTablesModel(this.frmMan);
         
     }
     
@@ -53,7 +55,8 @@ public class ManagementClean {
         frmMan.getSearchCBCategory().setSelectedItem("NoDef");
         frmMan.getSearchTxtMec().setText("");
 //        
-        model = frmMan.setSettingsSearchTable();
+        tableModel.setDefaultSearchTable();
+        
       
     }
     
@@ -97,7 +100,7 @@ public class ManagementClean {
         this.frmMan.cbDosimeterNotesAlert.setEnabled(false);
         this.frmMan.cbDosimeterNotesStatus.setEnabled(false);
         
-        this.frmMan.setSettingsDosimeterTable();
+        tableModel.setDefaultDsmtTable("readonly");
         
     }
     
@@ -112,7 +115,7 @@ public class ManagementClean {
         this.frmMan.cbDoseNoteLevel.setEnabled(false);
         this.frmMan.cbDoseNoteStatus.setEnabled(false);
         
-        this.frmMan.setSettingsDoseTable();
+        tableModel.setDefaultDoseTable();
         
     }
     
