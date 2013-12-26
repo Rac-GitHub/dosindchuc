@@ -55,7 +55,7 @@ public class WorkerDao {
 				public List<Worker> mapping(ResultSet rset) throws SQLException {
 					while (rset.next()) {
 						Worker worker = new Worker();
-						worker.setPk_id( rset.getInt("pk_id") );
+						worker.setPk_id( rset.getString("pk_id") );
 						worker.setId_mec( rset.getString("id_mec") );
 						worker.setName( rset.getString("name") );
 						worker.setNick( rset.getString("nick") );
@@ -87,75 +87,8 @@ public class WorkerDao {
 		
 	}
 
-    
-         
-    /**
-     *
-     * @param params
-     * @return
-     * @throws CreateDaoException
-     */
-    public int insert(String query, Object [] param  ) throws CreateDaoException {
-
-        int id = 0;
- 
-        try {
-  
-            id = daoConnection.executePreparedUpdateAndReturnGeneratedKeys(query, param);
-  
-        } catch (SQLException e) {
-          throw new CreateDaoException("Not possible to make the transaction ", e);
-        }
-
-        return id;
-
-    }
-    
-    
-    
-    
-  
-    
-    public void update(String query, Object [] param) throws UpdateDaoException {
-
-        try {
-            System.out.println("Query: " + query);
-            System.out.println("Param: " + param[0] + " " 
-                    + param[1] + " "
-                    + param[2] + " "
-                    + param[3] + " "
-                    + param[4] + " "
-                    + param[5] + " "
-                    + param[6] + " "
-                    + param[7] + " ");
-            daoConnection.executePreparedUpdate(query, param);
- 
-        } catch (SQLException e) {
-            throw new UpdateDaoException("Not possible to make the transaction ", e);
-        }
-
-    }
-    
-    
-    
-    
-
-    public void delete(int worker_id) throws DeleteDaoException {
-
-        try {
-
-            final String query = "DELETE FROM worker WHERE pk_id = " + worker_id;
-
-            daoConnection.executePreparedUpdate(query);
-
-        } catch (SQLException e) {
-            throw new DeleteDaoException("Not possible to make the transaction: ", e);
-        }
-
-       
-    }
-    
-    
+   
+        
       
     public void prepareQuery (Worker worker, String newOrUpdate) {
        
@@ -267,7 +200,7 @@ public class WorkerDao {
     }
     
     
-         public int insertWorker (Worker worker) {
+         public String insertWorker (Worker worker) {
       
             prepareQuery(worker,"new");
 
@@ -289,7 +222,7 @@ public class WorkerDao {
             valuesInt += ")";
             query += valuesInt;
             
-            return insert(query, param);
+            return daoConnection.insert(query, param);
  
     }
 
@@ -311,7 +244,7 @@ public class WorkerDao {
 
             query += " WHERE pk_id = " + worker_id;
 
-            update(query, param);
+            daoConnection.update(query, param);
             
             queryList.remove();
 

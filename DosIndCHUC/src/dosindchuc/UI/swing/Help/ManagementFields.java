@@ -50,6 +50,11 @@ public class ManagementFields {
         this.frmMan.txtWorkerComments.setEditable(workerEdit);
         
     }
+ 
+    
+    // dosimeter and dose
+    
+    
     
      public void setAllDosimeterEdit (boolean dsmtEdit) {
         

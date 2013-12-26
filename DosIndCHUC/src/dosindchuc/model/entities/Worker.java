@@ -7,12 +7,10 @@ package dosindchuc.model.entities;
 //
 
 
-import dosindchuc.model.entities.Help.SetEnums;
 import dosindchuc.model.entities.Help.SetEnums.status;
 import dosindchuc.model.entities.Help.SetEnums.worker_category;
 import dosindchuc.model.entities.Help.SetEnums.worker_department;
 import dosindchuc.model.entities.Help.SetEnums.worker_sex;
-import java.util.Objects;
 
 
 
@@ -23,7 +21,7 @@ import java.util.Objects;
 public class Worker {
   
     
-  private int pk_id;
+  private String pk_id;
   private String id_mec;
   private String name;
   private String nick;
@@ -52,7 +50,7 @@ public class Worker {
         
     }
 
-    public Worker(int pk_id, String id_mec, String name, String nick, String nationality, String nif, 
+    public Worker(String pk_id, String id_mec, String name, String nick, String nationality, String nif, 
             String birth, worker_sex sex, worker_category category, worker_department department, String sector, 
             String comments, String timestamp, status status, String status_timestamp, String lastchange) {
         this.pk_id = pk_id;
@@ -98,11 +96,11 @@ public class Worker {
  
   // getters and setters  
     
-    public int getPk_id() {
+    public String getPk_id() {
         return pk_id;
     }
 
-    public void setPk_id(int pk_id) {
+    public void setPk_id(String pk_id) {
         this.pk_id = pk_id;
     }
 
@@ -237,100 +235,7 @@ public class Worker {
     
     
         
-    
- // hashCode and equals   
-       
-    
-    
-    @Override
-    public int hashCode() {
-        int hash = 3;
-        hash = 89 * hash + this.pk_id;
-        hash = 89 * hash + Objects.hashCode(this.id_mec);
-        hash = 89 * hash + Objects.hashCode(this.name);
-        hash = 89 * hash + Objects.hashCode(this.nick);
-        hash = 89 * hash + Objects.hashCode(this.BI);
-        hash = 89 * hash + Objects.hashCode(this.nationality);
-        hash = 89 * hash + Objects.hashCode(this.nif);
-        hash = 89 * hash + Objects.hashCode(this.birth);
-        hash = 89 * hash + (this.sex != null ? this.sex.hashCode() : 0);
-        hash = 89 * hash + (this.category != null ? this.category.hashCode() : 0);
-        hash = 89 * hash + (this.department != null ? this.department.hashCode() : 0);
-        hash = 89 * hash + Objects.hashCode(this.sector);
-        hash = 89 * hash + Objects.hashCode(this.comments);
-        hash = 89 * hash + Objects.hashCode(this.timestamp);
-        hash = 89 * hash + (this.status != null ? this.status.hashCode() : 0);
-        hash = 89 * hash + Objects.hashCode(this.status_timestamp);
-        hash = 89 * hash + Objects.hashCode(this.lastchange);
-        return hash;
-    }
-
-    @Override
-    public boolean equals(Object obj) {
-        if (obj == null) {
-            return false;
-        }
-        if (getClass() != obj.getClass()) {
-            return false;
-        }
-        final Worker other = (Worker) obj;
-        if (this.pk_id != other.pk_id) {
-            return false;
-        }
-        if (!Objects.equals(this.id_mec, other.id_mec)) {
-            return false;
-        }
-        if (!Objects.equals(this.name, other.name)) {
-            return false;
-        }
-        if (!Objects.equals(this.nick, other.nick)) {
-            return false;
-        }
-        if (!Objects.equals(this.BI, other.BI)) {
-            return false;
-        }
-        if (!Objects.equals(this.nationality, other.nationality)) {
-            return false;
-        }
-        if (!Objects.equals(this.nif, other.nif)) {
-            return false;
-        }
-        if (!Objects.equals(this.birth, other.birth)) {
-            return false;
-        }
-        if (this.sex != other.sex) {
-            return false;
-        }
-        if (this.category != other.category) {
-            return false;
-        }
-        if (this.department != other.department) {
-            return false;
-        }
-        if (!Objects.equals(this.sector, other.sector)) {
-            return false;
-        }
-        if (!Objects.equals(this.timestamp, other.timestamp)) {
-            return false;
-        }
-        if (this.status != other.status) {
-            return false;
-        }
-        if (!Objects.equals(this.status_timestamp, other.status_timestamp)) {
-            return false;
-        }
-        if (!Objects.equals(this.lastchange, other.lastchange)) {
-            return false;
-        }
-        return true;
-    }
-
-    
-    
-
-   
-
-    
+ 
     // to string
 
     @Override

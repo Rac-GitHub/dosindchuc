@@ -116,7 +116,7 @@ public class SetEnums {
     
     
     
-    public enum dsmt_periodicity { Anual , Trimestral }
+    public enum dsmt_periodicity { Mensal , Trimestral }
     
     
     

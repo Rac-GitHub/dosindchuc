@@ -11,6 +11,7 @@ import dosindchuc.model.dao.Dose_infoDao;
 import dosindchuc.model.dao.Dose_notesDao;
 import dosindchuc.model.dao.DosimeterDao;
 import dosindchuc.model.dao.Dosimeter_notesDao;
+import dosindchuc.model.dao.Help.ArrayList2D;
 import dosindchuc.model.dao.Help.DaoConnections;
 import dosindchuc.model.dao.WorkerDao;
 import dosindchuc.model.entities.DbPkIDs;
@@ -19,6 +20,7 @@ import dosindchuc.model.entities.Dose_notes;
 import dosindchuc.model.entities.Dosimeter;
 import dosindchuc.model.entities.Dosimeter_notes;
 import dosindchuc.model.entities.Worker;
+import java.util.ArrayList;
 import java.util.List;
 import javax.swing.table.DefaultTableModel;
 
@@ -126,15 +128,15 @@ public class ManagementSearch {
         
         String worker_id =  this.workerList[frmMan.searchTable.getSelectedRow()][0].toString();
         
-        System.out.println("fill all man  worker_id" + worker_id);
+        System.out.println("fill all man  worker_id  " + worker_id);
         
         dbPkIDs.setWorker_id(worker_id);
         
-        System.out.println("fill all man  worker_id" + dbPkIDs.getWorker_id());
+        System.out.println("fill all man  worker_id  " + dbPkIDs.getWorker_id());
 
         fillWorkerInfo(worker_id);
-        fillDoseInfo(worker_id);
-        fillDosimeterInfo(worker_id);
+        fillDoseInfo(worker_id,"list");
+        fillDosimeterInfo(worker_id,"list");
     
     }
     
@@ -193,103 +195,6 @@ public class ManagementSearch {
     
     
     
-    
-    /* ###############################################  */
-    /*                                                  */ 
-    /*             Fill Worker dose info                */
-    /*                                                  */ 
-    /* ###############################################  */ 
-     
-    
-     public List fillDoseInfo (String worker_id) {
-        
-         dose_info =  doseinfodao.getDoseInfo(0, worker_id);
-            
-         int nResults = dose_info.size();
-        
-         if ( ! (nResults > 0) ) {
-             dose_info = null;
-             return dose_info;
-         } 
-         
-         
-        tableModel.setDefaultDoseTable();
-        model = tableModel.getDoseTable();
-        
-         for (int i = 0; i < nResults; i++) {
-            
-             Dose_info worker_dose = dose_info.get(i);
-             Object newRow[] = new Object [] {worker_dose.getYear(), worker_dose.getTrimester(), worker_dose.getMonth()
-                     , worker_dose.getHp007(), worker_dose.getHp10(), worker_dose.getComments(), worker_dose.getLastchange()};
-             model.addRow(newRow);
-         
-         }
- 
-         return dose_info;
-         
-    }
-    
-  
-     
-     public void fillDoseNotesCBIndex () {
-         
-         clearDoseNotesInfo ();
-          
-         int row = frmMan.tableDoseInfo.getSelectedRow();
-         int pk_dose = dose_info.get(row).getPk_dose();
-         
-         dosenotes =  doseNotesDao.getDose_notesInfo(Integer.toString(pk_dose));
-         
-         int nResults = dosenotes.size();
-        
-         if ( ! (nResults > 0) ) {
-              return;
-         } 
- 
-         for (int i = 0; i < nResults; i++) {
-            frmMan.getCbDoseNoteIndex().addItem(i+1);
-         }
-         
-           frmMan.getCbDoseNoteIndex().setSelectedIndex(0); 
-           frmMan.getCbDoseNoteIndex().setEnabled(true);
-          
-     }
-     
-         
-     
-     public void fillDoseNotesInfo () {
-         
-         int index = frmMan.getCbDoseNoteIndex().getSelectedIndex();
-         
-         Dose_notes dose_notes = dosenotes.get(index);
-         
-         frmMan.getTxtDoseNotesDateCreated().setText(dose_notes.getTimestamp());
-         frmMan.getTxtDoseNote().setText(dose_notes.getNote());
-         frmMan.getCbDoseNoteLevel().setSelectedItem(dose_notes.getAlert_level().name());
-      //   frmMan.getTxtDoseNoteLevelDate().setText(dose_notes.get);
-         frmMan.getCbDoseNoteStatus().setSelectedItem(dose_notes.getStatus().name());
-         frmMan.getTxtDoseNoteStatusDate().setText(dose_notes.getStatus_timestamp());
-         
-     }
-    
-     
-     public void clearDoseNotesInfo () {
-         
-         frmMan.cbDoseNoteIndex.removeActionListener(Listeners);
-         frmMan.getCbDoseNoteIndex().removeAllItems();
-         frmMan.getCbDoseNoteIndex().setEnabled(false);
-         frmMan.cbDoseNoteIndex.addActionListener(Listeners);
- 
-         frmMan.getTxtDoseNotesDateCreated().setText("");
-         frmMan.getTxtDoseNote().setText("");
-         frmMan.getCbDoseNoteLevel().setSelectedItem(1);
-      //   frmMan.getTxtDoseNoteLevelDate().setText(dose_notes.get);
-         frmMan.getCbDoseNoteStatus().setSelectedItem(1);
-         frmMan.getTxtDoseNoteStatusDate().setText("");
-   
-     }
-     
-     
      
     /* ###############################################  */
     /*                                                  */ 
@@ -297,9 +202,11 @@ public class ManagementSearch {
     /*                                                  */ 
     /* ###############################################  */ 
      
-      public List fillDosimeterInfo (String worker_id) {
+      public List fillDosimeterInfo (String worker_id, String newORupdate) {
   
-         dosimeter_info =  dosimeterdao.getDosimetersInfo(0, worker_id);
+         ArrayList2D dsmtIds = new ArrayList2D();
+          
+         dosimeter_info =  dosimeterdao.getDosimetersInfo("", worker_id);
             
          int nResults = dosimeter_info.size();
         
@@ -308,8 +215,17 @@ public class ManagementSearch {
              return dosimeter_info;
          } 
         
-        tableModel.setDefaultDsmtTable("readonly");
+         System.out.println(" Fill dosimeter com Update  : " + nResults);
+         
+        if (newORupdate.equalsIgnoreCase("update")) {
+            System.out.println(" Fill dosimeter com Update  : " + nResults);
+            tableModel.setDefaultDsmtTable("updatedsmt");
+        } else {
+            tableModel.setDefaultDsmtTable("readonly");
+        }
+        
         model = tableModel.getDsmtTable();
+        System.out.println(" Fill dosimeter com Update model  : " + model);
         
         for (int i = 0; i < nResults; i++) {
             
@@ -317,8 +233,16 @@ public class ManagementSearch {
              Object newRow[] = new Object [] {dosimeter.getId(), dosimeter.getLabel(), dosimeter.getType(), dosimeter.getPeriodicity()
                      , dosimeter.getSupplier(), dosimeter.getTimestamp(), dosimeter.getComments(), dosimeter.getStatus(), dosimeter.getLastchange()};
              model.addRow(newRow);
-         
+             
+             
+             System.out.println(" Fill dosimeter : " + i + "   " + dosimeter.getPk_dsmt());
+             dsmtIds.Add(dosimeter.getPk_dsmt(),i);
+             dsmtIds.Add(dosimeter.getStatus(),i);
+             dsmtIds.Add(dosimeter.getType(),i);
+          
          }
+        
+         dbPkIDs.setDsmt_id(dsmtIds);
         
          return dosimeter_info;
          
@@ -331,9 +255,9 @@ public class ManagementSearch {
          clearDosimeterNotesInfo();
         
          int row = frmMan.tableDosimeterInfo.getSelectedRow();
-         int pk_dsmt = dosimeter_info.get(row).getPk_dsmt();
+         String pk_dsmt = dosimeter_info.get(row).getPk_dsmt();
          
-         dosimeterNotes =  dosimeterNotesDao.getDosimetry_notes(Integer.toString(pk_dsmt));
+         dosimeterNotes =  dosimeterNotesDao.getDosimetry_notes(pk_dsmt);
          
          int nResults = dosimeterNotes.size();
         
@@ -386,5 +310,125 @@ public class ManagementSearch {
    
      }
        
+       
+       
+       
+      /* ###############################################  */
+    /*                                                  */ 
+    /*             Fill Worker dose info                */
+    /*                                                  */ 
+    /* ###############################################  */ 
+     
+    
+     public List fillDoseInfo (String worker_id, String newORupdate) {
+        
+         ArrayList doseIds = new ArrayList();
+           
+         dose_info =  doseinfodao.getDoseInfo("", worker_id);
+            
+         int nResults = dose_info.size();
+        
+         if ( ! (nResults > 0) ) {
+             dose_info = null;
+             return dose_info;
+         } 
+         
+           
+        if (newORupdate.equalsIgnoreCase("update")) {
+            System.out.println(" Fill dose com Update  : " + nResults);
+            tableModel.setDefaultDoseTable("updatedose");
+        } else {
+            tableModel.setDefaultDoseTable("readonly");
+        }
+        
+        model = tableModel.getDoseTable();
+        System.out.println(" Fill dose com Update model  : " + model);
+         
+ 
+         for (int i = 0; i < nResults; i++) {
+            
+             Dose_info worker_dose = dose_info.get(i);
+             String dsmtID = dosimeterdao.getDosimetersInfo(worker_dose.getPk_dsmt(), worker_id).get(0).getId();
+             
+             System.out.println(" Fill dose  label dosimeter   : " + dsmtID);
+             
+             
+             Object newRow[] = new Object [] {dsmtID , worker_dose.getYear(), worker_dose.getTrimester(), worker_dose.getMonth()
+                     , worker_dose.getHp007(), worker_dose.getHp10(), worker_dose.getTimestamp(), worker_dose.getComments(), worker_dose.getLastchange()};
+             model.addRow(newRow);
+             
+                  
+             System.out.println(" Fill dose : " + i + "   " + worker_dose.getPk_dose());
+             doseIds.add(i, worker_dose.getPk_dose());
+          
+         }
+        
+         dbPkIDs.setDose_id(doseIds);
+  
+         return dose_info;
+         
+    }
+    
+  
+     
+     public void fillDoseNotesCBIndex () {
+         
+         clearDoseNotesInfo ();
+          
+         int row = frmMan.tableDoseInfo.getSelectedRow();
+         String pk_dose = dose_info.get(row).getPk_dose();
+         
+         dosenotes =  doseNotesDao.getDose_notesInfo(pk_dose);
+         
+         int nResults = dosenotes.size();
+        
+         if ( ! (nResults > 0) ) {
+              return;
+         } 
+ 
+         for (int i = 0; i < nResults; i++) {
+            frmMan.getCbDoseNoteIndex().addItem(i+1);
+         }
+         
+           frmMan.getCbDoseNoteIndex().setSelectedIndex(0); 
+           frmMan.getCbDoseNoteIndex().setEnabled(true);
+          
+     }
+     
+         
+     
+     public void fillDoseNotesInfo () {
+         
+         int index = frmMan.getCbDoseNoteIndex().getSelectedIndex();
+         
+         Dose_notes dose_notes = dosenotes.get(index);
+         
+         frmMan.getTxtDoseNotesDateCreated().setText(dose_notes.getTimestamp());
+         frmMan.getTxtDoseNote().setText(dose_notes.getNote());
+         frmMan.getCbDoseNoteLevel().setSelectedItem(dose_notes.getAlert_level().name());
+      //   frmMan.getTxtDoseNoteLevelDate().setText(dose_notes.get);
+         frmMan.getCbDoseNoteStatus().setSelectedItem(dose_notes.getStatus().name());
+         frmMan.getTxtDoseNoteStatusDate().setText(dose_notes.getStatus_timestamp());
+         
+     }
+    
+     
+     public void clearDoseNotesInfo () {
+         
+         frmMan.cbDoseNoteIndex.removeActionListener(Listeners);
+         frmMan.getCbDoseNoteIndex().removeAllItems();
+         frmMan.getCbDoseNoteIndex().setEnabled(false);
+         frmMan.cbDoseNoteIndex.addActionListener(Listeners);
+ 
+         frmMan.getTxtDoseNotesDateCreated().setText("");
+         frmMan.getTxtDoseNote().setText("");
+         frmMan.getCbDoseNoteLevel().setSelectedItem(1);
+      //   frmMan.getTxtDoseNoteLevelDate().setText(dose_notes.get);
+         frmMan.getCbDoseNoteStatus().setSelectedItem(1);
+         frmMan.getTxtDoseNoteStatusDate().setText("");
+   
+     }
+     
+      
      
 }

@@ -115,7 +115,7 @@ public class ManagementClean {
         this.frmMan.cbDoseNoteLevel.setEnabled(false);
         this.frmMan.cbDoseNoteStatus.setEnabled(false);
         
-        tableModel.setDefaultDoseTable();
+        tableModel.setDefaultDoseTable("readonly");
         
     }
     

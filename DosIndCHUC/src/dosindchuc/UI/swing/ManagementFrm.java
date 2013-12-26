@@ -122,9 +122,7 @@ public class ManagementFrm extends javax.swing.JFrame {
         jPanel4 = new javax.swing.JPanel();
         jScrollPane2 = new javax.swing.JScrollPane();
         tableDoseInfo = new javax.swing.JTable();
-        btDoseNew = new javax.swing.JButton();
-        btDoseSave = new javax.swing.JButton();
-        btDoseCancel = new javax.swing.JButton();
+        btDoseInfoNew = new javax.swing.JButton();
         jLabel15 = new javax.swing.JLabel();
         jScrollPane3 = new javax.swing.JScrollPane();
         txtDoseNote = new javax.swing.JTextArea();
@@ -134,13 +132,17 @@ public class ManagementFrm extends javax.swing.JFrame {
         cbDoseNoteStatus = new javax.swing.JComboBox();
         txtDoseNoteLevelDate = new javax.swing.JTextField();
         txtDoseNoteStatusDate = new javax.swing.JTextField();
-        btDoseUpdate = new javax.swing.JButton();
+        btDoseInfoUpdate = new javax.swing.JButton();
         cbDoseNoteIndex = new javax.swing.JComboBox();
         jLabel25 = new javax.swing.JLabel();
         jLabel26 = new javax.swing.JLabel();
         txtDoseNotesDateCreated = new javax.swing.JTextField();
         btNewNote = new javax.swing.JButton();
         btUpdateNote = new javax.swing.JButton();
+        jLayeredPane3 = new javax.swing.JLayeredPane();
+        btDoseInfoSaveNew = new javax.swing.JButton();
+        btDoseInfoCancel = new javax.swing.JButton();
+        btDoseInfoSaveUpdate = new javax.swing.JButton();
         jSeparator1 = new javax.swing.JSeparator();
         txtInfoAction = new javax.swing.JTextField();
         cbWorkerStatus = new javax.swing.JComboBox();
@@ -576,11 +578,8 @@ public class ManagementFrm extends javax.swing.JFrame {
         tableDoseInfo.getTableHeader().setReorderingAllowed(false);
         jScrollPane2.setViewportView(tableDoseInfo);
 
-        btDoseNew.setText("New");
-
-        btDoseSave.setText("Save");
-
-        btDoseCancel.setText("Cancel");
+        btDoseInfoNew.setText("New");
+        btDoseInfoNew.setActionCommand("btDoseNew");
 
         jLabel15.setText("Note:");
 
@@ -603,7 +602,8 @@ public class ManagementFrm extends javax.swing.JFrame {
         txtDoseNoteStatusDate.setEditable(false);
         txtDoseNoteStatusDate.setFont(new java.awt.Font("Dialog", 0, 10)); // NOI18N
 
-        btDoseUpdate.setText("Update");
+        btDoseInfoUpdate.setText("Update");
+        btDoseInfoUpdate.setActionCommand("btDoseInfoUpdate");
 
         cbDoseNoteIndex.setActionCommand("cbDoseNoteIndex");
 
@@ -623,73 +623,88 @@ public class ManagementFrm extends javax.swing.JFrame {
         btUpdateNote.setFont(new java.awt.Font("Dialog", 1, 10)); // NOI18N
         btUpdateNote.setText("Update Note");
 
+        btDoseInfoSaveNew.setText("Save");
+        btDoseInfoSaveNew.setActionCommand("btDoseInfoSaveNew");
+        btDoseInfoSaveNew.setBounds(20, 10, 68, 25);
+        jLayeredPane3.add(btDoseInfoSaveNew, javax.swing.JLayeredPane.DEFAULT_LAYER);
+
+        btDoseInfoCancel.setText("Cancel");
+        btDoseInfoCancel.setActionCommand("btDoseInfoCancel");
+        btDoseInfoCancel.setBounds(150, 10, 81, 25);
+        jLayeredPane3.add(btDoseInfoCancel, javax.swing.JLayeredPane.DEFAULT_LAYER);
+
+        btDoseInfoSaveUpdate.setText("Save");
+        btDoseInfoSaveUpdate.setActionCommand("btDoseSaveUpdate");
+        btDoseInfoSaveUpdate.setBounds(20, 10, 68, 25);
+        jLayeredPane3.add(btDoseInfoSaveUpdate, javax.swing.JLayeredPane.DEFAULT_LAYER);
+
         javax.swing.GroupLayout jPanel4Layout = new javax.swing.GroupLayout(jPanel4);
         jPanel4.setLayout(jPanel4Layout);
         jPanel4Layout.setHorizontalGroup(
             jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel4Layout.createSequentialGroup()
-                .addContainerGap()
+                .addGap(26, 26, 26)
                 .addGroup(jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(jPanel4Layout.createSequentialGroup()
-                        .addGap(14, 14, 14)
+                        .addComponent(cbDoseNoteIndex, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                        .addComponent(jLabel26)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(txtDoseNotesDateCreated, javax.swing.GroupLayout.PREFERRED_SIZE, 135, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addGroup(jPanel4Layout.createSequentialGroup()
+                        .addComponent(jLabel15)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addGroup(jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addGroup(jPanel4Layout.createSequentialGroup()
-                                .addComponent(cbDoseNoteIndex, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                                .addComponent(jLabel26)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addComponent(txtDoseNotesDateCreated, javax.swing.GroupLayout.PREFERRED_SIZE, 135, javax.swing.GroupLayout.PREFERRED_SIZE))
-                            .addGroup(jPanel4Layout.createSequentialGroup()
-                                .addComponent(jLabel15)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addGroup(jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                    .addGroup(jPanel4Layout.createSequentialGroup()
-                                        .addComponent(btNewNote)
-                                        .addGap(35, 35, 35)
-                                        .addComponent(btUpdateNote))
-                                    .addComponent(jScrollPane3, javax.swing.GroupLayout.PREFERRED_SIZE, 429, javax.swing.GroupLayout.PREFERRED_SIZE))))
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 55, Short.MAX_VALUE)
+                                .addComponent(btNewNote)
+                                .addGap(35, 35, 35)
+                                .addComponent(btUpdateNote))
+                            .addComponent(jScrollPane3, javax.swing.GroupLayout.PREFERRED_SIZE, 429, javax.swing.GroupLayout.PREFERRED_SIZE))))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 55, Short.MAX_VALUE)
+                .addGroup(jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(jLabel17)
+                    .addComponent(jLabel16))
+                .addGroup(jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(jPanel4Layout.createSequentialGroup()
+                        .addGroup(jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                            .addComponent(cbDoseNoteLevel, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(cbDoseNoteStatus, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addGap(30, 30, 30)
                         .addGroup(jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(jLabel17)
-                            .addComponent(jLabel16))
-                        .addGroup(jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addGroup(jPanel4Layout.createSequentialGroup()
-                                .addGroup(jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                                    .addComponent(cbDoseNoteLevel, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                    .addComponent(cbDoseNoteStatus, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                                .addGap(30, 30, 30)
-                                .addGroup(jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                    .addComponent(txtDoseNoteStatusDate, javax.swing.GroupLayout.PREFERRED_SIZE, 123, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                    .addComponent(txtDoseNoteLevelDate, javax.swing.GroupLayout.PREFERRED_SIZE, 123, javax.swing.GroupLayout.PREFERRED_SIZE))
-                                .addContainerGap(66, Short.MAX_VALUE))
-                            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel4Layout.createSequentialGroup()
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                                .addComponent(jLabel25)
-                                .addGap(85, 85, 85))))
+                            .addComponent(txtDoseNoteStatusDate, javax.swing.GroupLayout.PREFERRED_SIZE, 123, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(txtDoseNoteLevelDate, javax.swing.GroupLayout.PREFERRED_SIZE, 123, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addContainerGap(66, Short.MAX_VALUE))
                     .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel4Layout.createSequentialGroup()
-                        .addComponent(jScrollPane2)
-                        .addContainerGap())))
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addComponent(jLabel25)
+                        .addGap(85, 85, 85))))
             .addGroup(jPanel4Layout.createSequentialGroup()
                 .addGap(72, 72, 72)
-                .addComponent(btDoseNew)
+                .addComponent(btDoseInfoNew)
                 .addGap(46, 46, 46)
-                .addComponent(btDoseUpdate)
+                .addComponent(btDoseInfoUpdate)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addComponent(btDoseSave)
-                .addGap(47, 47, 47)
-                .addComponent(btDoseCancel)
-                .addGap(33, 33, 33))
+                .addComponent(jLayeredPane3, javax.swing.GroupLayout.PREFERRED_SIZE, 243, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(36, 36, 36))
+            .addGroup(jPanel4Layout.createSequentialGroup()
+                .addContainerGap()
+                .addComponent(jScrollPane2)
+                .addContainerGap())
         );
         jPanel4Layout.setVerticalGroup(
             jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel4Layout.createSequentialGroup()
-                .addGap(24, 24, 24)
-                .addGroup(jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(btDoseNew)
-                    .addComponent(btDoseUpdate)
-                    .addComponent(btDoseSave)
-                    .addComponent(btDoseCancel))
-                .addGap(21, 21, 21)
+                .addGroup(jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(jPanel4Layout.createSequentialGroup()
+                        .addGap(24, 24, 24)
+                        .addGroup(jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                            .addComponent(btDoseInfoNew)
+                            .addComponent(btDoseInfoUpdate))
+                        .addGap(21, 21, 21))
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel4Layout.createSequentialGroup()
+                        .addContainerGap()
+                        .addComponent(jLayeredPane3, javax.swing.GroupLayout.PREFERRED_SIZE, 42, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)))
                 .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 157, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(36, 36, 36)
                 .addGroup(jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
@@ -1058,6 +1073,7 @@ public class ManagementFrm extends javax.swing.JFrame {
         btWorkerUpdate.setEnabled(false);
         
         setButtonsState.setAllDosimeterBtsInit(false);
+        setButtonsState.setAllDoseBtsInit(false);
                 
     } 
     
@@ -1488,10 +1504,11 @@ public class ManagementFrm extends javax.swing.JFrame {
     
     
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JButton btDoseCancel;
-    private javax.swing.JButton btDoseNew;
-    private javax.swing.JButton btDoseSave;
-    private javax.swing.JButton btDoseUpdate;
+    public javax.swing.JButton btDoseInfoCancel;
+    public javax.swing.JButton btDoseInfoNew;
+    public javax.swing.JButton btDoseInfoSaveNew;
+    public javax.swing.JButton btDoseInfoSaveUpdate;
+    public javax.swing.JButton btDoseInfoUpdate;
     public javax.swing.JButton btDosimeterInfoCancel;
     public javax.swing.JButton btDosimeterInfoNew;
     public javax.swing.JButton btDosimeterInfoSaveNew;
@@ -1553,6 +1570,7 @@ public class ManagementFrm extends javax.swing.JFrame {
     private javax.swing.JLabel jLabel9;
     private javax.swing.JLayeredPane jLayeredPane1;
     private javax.swing.JLayeredPane jLayeredPane2;
+    private javax.swing.JLayeredPane jLayeredPane3;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JPanel jPanel3;
     private javax.swing.JPanel jPanel4;
