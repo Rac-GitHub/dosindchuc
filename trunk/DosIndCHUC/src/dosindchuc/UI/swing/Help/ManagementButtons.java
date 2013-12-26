@@ -49,7 +49,15 @@ public class ManagementButtons {
 
     }
 
-    // dosimeter
+    
+    
+    /*
+     * 
+     * dosimeter
+     * 
+     */
+    
+
     public void setAllDosimeterBtsInit(boolean dsmtBts) {
 
         this.frmMan.btDosimeterInfoNew.setEnabled(dsmtBts);
@@ -77,6 +85,74 @@ public class ManagementButtons {
         this.frmMan.btDosimeterInfoSaveNew.setEnabled(dsmtBts);
         this.frmMan.btDosimeterInfoSaveUpdate.setEnabled(!dsmtBts);
         this.frmMan.btDosimeterInfoCancel.setEnabled(dsmtBts);
+        this.frmMan.btDosimeterInfoSaveNew.setVisible(dsmtBts);
+        this.frmMan.btDosimeterInfoSaveUpdate.setVisible(!dsmtBts);
 
     }
+    
+    public void setDosimeterBtsUpdate(boolean dsmtBts) {
+
+        this.frmMan.btDosimeterInfoNew.setEnabled(!dsmtBts);
+        this.frmMan.btDosimeterInfoUpdate.setEnabled(!dsmtBts);
+        this.frmMan.btDosimeterInfoSaveNew.setEnabled(!dsmtBts);
+        this.frmMan.btDosimeterInfoSaveUpdate.setEnabled(dsmtBts);
+        this.frmMan.btDosimeterInfoCancel.setEnabled(dsmtBts);
+        this.frmMan.btDosimeterInfoSaveNew.setVisible(!dsmtBts);
+        this.frmMan.btDosimeterInfoSaveUpdate.setVisible(dsmtBts);
+
+    }
+    
+    /*
+     * 
+     * 
+     * dose info
+     * 
+     */
+
+    
+    public void setAllDoseBtsInit(boolean doseBts) {
+
+        this.frmMan.btDoseInfoNew.setEnabled(doseBts);
+        this.frmMan.btDoseInfoUpdate.setEnabled(doseBts);
+        this.frmMan.btDoseInfoSaveNew.setEnabled(doseBts);
+        this.frmMan.btDoseInfoSaveUpdate.setEnabled(doseBts);
+        this.frmMan.btDoseInfoCancel.setEnabled(doseBts);
+
+    }
+    
+     public void setDoseBtsSearch(boolean doseBts) {
+
+        this.frmMan.btDoseInfoNew.setEnabled(doseBts);
+        this.frmMan.btDoseInfoUpdate.setEnabled(doseBts);
+        this.frmMan.btDoseInfoSaveNew.setEnabled(!doseBts);
+        this.frmMan.btDoseInfoSaveUpdate.setEnabled(!doseBts);
+        this.frmMan.btDoseInfoCancel.setEnabled(!doseBts);
+
+    }
+
+    public void setDoseBtsNew(boolean doseBts) {
+
+        this.frmMan.btDoseInfoNew.setEnabled(!doseBts);
+        this.frmMan.btDoseInfoUpdate.setEnabled(!doseBts);
+        this.frmMan.btDoseInfoSaveNew.setEnabled(doseBts);
+        this.frmMan.btDoseInfoSaveUpdate.setEnabled(!doseBts);
+        this.frmMan.btDoseInfoCancel.setEnabled(doseBts);
+        this.frmMan.btDoseInfoSaveNew.setVisible(doseBts);
+        this.frmMan.btDoseInfoSaveUpdate.setVisible(!doseBts);
+
+    }
+    
+    public void setDoseBtsUpdate(boolean dsmtBts) {
+
+        this.frmMan.btDoseInfoNew.setEnabled(!dsmtBts);
+        this.frmMan.btDoseInfoUpdate.setEnabled(!dsmtBts);
+        this.frmMan.btDoseInfoSaveNew.setEnabled(!dsmtBts);
+        this.frmMan.btDoseInfoSaveUpdate.setEnabled(dsmtBts);
+        this.frmMan.btDoseInfoCancel.setEnabled(dsmtBts);
+        this.frmMan.btDoseInfoSaveNew.setVisible(!dsmtBts);
+        this.frmMan.btDoseInfoSaveUpdate.setVisible(dsmtBts);
+
+    }
+    
+    
 }

@@ -24,7 +24,7 @@ public class ManagementWorker {
     private WorkerDao workerdao;
     private DbPkIDs dbPkIDs;
 
-    private DateAndTime dateAndTime = new DateAndTime();
+    private DateAndTime dateAndTime; 
     private ManagementFields setFieldsState;
     private ManagementButtons setButtonsState;
     private ManagementClean setCleanState;
@@ -41,6 +41,7 @@ public class ManagementWorker {
         setButtonsState = new ManagementButtons(this.frmMan);
         setCleanState = new ManagementClean(this.frmMan);
         setWorkerInfo = new ManagementSearch(this.frmMan, null);
+ //       dateAndTime = = new DateAndTime();
     
     }
     
@@ -121,7 +122,7 @@ public class ManagementWorker {
         worker.setPk_id(workerdao.insertWorker(worker));
         setFieldsState.setWorkerAllEdit(false);
         
-        String id = Integer.toString(worker.getPk_id());
+        String id = worker.getPk_id();
         this.frmMan.getTxtInfoAction().setText("Worker with id= "+ id + "saved into database");
         
         // actualiza info

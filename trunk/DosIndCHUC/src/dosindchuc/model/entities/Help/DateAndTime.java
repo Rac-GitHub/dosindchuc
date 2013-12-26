@@ -15,10 +15,8 @@ public class DateAndTime {
 
     
     public DateAndTime() {
-    
     }
-
-    
+   
      
      public String currDate () {
 
@@ -36,5 +34,13 @@ public class DateAndTime {
               
      }
      
+     
+     public String currYear () {
+
+        Date dNow = new Date();
+        SimpleDateFormat ft = new SimpleDateFormat ("yyyy");
+        return ft.format(dNow);
+              
+     }
          
 }

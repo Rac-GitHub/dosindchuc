@@ -8,97 +8,83 @@ import dosindchuc.UI.swing.Help.ManagementButtons;
 import dosindchuc.UI.swing.Help.ManagementClean;
 import dosindchuc.UI.swing.Help.ManagementTablesModel;
 import dosindchuc.UI.swing.ManagementFrm;
-import dosindchuc.model.dao.DosimeterDao;
-import dosindchuc.model.dao.Help.ArrayList2D;
+import dosindchuc.model.dao.Dose_infoDao;
 import dosindchuc.model.entities.DbPkIDs;
-import dosindchuc.model.entities.Dosimeter;
+import dosindchuc.model.entities.Dose_info;
 import dosindchuc.model.entities.Help.DateAndTime;
 import dosindchuc.model.entities.Help.SetEnums;
 import java.util.ArrayList;
 import javax.swing.JTable;
 
-
-
 /**
  *
  * @author ir
  */
-public class ManagementDosimeter {
-    
-    
+public class ManagementDose {
+
     private ManagementFrm frmMan;
-    private DosimeterDao dsmtdao;
+    private Dose_infoDao dosedao;
     private DbPkIDs dbPkIDs;
 
     private DateAndTime dateAndTime = new DateAndTime();
     private ManagementButtons setButtonsState;
     private ManagementClean setCleanState;
     private ManagementTablesModel tableModel;
-    private ManagementSearch setDsmtInfo;
+    private ManagementSearch setDoseInfo;
     private JTable table;
     
     
     
-    public ManagementDosimeter (ManagementFrm frmMan) {
+    public ManagementDose (ManagementFrm frmMan) {
 
      
         this.frmMan = frmMan;
         dbPkIDs = new DbPkIDs();
-        dsmtdao = new DosimeterDao();
+        dosedao = new Dose_infoDao();
         tableModel = new ManagementTablesModel(this.frmMan);
         setButtonsState = new ManagementButtons(this.frmMan);
         setCleanState = new ManagementClean(this.frmMan);
-        setDsmtInfo = new ManagementSearch(this.frmMan, null);
+        setDoseInfo = new ManagementSearch(this.frmMan, null);
     
     }
     
    
     
-     /* ############################################### */
+    /* ############################################### */
     /*                                                  */ 
-    /*              dosimeter  info                       */
+    /*              dose  info                       */
     /*                                                  */ 
     /* ###############################################  */ 
-    
- /*   
-    private int getDsmtIDs () {
+
+    private Dose_info getDoseInfo (String newOrUpdate) {
         
-        
-        
-    }
-    
- */   
-    private Dosimeter getDsmtInfo (String newOrUpdate) {
-        
-        Dosimeter dsmt = new Dosimeter();
+        Dose_info dose = new Dose_info();
         int row = 0;
         
-        table = this.frmMan.tableDosimeterInfo;
+        table = this.frmMan.tableDoseInfo;
         
         if ( ! newOrUpdate.equalsIgnoreCase("new") ) {
             row = table.getSelectedRow();
-            System.out.println(" get dosimeter : " + row );
-            dsmt.setPk_dsmt(dbPkIDs.getDsmt_id().get(0, row).toString());
+            System.out.println(" get dose : " + row );
+            dose.setPk_dose(dbPkIDs.getDose_id().get(row).toString());
         }
            
-        dsmt.setId( table.getValueAt(row, 0) == null ? "" : table.getValueAt(row, 0).toString());
-        dsmt.setLabel(table.getValueAt(row, 1) == null ? "" : table.getValueAt(row, 1).toString());
-        dsmt.setType(SetEnums.dsmt_type.valueOf(table.getValueAt(row, 2).toString()));
-        dsmt.setPeriodicity(SetEnums.dsmt_periodicity.valueOf(table.getValueAt(row, 3).toString()));
-        dsmt.setSupplier(SetEnums.dsmt_supplier.valueOf(table.getValueAt(row, 4).toString()));
-        dsmt.setComments(table.getValueAt(row, 6) == null ? "" : table.getValueAt(row, 6).toString());
-        dsmt.setStatus(SetEnums.status.valueOf(table.getValueAt(row, 7).toString()));
+        dose.setYear( table.getValueAt(row, 0) == null ? "" : table.getValueAt(row, 0).toString());
+        dose.setYear( table.getValueAt(row, 0) == null ? "" : table.getValueAt(row, 0).toString());
+        dose.setTrimester(SetEnums.Trimester.valueOf(table.getValueAt(row, 1).toString()));
+        dose.setHp007(table.getValueAt(row, 2) == null ? "" : table.getValueAt(row, 2).toString());
+        dose.setHp10(table.getValueAt(row, 3) == null ? "" : table.getValueAt(row, 3).toString());
+        dose.setComments(table.getValueAt(row, 5) == null ? "" : table.getValueAt(row, 5).toString());
         
         if (newOrUpdate.equalsIgnoreCase("new")) {
 //      creation date and time
-            dsmt.setTimestamp(dateAndTime.currDateTime());
-            dsmt.setStatus_timestamp(dateAndTime.currDateTime());
-            dsmt.setLastchange(dateAndTime.currDateTime());
+            dose.setTimestamp(dateAndTime.currDateTime());
+            dose.setLastchange(dateAndTime.currDateTime());
          } else {
-            dsmt.setTimestamp(table.getValueAt(row, 5) == null ? "" : table.getValueAt(row, 5).toString());
+            dose.setTimestamp(table.getValueAt(row, 4) == null ? "" : table.getValueAt(row, 4).toString());
         }
         
-        return dsmt;
+        return dose;
         
     }
     
@@ -107,17 +93,17 @@ public class ManagementDosimeter {
     
     
     
-    public void newDosimeter () {
+    public void newDose () {
         
         /* tudo ok para escrever */
         
-        System.out.println(" Estou no newDosimeter ... ");
+        System.out.println(" Estou no newDose ... ");
         
-        tableModel.setDefaultDsmtTable("newdsmt");
+        tableModel.setDefaultDoseTable("newdose");
 
-        setButtonsState.setDosimeterBtsNew(true);
+        setButtonsState.setDoseBtsNew(true);
         
-        this.frmMan.getTxtInfoAction().setText("Inserting a New dosimeter");
+        this.frmMan.getTxtInfoAction().setText("Inserting a New dose information");
  
         
     }
@@ -125,13 +111,14 @@ public class ManagementDosimeter {
     
     // insert into the database 
     
-    public void saveNewDsmt () {
+    public void saveNewDose () {
         
-        Dosimeter dsmt = getDsmtInfo ("new");
+        Dose_info dose = getDoseInfo("new");
         
-        System.out.println("  Save dosimeter  " + dsmt);
-        System.out.println("  Save dosimeter2  " + dbPkIDs.getWorker_id());
+        System.out.println("  Save dose  " + dose);
+        System.out.println("  Save dose2  " + dbPkIDs.getWorker_id());
         
+        String worker_id = dbPkIDs.getWorker_id();
         String worker_id = dbPkIDs.getWorker_id();
         dsmt.setPk_id(worker_id);
         
@@ -141,14 +128,9 @@ public class ManagementDosimeter {
         
         
         dsmt.setPk_dsmt(id);
-    
         
-        ArrayList2D dsmtIds = new ArrayList2D();
-        dsmtIds = dbPkIDs.getDsmt_id();
-        int nRows = dsmtIds.getNumRows();
-        
-        dsmtIds.Add(id, nRows);
- 
+        ArrayList dsmtIds = new ArrayList();
+        dsmtIds.add(0, id);
         dbPkIDs.setDsmt_id(dsmtIds);
     
         
@@ -207,7 +189,5 @@ public class ManagementDosimeter {
   
         
     }
-    
-    
     
 }

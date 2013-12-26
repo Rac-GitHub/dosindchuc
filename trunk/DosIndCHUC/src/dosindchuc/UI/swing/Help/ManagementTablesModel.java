@@ -5,9 +5,15 @@
 package dosindchuc.UI.swing.Help;
 
 import dosindchuc.UI.swing.ManagementFrm;
+import dosindchuc.model.entities.DbPkIDs;
+import dosindchuc.model.entities.Help.DateAndTime;
 import dosindchuc.model.entities.Help.SetEnums;
+import java.util.ArrayList;
 import javax.swing.DefaultCellEditor;
 import javax.swing.JComboBox;
+import javax.swing.JLabel;
+import javax.swing.JTable;
+import javax.swing.table.DefaultTableCellRenderer;
 import javax.swing.table.DefaultTableModel;
 
 /**
@@ -18,17 +24,24 @@ public class ManagementTablesModel {
 
     
     private ManagementFrm frmMan;
-
+    private DbPkIDs dbPkIDs;
+    private DateAndTime dateAndTime = new DateAndTime();
+    private JTable table;
+    private DefaultTableModel searchTable;
+    private DefaultTableModel doseTable;
+    private DefaultTableModel dsmtTable;
+ 
     
     
     public ManagementTablesModel(ManagementFrm frmMan) {
         this.frmMan = frmMan;
+        dbPkIDs = new DbPkIDs();
+   //     dateAndTime = DateAndTime
+  
         
     }
     
-    private DefaultTableModel searchTable;
-    private DefaultTableModel doseTable;
-    private DefaultTableModel dsmtTable;
+   
  
     
     public DefaultTableModel getSearchTable() {
@@ -66,14 +79,7 @@ public class ManagementTablesModel {
         
     }
     
-    
-    public void setDefaultDoseTable () {
-        
-        setDoseTable(setDefaultSettingsDoseTable());
-        
-    }
-    
-    
+      
     public void setDefaultDsmtTable (String tableStatus) {
         
         System.out.println(" Estou no mangement tables ... " + tableStatus);
@@ -82,16 +88,42 @@ public class ManagementTablesModel {
             setDsmtTable(setDefaultSettingsDosimeterTable());
          } else if (tableStatus.equalsIgnoreCase("newdsmt")) {
             setNewDosimeterSettingsTable();
+         } else if (tableStatus.equalsIgnoreCase("updatedsmt")) {
+             setDsmtTable(setUpdateDosimeterSettingsTable());
         }
     
     }
     
     
+    public void setDefaultDoseTable (String tableStatus) {
+        
+        setDoseTable(setDefaultSettingsDoseTable());
+            System.out.println(" Estou no mangement tables ... " + tableStatus);
+        
+        if (tableStatus.equalsIgnoreCase("readonly")) {
+            setDoseTable(setDefaultSettingsDoseTable());
+         } else if (tableStatus.equalsIgnoreCase("newdose")) {
+            setNewDoseSettingsTable();
+         } else if (tableStatus.equalsIgnoreCase("updatedose")) {
+             setDoseTable(setUpdateDoseSettingsTable());
+        }
+        
+    }
+      
     
+    
+    /*
+     * 
+     * define Models for Tables
+     * 
+     */
  
-    // define Models for Tables
-    
-    
+  
+    /*
+     * 
+     *  Search Table
+     * 
+     */
     
     private DefaultTableModel setDefaultSettingsSearchTable () {
  
@@ -126,13 +158,22 @@ public class ManagementTablesModel {
     }
     
     
- // for dosimeters ---  Models 
+    
+    
+    /*
+     * 
+     *  Dosimeter Table  - Default
+     *   
+     */
     
     private DefaultTableModel setDefaultSettingsDosimeterTable() {
- 
+       
+        table = this.frmMan.tableDosimeterInfo;
+
+        String[] colNames = dsmtTable("name");
         
         DefaultTableModel model = new DefaultTableModel(new Object [][] {},
-                new String [] { "Id", "Label", "Type", "Periodicity", "Supplier", "Inserted", "Comments", "Status", "LastChanged" }
+                colNames
                 ){
                     @Override
                 public boolean isCellEditable(int rowIndex, int colIndex) {
@@ -140,36 +181,30 @@ public class ManagementTablesModel {
                     }
                 };
         
-        this.frmMan.tableDosimeterInfo.setModel(model);
+        table.setModel(model);
         
-        this.frmMan.tableDosimeterInfo.setAutoResizeMode(javax.swing.JTable.AUTO_RESIZE_LAST_COLUMN);
-        this.frmMan.tableDosimeterInfo.setFont(new java.awt.Font("Dialog", 0, 10)); // NOI18N
-        this.frmMan.tableDosimeterInfo.setFocusable(true);
-        this.frmMan.tableDosimeterInfo.setRequestFocusEnabled(true);
-        this.frmMan.tableDosimeterInfo.setUpdateSelectionOnSort(false);
-        this.frmMan.tableDosimeterInfo.setDragEnabled(false);
-        this.frmMan.tableDosimeterInfo.setRowSelectionAllowed(true);
-         
-        this.frmMan.tableDosimeterInfo.getColumnModel().getColumn(0).setPreferredWidth(15);
-        this.frmMan.tableDosimeterInfo.getColumnModel().getColumn(1).setPreferredWidth(40);
-        this.frmMan.tableDosimeterInfo.getColumnModel().getColumn(2).setPreferredWidth(10);
-        this.frmMan.tableDosimeterInfo.getColumnModel().getColumn(3).setPreferredWidth(25);
-        this.frmMan.tableDosimeterInfo.getColumnModel().getColumn(4).setPreferredWidth(30);
-        this.frmMan.tableDosimeterInfo.getColumnModel().getColumn(5).setPreferredWidth(80);
-        this.frmMan.tableDosimeterInfo.getColumnModel().getColumn(6).setPreferredWidth(50);
-        this.frmMan.tableDosimeterInfo.getColumnModel().getColumn(7).setPreferredWidth(30);
-        this.frmMan.tableDosimeterInfo.getColumnModel().getColumn(8).setPreferredWidth(80);
+        tableDefaultSettings();
+
+        String[] colWidths = dsmtTable("width");
+        tableColumnsSettings(colWidths);
         
         return model;
         
     }
 
     
+    /*
+     *  New Dosimeter Model
+     */
+    
     private void setNewDosimeterSettingsTable () {
  
+        table = this.frmMan.tableDosimeterInfo;
+
+        String[] colNames = dsmtTable("name");
         
         DefaultTableModel model = new DefaultTableModel(new Object [][] {},
-                new String [] { "Id", "Label", "Type", "Periodicity", "Supplier", "Created", "Comments", "Status", "LastChanged" }
+                colNames
                 ){
                     @Override
                 public boolean isCellEditable(int rowIndex, int colIndex) {
@@ -185,36 +220,23 @@ public class ManagementTablesModel {
                     }
                 };
         
-        this.frmMan.tableDosimeterInfo.setModel(model);
+        table.setModel(model);
+ 
+        tableDefaultSettings();
+
+        String[] colWidths = dsmtTable("width");
+        tableColumnsSettings(colWidths);
         
-        this.frmMan.tableDosimeterInfo.setAutoResizeMode(javax.swing.JTable.AUTO_RESIZE_LAST_COLUMN);
-        this.frmMan.tableDosimeterInfo.setFont(new java.awt.Font("Dialog", 0, 10)); // NOI18N
-        this.frmMan.tableDosimeterInfo.setFocusable(true);
-        this.frmMan.tableDosimeterInfo.setRequestFocusEnabled(true);
-        this.frmMan.tableDosimeterInfo.setUpdateSelectionOnSort(false);
-        this.frmMan.tableDosimeterInfo.setDragEnabled(false);
-        this.frmMan.tableDosimeterInfo.setRowSelectionAllowed(true);
-         
-        this.frmMan.tableDosimeterInfo.getColumnModel().getColumn(0).setPreferredWidth(15);
-        this.frmMan.tableDosimeterInfo.getColumnModel().getColumn(1).setPreferredWidth(40);
-        this.frmMan.tableDosimeterInfo.getColumnModel().getColumn(2).setPreferredWidth(10);
-        this.frmMan.tableDosimeterInfo.getColumnModel().getColumn(3).setPreferredWidth(25);
-        this.frmMan.tableDosimeterInfo.getColumnModel().getColumn(4).setPreferredWidth(30);
-        this.frmMan.tableDosimeterInfo.getColumnModel().getColumn(5).setPreferredWidth(80);
-        this.frmMan.tableDosimeterInfo.getColumnModel().getColumn(6).setPreferredWidth(50);
-        this.frmMan.tableDosimeterInfo.getColumnModel().getColumn(7).setPreferredWidth(30);
-        this.frmMan.tableDosimeterInfo.getColumnModel().getColumn(8).setPreferredWidth(80);
         
         JComboBox cbType = new JComboBox(SetEnums.dsmt_type.values());
         JComboBox cbPerd = new JComboBox(SetEnums.dsmt_periodicity.values());
         JComboBox cbSuppl = new JComboBox(SetEnums.dsmt_supplier.values());
         JComboBox cbStatus = new JComboBox(SetEnums.status.values());
   
-        frmMan.tableDosimeterInfo.getColumnModel().getColumn(2).setCellEditor(new DefaultCellEditor(cbType));
-        frmMan.tableDosimeterInfo.getColumnModel().getColumn(3).setCellEditor(new DefaultCellEditor(cbPerd));
-        frmMan.tableDosimeterInfo.getColumnModel().getColumn(4).setCellEditor(new DefaultCellEditor(cbSuppl));
-        frmMan.tableDosimeterInfo.getColumnModel().getColumn(7).setCellEditor(new DefaultCellEditor(cbStatus));
-        
+        table.getColumnModel().getColumn(2).setCellEditor(new DefaultCellEditor(cbType));
+        table.getColumnModel().getColumn(3).setCellEditor(new DefaultCellEditor(cbPerd));
+        table.getColumnModel().getColumn(4).setCellEditor(new DefaultCellEditor(cbSuppl));
+        table.getColumnModel().getColumn(7).setCellEditor(new DefaultCellEditor(cbStatus));
         
         Object newRow[] = new Object [] {"", "", SetEnums.dsmt_type.CI, SetEnums.dsmt_periodicity.Trimestral
                      , SetEnums.dsmt_supplier.MedicalConsult, "", "", SetEnums.status.Activo, ""};
@@ -224,41 +246,271 @@ public class ManagementTablesModel {
     
     
     
-    // Dose models
+    /*
+     *  Update Dosimeter Model
+     */
     
-       
-    private DefaultTableModel setDefaultSettingsDoseTable () {
+    private DefaultTableModel setUpdateDosimeterSettingsTable () {
  
-        
+        table = this.frmMan.tableDosimeterInfo;
+
+        String[] colNames = dsmtTable("name");
+       
         DefaultTableModel model = new DefaultTableModel(new Object [][] {},
-                new String [] { "Year", "Trimester", "Month", "Hp007", "Hp10", "Comments", "LastChange" }
+                colNames
                 ){
                     @Override
                 public boolean isCellEditable(int rowIndex, int colIndex) {
-                            return false; //Disallow the editing of any cell
+                        switch(colIndex){
+                            case 5:                   // ONLY 4TH COL IS EDITABLE
+                                return false;
+                            case 8:                   // ONLY 4TH COL IS EDITABLE
+                                return false;
+                            default:
+                                return true;
+                        }
+       
                     }
                 };
         
-        this.frmMan.tableDoseInfo.setModel(model);
+        table.setModel(model);
         
-        this.frmMan.tableDoseInfo.setAutoResizeMode(javax.swing.JTable.AUTO_RESIZE_LAST_COLUMN);
-        this.frmMan.tableDoseInfo.setFont(new java.awt.Font("Dialog", 0, 10)); // NOI18N
-        this.frmMan.tableDoseInfo.setFocusable(true);
-        this.frmMan.tableDoseInfo.setRequestFocusEnabled(true);
-        this.frmMan.tableDoseInfo.setUpdateSelectionOnSort(false);
-        this.frmMan.tableDoseInfo.setDragEnabled(false);
-        this.frmMan.tableDoseInfo.setRowSelectionAllowed(true);
-         
-        this.frmMan.tableDoseInfo.getColumnModel().getColumn(0).setPreferredWidth(20);
-        this.frmMan.tableDoseInfo.getColumnModel().getColumn(1).setPreferredWidth(40);
-        this.frmMan.tableDoseInfo.getColumnModel().getColumn(2).setPreferredWidth(30);
-        this.frmMan.tableDoseInfo.getColumnModel().getColumn(3).setPreferredWidth(15);
-        this.frmMan.tableDoseInfo.getColumnModel().getColumn(4).setPreferredWidth(15);
-        this.frmMan.tableDoseInfo.getColumnModel().getColumn(5).setPreferredWidth(90);
-        this.frmMan.tableDoseInfo.getColumnModel().getColumn(6).setPreferredWidth(90);
+        tableDefaultSettings();
+
+        String[] colWidths = dsmtTable("width");
+        tableColumnsSettings(colWidths);
+        
+        JComboBox cbType = new JComboBox(SetEnums.dsmt_type.values());
+        JComboBox cbPerd = new JComboBox(SetEnums.dsmt_periodicity.values());
+        JComboBox cbSuppl = new JComboBox(SetEnums.dsmt_supplier.values());
+        JComboBox cbStatus = new JComboBox(SetEnums.status.values());
+  
+        table.getColumnModel().getColumn(2).setCellEditor(new DefaultCellEditor(cbType));
+        table.getColumnModel().getColumn(3).setCellEditor(new DefaultCellEditor(cbPerd));
+        table.getColumnModel().getColumn(4).setCellEditor(new DefaultCellEditor(cbSuppl));
+        table.getColumnModel().getColumn(7).setCellEditor(new DefaultCellEditor(cbStatus));
+    
+        return model;
+        
+    }
+    
+    
+    
+    /*
+     * 
+     *  Dose Tables models  - Default
+     *   
+     */
+       
+    private DefaultTableModel setDefaultSettingsDoseTable () {
+ 
+        table = this.frmMan.tableDoseInfo;
+
+        String[] colNames = doseTable("name");
+
+        System.out.println(" para verr a width  " + colNames[3]);
+
+        DefaultTableModel model = new DefaultTableModel(new Object[][]{},
+                colNames) {
+            @Override
+            public boolean isCellEditable(int rowIndex, int colIndex) {
+                return false; //Disallow the editing of any cell
+            }
+        };
+
+        table.setModel(model);
+
+        tableDefaultSettings();
+
+        String[] colWidths = doseTable("width");
+        tableColumnsSettings(colWidths);
+
+        return model;
+
+    }
+    
+    
+    /*
+     *  New Dose table Model
+     */
+    
+    private void setNewDoseSettingsTable () {
+ 
+        table = this.frmMan.tableDoseInfo;
+
+        String[] colNames = doseTable("name");
+
+        DefaultTableModel model = new DefaultTableModel(new Object[][]{},
+                colNames) {
+            @Override
+            public boolean isCellEditable(int rowIndex, int colIndex) {
+                switch (colIndex) {
+                    case 6:                   // ONLY 4TH COL IS EDITABLE
+                        return false;
+                    case 8:                   // ONLY 4TH COL IS EDITABLE
+                        return false;
+                    default:
+                        return true;
+                }
+
+            }
+        };
+
+        table.setModel(model);
+
+
+        tableDefaultSettings();
+
+        String[] colWidths = doseTable("width");
+        tableColumnsSettings(colWidths);
+
+        ArrayList actDsmt = new ArrayList();
+        ArrayList year = new ArrayList();
+
+        for (int i = 0; i < dbPkIDs.getDsmt_id().getNumRows(); ++i) {
+            if ((dbPkIDs.getDsmt_id().get(i, 1)).toString().equalsIgnoreCase("Activo")) {
+                actDsmt.add(dbPkIDs.getDsmt_id().get(i, 0));
+            }
+        }
+
+        int yearNow = Integer.parseInt(dateAndTime.currYear());
+
+        for (int i = yearNow; i > 1999; --i) {
+            year.add(i);
+        }
+
+        JComboBox cbDsmt = new JComboBox(actDsmt.toArray());
+        JComboBox cbYear = new JComboBox(year.toArray());
+        JComboBox cbTrimester = new JComboBox(SetEnums.Trimester.values());
+        JComboBox cbMonth = new JComboBox(SetEnums.month.values());
+
+        table.getColumnModel().getColumn(0).setCellEditor(new DefaultCellEditor(cbDsmt));
+        table.getColumnModel().getColumn(1).setCellEditor(new DefaultCellEditor(cbYear));
+        table.getColumnModel().getColumn(2).setCellEditor(new DefaultCellEditor(cbTrimester));
+        table.getColumnModel().getColumn(3).setCellEditor(new DefaultCellEditor(cbMonth));
+
+
+        String dsmtStatus = dbPkIDs.getDsmt_id().get(0, 2).toString();
+        if (dsmtStatus.equalsIgnoreCase("Mensal")) {
+            Object newRow[] = new Object[]{actDsmt.get(0), yearNow, SetEnums.Trimester.NoDef, SetEnums.month.Jan, "", "", "", "", ""};
+            model.addRow(newRow);
+        } else if (dsmtStatus.equalsIgnoreCase("Trimestral")) {
+ 
+            Object newRow[] = new Object[]{actDsmt.get(0), yearNow, SetEnums.Trimester.P, SetEnums.month.NoDef, "", "", "", "", ""};
+            model.addRow(newRow);
+        } else {
+            System.err.println(" Probs com type do dosimetro");
+    }
+        
+}
+    
+    
+    
+    /*
+     *  Update Dose table Model
+     */
+    
+    private DefaultTableModel setUpdateDoseSettingsTable () {
+ 
+        table = this.frmMan.tableDoseInfo;
+        
+        String[] colNames = doseTable("name");
+              
+        DefaultTableModel model = new DefaultTableModel(new Object [][] {},
+                colNames
+                ){
+                    @Override
+                public boolean isCellEditable(int rowIndex, int colIndex) {
+                        switch(colIndex){
+                            case 6:                   // ONLY 4TH COL IS EDITABLE
+                                return false;
+                            case 8:                   // ONLY 4TH COL IS EDITABLE
+                                return false;
+                            default:
+                                return true;
+                        }
+       
+                    }
+                };
+        
+        table.setModel(model);
+        
+        tableDefaultSettings();
+
+        String[] colWidths = doseTable("width");
+        tableColumnsSettings(colWidths);
+        
+        JComboBox cbTrimester = new JComboBox(SetEnums.Trimester.values());
+        JComboBox cbMonth = new JComboBox(SetEnums.month.values());
+  
+        table.getColumnModel().getColumn(1).setCellEditor(new DefaultCellEditor(cbTrimester));
+        table.getColumnModel().getColumn(2).setCellEditor(new DefaultCellEditor(cbMonth));
         
         return model;
         
+    }
+    
+    
+    
+    
+    /**
+     *
+     * @param table
+     */
+    private void tableDefaultSettings () {
+        
+        table.setAutoResizeMode(javax.swing.JTable.AUTO_RESIZE_LAST_COLUMN);
+        table.setFont(new java.awt.Font("Dialog", 0, 10)); // NOI18N
+        table.setFocusable(true);
+        table.setRequestFocusEnabled(true);
+        table.setUpdateSelectionOnSort(false);
+        table.setDragEnabled(false);
+        table.setRowSelectionAllowed(true);
+   
+    }
+    
+    
+    private void tableColumnsSettings (String [] widths) {
+        
+  
+        DefaultTableCellRenderer centerRenderer = new DefaultTableCellRenderer();
+        centerRenderer.setHorizontalAlignment(JLabel.CENTER);
+
+        for (int i = 0; i < widths.length; i++) {
+
+            table.getColumnModel().getColumn(i).setPreferredWidth(Integer.parseInt(widths[i]));
+            table.getColumnModel().getColumn(i).setCellRenderer(centerRenderer);
+
+       
+        }
+      
+    }
+     
+    
+    private String [] dsmtTable (String nameOrwidth) {
+    
+         if (nameOrwidth.equalsIgnoreCase("name")) {
+            String[] names = { "Id", "Label", "Type", "Periodicity", "Supplier", "Created", "Comments", "Status", "LastChanged" };
+            return names;
+        } else {
+            String[] widths = {"15", "40", "10", "25", "30", "80", "50", "30", "80"};
+            return widths;
+        }
+    }
+    
+        
+    
+    
+    
+    private String [] doseTable (String nameOrwidth) {
+   
+        if (nameOrwidth.equalsIgnoreCase("name")) {
+            String[] names = {"Dsmt", "Year", "Trimester", "Month", "Hp007", "Hp10", "Inserted ", "Comments", "LastChange"};
+            return names;
+        } else {
+            String[] widths = {"10", "10", "35", "20", "10", "10", "70", "80", "70"};
+            return widths;
+        }
     }
     
     

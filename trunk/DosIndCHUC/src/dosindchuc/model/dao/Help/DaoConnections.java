@@ -179,7 +179,7 @@ public class DaoConnections {
      
 
     
-     public int executePreparedUpdateAndReturnGeneratedKeys(String query, Object... params) throws SQLException {
+     public String executePreparedUpdateAndReturnGeneratedKeys(String query, Object... params) throws SQLException {
 
         Connection conn = null;
         PreparedStatement pstmt = null;
@@ -210,7 +210,7 @@ public class DaoConnections {
             releaseAll(rset,pstmt);
         }
         
-        return result;
+        return Integer.toString(result);
     }
 
      
@@ -361,6 +361,82 @@ public class DaoConnections {
         
     }
 
+    
+    
 
+    // InTo the DATABASE
+
+    
+     /**
+     *
+     * @param params
+     * @return
+     * @throws CreateDaoException
+     */
+    public String insert(String query, Object [] param  ) throws CreateDaoException {
+
+        String id = null;
+ 
+        System.out.println("Query: " + query);
+        
+        try {
+  
+            id = executePreparedUpdateAndReturnGeneratedKeys(query, param);
+  
+        } catch (SQLException e) {
+          throw new CreateDaoException("Not possible to make the transaction ", e);
+        }
+
+        return id;
+
+    }
+    
+    
+    
+     public void update(String query, Object [] param) throws UpdateDaoException {
+
+        try {
+            System.out.println("Query: " + query);
+
+            
+            
+            System.out.println("query ... " +
+                    param[0] + " "
+                    + param[1] + " "
+                    + param[2] + " "
+                    + param[3] + " "
+                    + param[4] + " "
+                    + param[5] + " "
+                    + param[6] + " "
+                    );
+ 
+            executePreparedUpdate(query, param);           
+            
+            
+        } catch (SQLException e) {
+            throw new UpdateDaoException("Not possible to make the transaction ", e);
+        }
+
+    }
+    
+    
+    
+    public void delete(String worker_id) throws DeleteDaoException {
+
+        try {
+
+            final String query = "DELETE FROM worker WHERE pk_id = " + worker_id;
+
+            executePreparedUpdate(query);
+
+        } catch (SQLException e) {
+            throw new DeleteDaoException("Not possible to make the transaction: ", e);
+        }
+
+       
+    }
+    
+    
+    
      
 }

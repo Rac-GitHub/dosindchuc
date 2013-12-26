@@ -4,9 +4,10 @@
  */
 package dosindchuc.UI.controller;
 
-import dosindchuc.UI.swing.Help.ManagementClean;
 import dosindchuc.UI.swing.Help.ManagementButtons;
+import dosindchuc.UI.swing.Help.ManagementClean;
 import dosindchuc.UI.swing.ManagementFrm;
+import dosindchuc.model.service.ManagementDose;
 import dosindchuc.model.service.ManagementDosimeter;
 import dosindchuc.model.service.ManagementSearch;
 import dosindchuc.model.service.ManagementWorker;
@@ -29,21 +30,23 @@ public final class ManagementActionListener implements ActionListener, MouseList
     private ManagementSearch serviceSearch;
     private ManagementWorker serviceWorker;
     private ManagementDosimeter serviceDosimeter;
+    private ManagementDose serviceDose;
     public Object [][] workerList = null;
     public ActionListener Listeners;
-
+    
     
     public ManagementActionListener(ManagementFrm frmMan) {
      
         this.frmMan = frmMan;
         Listeners = this;
-        
+  
         serviceClean = new ManagementClean(this.frmMan);
         serviceBtns = new ManagementButtons(this.frmMan);
         
         serviceSearch = new ManagementSearch(this.frmMan, this);
         serviceWorker = new ManagementWorker(this.frmMan);
         serviceDosimeter = new ManagementDosimeter(this.frmMan);
+        serviceDose = new ManagementDose(this.frmMan);
         
         addListeners();
 
@@ -81,11 +84,25 @@ public final class ManagementActionListener implements ActionListener, MouseList
                      break;
             case "btSaveWorkerUpdate":  serviceWorker.saveUpdateWorker();
                      break;
-                
+      // dosimeter          
             case "btDosimeterInfoNew":  serviceDosimeter.newDosimeter();
                      break;
             case "btDosimeterInfoSaveNew":  serviceDosimeter.saveNewDsmt();
                      break;
+            case "btDosimeterInfoUpdate":  serviceDosimeter.updateDosimeter();
+                     break;
+            case "btDosimeterInfoSaveUpdate":  serviceDosimeter.saveUpdateDsmt();
+                     break;
+      // dose          
+            case "btDoseNew":  serviceDose.newDose();
+                     break;
+            case "btDoseInfoSaveNew":  serviceDose.saveNewDose();
+                     break;
+            case "btDoseInfoUpdate":  serviceDosimeter.updateDose();
+                     break;
+            case "btDoseInfoSaveUpdate":  serviceDosimeter.saveUpdateDose();
+                     break;          
+                
         }
     }
     
@@ -148,6 +165,12 @@ public final class ManagementActionListener implements ActionListener, MouseList
         frmMan.btDosimeterInfoSaveUpdate.addActionListener(this);
         
         
+         // buttons for dose
+        
+        frmMan.btDoseInfoNew.addActionListener(this);
+        frmMan.btDoseInfoUpdate.addActionListener(this);
+        frmMan.btDoseInfoSaveNew.addActionListener(this);
+        frmMan.btDoseInfoSaveUpdate.addActionListener(this);
         
         
      
@@ -158,9 +181,11 @@ public final class ManagementActionListener implements ActionListener, MouseList
     public void searchTableMouseClicked(MouseEvent mevent) {
 
         if (mevent.getClickCount() == 2) {
+            serviceClean.cleanAllInfo();
             serviceSearch.fillAllManagement();
             frmMan.btWorkerUpdate.setEnabled(true);
             serviceBtns.setDosimeterBtsSearch(true);
+            serviceBtns.setDoseBtsSearch(true);
             this.frmMan.getTxtInfoAction().setText("");
   
         }    

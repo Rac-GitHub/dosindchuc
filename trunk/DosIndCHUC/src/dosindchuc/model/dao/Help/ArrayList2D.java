@@ -70,7 +70,8 @@ public class ArrayList2D {
 	{
 		return array.get(row).get(col);
 	}
- 
+        
+    
         
 	public void set(int row, int col, Object data)
 	{

@@ -4,17 +4,21 @@
  */
 package dosindchuc.model.entities;
 
+
+import dosindchuc.model.dao.Help.ArrayList2D;
+import java.util.ArrayList;
+
 /**
  *
  * @author ir
  */
 public class DbPkIDs {
     
-    public String worker_id;  
-    public String dsmt_id;
-    public String dsmtNotes_id;
-    public String dose_id;
-    public String doseNotes_id;
+    private static String worker_id;  
+    private static ArrayList2D dsmt_id;
+    private static String dsmtNotes_id;
+    private static ArrayList dose_id;
+    private static String doseNotes_id;
 
     
     public DbPkIDs() {
@@ -29,15 +33,15 @@ public class DbPkIDs {
     }
 
     public void setWorker_id(String worker_id) {
-        this.worker_id = worker_id;
+        DbPkIDs.worker_id = worker_id;
     }
 
-    public String getDsmt_id() {
+    public ArrayList2D getDsmt_id() {
         return dsmt_id;
     }
 
-    public void setDsmt_id(String dsmt_id) {
-        this.dsmt_id = dsmt_id;
+    public void setDsmt_id(ArrayList2D dsmt_id) {
+        DbPkIDs.dsmt_id = dsmt_id;
     }
 
     public String getDsmtNotes_id() {
@@ -45,15 +49,15 @@ public class DbPkIDs {
     }
 
     public void setDsmtNotes_id(String dsmtNotes_id) {
-        this.dsmtNotes_id = dsmtNotes_id;
+        DbPkIDs.dsmtNotes_id = dsmtNotes_id;
     }
 
-    public String getDose_id() {
+    public ArrayList getDose_id() {
         return dose_id;
     }
 
-    public void setDose_id(String dose_id) {
-        this.dose_id = dose_id;
+    public void setDose_id(ArrayList dose_id) {
+        DbPkIDs.dose_id = dose_id;
     }
 
     public String getDoseNotes_id() {
@@ -61,7 +65,7 @@ public class DbPkIDs {
     }
 
     public void setDoseNotes_id(String doseNotes_id) {
-        this.doseNotes_id = doseNotes_id;
+        DbPkIDs.doseNotes_id = doseNotes_id;
     }
     
     
