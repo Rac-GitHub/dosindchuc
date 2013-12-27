@@ -456,6 +456,7 @@ public class ManagementFrm extends javax.swing.JFrame {
         jLayeredPane2.add(btDosimeterInfoSaveNew, javax.swing.JLayeredPane.DEFAULT_LAYER);
 
         btDosimeterInfoCancel.setText("Cancel");
+        btDosimeterInfoCancel.setActionCommand("btDosimeterInfoCancel");
         btDosimeterInfoCancel.setBounds(180, 10, 81, 25);
         jLayeredPane2.add(btDosimeterInfoCancel, javax.swing.JLayeredPane.DEFAULT_LAYER);
 
@@ -634,7 +635,7 @@ public class ManagementFrm extends javax.swing.JFrame {
         jLayeredPane3.add(btDoseInfoCancel, javax.swing.JLayeredPane.DEFAULT_LAYER);
 
         btDoseInfoSaveUpdate.setText("Save");
-        btDoseInfoSaveUpdate.setActionCommand("btDoseSaveUpdate");
+        btDoseInfoSaveUpdate.setActionCommand("btDoseInfoSaveUpdate");
         btDoseInfoSaveUpdate.setBounds(20, 10, 68, 25);
         jLayeredPane3.add(btDoseInfoSaveUpdate, javax.swing.JLayeredPane.DEFAULT_LAYER);
 

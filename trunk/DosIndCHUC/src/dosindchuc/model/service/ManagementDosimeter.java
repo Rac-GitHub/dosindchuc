@@ -155,11 +155,7 @@ public class ManagementDosimeter {
         this.frmMan.getTxtInfoAction().setText("Dosimeter with id= "+ dsmt.getId() + " saved into database");
         
         // actualiza info
-        setCleanState.cleanDosimeter();
-        setDsmtInfo.fillDosimeterInfo(worker_id,"new");
-    
-        setButtonsState.setDosimeterBtsSearch(true);
-   
+        fillWokerDsmtInfo ();
         
     }
     
@@ -200,14 +196,26 @@ public class ManagementDosimeter {
         this.frmMan.getTxtInfoAction().setText("Dosimeter with id= "+ dsmt.getId() + " updated into database");
         
         // actualiza info
-        setCleanState.cleanDosimeter();
-        setDsmtInfo.fillDosimeterInfo(dbPkIDs.getWorker_id(),"new");
-    
-        setButtonsState.setDosimeterBtsSearch(true);
+        fillWokerDsmtInfo ();
   
         
     }
     
+    
+    public void fillWokerDsmtInfo () {
+        
+        /* tudo ok para escrever */
+        
+        System.out.println(" Estou no fill dosim  ... ");
+        
+        // actualiza info
+        setCleanState.cleanDosimeter();
+        setDsmtInfo.fillDosimeterInfo(dbPkIDs.getWorker_id(),"new");
+    
+        setButtonsState.setDosimeterBtsSearch(true);
+       
+        
+    }
     
     
 }

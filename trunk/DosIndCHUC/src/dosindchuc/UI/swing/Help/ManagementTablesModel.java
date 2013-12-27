@@ -344,7 +344,14 @@ public class ManagementTablesModel {
                 colNames) {
             @Override
             public boolean isCellEditable(int rowIndex, int colIndex) {
+                 boolean testPeriodicity = dbPkIDs.getDsmt_id().get(0, 3).toString().equalsIgnoreCase("Mensal");
                 switch (colIndex) {
+                    case 2:
+                        if (testPeriodicity) { return false; }
+                        return true;
+                    case 3:
+                        if (! testPeriodicity) { return false; }
+                        return true;
                     case 6:                   // ONLY 4TH COL IS EDITABLE
                         return false;
                     case 8:                   // ONLY 4TH COL IS EDITABLE
@@ -358,18 +365,17 @@ public class ManagementTablesModel {
 
         table.setModel(model);
 
-
         tableDefaultSettings();
 
         String[] colWidths = doseTable("width");
         tableColumnsSettings(colWidths);
 
-        ArrayList actDsmt = new ArrayList();
+        ArrayList idActDsmt = new ArrayList();
         ArrayList year = new ArrayList();
 
         for (int i = 0; i < dbPkIDs.getDsmt_id().getNumRows(); ++i) {
-            if ((dbPkIDs.getDsmt_id().get(i, 1)).toString().equalsIgnoreCase("Activo")) {
-                actDsmt.add(dbPkIDs.getDsmt_id().get(i, 0));
+            if ((dbPkIDs.getDsmt_id().get(i, 2)).toString().equalsIgnoreCase("Activo")) {
+                idActDsmt.add(dbPkIDs.getDsmt_id().get(i, 1));
             }
         }
 
@@ -379,7 +385,7 @@ public class ManagementTablesModel {
             year.add(i);
         }
 
-        JComboBox cbDsmt = new JComboBox(actDsmt.toArray());
+        JComboBox cbDsmt = new JComboBox(idActDsmt.toArray());
         JComboBox cbYear = new JComboBox(year.toArray());
         JComboBox cbTrimester = new JComboBox(SetEnums.Trimester.values());
         JComboBox cbMonth = new JComboBox(SetEnums.month.values());
@@ -390,13 +396,13 @@ public class ManagementTablesModel {
         table.getColumnModel().getColumn(3).setCellEditor(new DefaultCellEditor(cbMonth));
 
 
-        String dsmtStatus = dbPkIDs.getDsmt_id().get(0, 2).toString();
-        if (dsmtStatus.equalsIgnoreCase("Mensal")) {
-            Object newRow[] = new Object[]{actDsmt.get(0), yearNow, SetEnums.Trimester.NoDef, SetEnums.month.Jan, "", "", "", "", ""};
+        String dsmtPeriodicity = dbPkIDs.getDsmt_id().get(0, 3).toString();
+        if (dsmtPeriodicity.equalsIgnoreCase("Mensal")) {
+            Object newRow[] = new Object[]{idActDsmt.get(0), yearNow, SetEnums.Trimester.NoDef, SetEnums.month.Jan, "", "", "", "", ""};
             model.addRow(newRow);
-        } else if (dsmtStatus.equalsIgnoreCase("Trimestral")) {
+        } else if (dsmtPeriodicity.equalsIgnoreCase("Trimestral")) {
  
-            Object newRow[] = new Object[]{actDsmt.get(0), yearNow, SetEnums.Trimester.P, SetEnums.month.NoDef, "", "", "", "", ""};
+            Object newRow[] = new Object[]{idActDsmt.get(0), yearNow, SetEnums.Trimester.P, SetEnums.month.NoDef, "", "", "", "", ""};
             model.addRow(newRow);
         } else {
             System.err.println(" Probs com type do dosimetro");
@@ -422,6 +428,8 @@ public class ManagementTablesModel {
                     @Override
                 public boolean isCellEditable(int rowIndex, int colIndex) {
                         switch(colIndex){
+                            case 0:                   // ONLY 4TH COL IS EDITABLE
+                                return false;
                             case 6:                   // ONLY 4TH COL IS EDITABLE
                                 return false;
                             case 8:                   // ONLY 4TH COL IS EDITABLE
@@ -434,18 +442,28 @@ public class ManagementTablesModel {
                 };
         
         table.setModel(model);
-        
         tableDefaultSettings();
-
+  
         String[] colWidths = doseTable("width");
         tableColumnsSettings(colWidths);
         
+        
+        ArrayList year = new ArrayList();
+
+        int yearNow = Integer.parseInt(dateAndTime.currYear());
+
+        for (int i = yearNow; i > 1999; --i) {
+            year.add(i);
+        }
+
+        JComboBox cbYear = new JComboBox(year.toArray());
         JComboBox cbTrimester = new JComboBox(SetEnums.Trimester.values());
         JComboBox cbMonth = new JComboBox(SetEnums.month.values());
-  
-        table.getColumnModel().getColumn(1).setCellEditor(new DefaultCellEditor(cbTrimester));
-        table.getColumnModel().getColumn(2).setCellEditor(new DefaultCellEditor(cbMonth));
-        
+
+        table.getColumnModel().getColumn(1).setCellEditor(new DefaultCellEditor(cbYear));
+        table.getColumnModel().getColumn(2).setCellEditor(new DefaultCellEditor(cbTrimester));
+        table.getColumnModel().getColumn(3).setCellEditor(new DefaultCellEditor(cbMonth));
+
         return model;
         
     }
