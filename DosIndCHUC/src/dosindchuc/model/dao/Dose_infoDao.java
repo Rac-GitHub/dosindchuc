@@ -96,84 +96,81 @@ public class Dose_infoDao {
      private void prepareQuery (Dose_info dose, String newOrUpdate) {
   
         int i = 0;
-
-        System.out.print(" dadasd adasd a : " + dsmt.getPk_id());
-        if (dsmt.getPk_id().isEmpty()) {
-        }
-        queryList.Add("pk_id", i);
+     
+        queryList.Add("year", i);
         queryList.Add(" ? ", i);
-        queryList.Add(dsmt.getPk_id(), i);
-
-        System.out.print(" dadasd adasd a : " + dsmt.getPk_id());
-        i += 1;
-        if (dsmt.getId().isEmpty()) {
-            dsmt.setId(Integer.toString(random.RandomNumbers(999999, 123399933)));
-        }
-        queryList.Add(", id", i);
-        queryList.Add(", ? ", i);
-        queryList.Add(dsmt.getId(), i);
-
-        if (!dsmt.getLabel().isEmpty()) {
+        queryList.Add(dose.getYear(), i);
+        
+        if ( ! dose.getPk_dsmt().isEmpty() ) {
             i += 1;
-            queryList.Add(", label", i);
+            queryList.Add(", pk_dsmt", i);
             queryList.Add(", ? ", i);
-            queryList.Add(dsmt.getLabel(), i);
+            queryList.Add(dose.getPk_dsmt(), i);
+        }
+        
+
+        if ( ! dose.getPk_id().isEmpty()) {
+            i += 1;
+            queryList.Add(", pk_id", i);
+            queryList.Add(", ? ", i);
+            queryList.Add(dose.getPk_id(), i);
         }
 
         i += 1;
-        queryList.Add(", type", i);
+        queryList.Add(", trimester", i);
         queryList.Add(", ? ", i);
-        queryList.Add(dsmt.getType().toString(), i);
+        queryList.Add(dose.getTrimester().toString(), i);
 
         i += 1;
-        queryList.Add(", periodicity", i);
+        queryList.Add(", month", i);
         queryList.Add(", ? ", i);
-        queryList.Add(dsmt.getPeriodicity().toString(), i);
+        queryList.Add(dose.getMonth().toString(), i);
 
-        i += 1;
-        queryList.Add(", supplier", i);
-        queryList.Add(", ? ", i);
-        queryList.Add(dsmt.getSupplier().toString(), i);
+        
+        if (! dose.getHp007().isEmpty()) {
+            i += 1;
+            queryList.Add(", hp007", i);
+            queryList.Add(", ? ", i);
+            queryList.Add(dose.getHp007(), i);
+        }
 
-        if (!dsmt.getComments().isEmpty()) {
+        if (! dose.getHp10().isEmpty()) {
+            i += 1;
+            queryList.Add(", hp10", i);
+            queryList.Add(", ? ", i);
+            queryList.Add(dose.getHp10(), i);
+        }
+
+        
+        if (! dose.getComments().isEmpty()) {
             i += 1;
             queryList.Add(", comments", i);
             queryList.Add(", ? ", i);
-            queryList.Add(dsmt.getComments(), i);
+            queryList.Add(dose.getComments(), i);
         }
 
         i += 1;
         queryList.Add(", timestamp", i);
         queryList.Add(", ? ", i);
-        queryList.Add(dsmt.getTimestamp(), i);
-
-        i += 1;
-        queryList.Add(", status", i);
-        queryList.Add(", ? ", i);
-        queryList.Add(dsmt.getStatus().toString(), i);
+        queryList.Add(dose.getTimestamp(), i);
 
         if (newOrUpdate.equalsIgnoreCase("new")) {
             i += 1;
-            queryList.Add(", status_timestamp", i);
-            queryList.Add(", ? ", i);
-            queryList.Add(dsmt.getStatus_timestamp(), i);
-
-            i += 1;
             queryList.Add(", lastchange", i);
             queryList.Add(", ? ", i);
-            queryList.Add(dsmt.getLastchange(), i);
+            queryList.Add(dose.getLastchange(), i);
         }
 
     }
 
     
-         public String insertDosimeter (Dosimeter dsmt) {
+         public String insertDose (Dose_info dose) {
       
-            prepareQuery(dsmt,"new");
+            prepareQuery(dose,"new");
 
             int sizeNparam = queryList.getNumRows();
 
-            String query = "INSERT INTO dosimeter (";
+            String query = "INSERT INTO dose_info (";
             String valuesInt = " VALUES (";
             Object param[] = new Object[sizeNparam];
 
@@ -195,13 +192,13 @@ public class Dose_infoDao {
 
         
         
-     public void updateDosimeter (Dosimeter dsmt, String dsmt_id) {
+     public void updateDose (Dose_info dose, String dose_id) {
       
-            System.out.println("Dosimeter info no update Dosimeter id mec" + dsmt.getId());
-            prepareQuery(dsmt,"update");
+            System.out.println("Dose info no update Dose id mec" + dose.getPk_dose());
+            prepareQuery(dose,"update");
             
             int sizeNparam = queryList.getNumRows();
-            String query = "UPDATE dosimeter SET ";
+            String query = "UPDATE dose_info SET ";
             Object param[] = new Object[sizeNparam];
 
             for (int i = 0; i < sizeNparam; i++) {
@@ -209,7 +206,7 @@ public class Dose_infoDao {
                 param[i] = queryList.get(i, 2);
             }
 
-            query += " WHERE pk_dsmt = " + dsmt_id;
+            query += " WHERE pk_dose = " + dose_id;
 
             daoConnection.update(query, param);
             

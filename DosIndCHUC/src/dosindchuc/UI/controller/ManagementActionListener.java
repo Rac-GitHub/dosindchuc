@@ -93,15 +93,20 @@ public final class ManagementActionListener implements ActionListener, MouseList
                      break;
             case "btDosimeterInfoSaveUpdate":  serviceDosimeter.saveUpdateDsmt();
                      break;
+            case "btDosimeterInfoCancel":  serviceDosimeter.fillWokerDsmtInfo();
+                     break;
+                 
       // dose          
             case "btDoseNew":  serviceDose.newDose();
                      break;
             case "btDoseInfoSaveNew":  serviceDose.saveNewDose();
                      break;
-            case "btDoseInfoUpdate":  serviceDosimeter.updateDose();
+            case "btDoseInfoUpdate":  serviceDose.updateDose();
                      break;
-            case "btDoseInfoSaveUpdate":  serviceDosimeter.saveUpdateDose();
-                     break;          
+            case "btDoseInfoSaveUpdate":  serviceDose.saveUpdateDose();
+                     break;
+            case "btDoseInfoCancel":  serviceDose.fillWokerDoseInfo();
+                     break; 
                 
         }
     }
@@ -163,6 +168,7 @@ public final class ManagementActionListener implements ActionListener, MouseList
         frmMan.btDosimeterInfoUpdate.addActionListener(this);
         frmMan.btDosimeterInfoSaveNew.addActionListener(this);
         frmMan.btDosimeterInfoSaveUpdate.addActionListener(this);
+        frmMan.btDosimeterInfoCancel.addActionListener(this);
         
         
          // buttons for dose
@@ -171,6 +177,7 @@ public final class ManagementActionListener implements ActionListener, MouseList
         frmMan.btDoseInfoUpdate.addActionListener(this);
         frmMan.btDoseInfoSaveNew.addActionListener(this);
         frmMan.btDoseInfoSaveUpdate.addActionListener(this);
+        frmMan.btDoseInfoCancel.addActionListener(this);
         
         
      

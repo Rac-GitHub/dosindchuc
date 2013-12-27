@@ -204,8 +204,6 @@ public class ManagementSearch {
      
       public List fillDosimeterInfo (String worker_id, String newORupdate) {
   
-         ArrayList2D dsmtIds = new ArrayList2D();
-          
          dosimeter_info =  dosimeterdao.getDosimetersInfo("", worker_id);
             
          int nResults = dosimeter_info.size();
@@ -227,6 +225,7 @@ public class ManagementSearch {
         model = tableModel.getDsmtTable();
         System.out.println(" Fill dosimeter com Update model  : " + model);
         
+        ArrayList2D dsmtInfo = new ArrayList2D();
         for (int i = 0; i < nResults; i++) {
             
              Dosimeter dosimeter = dosimeter_info.get(i);
@@ -235,14 +234,15 @@ public class ManagementSearch {
              model.addRow(newRow);
              
              
-             System.out.println(" Fill dosimeter : " + i + "   " + dosimeter.getPk_dsmt());
-             dsmtIds.Add(dosimeter.getPk_dsmt(),i);
-             dsmtIds.Add(dosimeter.getStatus(),i);
-             dsmtIds.Add(dosimeter.getType(),i);
+             // info dos dosimetros para a dose
+             dsmtInfo.Add(dosimeter.getPk_dsmt(),i);
+             dsmtInfo.Add(dosimeter.getId(),i);
+             dsmtInfo.Add(dosimeter.getStatus(),i);
+             dsmtInfo.Add(dosimeter.getPeriodicity(),i);
           
          }
         
-         dbPkIDs.setDsmt_id(dsmtIds);
+         dbPkIDs.setDsmt_id(dsmtInfo);
         
          return dosimeter_info;
          

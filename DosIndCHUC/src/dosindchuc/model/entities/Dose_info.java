@@ -26,6 +26,9 @@ public class Dose_info {
     private String comments;
     private String timestamp;
     private String lastchange;
+    
+    // para ter info sobre dsmt a que pertence a dose (não esta na table   dose_info da database)
+    private String dsmt_id;
 
     
     
@@ -35,35 +38,7 @@ public class Dose_info {
         
     }
 
-    public Dose_info(String pk_dose, String pk_dsmt, String pk_id, String year, Trimester trimester, month month
-            , String hp007, String hp10, String comments, String timestamp, String lastchange) {
-        this.pk_dose = pk_dose;
-        this.pk_dsmt = pk_dsmt;
-        this.pk_id = pk_id;
-        this.year = year;
-        this.trimester = trimester;
-        this.month = month;
-        this.hp007 = hp007;
-        this.hp10 = hp10;
-        this.comments = comments;
-        this.timestamp = timestamp;
-        this.lastchange = lastchange;
-    }
-
-    public Dose_info(String pk_dsmt, String pk_id, String year, Trimester trimester, month month, String hp007, String hp10
-            , String comments, String timestamp) {
-        this.pk_dsmt = pk_dsmt;
-        this.pk_id = pk_id;
-        this.year = year;
-        this.trimester = trimester;
-        this.month = month;
-        this.hp007 = hp007;
-        this.hp10 = hp10;
-        this.comments = comments;
-        this.timestamp = timestamp;
-    }
-
-   
+     
     
     
     // getter and setters
@@ -154,6 +129,14 @@ public class Dose_info {
 
     public void setLastchange(String lastchange) {
         this.lastchange = lastchange;
+    }
+
+    public String getDsmt_id() {
+        return dsmt_id;
+    }
+
+    public void setDsmt_id(String dsmt_id) {
+        this.dsmt_id = dsmt_id;
     }
     
     
