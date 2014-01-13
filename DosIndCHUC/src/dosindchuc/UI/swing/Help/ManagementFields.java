@@ -74,7 +74,37 @@ public class ManagementFields {
         
     }
 
+     
+     
+  // dose notes
+     
+    public void setNewDoseNotes (boolean doseNoteEdit) {
+        
+        System.out.println("Estou no set New dose note ");
+ 
+        this.frmMan.getTxtDoseNotesDateCreated().setText("");
+        this.frmMan.getTxtDoseNote().setText("");
+        this.frmMan.txtDoseNote.setEditable(doseNoteEdit);
+        this.frmMan.getCbDoseNoteLevel().setSelectedItem(1);
+        this.frmMan.cbDoseNoteLevel.setEnabled(doseNoteEdit);
+        this.frmMan.getTxtDoseNoteLevelDate().setText("");
+        this.frmMan.getCbDoseNoteStatus().setSelectedItem(1);
+        this.frmMan.cbDoseNoteStatus.setEnabled(doseNoteEdit);
+        this.frmMan.getTxtDoseNoteStatusDate().setText("");
+
+        
+    }
+     
    
-     
-     
+    public void setUpdateDoseNotes (boolean doseNoteEdit) {
+        
+        System.out.println("Estou no set Update dose note ");
+ 
+        this.frmMan.txtDoseNote.setEditable(doseNoteEdit);
+        this.frmMan.cbDoseNoteLevel.setEnabled(doseNoteEdit);
+        this.frmMan.cbDoseNoteStatus.setEnabled(doseNoteEdit);
+
+        
+    }
+    
 }

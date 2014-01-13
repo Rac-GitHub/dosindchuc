@@ -7,7 +7,6 @@ package dosindchuc.model.dao;
 import dosindchuc.model.dao.Help.ArrayList2D;
 import dosindchuc.model.dao.Help.DaoConnections;
 import dosindchuc.model.dao.Help.QueryMapper;
-import dosindchuc.model.dao.Help.RandomNumbers;
 import dosindchuc.model.entities.Dose_info;
 import dosindchuc.model.entities.Help.SetEnums;
 import java.sql.ResultSet;
@@ -25,13 +24,11 @@ public class Dose_infoDao {
     
     private DaoConnections daoConnection;
     private ArrayList2D queryList;
-    private RandomNumbers random;
     
 	
     public Dose_infoDao () {
         daoConnection = new DaoConnections();
         queryList = new ArrayList2D();
-        random = new RandomNumbers();
     }
     
     

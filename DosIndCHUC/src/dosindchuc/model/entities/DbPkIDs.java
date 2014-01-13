@@ -18,7 +18,7 @@ public class DbPkIDs {
     private static ArrayList2D dsmt_id;
     private static String dsmtNotes_id;
     private static ArrayList dose_id;
-    private static String doseNotes_id;
+    private static ArrayList2D doseNotes_id;
 
     
     public DbPkIDs() {
@@ -60,11 +60,11 @@ public class DbPkIDs {
         DbPkIDs.dose_id = dose_id;
     }
 
-    public String getDoseNotes_id() {
+    public ArrayList2D getDoseNotes_id() {
         return doseNotes_id;
     }
 
-    public void setDoseNotes_id(String doseNotes_id) {
+    public void setDoseNotes_id(ArrayList2D doseNotes_id) {
         DbPkIDs.doseNotes_id = doseNotes_id;
     }
     

@@ -106,6 +106,15 @@ public class ManagementClean {
     
     public void cleanDose () {
         
+        cleanDoseNotes ();
+        
+        tableModel.setDefaultDoseTable("readonly");
+        
+    }
+    
+    
+    public void cleanDoseNotes () {
+        
         this.frmMan.txtDoseNote.setText(null);
         this.frmMan.txtDoseNoteLevelDate.setText(null);
         this.frmMan.txtDoseNoteStatusDate.setText(null);
@@ -115,9 +124,8 @@ public class ManagementClean {
         this.frmMan.cbDoseNoteLevel.setEnabled(false);
         this.frmMan.cbDoseNoteStatus.setEnabled(false);
         
-        tableModel.setDefaultDoseTable("readonly");
-        
     }
+    
     
     
 }

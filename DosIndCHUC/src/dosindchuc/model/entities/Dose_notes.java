@@ -5,10 +5,8 @@
 package dosindchuc.model.entities;
 
 
-import dosindchuc.model.entities.Help.DateAndTime;
 import dosindchuc.model.entities.Help.SetEnums.note_alertlevel;
 import dosindchuc.model.entities.Help.SetEnums.note_status;
-import java.util.Objects;
 
 /**
  *
@@ -17,13 +15,14 @@ import java.util.Objects;
 public class Dose_notes {
     
     
-    private int pk_notes_dose;
-    private int pk_dose;
+    private String pk_notes_dose;
+    private String pk_dose;
     private String note;
     private String timestamp;
     private note_status status;
     private String status_timestamp;
     private note_alertlevel alert_level;
+    private String alert_level_timestamp;
     private String lastchange;
 
     
@@ -33,7 +32,7 @@ public class Dose_notes {
     public Dose_notes() {
     }
 
-    public Dose_notes(int pk_notes_dose, int pk_dose, String note, String timestamp, note_status status, String status_timestamp, note_alertlevel alert_level, String lastchange) {
+    public Dose_notes(String pk_notes_dose, String pk_dose, String note, String timestamp, note_status status, String status_timestamp, note_alertlevel alert_level, String lastchange) {
         this.pk_notes_dose = pk_notes_dose;
         this.pk_dose = pk_dose;
         this.note = note;
@@ -44,7 +43,7 @@ public class Dose_notes {
         this.lastchange = lastchange;
     }
 
-    public Dose_notes(int pk_dose, String note, String timestamp, note_status status, String status_timestamp, note_alertlevel alert_level) {
+    public Dose_notes(String pk_dose, String note, String timestamp, note_status status, String status_timestamp, note_alertlevel alert_level) {
         this.pk_dose = pk_dose;
         this.note = note;
         this.timestamp = timestamp;
@@ -59,11 +58,11 @@ public class Dose_notes {
     
     // getter and setters
 
-    public int getPk_notes_dose() {
+    public String getPk_notes_dose() {
         return pk_notes_dose;
     }
 
-    public void setPk_notes_dose(int pk_notes_dose) {
+    public void setPk_notes_dose(String pk_notes_dose) {
         this.pk_notes_dose = pk_notes_dose;
     }
 
@@ -80,7 +79,7 @@ public class Dose_notes {
     }
 
     public void setTimestamp(String timestamp) {
-        this.timestamp = new DateAndTime().currDateTime();
+        this.timestamp = timestamp;
      }
 
     public note_status getStatus() {
@@ -96,14 +95,14 @@ public class Dose_notes {
     }
 
     public void setStatus_timestamp(String status_timestamp) {
-        this.status_timestamp = new DateAndTime().currDateTime();
+        this.status_timestamp = status_timestamp;
     }
 
-    public int getPk_dose() {
+    public String getPk_dose() {
         return pk_dose;
     }
 
-    public void setPk_dose(int pk_dose) {
+    public void setPk_dose(String pk_dose) {
         this.pk_dose = pk_dose;
     }
 
@@ -115,6 +114,15 @@ public class Dose_notes {
         this.alert_level = alert_level;
     }
 
+    public String getAlert_level_timestamp() {
+        return alert_level_timestamp;
+    }
+
+    public void setAlert_level_timestamp(String alert_level_timestamp) {
+        this.alert_level_timestamp = alert_level_timestamp;
+    }
+
+    
     public String getLastchange() {
         return lastchange;
     }
@@ -124,61 +132,7 @@ public class Dose_notes {
     }
 
     
-    
-    
-    // hash and equals
-    
-    
-    @Override
-    public int hashCode() {
-        int hash = 3;
-        hash = 53 * hash + this.pk_notes_dose;
-        hash = 53 * hash + this.pk_dose;
-        hash = 53 * hash + Objects.hashCode(this.note);
-        hash = 53 * hash + Objects.hashCode(this.timestamp);
-        hash = 53 * hash + (this.status != null ? this.status.hashCode() : 0);
-        hash = 53 * hash + Objects.hashCode(this.status_timestamp);
-        hash = 53 * hash + (this.alert_level != null ? this.alert_level.hashCode() : 0);
-        return hash;
-    }
-
-    @Override
-    public boolean equals(Object obj) {
-        if (obj == null) {
-            return false;
-        }
-        if (getClass() != obj.getClass()) {
-            return false;
-        }
-        final Dose_notes other = (Dose_notes) obj;
-        if (this.pk_notes_dose != other.pk_notes_dose) {
-            return false;
-        }
-        if (this.pk_dose != other.pk_dose) {
-            return false;
-        }
-        if (!Objects.equals(this.note, other.note)) {
-            return false;
-        }
-        if (!Objects.equals(this.timestamp, other.timestamp)) {
-            return false;
-        }
-        if (this.status != other.status) {
-            return false;
-        }
-        if (!Objects.equals(this.status_timestamp, other.status_timestamp)) {
-            return false;
-        }
-        if (this.alert_level != other.alert_level) {
-            return false;
-        }
-        return true;
-    }
-    
-    
-    
-    
-    // hash and equals
+   
 
     
     
