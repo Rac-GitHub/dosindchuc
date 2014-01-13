@@ -29,7 +29,7 @@ public class DateAndTime {
      public String currDateTime () {
 
         Date dNow = new Date();
-        SimpleDateFormat ft = new SimpleDateFormat ("yyyy-MM-dd HH-mm-ss");
+        SimpleDateFormat ft = new SimpleDateFormat ("yyyy-MM-dd HH:mm:ss");
         return ft.format(dNow);
               
      }

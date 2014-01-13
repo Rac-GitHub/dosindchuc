@@ -7,7 +7,9 @@ package dosindchuc.UI.controller;
 import dosindchuc.UI.swing.Help.ManagementButtons;
 import dosindchuc.UI.swing.Help.ManagementClean;
 import dosindchuc.UI.swing.ManagementFrm;
+import dosindchuc.model.dao.Help.ArrayList2D;
 import dosindchuc.model.service.ManagementDose;
+import dosindchuc.model.service.ManagementDose_Notes;
 import dosindchuc.model.service.ManagementDosimeter;
 import dosindchuc.model.service.ManagementSearch;
 import dosindchuc.model.service.ManagementWorker;
@@ -15,6 +17,7 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
+import dosindchuc.model.entities.DbPkIDs;
 
 
 /**
@@ -31,6 +34,9 @@ public final class ManagementActionListener implements ActionListener, MouseList
     private ManagementWorker serviceWorker;
     private ManagementDosimeter serviceDosimeter;
     private ManagementDose serviceDose;
+    private ManagementDose_Notes serviceDoseNotes;
+    public DbPkIDs dbPkIDs;
+    
     public Object [][] workerList = null;
     public ActionListener Listeners;
     
@@ -42,11 +48,12 @@ public final class ManagementActionListener implements ActionListener, MouseList
   
         serviceClean = new ManagementClean(this.frmMan);
         serviceBtns = new ManagementButtons(this.frmMan);
-        
+        dbPkIDs = new DbPkIDs();
         serviceSearch = new ManagementSearch(this.frmMan, this);
         serviceWorker = new ManagementWorker(this.frmMan);
         serviceDosimeter = new ManagementDosimeter(this.frmMan);
         serviceDose = new ManagementDose(this.frmMan);
+        serviceDoseNotes = new ManagementDose_Notes(this.frmMan,this);
         
         addListeners();
 
@@ -72,10 +79,7 @@ public final class ManagementActionListener implements ActionListener, MouseList
             case "cleanManagement":  
                 serviceClean.cleanAllInfoWithSearch();
                      break;
-            case "cbDoseNoteIndex":  serviceSearch.fillDoseNotesInfo();
-                     break;
-            case "cbDosimeterNotesIndex":  serviceSearch.fillDosimeterNotesInfo();
-                     break;
+// worker
             case "btNewWorker":  serviceWorker.newWorker();
                      break;
             case "btSaveWorkerNew":  serviceWorker.saveNewWorker();
@@ -95,7 +99,8 @@ public final class ManagementActionListener implements ActionListener, MouseList
                      break;
             case "btDosimeterInfoCancel":  serviceDosimeter.fillWokerDsmtInfo();
                      break;
-                 
+            case "cbDosimeterNotesIndex":  serviceSearch.fillDosimeterNotesInfo();
+                     break;
       // dose          
             case "btDoseNew":  serviceDose.newDose();
                      break;
@@ -107,6 +112,21 @@ public final class ManagementActionListener implements ActionListener, MouseList
                      break;
             case "btDoseInfoCancel":  serviceDose.fillWokerDoseInfo();
                      break; 
+     // dose note
+            case "cbDoseNoteIndex":  serviceSearch.fillDoseNotesInfo();
+                     break;
+            case "btNewDoseNote":  serviceDoseNotes.newDoseNote();
+                     break;
+            case "btSaveNewDoseNote":  serviceDoseNotes.saveNewDoseNote();
+                     break;
+            case "btUpdateDoseNote":  serviceDoseNotes.updateDoseNote();
+                     break;
+            case "btSaveUpdateDoseNote":  serviceDoseNotes.saveUpdateDoseNote();
+                     break;
+     /*       case "btDoseInfoCancel":  serviceDoseNotes.fillWokerDoseInfo();
+                     break;  */
+                
+
                 
         }
     }
@@ -134,7 +154,7 @@ public final class ManagementActionListener implements ActionListener, MouseList
         frmMan.tableDoseInfo.addMouseListener(new java.awt.event.MouseAdapter() {
             @Override
             public void mouseClicked(java.awt.event.MouseEvent evt) {
-                System.out.println("evento tabela::::  " + evt);
+                System.out.println("evento tabela::::doseInfo  " + evt);
                 tableDoseInfoMouseClicked(evt);
             }
         });
@@ -179,6 +199,12 @@ public final class ManagementActionListener implements ActionListener, MouseList
         frmMan.btDoseInfoSaveUpdate.addActionListener(this);
         frmMan.btDoseInfoCancel.addActionListener(this);
         
+        frmMan.btNewDoseNote.addActionListener(this);
+        frmMan.btUpdateDoseNote.addActionListener(this);
+        frmMan.btSaveNewDoseNote.addActionListener(this);
+        frmMan.btSaveUpdateDoseNote.addActionListener(this);
+        frmMan.btCancelDoseNote.addActionListener(this);
+        
         
      
     }
@@ -201,20 +227,34 @@ public final class ManagementActionListener implements ActionListener, MouseList
 
     
     public void tableDoseInfoMouseClicked(MouseEvent mevent) {
- 
-        if (mevent.getClickCount() == 2) {
+        
+ //       if (mevent.getClickCount() == 2) {
+        
+        
+     
+        ArrayList2D  doseNoteInfo = new ArrayList2D();
+         
+         
+         // info dose-note selected for update
+         for (int i = 0; i < 4; i++) { doseNoteInfo.Add(null,0); }
+             
+             
+           dbPkIDs.setDoseNotes_id(doseNoteInfo);
+        
+           System.out.println(" No tableDoseInfoMouseClicked pois "+ dbPkIDs.getDoseNotes_id().get(0, 0));
+           
             serviceSearch.fillDoseNotesCBIndex();
-        }
+ //       }
  
     }    
  
     
     public void tableDosimeterInfoMouseClicked(MouseEvent mevent) {
         
-        if (mevent.getClickCount() == 2) {
+//        if (mevent.getClickCount() == 2) {
            serviceSearch.fillDosimeterNotesCBIndex();
            
-        }  
+//        }  
     }
       
     

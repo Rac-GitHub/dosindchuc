@@ -137,12 +137,16 @@ public class ManagementFrm extends javax.swing.JFrame {
         jLabel25 = new javax.swing.JLabel();
         jLabel26 = new javax.swing.JLabel();
         txtDoseNotesDateCreated = new javax.swing.JTextField();
-        btNewNote = new javax.swing.JButton();
-        btUpdateNote = new javax.swing.JButton();
+        btNewDoseNote = new javax.swing.JButton();
+        btUpdateDoseNote = new javax.swing.JButton();
         jLayeredPane3 = new javax.swing.JLayeredPane();
         btDoseInfoSaveNew = new javax.swing.JButton();
         btDoseInfoCancel = new javax.swing.JButton();
         btDoseInfoSaveUpdate = new javax.swing.JButton();
+        jLayeredPane4 = new javax.swing.JLayeredPane();
+        btSaveNewDoseNote = new javax.swing.JButton();
+        btCancelDoseNote = new javax.swing.JButton();
+        btSaveUpdateDoseNote = new javax.swing.JButton();
         jSeparator1 = new javax.swing.JSeparator();
         txtInfoAction = new javax.swing.JTextField();
         cbWorkerStatus = new javax.swing.JComboBox();
@@ -618,11 +622,13 @@ public class ManagementFrm extends javax.swing.JFrame {
         txtDoseNotesDateCreated.setFont(new java.awt.Font("Dialog", 0, 10)); // NOI18N
         txtDoseNotesDateCreated.setBorder(null);
 
-        btNewNote.setFont(new java.awt.Font("Dialog", 1, 10)); // NOI18N
-        btNewNote.setText("New Note");
+        btNewDoseNote.setFont(new java.awt.Font("Dialog", 1, 10)); // NOI18N
+        btNewDoseNote.setText("New Note");
+        btNewDoseNote.setActionCommand("btNewDoseNote");
 
-        btUpdateNote.setFont(new java.awt.Font("Dialog", 1, 10)); // NOI18N
-        btUpdateNote.setText("Update Note");
+        btUpdateDoseNote.setFont(new java.awt.Font("Dialog", 1, 10)); // NOI18N
+        btUpdateDoseNote.setText("Update Note");
+        btUpdateDoseNote.setActionCommand("btUpdateDoseNote");
 
         btDoseInfoSaveNew.setText("Save");
         btDoseInfoSaveNew.setActionCommand("btDoseInfoSaveNew");
@@ -638,6 +644,24 @@ public class ManagementFrm extends javax.swing.JFrame {
         btDoseInfoSaveUpdate.setActionCommand("btDoseInfoSaveUpdate");
         btDoseInfoSaveUpdate.setBounds(20, 10, 68, 25);
         jLayeredPane3.add(btDoseInfoSaveUpdate, javax.swing.JLayeredPane.DEFAULT_LAYER);
+
+        btSaveNewDoseNote.setFont(new java.awt.Font("Dialog", 1, 10)); // NOI18N
+        btSaveNewDoseNote.setText("Save");
+        btSaveNewDoseNote.setActionCommand("btSaveNewDoseNote");
+        btSaveNewDoseNote.setBounds(10, 0, 62, 23);
+        jLayeredPane4.add(btSaveNewDoseNote, javax.swing.JLayeredPane.DEFAULT_LAYER);
+
+        btCancelDoseNote.setFont(new java.awt.Font("Dialog", 1, 10)); // NOI18N
+        btCancelDoseNote.setText("Cancel");
+        btCancelDoseNote.setActionCommand("btCancelDoseNote");
+        btCancelDoseNote.setBounds(130, 0, 71, 23);
+        jLayeredPane4.add(btCancelDoseNote, javax.swing.JLayeredPane.DEFAULT_LAYER);
+
+        btSaveUpdateDoseNote.setFont(new java.awt.Font("Dialog", 1, 10)); // NOI18N
+        btSaveUpdateDoseNote.setText("Save");
+        btSaveUpdateDoseNote.setActionCommand("btSaveUpdateDoseNote");
+        btSaveUpdateDoseNote.setBounds(10, 0, 62, 23);
+        jLayeredPane4.add(btSaveUpdateDoseNote, javax.swing.JLayeredPane.DEFAULT_LAYER);
 
         javax.swing.GroupLayout jPanel4Layout = new javax.swing.GroupLayout(jPanel4);
         jPanel4.setLayout(jPanel4Layout);
@@ -656,29 +680,35 @@ public class ManagementFrm extends javax.swing.JFrame {
                         .addComponent(jLabel15)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addGroup(jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(jScrollPane3, javax.swing.GroupLayout.PREFERRED_SIZE, 429, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addGroup(jPanel4Layout.createSequentialGroup()
-                                .addComponent(btNewNote)
+                                .addComponent(btNewDoseNote)
                                 .addGap(35, 35, 35)
-                                .addComponent(btUpdateNote))
-                            .addComponent(jScrollPane3, javax.swing.GroupLayout.PREFERRED_SIZE, 429, javax.swing.GroupLayout.PREFERRED_SIZE))))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 55, Short.MAX_VALUE)
-                .addGroup(jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jLabel17)
-                    .addComponent(jLabel16))
+                                .addComponent(btUpdateDoseNote)))))
                 .addGroup(jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(jPanel4Layout.createSequentialGroup()
-                        .addGroup(jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                            .addComponent(cbDoseNoteLevel, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(cbDoseNoteStatus, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                        .addGap(30, 30, 30)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 97, Short.MAX_VALUE)
                         .addGroup(jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(txtDoseNoteStatusDate, javax.swing.GroupLayout.PREFERRED_SIZE, 123, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(txtDoseNoteLevelDate, javax.swing.GroupLayout.PREFERRED_SIZE, 123, javax.swing.GroupLayout.PREFERRED_SIZE))
-                        .addContainerGap(66, Short.MAX_VALUE))
+                            .addComponent(jLabel17)
+                            .addComponent(jLabel16))
+                        .addGroup(jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addGroup(jPanel4Layout.createSequentialGroup()
+                                .addGroup(jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                                    .addComponent(cbDoseNoteLevel, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                    .addComponent(cbDoseNoteStatus, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                .addGap(30, 30, 30)
+                                .addGroup(jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                    .addComponent(txtDoseNoteStatusDate, javax.swing.GroupLayout.PREFERRED_SIZE, 123, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                    .addComponent(txtDoseNoteLevelDate, javax.swing.GroupLayout.PREFERRED_SIZE, 123, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                .addContainerGap(24, Short.MAX_VALUE))
+                            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel4Layout.createSequentialGroup()
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                .addComponent(jLabel25)
+                                .addGap(85, 85, 85))))
                     .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel4Layout.createSequentialGroup()
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                        .addComponent(jLabel25)
-                        .addGap(85, 85, 85))))
+                        .addComponent(jLayeredPane4, javax.swing.GroupLayout.PREFERRED_SIZE, 210, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(78, 78, 78))))
             .addGroup(jPanel4Layout.createSequentialGroup()
                 .addGap(72, 72, 72)
                 .addComponent(btDoseInfoNew)
@@ -733,9 +763,10 @@ public class ManagementFrm extends javax.swing.JFrame {
                             .addComponent(txtDoseNoteStatusDate, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))))
                 .addGap(18, 18, 18)
                 .addGroup(jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(btNewNote)
-                    .addComponent(btUpdateNote))
-                .addContainerGap(31, Short.MAX_VALUE))
+                    .addComponent(btNewDoseNote)
+                    .addComponent(btUpdateDoseNote)
+                    .addComponent(jLayeredPane4, javax.swing.GroupLayout.PREFERRED_SIZE, 38, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addContainerGap(16, Short.MAX_VALUE))
         );
 
         tbPanelWorker.addTab("Dose Info", jPanel4);
@@ -1014,11 +1045,11 @@ public class ManagementFrm extends javax.swing.JFrame {
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
                 .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 25, Short.MAX_VALUE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                     .addComponent(panelWorkerInfo, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(panelSearch, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-                .addContainerGap())
+                .addGap(106, 106, 106))
         );
 
         pack();
@@ -1075,6 +1106,8 @@ public class ManagementFrm extends javax.swing.JFrame {
         
         setButtonsState.setAllDosimeterBtsInit(false);
         setButtonsState.setAllDoseBtsInit(false);
+        
+        setButtonsState.setAllDoseNoteBtsInit(false);
                 
     } 
     
@@ -1505,6 +1538,7 @@ public class ManagementFrm extends javax.swing.JFrame {
     
     
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    public javax.swing.JButton btCancelDoseNote;
     public javax.swing.JButton btDoseInfoCancel;
     public javax.swing.JButton btDoseInfoNew;
     public javax.swing.JButton btDoseInfoSaveNew;
@@ -1515,11 +1549,13 @@ public class ManagementFrm extends javax.swing.JFrame {
     public javax.swing.JButton btDosimeterInfoSaveNew;
     public javax.swing.JButton btDosimeterInfoSaveUpdate;
     public javax.swing.JButton btDosimeterInfoUpdate;
-    public javax.swing.JButton btNewNote;
+    public javax.swing.JButton btNewDoseNote;
     public javax.swing.JButton btNewNoteDosimeter;
+    public javax.swing.JButton btSaveNewDoseNote;
+    public javax.swing.JButton btSaveUpdateDoseNote;
     public javax.swing.JButton btSaveWorkerNew;
     public javax.swing.JButton btSaveWorkerUpdate;
-    public javax.swing.JButton btUpdateNote;
+    public javax.swing.JButton btUpdateDoseNote;
     public javax.swing.JButton btUpdateNoteDosimeter;
     public javax.swing.JButton btWorkerCancel;
     public javax.swing.JButton btWorkerNew;
@@ -1572,6 +1608,7 @@ public class ManagementFrm extends javax.swing.JFrame {
     private javax.swing.JLayeredPane jLayeredPane1;
     private javax.swing.JLayeredPane jLayeredPane2;
     private javax.swing.JLayeredPane jLayeredPane3;
+    private javax.swing.JLayeredPane jLayeredPane4;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JPanel jPanel3;
     private javax.swing.JPanel jPanel4;

@@ -344,14 +344,7 @@ public class ManagementTablesModel {
                 colNames) {
             @Override
             public boolean isCellEditable(int rowIndex, int colIndex) {
-                 boolean testPeriodicity = dbPkIDs.getDsmt_id().get(0, 3).toString().equalsIgnoreCase("Mensal");
                 switch (colIndex) {
-                    case 2:
-                        if (testPeriodicity) { return false; }
-                        return true;
-                    case 3:
-                        if (! testPeriodicity) { return false; }
-                        return true;
                     case 6:                   // ONLY 4TH COL IS EDITABLE
                         return false;
                     case 8:                   // ONLY 4TH COL IS EDITABLE

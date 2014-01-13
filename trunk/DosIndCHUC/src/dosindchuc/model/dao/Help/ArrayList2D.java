@@ -41,7 +41,7 @@ public class ArrayList2D {
 	 * @param row
 	 * @param num
 	 */
-	public void ensureCapacity(int row, int num)
+	public void ensureCapacity(int row)
 	{
 		ensureSize(row);
                 System.out.println("teste dada " + getNumRows());
