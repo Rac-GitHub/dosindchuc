@@ -107,10 +107,13 @@ public class ManagementWorker {
         setFieldsState.setWorkerAllEdit(true);
         setButtonsState.setSaveWorkerNew(false);
         setCleanState.cleanAllInfo();
+        setButtonsState.setAllDoseBtsInit(false);
+        setButtonsState.setAllDoseNoteBtsInit(false);
+        setButtonsState.setAllDosimeterBtsInit(false);
+        setButtonsState.setAllDsmtNoteBtsInit(false);
         
         this.frmMan.getTxtInfoAction().setText("Inserting a New Worker");
 
-        
     }
     
     
@@ -164,6 +167,20 @@ public class ManagementWorker {
         setWorkerInfo.fillWorkerInfo(worker_id);
         setButtonsState.setAllWorkerBtsInit(true);
         this.frmMan.btWorkerUpdate.setEnabled(true);
+        
+    }
+    
+    
+    public void btWorkerCancel () {
+        
+        System.out.println(" Iam h   ");
+        
+        setButtonsState.setAllSearchClearBts();
+  //      setButtonsState.setDosimeterBtsSearch(true);
+  //      setButtonsState.setDoseBtsSearch(true);
+        setCleanState.cleanAllInfo();
+        this.frmMan.getTxtInfoAction().setText("Cancel");
+        
         
     }
     

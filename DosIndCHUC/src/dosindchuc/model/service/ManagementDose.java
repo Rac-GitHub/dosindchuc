@@ -13,7 +13,6 @@ import dosindchuc.model.entities.DbPkIDs;
 import dosindchuc.model.entities.Dose_info;
 import dosindchuc.model.entities.Help.DateAndTime;
 import dosindchuc.model.entities.Help.SetEnums;
-import java.util.ArrayList;
 import javax.swing.JTable;
 
 /**
@@ -76,8 +75,8 @@ public class ManagementDose {
         dose.setDsmt_id(idDsmt);
         
         int i=0;
-        while (  ! (dbPkIDs.getDsmt_id().get(i, 1).toString().equalsIgnoreCase(idDsmt)) ) {   i++;  }
-        dose.setPk_dsmt(dbPkIDs.getDsmt_id().get(i, 0).toString());
+        while (  ! (dbPkIDs.getDsmt_id().get(i)[1].toString().equalsIgnoreCase(idDsmt)) ) {   i++;  }
+        dose.setPk_dsmt(dbPkIDs.getDsmt_id().get(i)[0].toString());
  
         System.out.println("while pk_dsmt--- " + dose.getPk_dsmt());
   

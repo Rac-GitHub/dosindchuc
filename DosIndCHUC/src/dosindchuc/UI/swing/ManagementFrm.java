@@ -119,6 +119,10 @@ public class ManagementFrm extends javax.swing.JFrame {
         btDosimeterInfoSaveNew = new javax.swing.JButton();
         btDosimeterInfoCancel = new javax.swing.JButton();
         btDosimeterInfoSaveUpdate = new javax.swing.JButton();
+        jLayeredPane5 = new javax.swing.JLayeredPane();
+        btSaveNewDsmtNote = new javax.swing.JButton();
+        btCancelDsmtNote = new javax.swing.JButton();
+        btSaveUpdateDsmtNote = new javax.swing.JButton();
         jPanel4 = new javax.swing.JPanel();
         jScrollPane2 = new javax.swing.JScrollPane();
         tableDoseInfo = new javax.swing.JTable();
@@ -168,6 +172,7 @@ public class ManagementFrm extends javax.swing.JFrame {
         searchBtClean = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+        setPreferredSize(new java.awt.Dimension(1447, 840));
 
         jPanel1.setBackground(new java.awt.Color(255, 255, 255));
         jPanel1.setBorder(javax.swing.BorderFactory.createTitledBorder(""));
@@ -311,7 +316,7 @@ public class ManagementFrm extends javax.swing.JFrame {
         btSaveWorkerNew.getAccessibleContext().setAccessibleName("btSaveWorkerNew");
 
         btWorkerCancel.setText("Cancel");
-        btWorkerCancel.setActionCommand("btCancelWorker");
+        btWorkerCancel.setActionCommand("btWorkerCancel");
         btWorkerCancel.setBounds(130, 40, 81, 25);
         jLayeredPane1.add(btWorkerCancel, javax.swing.JLayeredPane.DEFAULT_LAYER);
 
@@ -450,9 +455,11 @@ public class ManagementFrm extends javax.swing.JFrame {
 
         btNewNoteDosimeter.setFont(new java.awt.Font("Dialog", 1, 10)); // NOI18N
         btNewNoteDosimeter.setText("New Note");
+        btNewNoteDosimeter.setActionCommand("btNewNoteDosimeter");
 
         btUpdateNoteDosimeter.setFont(new java.awt.Font("Dialog", 1, 10)); // NOI18N
         btUpdateNoteDosimeter.setText("Update Note");
+        btUpdateNoteDosimeter.setActionCommand("btUpdateNoteDosimeter");
 
         btDosimeterInfoSaveNew.setText("Save");
         btDosimeterInfoSaveNew.setActionCommand("btDosimeterInfoSaveNew");
@@ -468,6 +475,24 @@ public class ManagementFrm extends javax.swing.JFrame {
         btDosimeterInfoSaveUpdate.setActionCommand("btDosimeterInfoSaveUpdate");
         btDosimeterInfoSaveUpdate.setBounds(50, 10, 70, 25);
         jLayeredPane2.add(btDosimeterInfoSaveUpdate, javax.swing.JLayeredPane.DEFAULT_LAYER);
+
+        btSaveNewDsmtNote.setFont(new java.awt.Font("Dialog", 1, 10)); // NOI18N
+        btSaveNewDsmtNote.setText("Save");
+        btSaveNewDsmtNote.setActionCommand("btSaveNewDsmtNote");
+        btSaveNewDsmtNote.setBounds(10, 10, 62, 23);
+        jLayeredPane5.add(btSaveNewDsmtNote, javax.swing.JLayeredPane.DEFAULT_LAYER);
+
+        btCancelDsmtNote.setFont(new java.awt.Font("Dialog", 1, 10)); // NOI18N
+        btCancelDsmtNote.setText("Cancel");
+        btCancelDsmtNote.setActionCommand("btCancelDsmtNote");
+        btCancelDsmtNote.setBounds(150, 10, 71, 23);
+        jLayeredPane5.add(btCancelDsmtNote, javax.swing.JLayeredPane.DEFAULT_LAYER);
+
+        btSaveUpdateDsmtNote.setFont(new java.awt.Font("Dialog", 1, 10)); // NOI18N
+        btSaveUpdateDsmtNote.setText("Save");
+        btSaveUpdateDsmtNote.setActionCommand("btSaveUpdateDsmtNote");
+        btSaveUpdateDsmtNote.setBounds(10, 10, 62, 23);
+        jLayeredPane5.add(btSaveUpdateDsmtNote, javax.swing.JLayeredPane.DEFAULT_LAYER);
 
         javax.swing.GroupLayout jPanel5Layout = new javax.swing.GroupLayout(jPanel5);
         jPanel5.setLayout(jPanel5Layout);
@@ -494,11 +519,11 @@ public class ManagementFrm extends javax.swing.JFrame {
                                 .addComponent(btDosimeterInfoUpdate)
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                                 .addComponent(jLayeredPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 271, javax.swing.GroupLayout.PREFERRED_SIZE))
-                            .addGroup(javax.swing.GroupLayout.Alignment.LEADING, jPanel5Layout.createSequentialGroup()
+                            .addGroup(jPanel5Layout.createSequentialGroup()
                                 .addComponent(jLabel18)
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                                 .addComponent(jScrollPane5, javax.swing.GroupLayout.PREFERRED_SIZE, 412, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 55, Short.MAX_VALUE)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 83, Short.MAX_VALUE)
                                 .addGroup(jPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
                                     .addGroup(jPanel5Layout.createSequentialGroup()
                                         .addComponent(jLabel30)
@@ -512,13 +537,15 @@ public class ManagementFrm extends javax.swing.JFrame {
                                 .addGroup(jPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                                     .addComponent(txtDosimeterNoteStatusDate, javax.swing.GroupLayout.PREFERRED_SIZE, 133, javax.swing.GroupLayout.PREFERRED_SIZE)
                                     .addComponent(txtDosimeterNoteAlertdate, javax.swing.GroupLayout.PREFERRED_SIZE, 133, javax.swing.GroupLayout.PREFERRED_SIZE))))
-                        .addContainerGap(55, Short.MAX_VALUE))))
-            .addGroup(jPanel5Layout.createSequentialGroup()
-                .addGap(71, 71, 71)
-                .addComponent(btNewNoteDosimeter)
-                .addGap(45, 45, 45)
-                .addComponent(btUpdateNoteDosimeter)
-                .addContainerGap())
+                        .addContainerGap(27, Short.MAX_VALUE))
+                    .addGroup(jPanel5Layout.createSequentialGroup()
+                        .addGap(30, 30, 30)
+                        .addComponent(btNewNoteDosimeter)
+                        .addGap(45, 45, 45)
+                        .addComponent(btUpdateNoteDosimeter)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addComponent(jLayeredPane5, javax.swing.GroupLayout.PREFERRED_SIZE, 251, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(62, 62, 62))))
             .addGroup(jPanel5Layout.createSequentialGroup()
                 .addContainerGap()
                 .addComponent(jScrollPane4)
@@ -562,11 +589,17 @@ public class ManagementFrm extends javax.swing.JFrame {
                         .addGroup(jPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addComponent(jLabel18)
                             .addComponent(jScrollPane5, javax.swing.GroupLayout.PREFERRED_SIZE, 53, javax.swing.GroupLayout.PREFERRED_SIZE))))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 31, Short.MAX_VALUE)
-                .addGroup(jPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(btNewNoteDosimeter)
-                    .addComponent(btUpdateNoteDosimeter))
-                .addGap(30, 30, 30))
+                .addGroup(jPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(jPanel5Layout.createSequentialGroup()
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addComponent(jLayeredPane5, javax.swing.GroupLayout.PREFERRED_SIZE, 42, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(70, 70, 70))
+                    .addGroup(jPanel5Layout.createSequentialGroup()
+                        .addGap(18, 18, 18)
+                        .addGroup(jPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(btNewNoteDosimeter)
+                            .addComponent(btUpdateNoteDosimeter))
+                        .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))))
         );
 
         tbPanelWorker.addTab("Dosimeter Info", jPanel5);
@@ -1049,7 +1082,7 @@ public class ManagementFrm extends javax.swing.JFrame {
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                     .addComponent(panelWorkerInfo, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(panelSearch, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-                .addGap(106, 106, 106))
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
         pack();
@@ -1108,6 +1141,7 @@ public class ManagementFrm extends javax.swing.JFrame {
         setButtonsState.setAllDoseBtsInit(false);
         
         setButtonsState.setAllDoseNoteBtsInit(false);
+        setButtonsState.setAllDsmtNoteBtsInit(false);
                 
     } 
     
@@ -1468,6 +1502,8 @@ public class ManagementFrm extends javax.swing.JFrame {
         this.txtDosimeterNoteAlertdate = txtDosimeterNoteAlertdate;
     }
 
+    
+    
     public JTextField getTxtDosimeterNoteStatusDate() {
         return txtDosimeterNoteStatusDate;
     }
@@ -1539,6 +1575,7 @@ public class ManagementFrm extends javax.swing.JFrame {
     
     // Variables declaration - do not modify//GEN-BEGIN:variables
     public javax.swing.JButton btCancelDoseNote;
+    public javax.swing.JButton btCancelDsmtNote;
     public javax.swing.JButton btDoseInfoCancel;
     public javax.swing.JButton btDoseInfoNew;
     public javax.swing.JButton btDoseInfoSaveNew;
@@ -1552,7 +1589,9 @@ public class ManagementFrm extends javax.swing.JFrame {
     public javax.swing.JButton btNewDoseNote;
     public javax.swing.JButton btNewNoteDosimeter;
     public javax.swing.JButton btSaveNewDoseNote;
+    public javax.swing.JButton btSaveNewDsmtNote;
     public javax.swing.JButton btSaveUpdateDoseNote;
+    public javax.swing.JButton btSaveUpdateDsmtNote;
     public javax.swing.JButton btSaveWorkerNew;
     public javax.swing.JButton btSaveWorkerUpdate;
     public javax.swing.JButton btUpdateDoseNote;
@@ -1609,6 +1648,7 @@ public class ManagementFrm extends javax.swing.JFrame {
     private javax.swing.JLayeredPane jLayeredPane2;
     private javax.swing.JLayeredPane jLayeredPane3;
     private javax.swing.JLayeredPane jLayeredPane4;
+    private javax.swing.JLayeredPane jLayeredPane5;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JPanel jPanel3;
     private javax.swing.JPanel jPanel4;

@@ -14,7 +14,6 @@ import dosindchuc.model.entities.DbPkIDs;
 import dosindchuc.model.entities.Dose_notes;
 import dosindchuc.model.entities.Help.DateAndTime;
 import dosindchuc.model.entities.Help.SetEnums;
-import java.util.List;
 import javax.swing.JTable;
 
 /**
@@ -26,7 +25,6 @@ public class ManagementDose_Notes {
     
     private ManagementFrm frmMan;
     private Dose_notesDao doseNotesdao;
-    private List<Dose_notes> dosenotes; 
     private DbPkIDs dbPkIDs;
 
     private DateAndTime dateAndTime = new DateAndTime();
@@ -183,7 +181,7 @@ public class ManagementDose_Notes {
    //     setCleanState.cleanDose();
 //        setDoseInfo.fillDoseInfo(dbPkIDs.getWorker_id(),"update");
      
-        this.frmMan.getTxtInfoAction().setText("Updating Dose info");
+        this.frmMan.getTxtInfoAction().setText("Updating Dose note info");
         
     }
     

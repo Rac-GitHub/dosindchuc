@@ -199,6 +199,7 @@ public class DosimeterDao {
      public void updateDosimeter (Dosimeter dsmt, String dsmt_id) {
       
             System.out.println("Dosimeter info no update Dosimeter id mec" + dsmt.getId());
+            System.out.println("Dosimeter info no update Dosimeter dsmt_id  OOO " + dsmt_id);
             prepareQuery(dsmt,"update");
             
             int sizeNparam = queryList.getNumRows();

@@ -4,10 +4,9 @@
  */
 package dosindchuc.model.dao;
 
-import dosindchuc.model.dao.Help.CreateDaoException;
+import dosindchuc.model.dao.Help.ArrayList2D;
 import dosindchuc.model.dao.Help.DaoConnections;
 import dosindchuc.model.dao.Help.QueryMapper;
-import dosindchuc.model.dao.Help.UpdateDaoException;
 import dosindchuc.model.entities.Dosimeter_notes;
 import dosindchuc.model.entities.Help.SetEnums;
 import java.sql.ResultSet;
@@ -24,9 +23,13 @@ public class Dosimeter_notesDao {
     
     
     private DaoConnections daoConnection;
+    private ArrayList2D queryList;
+    
+    
 	
     public Dosimeter_notesDao () {
         daoConnection = new DaoConnections();
+        queryList = new ArrayList2D();
     }
    
     
@@ -38,10 +41,11 @@ public class Dosimeter_notesDao {
 		try {
                     
                         String query = null;
+                        String sort = " ORDER BY status, alert_level DESC, lastchange DESC";
                         if (dsmt_id.isEmpty()) {
-                            query = "SELECT * from dosimeter_notes";
+                            query = "SELECT * from dosimeter_notes" + sort;
                         } else {
-                            query = "SELECT * FROM dosimeter_notes WHERE pk_dsmt= " + dsmt_id + " ORDER BY pk_notes_dsmt DESC";
+                            query = "SELECT * FROM dosimeter_notes WHERE pk_dsmt= " + dsmt_id + sort;
                         }
                             
                             
@@ -51,16 +55,20 @@ public class Dosimeter_notesDao {
 				public List<Dosimeter_notes> mapping(ResultSet rset) throws SQLException {
 					while (rset.next()) {
 						Dosimeter_notes dsmt_note = new Dosimeter_notes();
-                                                dsmt_note.setPk_notes_dsmt( rset.getInt("pk_notes_dsmt"));
-						dsmt_note.setPk_dsmt( rset.getInt("pk_dsmt") );
+                                                
+                                                dsmt_note.setPk_notes_dsmt( rset.getString("pk_notes_dsmt"));
+						dsmt_note.setPk_dsmt( rset.getString("pk_dsmt") );
 						dsmt_note.setNote( rset.getString("note") );
 						dsmt_note.setTimestamp( rset.getString("timestamp") );
                                                 dsmt_note.setStatus(SetEnums.note_status.valueOf( rset.getString("status") ) );
                                                 dsmt_note.setStatus_timestamp( rset.getString("status_timestamp") );
+                                                dsmt_note.setAlert_level_timestamp(rset.getString("alert_level_timestamp"));
                                                 dsmt_note.setAlert_level(SetEnums.note_alertlevel.valueOf( rset.getString("alert_level") ) );
                                                 dsmt_note.setLastchange( rset.getString("lastchange") );
                                                 dsmt_notes.add(dsmt_note);
+                                                
 					}
+                                        System.out.println("  Dsmt note get info " + dsmt_notes);
 					return dsmt_notes;
 				}
 				
@@ -75,59 +83,110 @@ public class Dosimeter_notesDao {
 	}
     
 
-    
-    
-    public Dosimeter_notes insert(Dosimeter_notes dsmt_note) throws CreateDaoException {
+     
+    private void prepareQuery(Dosimeter_notes dsmt_note, String newOrUpdate) {
 
-        try {
+        int i = 0;
 
-            final String query = "INSERT INTO dosimeter_notes "
-                    + "(pk_dsmt, note, timestamp, status, status_timestamp, alert_level) VALUES "
-                    + "( ? , ? , ? , ? , ? , ? )";
-            
-            int id = daoConnection.executePreparedUpdateAndReturnGeneratedKeys(query
-                    , dsmt_note.getPk_dsmt()
-                    , dsmt_note.getNote()
-                    , dsmt_note.getTimestamp()
-                    , dsmt_note.getStatus().toString()
-                    , dsmt_note.getStatus_timestamp()
-                    , dsmt_note.getAlert_level().toString() );
- 
-        } catch (SQLException e) {
-            throw new CreateDaoException("Not possible to make the transaction: ", e);
+        queryList.Add("pk_dsmt", i);
+        queryList.Add(" ? ", i);
+        queryList.Add(dsmt_note.getPk_dsmt(), i);
+
+
+        i += 1;
+        queryList.Add(", note", i);
+        queryList.Add(", ? ", i);
+        queryList.Add(dsmt_note.getNote(), i);
+
+        i += 1;
+        queryList.Add(", status", i);
+        queryList.Add(", ? ", i);
+        queryList.Add(dsmt_note.getStatus().toString(), i);
+
+        i += 1;
+        queryList.Add(", alert_level", i);
+        queryList.Add(", ? ", i);
+        queryList.Add(dsmt_note.getAlert_level().toString(), i);
+
+        i += 1;
+        queryList.Add(", timestamp", i);
+        queryList.Add(", ? ", i);
+        queryList.Add(dsmt_note.getTimestamp(), i);
+
+        i += 1;
+        queryList.Add(", status_timestamp", i);
+        queryList.Add(", ? ", i);
+        queryList.Add(dsmt_note.getStatus_timestamp(), i);
+
+        i += 1;
+        queryList.Add(", alert_level_timestamp", i);
+        queryList.Add(", ? ", i);
+        queryList.Add(dsmt_note.getAlert_level_timestamp(), i);
+
+        if ( newOrUpdate.equalsIgnoreCase("new") ) {
+            i += 1;
+            queryList.Add(", lastchange", i);
+            queryList.Add(", ? ", i);
+            queryList.Add(dsmt_note.getLastchange(), i);
         }
 
-        return dsmt_note;
+    }
+
+    
+    
+    
+    
+    
+    public String insertDsmtNote(Dosimeter_notes dsmt_note) {
+
+        prepareQuery(dsmt_note, "new");
+
+        int sizeNparam = queryList.getNumRows();
+
+        String query = "INSERT INTO dosimeter_notes (";
+        String valuesInt = " VALUES (";
+        Object param[] = new Object[sizeNparam];
+
+        for (int i = 0; i < sizeNparam; i++) {
+            query += queryList.get(i, 0);
+            valuesInt += queryList.get(i, 1);
+            param[i] = queryList.get(i, 2);
+        }
+
+        queryList.remove();
+
+        query += ")";
+        valuesInt += ")";
+        query += valuesInt;
+
+        return daoConnection.insert(query, param);
 
     }
     
   
+  
     
-    
-    public Dosimeter_notes update(Dosimeter_notes dsmt_note, int dsmt_note_id) throws UpdateDaoException {
+    public void updateDsmtNote(Dosimeter_notes dstm_note, String dsmt_note_id) {
 
-        try {
-           
-            final String query = "UPDATE dosimeter_notes SET pk_dsmt = ? "
-                    + ", note = ? , timestamp = ? , status = ? "
-                    + ", status_timestamp = ? , alert_level = ?  WHERE pk_notes_dsmt = " + dsmt_note_id;
+        System.out.println("Dose Note info no update Dose dose ID  " + dstm_note.getPk_dsmt());
+        System.out.println("Dose Note info no update Dose dose note id " + dstm_note.getPk_notes_dsmt());
+        prepareQuery(dstm_note, "update");
 
-            daoConnection.executePreparedUpdate(query
-                    , dsmt_note.getPk_dsmt()
-                    , dsmt_note.getNote()
-                    , dsmt_note.getTimestamp()
-                    , dsmt_note.getStatus().toString()
-                    , dsmt_note.getStatus_timestamp()
-                    , dsmt_note.getAlert_level().toString() );
+        int sizeNparam = queryList.getNumRows();
+        String query = "UPDATE dosimeter_notes SET ";
+        Object param[] = new Object[sizeNparam];
 
-        } catch (SQLException e) {
-            throw new UpdateDaoException("Not possible to make the transaction: ", e);
+        for (int i = 0; i < sizeNparam; i++) {
+            query += queryList.get(i, 0) + " = ? ";
+            param[i] = queryList.get(i, 2);
         }
 
-        return dsmt_note;
+        query += " WHERE pk_notes_dsmt = " + dsmt_note_id;
+
+        daoConnection.update(query, param);
+
+        queryList.remove();
 
     }
-    
- 
     
 }

@@ -5,7 +5,6 @@
 package dosindchuc.UI.swing.Help;
 
 import dosindchuc.UI.swing.ManagementFrm;
-import javax.swing.table.DefaultTableModel;
 
 /**
  *
@@ -13,8 +12,7 @@ import javax.swing.table.DefaultTableModel;
  */
 public class ManagementClean {
     
-    
-    private DefaultTableModel model;
+
     private ManagementFrm frmMan;
     private ManagementTablesModel tableModel;
     
@@ -82,16 +80,33 @@ public class ManagementClean {
         this.frmMan.cbWorkerSex.setSelectedIndex(0);
         this.frmMan.cbWorkerStatus.setSelectedIndex(0);
         
-        frmMan.btWorkerUpdate.setEnabled(false);
+    //    frmMan.btWorkerNew.setEnabled(true);
+    //    frmMan.btWorkerUpdate.setEnabled(false);
         frmMan.getTxtInfoAction().setText(null);
         
         
     }
     
     
+    // dosimeter
+    
     public void cleanDosimeter () {
         
+        cleanDsmtNotes();
+        
+        tableModel.setDefaultDsmtTable("readonly");
+        
+        if ( ! this.frmMan.tableDosimeterInfo.isEnabled()) {
+            this.frmMan.tableDosimeterInfo.setEnabled(true);
+        }
+        
+    }
+    
+    
+    public void cleanDsmtNotes () {
+        
         this.frmMan.txtDosimeterNote.setText(null);
+        this.frmMan.txtDosimeterNote.setEditable(false);
         this.frmMan.txtDosimeterNoteAlertdate.setText(null);
         this.frmMan.txtDosimeterNoteStatusDate.setText(null);
         this.frmMan.txtDosimeterNotesDateCreated.setText(null);
@@ -99,10 +114,12 @@ public class ManagementClean {
         this.frmMan.cbDosimeterNotesIndex.setEnabled(false);
         this.frmMan.cbDosimeterNotesAlert.setEnabled(false);
         this.frmMan.cbDosimeterNotesStatus.setEnabled(false);
-        
-        tableModel.setDefaultDsmtTable("readonly");
-        
+  
+    
     }
+    
+   
+    // dose
     
     public void cleanDose () {
         
@@ -123,6 +140,7 @@ public class ManagementClean {
         this.frmMan.cbDoseNoteIndex.setEnabled(false);
         this.frmMan.cbDoseNoteLevel.setEnabled(false);
         this.frmMan.cbDoseNoteStatus.setEnabled(false);
+  
         
     }
     

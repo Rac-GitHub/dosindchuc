@@ -398,17 +398,7 @@ public class DaoConnections {
         try {
             System.out.println("Query: " + query);
 
-            
-            
-            System.out.println("query ... " +
-                    param[0] + " "
-                    + param[1] + " "
-                    + param[2] + " "
-                    + param[3] + " "
-                    + param[4] + " "
-                    + param[5] + " "
-                    + param[6] + " "
-                    );
+      
  
             executePreparedUpdate(query, param);           
             
