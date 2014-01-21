@@ -9,12 +9,10 @@ import dosindchuc.UI.swing.Help.ManagementClean;
 import dosindchuc.UI.swing.Help.ManagementTablesModel;
 import dosindchuc.UI.swing.ManagementFrm;
 import dosindchuc.model.dao.DosimeterDao;
-import dosindchuc.model.dao.Help.ArrayList2D;
 import dosindchuc.model.entities.DbPkIDs;
 import dosindchuc.model.entities.Dosimeter;
 import dosindchuc.model.entities.Help.DateAndTime;
 import dosindchuc.model.entities.Help.SetEnums;
-import java.util.ArrayList;
 import javax.swing.JTable;
 
 
@@ -78,7 +76,7 @@ public class ManagementDosimeter {
         if ( ! newOrUpdate.equalsIgnoreCase("new") ) {
             row = table.getSelectedRow();
             System.out.println(" get dosimeter : " + row );
-            dsmt.setPk_dsmt(dbPkIDs.getDsmt_id().get(0, row).toString());
+            dsmt.setPk_dsmt(dbPkIDs.getDsmt_id().get(row)[0].toString());
         }
            
         dsmt.setId( table.getValueAt(row, 0) == null ? "" : table.getValueAt(row, 0).toString());
@@ -114,11 +112,11 @@ public class ManagementDosimeter {
         System.out.println(" Estou no newDosimeter ... ");
         
         tableModel.setDefaultDsmtTable("newdsmt");
-
-        setButtonsState.setDosimeterBtsNew(true);
         
+        setButtonsState.setDosimeterBtsNew(true);
+        setCleanState.cleanDsmtNotes();
+     
         this.frmMan.getTxtInfoAction().setText("Inserting a New dosimeter");
- 
         
     }
     
@@ -143,15 +141,6 @@ public class ManagementDosimeter {
         dsmt.setPk_dsmt(id);
     
         
-        ArrayList2D dsmtIds = new ArrayList2D();
-        dsmtIds = dbPkIDs.getDsmt_id();
-        int nRows = dsmtIds.getNumRows();
-        
-        dsmtIds.Add(id, nRows);
- 
-        dbPkIDs.setDsmt_id(dsmtIds);
-    
-        
         this.frmMan.getTxtInfoAction().setText("Dosimeter with id= "+ dsmt.getId() + " saved into database");
         
         // actualiza info
@@ -172,6 +161,7 @@ public class ManagementDosimeter {
         setButtonsState.setDosimeterBtsUpdate(true);
         
         setCleanState.cleanDosimeter();
+        
         setDsmtInfo.fillDosimeterInfo(dbPkIDs.getWorker_id(),"update");
      
         this.frmMan.getTxtInfoAction().setText("Updating Dosimeter info");
@@ -187,7 +177,7 @@ public class ManagementDosimeter {
         
         String dsmt_id = dsmt.getPk_dsmt();
         
-        System.out.println("save update    " +  dsmt_id);
+        System.out.println("save update  DOSIMETER pk_dsmt AAAA  " +  dsmt_id);
         
         dsmt.setPk_id(dbPkIDs.getWorker_id());
 

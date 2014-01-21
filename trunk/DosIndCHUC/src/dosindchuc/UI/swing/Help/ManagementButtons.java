@@ -87,6 +87,18 @@ public class ManagementButtons {
         this.frmMan.btDosimeterInfoCancel.setEnabled(dsmtBts);
         this.frmMan.btDosimeterInfoSaveNew.setVisible(dsmtBts);
         this.frmMan.btDosimeterInfoSaveUpdate.setVisible(!dsmtBts);
+        
+        this.frmMan.btWorkerNew.setEnabled(!dsmtBts);
+        this.frmMan.btWorkerUpdate.setEnabled(!dsmtBts);
+        this.frmMan.btDoseInfoNew.setEnabled(!dsmtBts);
+        this.frmMan.btDoseInfoUpdate.setEnabled(!dsmtBts);
+        
+              
+        this.frmMan.btNewNoteDosimeter.setEnabled(!dsmtBts);
+        this.frmMan.btUpdateNoteDosimeter.setEnabled(!dsmtBts);
+        this.frmMan.btSaveNewDsmtNote.setEnabled(!dsmtBts);
+        this.frmMan.btSaveUpdateDsmtNote.setEnabled(!dsmtBts);
+        this.frmMan.btCancelDsmtNote.setEnabled(!dsmtBts);
 
     }
     
@@ -99,9 +111,48 @@ public class ManagementButtons {
         this.frmMan.btDosimeterInfoCancel.setEnabled(dsmtBts);
         this.frmMan.btDosimeterInfoSaveNew.setVisible(!dsmtBts);
         this.frmMan.btDosimeterInfoSaveUpdate.setVisible(dsmtBts);
+        
+        this.frmMan.btWorkerNew.setEnabled(!dsmtBts);
+        this.frmMan.btWorkerUpdate.setEnabled(!dsmtBts);
+        this.frmMan.btDoseInfoNew.setEnabled(!dsmtBts);
+        this.frmMan.btDoseInfoUpdate.setEnabled(!dsmtBts);
+        
+        this.frmMan.btNewNoteDosimeter.setEnabled(!dsmtBts);
+        this.frmMan.btUpdateNoteDosimeter.setEnabled(!dsmtBts);
+        this.frmMan.btSaveNewDsmtNote.setEnabled(!dsmtBts);
+        this.frmMan.btSaveUpdateDsmtNote.setEnabled(!dsmtBts);
+        this.frmMan.btCancelDsmtNote.setEnabled(!dsmtBts);
 
     }
     
+    
+    
+    public void setAllCancelBts() {
+        
+        setDoseBtsSearch(true);
+        setDosimeterBtsSearch(true);
+        setAllWorkerBtsInit(true);
+        
+    }
+    
+    public void setAllSearchClearBts() {
+    
+        setAllDoseBtsInit(false);
+        setAllDosimeterBtsInit(false);
+        setAllDoseNoteBtsInit(false);
+        setAllDsmtNoteBtsInit(false);
+        setAllWorkerBtsInit(true);
+        this.frmMan.btWorkerUpdate.setEnabled(false);
+        
+    }
+   
+    public void setAllSaveOrUpdateBts() {
+        
+        setDoseBtsSearch(true);
+        setDosimeterBtsSearch(true);
+        setAllWorkerBtsInit(true);
+    
+    }
     /*
      * 
      * 
@@ -139,6 +190,11 @@ public class ManagementButtons {
         this.frmMan.btDoseInfoCancel.setEnabled(doseBts);
         this.frmMan.btDoseInfoSaveNew.setVisible(doseBts);
         this.frmMan.btDoseInfoSaveUpdate.setVisible(!doseBts);
+        
+        this.frmMan.btWorkerNew.setEnabled(!doseBts);
+        this.frmMan.btWorkerUpdate.setEnabled(!doseBts);
+        this.frmMan.btDosimeterInfoNew.setEnabled(!doseBts);
+        this.frmMan.btDosimeterInfoUpdate.setEnabled(!doseBts);
 
     }
     
@@ -151,9 +207,27 @@ public class ManagementButtons {
         this.frmMan.btDoseInfoCancel.setEnabled(doseBts);
         this.frmMan.btDoseInfoSaveNew.setVisible(!doseBts);
         this.frmMan.btDoseInfoSaveUpdate.setVisible(doseBts);
+        
+        this.frmMan.btWorkerNew.setEnabled(!doseBts);
+        this.frmMan.btWorkerUpdate.setEnabled(!doseBts);
+        this.frmMan.btDosimeterInfoNew.setEnabled(!doseBts);
+        this.frmMan.btDosimeterInfoUpdate.setEnabled(!doseBts);
+
 
     }
   
+   /*      this.frmMan.btDoseInfoNew.setEnabled(false);
+        this.frmMan.btDoseInfoUpdate.setEnabled(false);
+        this.frmMan.btDoseInfoSaveNew.setEnabled(false);
+        this.frmMan.btDoseInfoSaveUpdate.setEnabled(false);
+        this.frmMan.btDoseInfoCancel.setEnabled(false);
+        this.frmMan.btNewDoseNote.setEnabled(false);
+        this.frmMan.btUpdateDoseNote.setEnabled(false);
+        this.frmMan.btSaveNewDoseNote.setEnabled(false);
+        this.frmMan.btSaveUpdateDoseNote.setEnabled(false);
+        this.frmMan.btCancelDoseNote.setEnabled(false); */
+    
+    
     // dose notes
     
      public void setAllDoseNoteBtsInit(boolean doseNoteBts) {
@@ -188,6 +262,8 @@ public class ManagementButtons {
    
     }
      
+     
+     
       public void setSaveUpdateDoseNoteBts(boolean doseNoteBts) {
 
         this.frmMan.btNewDoseNote.setEnabled(!doseNoteBts);
@@ -201,5 +277,67 @@ public class ManagementButtons {
     }
      
      
+      // Dosimeter notes
+
+    
+     public void setAllDsmtNoteBtsInit(boolean dsmtNoteBts) {
+
+        this.frmMan.btNewNoteDosimeter.setEnabled(dsmtNoteBts);
+        this.frmMan.btUpdateNoteDosimeter.setEnabled(dsmtNoteBts);
+        this.frmMan.btSaveNewDsmtNote.setEnabled(dsmtNoteBts);
+        this.frmMan.btSaveUpdateDsmtNote.setVisible(dsmtNoteBts);
+        this.frmMan.btCancelDsmtNote.setEnabled(dsmtNoteBts);
+   
+    }
+    
+     public void setNewORUpdateDsmtNoteBts(boolean dsmtNoteBts) {
+
+        this.frmMan.btNewNoteDosimeter.setEnabled(dsmtNoteBts);
+        this.frmMan.btUpdateNoteDosimeter.setEnabled(dsmtNoteBts);
+        this.frmMan.btSaveNewDsmtNote.setVisible(dsmtNoteBts);
+        this.frmMan.btSaveNewDsmtNote.setEnabled(!dsmtNoteBts);
+        this.frmMan.btSaveUpdateDsmtNote.setVisible(!dsmtNoteBts);
+        this.frmMan.btCancelDsmtNote.setEnabled(!dsmtNoteBts);
+   
+    }
+     
+     public void setSaveNewDsmtNoteBts(boolean dsmtNoteBts) {
+
+        this.frmMan.btNewNoteDosimeter.setEnabled(!dsmtNoteBts);
+        this.frmMan.btUpdateNoteDosimeter.setEnabled(!dsmtNoteBts);
+        this.frmMan.btSaveNewDsmtNote.setVisible(dsmtNoteBts);
+        this.frmMan.btSaveNewDsmtNote.setEnabled(dsmtNoteBts);
+        this.frmMan.btSaveUpdateDsmtNote.setVisible(!dsmtNoteBts);
+        this.frmMan.btCancelDsmtNote.setEnabled(dsmtNoteBts);
+   
+    }
+     
+      public void setNewDsmtNoteBts(boolean dsmtNoteBts) {
+
+        setDosimeterBtsNew(dsmtNoteBts);
+        this.frmMan.btSaveNewDsmtNote.setVisible(dsmtNoteBts);
+        this.frmMan.btSaveNewDsmtNote.setEnabled(dsmtNoteBts);
+        this.frmMan.btSaveUpdateDsmtNote.setVisible(!dsmtNoteBts);
+        this.frmMan.btCancelDsmtNote.setEnabled(dsmtNoteBts);
+
+        this.frmMan.btDosimeterInfoSaveNew.setEnabled(!dsmtNoteBts);
+        this.frmMan.btDosimeterInfoSaveUpdate.setEnabled(!dsmtNoteBts);
+        this.frmMan.btDosimeterInfoCancel.setEnabled(!dsmtNoteBts);
+        
+    }
+     
+      public void setSaveUpdateDsmtNoteBts(boolean dsmtNoteBts) {
+
+        this.frmMan.btNewNoteDosimeter.setEnabled(!dsmtNoteBts);
+        this.frmMan.btUpdateNoteDosimeter.setEnabled(!dsmtNoteBts);
+        this.frmMan.btSaveNewDsmtNote.setVisible(!dsmtNoteBts);
+        this.frmMan.btSaveNewDsmtNote.setEnabled(!dsmtNoteBts);
+        this.frmMan.btSaveUpdateDsmtNote.setVisible(dsmtNoteBts);
+        this.frmMan.btSaveUpdateDsmtNote.setEnabled(dsmtNoteBts);
+        this.frmMan.btCancelDsmtNote.setEnabled(dsmtNoteBts);
+   
+    }
+      
+      
     
 }

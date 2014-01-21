@@ -18,6 +18,7 @@ import java.awt.event.ActionListener;
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
 import dosindchuc.model.entities.DbPkIDs;
+import dosindchuc.model.service.ManagementDosimeter_Notes;
 
 
 /**
@@ -35,6 +36,7 @@ public final class ManagementActionListener implements ActionListener, MouseList
     private ManagementDosimeter serviceDosimeter;
     private ManagementDose serviceDose;
     private ManagementDose_Notes serviceDoseNotes;
+    private ManagementDosimeter_Notes serviceDsmtNotes;
     public DbPkIDs dbPkIDs;
     
     public Object [][] workerList = null;
@@ -52,6 +54,7 @@ public final class ManagementActionListener implements ActionListener, MouseList
         serviceSearch = new ManagementSearch(this.frmMan, this);
         serviceWorker = new ManagementWorker(this.frmMan);
         serviceDosimeter = new ManagementDosimeter(this.frmMan);
+        serviceDsmtNotes = new ManagementDosimeter_Notes(this.frmMan,this);
         serviceDose = new ManagementDose(this.frmMan);
         serviceDoseNotes = new ManagementDose_Notes(this.frmMan,this);
         
@@ -77,8 +80,10 @@ public final class ManagementActionListener implements ActionListener, MouseList
                      serviceSearch.searchWorkers();
                      break;
             case "cleanManagement":  
+                serviceBtns.setAllSearchClearBts();
                 serviceClean.cleanAllInfoWithSearch();
                      break;
+                
 // worker
             case "btNewWorker":  serviceWorker.newWorker();
                      break;
@@ -88,19 +93,49 @@ public final class ManagementActionListener implements ActionListener, MouseList
                      break;
             case "btSaveWorkerUpdate":  serviceWorker.saveUpdateWorker();
                      break;
+            case "btWorkerCancel":  serviceWorker.btWorkerCancel();
+                     break;    
+                               
       // dosimeter          
             case "btDosimeterInfoNew":  serviceDosimeter.newDosimeter();
                      break;
-            case "btDosimeterInfoSaveNew":  serviceDosimeter.saveNewDsmt();
+            case "btDosimeterInfoSaveNew": 
+                
+                serviceDosimeter.saveNewDsmt();
+                serviceBtns.setAllCancelBts();
                      break;
             case "btDosimeterInfoUpdate":  serviceDosimeter.updateDosimeter();
                      break;
-            case "btDosimeterInfoSaveUpdate":  serviceDosimeter.saveUpdateDsmt();
+            case "btDosimeterInfoSaveUpdate": 
+ 
+                serviceDosimeter.saveUpdateDsmt();
+                serviceBtns.setAllCancelBts();
                      break;
-            case "btDosimeterInfoCancel":  serviceDosimeter.fillWokerDsmtInfo();
+            case "btDosimeterInfoCancel":
+                this.frmMan.getTxtInfoAction().setText("Canceling action on dosimeter");
+                serviceBtns.setAllCancelBts();
+                serviceDosimeter.fillWokerDsmtInfo();
                      break;
+                
+          // dosimeter Notes      
             case "cbDosimeterNotesIndex":  serviceSearch.fillDosimeterNotesInfo();
+                     break; 
+            case "btNewNoteDosimeter":  serviceDsmtNotes.newDsmtNote();
                      break;
+            case "btSaveNewDsmtNote":  
+                serviceDsmtNotes.saveNewDsmtNote();
+                serviceBtns.setAllCancelBts();
+                     break;
+            case "btUpdateNoteDosimeter":  serviceDsmtNotes.updateDsmtNote();
+                     break;
+            case "btSaveUpdateDsmtNote":  
+                serviceDsmtNotes.saveUpdateDsmtNote();
+                serviceBtns.setAllCancelBts();
+                  break;
+            case "btCancelDsmtNote": serviceDsmtNotes.cancelDsmtNote();
+ 
+            break;
+     
       // dose          
             case "btDoseNew":  serviceDose.newDose();
                      break;
@@ -110,8 +145,12 @@ public final class ManagementActionListener implements ActionListener, MouseList
                      break;
             case "btDoseInfoSaveUpdate":  serviceDose.saveUpdateDose();
                      break;
-            case "btDoseInfoCancel":  serviceDose.fillWokerDoseInfo();
+            case "btDoseInfoCancel": 
+                this.frmMan.getTxtInfoAction().setText("Canceling action on dose");
+                serviceBtns.setAllCancelBts();
+                serviceDose.fillWokerDoseInfo();
                      break; 
+                
      // dose note
             case "cbDoseNoteIndex":  serviceSearch.fillDoseNotesInfo();
                      break;
@@ -123,10 +162,12 @@ public final class ManagementActionListener implements ActionListener, MouseList
                      break;
             case "btSaveUpdateDoseNote":  serviceDoseNotes.saveUpdateDoseNote();
                      break;
-     /*       case "btDoseInfoCancel":  serviceDoseNotes.fillWokerDoseInfo();
-                     break;  */
-                
-
+            case "btCancelDoseNote": 
+                this.frmMan.getTxtInfoAction().setText("Canceling action on dose note");
+                serviceBtns.setAllCancelBts();
+                serviceDose.fillWokerDoseInfo();
+                     break; 
+     
                 
         }
     }
@@ -180,6 +221,7 @@ public final class ManagementActionListener implements ActionListener, MouseList
         frmMan.btSaveWorkerNew.addActionListener(this);
         frmMan.btWorkerUpdate.addActionListener(this);
         frmMan.btSaveWorkerUpdate.addActionListener(this);
+        frmMan.btWorkerCancel.addActionListener(this);
         
         
         // buttons dosimeter
@@ -189,6 +231,13 @@ public final class ManagementActionListener implements ActionListener, MouseList
         frmMan.btDosimeterInfoSaveNew.addActionListener(this);
         frmMan.btDosimeterInfoSaveUpdate.addActionListener(this);
         frmMan.btDosimeterInfoCancel.addActionListener(this);
+        
+         
+        frmMan.btNewNoteDosimeter.addActionListener(this);
+        frmMan.btUpdateNoteDosimeter.addActionListener(this);
+        frmMan.btSaveNewDsmtNote.addActionListener(this);
+        frmMan.btSaveUpdateDsmtNote.addActionListener(this);
+        frmMan.btCancelDsmtNote.addActionListener(this);
         
         
          // buttons for dose
@@ -215,10 +264,11 @@ public final class ManagementActionListener implements ActionListener, MouseList
 
         if (mevent.getClickCount() == 2) {
             serviceClean.cleanAllInfo();
-            serviceSearch.fillAllManagement();
+            frmMan.btWorkerNew.setEnabled(true);
             frmMan.btWorkerUpdate.setEnabled(true);
             serviceBtns.setDosimeterBtsSearch(true);
             serviceBtns.setDoseBtsSearch(true);
+            serviceSearch.fillAllManagement();
             this.frmMan.getTxtInfoAction().setText("");
   
         }    
@@ -227,34 +277,45 @@ public final class ManagementActionListener implements ActionListener, MouseList
 
     
     public void tableDoseInfoMouseClicked(MouseEvent mevent) {
-        
- //       if (mevent.getClickCount() == 2) {
-        
-        
      
-        ArrayList2D  doseNoteInfo = new ArrayList2D();
-         
-         
-         // info dose-note selected for update
-         for (int i = 0; i < 4; i++) { doseNoteInfo.Add(null,0); }
-             
-             
-           dbPkIDs.setDoseNotes_id(doseNoteInfo);
         
-           System.out.println(" No tableDoseInfoMouseClicked pois "+ dbPkIDs.getDoseNotes_id().get(0, 0));
-           
-            serviceSearch.fillDoseNotesCBIndex();
- //       }
+        
+        ArrayList2D doseNoteInfo = new ArrayList2D();
+
+        // info dose-note selected for update
+        for (int i = 0; i < 4; i++) {
+            doseNoteInfo.Add(null, 0);
+        }
+
+        dbPkIDs.setDoseNotes_id(doseNoteInfo);
+
+        System.out.println(" No tableDoseInfoMouseClicked pois " + dbPkIDs.getDoseNotes_id().get(0, 0));
+
+        serviceSearch.fillDoseNotesCBIndex();
  
     }    
  
     
     public void tableDosimeterInfoMouseClicked(MouseEvent mevent) {
+
+        if ( ! this.frmMan.tableDosimeterInfo.isEnabled() ) {
+            System.out.println("  Aqui dentro  ---- ");
+            return;
+        }
         
-//        if (mevent.getClickCount() == 2) {
-           serviceSearch.fillDosimeterNotesCBIndex();
-           
-//        }  
+        ArrayList2D dsmtNoteInfo = new ArrayList2D();
+
+        // info dose-note selected for update
+        for (int i = 0; i < 4; i++) {
+            dsmtNoteInfo.Add(null, 0);
+        }
+
+        dbPkIDs.setDsmtNotes_id(dsmtNoteInfo);
+
+        System.out.println(" No tableDoseInfoMouseClicked pois " + dbPkIDs.getDsmtNotes_id().get(0, 0));
+
+        serviceSearch.fillDosimeterNotesCBIndex();
+
     }
       
     

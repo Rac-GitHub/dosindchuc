@@ -295,6 +295,34 @@ public class ManagementTablesModel {
     }
     
     
+      
+    private DefaultTableModel setFreezeSettingsDosimeterTable() {
+       
+        table = this.frmMan.tableDosimeterInfo;
+
+        String[] colNames = dsmtTable("name");
+        
+        DefaultTableModel model = new DefaultTableModel(new Object [][] {},
+                colNames
+                ){
+                    @Override
+                public boolean isCellEditable(int rowIndex, int colIndex) {
+                            return false; //Disallow the editing of any cell
+                    }
+                };
+        
+        table.setModel(model);
+        
+        tableFreezeSettings();
+
+        String[] colWidths = dsmtTable("width");
+        tableColumnsSettings(colWidths);
+        
+        return model;
+        
+    }
+    
+    
     
     /*
      * 
@@ -366,9 +394,9 @@ public class ManagementTablesModel {
         ArrayList idActDsmt = new ArrayList();
         ArrayList year = new ArrayList();
 
-        for (int i = 0; i < dbPkIDs.getDsmt_id().getNumRows(); ++i) {
-            if ((dbPkIDs.getDsmt_id().get(i, 2)).toString().equalsIgnoreCase("Activo")) {
-                idActDsmt.add(dbPkIDs.getDsmt_id().get(i, 1));
+        for (int i = 0; i < dbPkIDs.getDsmt_id().size(); ++i) {
+            if ((dbPkIDs.getDsmt_id().get(i)[2]).toString().equalsIgnoreCase("Activo")) {
+                idActDsmt.add(dbPkIDs.getDsmt_id().get(i)[1]);
             }
         }
 
@@ -389,7 +417,7 @@ public class ManagementTablesModel {
         table.getColumnModel().getColumn(3).setCellEditor(new DefaultCellEditor(cbMonth));
 
 
-        String dsmtPeriodicity = dbPkIDs.getDsmt_id().get(0, 3).toString();
+        String dsmtPeriodicity = dbPkIDs.getDsmt_id().get(0)[3].toString();
         if (dsmtPeriodicity.equalsIgnoreCase("Mensal")) {
             Object newRow[] = new Object[]{idActDsmt.get(0), yearNow, SetEnums.Trimester.NoDef, SetEnums.month.Jan, "", "", "", "", ""};
             model.addRow(newRow);
@@ -477,6 +505,19 @@ public class ManagementTablesModel {
         table.setUpdateSelectionOnSort(false);
         table.setDragEnabled(false);
         table.setRowSelectionAllowed(true);
+   
+    }
+    
+    private void tableFreezeSettings () {
+        
+        table.setAutoResizeMode(javax.swing.JTable.AUTO_RESIZE_LAST_COLUMN);
+        table.setFont(new java.awt.Font("Dialog", 0, 10)); // NOI18N
+        table.setFocusable(false);
+        table.setRequestFocusEnabled(false);
+        table.setUpdateSelectionOnSort(false);
+        table.setDragEnabled(false);
+        table.setRowSelectionAllowed(false);
+  
    
     }
     

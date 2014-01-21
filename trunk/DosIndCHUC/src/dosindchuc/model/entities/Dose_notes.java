@@ -30,31 +30,9 @@ public class Dose_notes {
     // constructors
 
     public Dose_notes() {
-    }
-
-    public Dose_notes(String pk_notes_dose, String pk_dose, String note, String timestamp, note_status status, String status_timestamp, note_alertlevel alert_level, String lastchange) {
-        this.pk_notes_dose = pk_notes_dose;
-        this.pk_dose = pk_dose;
-        this.note = note;
-        this.timestamp = timestamp;
-        this.status = status;
-        this.status_timestamp = status_timestamp;
-        this.alert_level = alert_level;
-        this.lastchange = lastchange;
-    }
-
-    public Dose_notes(String pk_dose, String note, String timestamp, note_status status, String status_timestamp, note_alertlevel alert_level) {
-        this.pk_dose = pk_dose;
-        this.note = note;
-        this.timestamp = timestamp;
-        this.status = status;
-        this.status_timestamp = status_timestamp;
-        this.alert_level = alert_level;
-    }
-
     
-     
-    
+    }
+
     
     // getter and setters
 
@@ -131,20 +109,6 @@ public class Dose_notes {
         this.lastchange = lastchange;
     }
 
-    
-   
 
-    
-    
-    // toString
-
-    @Override
-    public String toString() {
-        return "Dose_notes{" + "pk_notes_dose=" + pk_notes_dose + ", pk_dose=" + pk_dose + ", note=" + note + ", timestamp=" 
-                + timestamp + ", status=" + status + ", status_timestamp=" + status_timestamp + ", alert_level=" 
-                + alert_level + ", lastchange=" + lastchange + '}';
-    }
-
-  
     
 }

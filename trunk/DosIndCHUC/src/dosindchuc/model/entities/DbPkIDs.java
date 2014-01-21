@@ -15,10 +15,11 @@ import java.util.ArrayList;
 public class DbPkIDs {
     
     private static String worker_id;  
-    private static ArrayList2D dsmt_id;
-    private static String dsmtNotes_id;
+    private static ArrayList<Object []> dsmt_id;
+    private static ArrayList2D dsmtNotes_id;
     private static ArrayList dose_id;
     private static ArrayList2D doseNotes_id;
+
 
     
     public DbPkIDs() {
@@ -36,19 +37,19 @@ public class DbPkIDs {
         DbPkIDs.worker_id = worker_id;
     }
 
-    public ArrayList2D getDsmt_id() {
+    public ArrayList<Object []> getDsmt_id() {
         return dsmt_id;
     }
 
-    public void setDsmt_id(ArrayList2D dsmt_id) {
+    public void setDsmt_id(ArrayList<Object []> dsmt_id) {
         DbPkIDs.dsmt_id = dsmt_id;
     }
 
-    public String getDsmtNotes_id() {
+    public ArrayList2D getDsmtNotes_id() {
         return dsmtNotes_id;
     }
 
-    public void setDsmtNotes_id(String dsmtNotes_id) {
+    public void setDsmtNotes_id(ArrayList2D dsmtNotes_id) {
         DbPkIDs.dsmtNotes_id = dsmtNotes_id;
     }
 
