@@ -8,13 +8,17 @@ import dosindchuc.UI.swing.ManagementFrm;
 import dosindchuc.model.entities.DbPkIDs;
 import dosindchuc.model.entities.Help.DateAndTime;
 import dosindchuc.model.entities.Help.SetEnums;
+import java.awt.Color;
+import java.awt.Component;
 import java.util.ArrayList;
 import javax.swing.DefaultCellEditor;
 import javax.swing.JComboBox;
 import javax.swing.JLabel;
 import javax.swing.JTable;
+import javax.swing.ListSelectionModel;
 import javax.swing.table.DefaultTableCellRenderer;
 import javax.swing.table.DefaultTableModel;
+import javax.swing.table.TableCellRenderer;
 
 /**
  *
@@ -139,6 +143,7 @@ public class ManagementTablesModel {
         
         this.frmMan.searchTable.setModel(model);
         
+        this.frmMan.searchTable.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
         this.frmMan.searchTable.setAutoResizeMode(javax.swing.JTable.AUTO_RESIZE_LAST_COLUMN);
         this.frmMan.searchTable.setFont(new java.awt.Font("Dialog", 0, 10)); // NOI18N
         this.frmMan.searchTable.setFocusable(true);
@@ -252,15 +257,19 @@ public class ManagementTablesModel {
     
     private DefaultTableModel setUpdateDosimeterSettingsTable () {
  
-        table = this.frmMan.tableDosimeterInfo;
+       table = this.frmMan.tableDosimeterInfo;
+    
+       final int selectedRow = dbPkIDs.getDsmtRowSelected();
 
         String[] colNames = dsmtTable("name");
        
         DefaultTableModel model = new DefaultTableModel(new Object [][] {},
                 colNames
                 ){
-                    @Override
+                @Override
                 public boolean isCellEditable(int rowIndex, int colIndex) {
+                        
+                        if ( rowIndex == selectedRow ) {
                         switch(colIndex){
                             case 5:                   // ONLY 4TH COL IS EDITABLE
                                 return false;
@@ -269,8 +278,11 @@ public class ManagementTablesModel {
                             default:
                                 return true;
                         }
-       
+                        } else {
+                            return false;
+                        }
                     }
+                
                 };
         
         table.setModel(model);
@@ -290,37 +302,19 @@ public class ManagementTablesModel {
         table.getColumnModel().getColumn(4).setCellEditor(new DefaultCellEditor(cbSuppl));
         table.getColumnModel().getColumn(7).setCellEditor(new DefaultCellEditor(cbStatus));
     
+   
+        System.out.println("aqui no model MODEL " + model);
+        
+        
+        
+
+        
+        
         return model;
         
     }
     
     
-      
-    private DefaultTableModel setFreezeSettingsDosimeterTable() {
-       
-        table = this.frmMan.tableDosimeterInfo;
-
-        String[] colNames = dsmtTable("name");
-        
-        DefaultTableModel model = new DefaultTableModel(new Object [][] {},
-                colNames
-                ){
-                    @Override
-                public boolean isCellEditable(int rowIndex, int colIndex) {
-                            return false; //Disallow the editing of any cell
-                    }
-                };
-        
-        table.setModel(model);
-        
-        tableFreezeSettings();
-
-        String[] colWidths = dsmtTable("width");
-        tableColumnsSettings(colWidths);
-        
-        return model;
-        
-    }
     
     
     
@@ -441,6 +435,8 @@ public class ManagementTablesModel {
  
         table = this.frmMan.tableDoseInfo;
         
+        final int selectedRow = dbPkIDs.getDoseRowSelected();
+        
         String[] colNames = doseTable("name");
               
         DefaultTableModel model = new DefaultTableModel(new Object [][] {},
@@ -448,6 +444,8 @@ public class ManagementTablesModel {
                 ){
                     @Override
                 public boolean isCellEditable(int rowIndex, int colIndex) {
+                        
+                        if ( rowIndex == selectedRow ) {
                         switch(colIndex){
                             case 0:                   // ONLY 4TH COL IS EDITABLE
                                 return false;
@@ -457,8 +455,11 @@ public class ManagementTablesModel {
                                 return false;
                             default:
                                 return true;
-                        }
-       
+                           }
+                        } else {
+                            return false;
+                    }
+                        
                     }
                 };
         
@@ -498,6 +499,7 @@ public class ManagementTablesModel {
      */
     private void tableDefaultSettings () {
         
+        table.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
         table.setAutoResizeMode(javax.swing.JTable.AUTO_RESIZE_LAST_COLUMN);
         table.setFont(new java.awt.Font("Dialog", 0, 10)); // NOI18N
         table.setFocusable(true);
@@ -507,27 +509,14 @@ public class ManagementTablesModel {
         table.setRowSelectionAllowed(true);
    
     }
-    
-    private void tableFreezeSettings () {
-        
-        table.setAutoResizeMode(javax.swing.JTable.AUTO_RESIZE_LAST_COLUMN);
-        table.setFont(new java.awt.Font("Dialog", 0, 10)); // NOI18N
-        table.setFocusable(false);
-        table.setRequestFocusEnabled(false);
-        table.setUpdateSelectionOnSort(false);
-        table.setDragEnabled(false);
-        table.setRowSelectionAllowed(false);
-  
-   
-    }
-    
+     
     
     private void tableColumnsSettings (String [] widths) {
         
   
         DefaultTableCellRenderer centerRenderer = new DefaultTableCellRenderer();
         centerRenderer.setHorizontalAlignment(JLabel.CENTER);
-
+   
         for (int i = 0; i < widths.length; i++) {
 
             table.getColumnModel().getColumn(i).setPreferredWidth(Integer.parseInt(widths[i]));
@@ -535,7 +524,8 @@ public class ManagementTablesModel {
 
        
         }
-      
+   
+        
     }
      
     

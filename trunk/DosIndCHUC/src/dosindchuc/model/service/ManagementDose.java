@@ -162,12 +162,27 @@ public class ManagementDose {
         
         System.out.println(" Estou no Update Dose ... ");
         
+        
+        table = this.frmMan.tableDoseInfo;
+        int row = table.getSelectedRow();
+        
+        dbPkIDs.setDoseRowSelected(row);
+        
+        System.out.println(" Estou no Update Dose .row.. " + row );
+        
+        if ( ! ( row > -1 ) ) {
+            return;
+        }
+        
+        
         setButtonsState.setDoseBtsUpdate(true);
         
         setCleanState.cleanDose();
         setDoseInfo.fillDoseInfo(dbPkIDs.getWorker_id(),"update");
      
         this.frmMan.getTxtInfoAction().setText("Updating Dose info");
+        
+        table.setRowSelectionInterval(row, row);
         
     }
     

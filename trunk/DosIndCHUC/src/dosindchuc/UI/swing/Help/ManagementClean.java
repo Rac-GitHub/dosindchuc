@@ -124,8 +124,13 @@ public class ManagementClean {
     public void cleanDose () {
         
         cleanDoseNotes ();
-        
+ 
         tableModel.setDefaultDoseTable("readonly");
+          
+        if ( ! this.frmMan.tableDoseInfo.isEnabled()) {
+            this.frmMan.tableDoseInfo.setEnabled(true);
+        }
+      
         
     }
     
@@ -133,6 +138,7 @@ public class ManagementClean {
     public void cleanDoseNotes () {
         
         this.frmMan.txtDoseNote.setText(null);
+        this.frmMan.txtDoseNote.setEditable(false);
         this.frmMan.txtDoseNoteLevelDate.setText(null);
         this.frmMan.txtDoseNoteStatusDate.setText(null);
         this.frmMan.txtDoseNotesDateCreated.setText(null);
@@ -140,7 +146,6 @@ public class ManagementClean {
         this.frmMan.cbDoseNoteIndex.setEnabled(false);
         this.frmMan.cbDoseNoteLevel.setEnabled(false);
         this.frmMan.cbDoseNoteStatus.setEnabled(false);
-  
         
     }
     

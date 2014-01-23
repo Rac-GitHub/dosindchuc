@@ -19,6 +19,8 @@ public class DbPkIDs {
     private static ArrayList2D dsmtNotes_id;
     private static ArrayList dose_id;
     private static ArrayList2D doseNotes_id;
+    private static int dsmtRowSelected;
+    private static int doseRowSelected;
 
 
     
@@ -67,6 +69,22 @@ public class DbPkIDs {
 
     public void setDoseNotes_id(ArrayList2D doseNotes_id) {
         DbPkIDs.doseNotes_id = doseNotes_id;
+    }
+
+    public int getDsmtRowSelected() {
+        return dsmtRowSelected;
+    }
+
+    public void setDsmtRowSelected(int dsmtRowSelected) {
+        DbPkIDs.dsmtRowSelected = dsmtRowSelected;
+    }
+
+    public int getDoseRowSelected() {
+        return doseRowSelected;
+    }
+
+    public void setDoseRowSelected(int doseRowSelected) {
+        DbPkIDs.doseRowSelected = doseRowSelected;
     }
     
     

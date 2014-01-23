@@ -93,7 +93,6 @@ public class ManagementFields {
         this.frmMan.getCbDoseNoteStatus().setSelectedIndex(0);
         this.frmMan.cbDoseNoteStatus.setEnabled(doseNoteEdit);
         this.frmMan.getTxtDoseNoteStatusDate().setText("");
-
         
     }
      
@@ -101,7 +100,9 @@ public class ManagementFields {
     public void setUpdateDoseNotes (boolean doseNoteEdit) {
         
         System.out.println("Estou no set Update dose note ");
- 
+        
+        this.frmMan.cbDoseNoteIndex.setEnabled(!doseNoteEdit);
+        
         this.frmMan.txtDoseNote.setEditable(doseNoteEdit);
         this.frmMan.cbDoseNoteLevel.setEnabled(doseNoteEdit);
         this.frmMan.cbDoseNoteStatus.setEnabled(doseNoteEdit);

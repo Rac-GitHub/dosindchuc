@@ -19,6 +19,8 @@ import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
 import dosindchuc.model.entities.DbPkIDs;
 import dosindchuc.model.service.ManagementDosimeter_Notes;
+import javax.swing.JTable;
+
 
 
 /**
@@ -38,6 +40,7 @@ public final class ManagementActionListener implements ActionListener, MouseList
     private ManagementDose_Notes serviceDoseNotes;
     private ManagementDosimeter_Notes serviceDsmtNotes;
     public DbPkIDs dbPkIDs;
+    private JTable table;
     
     public Object [][] workerList = null;
     public ActionListener Listeners;
@@ -100,15 +103,13 @@ public final class ManagementActionListener implements ActionListener, MouseList
             case "btDosimeterInfoNew":  serviceDosimeter.newDosimeter();
                      break;
             case "btDosimeterInfoSaveNew": 
-                
                 serviceDosimeter.saveNewDsmt();
                 serviceBtns.setAllCancelBts();
                      break;
             case "btDosimeterInfoUpdate":  serviceDosimeter.updateDosimeter();
                      break;
             case "btDosimeterInfoSaveUpdate": 
- 
-                serviceDosimeter.saveUpdateDsmt();
+               serviceDosimeter.saveUpdateDsmt();
                 serviceBtns.setAllCancelBts();
                      break;
             case "btDosimeterInfoCancel":
@@ -132,18 +133,24 @@ public final class ManagementActionListener implements ActionListener, MouseList
                 serviceDsmtNotes.saveUpdateDsmtNote();
                 serviceBtns.setAllCancelBts();
                   break;
-            case "btCancelDsmtNote": serviceDsmtNotes.cancelDsmtNote();
+            case "btCancelDsmtNote": 
+                this.frmMan.getTxtInfoAction().setText("Canceling action on dosimeter");
+                serviceDsmtNotes.cancelDsmtNote();
  
             break;
      
       // dose          
             case "btDoseNew":  serviceDose.newDose();
                      break;
-            case "btDoseInfoSaveNew":  serviceDose.saveNewDose();
+            case "btDoseInfoSaveNew":  
+                serviceDose.saveNewDose();
+                serviceBtns.setAllCancelBts();
                      break;
             case "btDoseInfoUpdate":  serviceDose.updateDose();
                      break;
-            case "btDoseInfoSaveUpdate":  serviceDose.saveUpdateDose();
+            case "btDoseInfoSaveUpdate":  
+                serviceDose.saveUpdateDose();
+                serviceBtns.setAllCancelBts();
                      break;
             case "btDoseInfoCancel": 
                 this.frmMan.getTxtInfoAction().setText("Canceling action on dose");
@@ -156,17 +163,20 @@ public final class ManagementActionListener implements ActionListener, MouseList
                      break;
             case "btNewDoseNote":  serviceDoseNotes.newDoseNote();
                      break;
-            case "btSaveNewDoseNote":  serviceDoseNotes.saveNewDoseNote();
+            case "btSaveNewDoseNote":  
+                serviceDoseNotes.saveNewDoseNote();
+                serviceBtns.setAllCancelBts();
                      break;
             case "btUpdateDoseNote":  serviceDoseNotes.updateDoseNote();
                      break;
-            case "btSaveUpdateDoseNote":  serviceDoseNotes.saveUpdateDoseNote();
+            case "btSaveUpdateDoseNote":  
+                serviceDoseNotes.saveUpdateDoseNote();
+                serviceBtns.setAllCancelBts();
                      break;
             case "btCancelDoseNote": 
                 this.frmMan.getTxtInfoAction().setText("Canceling action on dose note");
                 serviceBtns.setAllCancelBts();
-                serviceDose.fillWokerDoseInfo();
-                     break; 
+            break; 
      
                 
         }
@@ -278,7 +288,15 @@ public final class ManagementActionListener implements ActionListener, MouseList
     
     public void tableDoseInfoMouseClicked(MouseEvent mevent) {
      
+        if ( ! this.frmMan.btDoseInfoUpdate.isEnabled() ) {
+            return;
+        }
         
+        
+       if ( ! this.frmMan.tableDoseInfo.isEnabled() ) {
+            System.out.println("  Aqui dentro dose ---- ");
+            return;
+        }  
         
         ArrayList2D doseNoteInfo = new ArrayList2D();
 
@@ -298,6 +316,10 @@ public final class ManagementActionListener implements ActionListener, MouseList
     
     public void tableDosimeterInfoMouseClicked(MouseEvent mevent) {
 
+        if ( ! this.frmMan.btDosimeterInfoUpdate.isEnabled() ) {
+            return;
+        }
+        
         if ( ! this.frmMan.tableDosimeterInfo.isEnabled() ) {
             System.out.println("  Aqui dentro  ---- ");
             return;

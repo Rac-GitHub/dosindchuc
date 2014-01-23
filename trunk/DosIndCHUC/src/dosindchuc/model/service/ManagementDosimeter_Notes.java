@@ -8,9 +8,7 @@ import dosindchuc.UI.controller.ManagementActionListener;
 import dosindchuc.UI.swing.Help.ManagementButtons;
 import dosindchuc.UI.swing.Help.ManagementClean;
 import dosindchuc.UI.swing.Help.ManagementFields;
-import dosindchuc.UI.swing.Help.ManagementTablesModel;
 import dosindchuc.UI.swing.ManagementFrm;
-
 import dosindchuc.model.dao.Dosimeter_notesDao;
 import dosindchuc.model.entities.DbPkIDs;
 import dosindchuc.model.entities.Dosimeter_notes;
@@ -28,14 +26,11 @@ public class ManagementDosimeter_Notes {
     private ManagementFrm frmMan;
     private Dosimeter_notesDao dsmtNotesdao;
     private DbPkIDs dbPkIDs;
-    private ManagementTablesModel tableModel;
-    private ManagementSearch setDsmtInfo;
-
+ 
     private DateAndTime dateAndTime = new DateAndTime();
     private ManagementButtons setButtonsState;
     private ManagementClean setCleanState;
     private ManagementFields setFieldState;
-    private ManagementSearch setDsmtNoteInfo;
     private JTable table;
     private ManagementActionListener Listeners;
 
@@ -52,10 +47,9 @@ public class ManagementDosimeter_Notes {
         setButtonsState = new ManagementButtons(this.frmMan);
         setCleanState = new ManagementClean(this.frmMan);
         setFieldState = new ManagementFields(this.frmMan);
-        setDsmtNoteInfo = new ManagementSearch(this.frmMan, Listeners);
         
-        tableModel = new ManagementTablesModel(this.frmMan);
-        setDsmtInfo = new ManagementSearch(this.frmMan, null);
+ //       tableModel = new ManagementTablesModel(this.frmMan);
+ //       setDsmtInfo = new ManagementSearch(this.frmMan, null);
         
     
     }
@@ -135,7 +129,7 @@ public class ManagementDosimeter_Notes {
         
         /* tudo ok para escrever */
         
-        System.out.println(" Estou no newDoseNote ... ");
+        System.out.println(" Estou no newDSMTNote ... ");
     
         setCleanState.cleanDsmtNotes();
         setFieldState.setNewDsmtNotes(true);
@@ -187,19 +181,14 @@ public class ManagementDosimeter_Notes {
     public void updateDsmtNote() {
         
         System.out.println(" Estou no Update DSMT ... ");
+ 
+   
         
-           
-      
-   //     setFieldState.setNewDsmtNotes(true);
-   //     setButtonsState.setNewDsmtNoteBts(true);
-        
-        
-        setButtonsState.setSaveUpdateDsmtNoteBts(true);
+        setButtonsState.setUpdateDsmtNoteBts(true);
         setFieldState.setUpdateDsmtNotes(true);
-   //     setCleanState.cleanDose();
-//        setDoseInfo.fillDoseInfo(dbPkIDs.getWorker_id(),"update");
+
+        
         this.frmMan.tableDosimeterInfo.setEnabled(false);
-     //   this.frmMan.tableDosimeterInfo.setRowSelectionAllowed(false);
      
         this.frmMan.getTxtInfoAction().setText("Updating Dosimeter note info");
         
@@ -247,31 +236,11 @@ public class ManagementDosimeter_Notes {
         
         /* tudo ok para escrever */
         
-        System.out.println(" Estou no fill DoseNote ... ");
- 
-  //      setDsmtInfo.fillDosimeterInfo(dbPkIDs.getWorker_id(),"new");
-        
-  //      tableModel.setDefaultDsmtTable("newdsmt");
-    
+        System.out.println(" Estou no fill DSMTNote ... ");
  
            setCleanState.cleanDsmtNotes();
            setButtonsState.setAllDsmtNoteBtsInit(false);
-        
-                // actualiza info
- //       setCleanState.cleanDosimeter();
- //       setDsmtInfo.fillDosimeterInfo(dbPkIDs.getWorker_id(),"new");
-    
- //       setButtonsState.setDosimeterBtsSearch(true);
-        
-  //      setButtonsState.setNewORUpdateDsmtNoteBts(true);
-  //      setDsmtNoteInfo.fillDosimeterNotesCBIndex();
-        
-    
-   //     setButtonsState.setDoseBtsSearch(true);
-       
-           
-    
-        
+         
     }
     
     
