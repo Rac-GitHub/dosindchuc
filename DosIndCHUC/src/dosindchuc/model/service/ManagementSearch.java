@@ -219,8 +219,11 @@ public class ManagementSearch {
          System.out.println(" Fill dosimeter com Update  : " + nResults);
          
           if (newORupdate.equalsIgnoreCase("update")) {
-              System.out.println(" Fill dosimeter com Update  : " + nResults);
+              System.out.println(" Fill dosimeter com Update  inside : " + nResults);
+          
               tableModel.setDefaultDsmtTable("updatedsmt");
+            
+              
           } else if (newORupdate.equalsIgnoreCase("new")) {
               tableModel.setDefaultDsmtTable("readonly");
  
@@ -228,7 +231,7 @@ public class ManagementSearch {
               tableModel.setDefaultDsmtTable("readonly");
               this.frmMan.btDosimeterInfoNew.setEnabled(true);
               this.frmMan.btDosimeterInfoUpdate.setEnabled(true);
-              System.out.println(" erro:");
+              System.out.println(" erro list:");
           } else {
               System.out.println(" erro:");
           }
@@ -236,7 +239,7 @@ public class ManagementSearch {
         
         
         model = tableModel.getDsmtTable();
-        System.out.println(" Fill dosimeter com Update model  : " + model);
+        System.out.println(" Fill dosimeter com Update model111  : " + model);
         
         
         ArrayList<Object []> dsmtIds = new ArrayList();

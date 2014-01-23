@@ -131,7 +131,9 @@ public class ManagementDose_Notes {
     
         setCleanState.cleanDoseNotes();
         setFieldState.setNewDoseNotes(true);
-        setButtonsState.setSaveNewDoseNoteBts(true);
+        setButtonsState.setNewDoseNoteBts(true);
+        
+        this.frmMan.tableDoseInfo.setEnabled(false);
         
         this.frmMan.getTxtInfoAction().setText("Inserting a New dose note");
  
@@ -160,6 +162,7 @@ public class ManagementDose_Notes {
         this.frmMan.getTxtInfoAction().setText("Dose note to dose_id = "+ doseNote.getPk_dose() + " saved into database");
         
         // actualiza info
+        this.frmMan.tableDoseInfo.setEnabled(true);
         fillDoseNoteInfo();
         
 //        setButtonsState.setNewORUpdateDoseNoteBts(true);
@@ -174,13 +177,13 @@ public class ManagementDose_Notes {
     
     public void updateDoseNote() {
         
-        System.out.println(" Estou no Update Dose ... ");
+        System.out.println(" Estou no Update Dose Note ... ");
         
-        setButtonsState.setSaveUpdateDoseNoteBts(true);
+        setButtonsState.setUpdateDoseNoteBts(true);
         setFieldState.setUpdateDoseNotes(true);
-   //     setCleanState.cleanDose();
-//        setDoseInfo.fillDoseInfo(dbPkIDs.getWorker_id(),"update");
-     
+        
+        this.frmMan.tableDoseInfo.setEnabled(false);
+   
         this.frmMan.getTxtInfoAction().setText("Updating Dose note info");
         
     }
@@ -201,8 +204,20 @@ public class ManagementDose_Notes {
         this.frmMan.getTxtInfoAction().setText("Dose note updated into database");
         
         // actualiza info
+        this.frmMan.tableDoseInfo.setEnabled(true);
         fillDoseNoteInfo();
           
+    }
+    
+    public void cancelDoseNote () {
+        
+             
+         this.frmMan.getTxtInfoAction().setText("Canceling action on dose note");
+         setButtonsState.setAllCancelBts();
+         setCleanState.cleanDoseNotes();
+         setButtonsState.setAllDoseNoteBtsInit(false);
+         this.frmMan.tableDoseInfo.setEnabled(true);
+                
     }
     
     
@@ -212,14 +227,9 @@ public class ManagementDose_Notes {
         
         System.out.println(" Estou no fill DoseNote ... ");
         
-        // actualiza info
-   //     setCleanState.cleanDose();
-//        setDoseNoteInfo.clearDoseNotesInfo();
-//        setDoseNoteInfo.clearDoseNotesInfo(this.Listeners);
-        setDoseNoteInfo.fillDoseNotesCBIndex();
-        setButtonsState.setNewORUpdateDoseNoteBts(true);
-    
-   //     setButtonsState.setDoseBtsSearch(true);
+        setCleanState.cleanDoseNotes();
+        setButtonsState.setAllDoseNoteBtsInit(false);
+ 
        
         
     }

@@ -13,7 +13,10 @@ import dosindchuc.model.entities.DbPkIDs;
 import dosindchuc.model.entities.Dosimeter;
 import dosindchuc.model.entities.Help.DateAndTime;
 import dosindchuc.model.entities.Help.SetEnums;
+import java.awt.Color;
+import java.awt.Component;
 import javax.swing.JTable;
+import javax.swing.table.TableCellRenderer;
 
 
 
@@ -158,6 +161,18 @@ public class ManagementDosimeter {
         
         System.out.println(" Estou no Update Dosimeter ... ");
         
+        table = this.frmMan.tableDosimeterInfo;
+        int row = table.getSelectedRow();
+        
+        dbPkIDs.setDsmtRowSelected(row);
+        
+        System.out.println(" Estou no Update Dosimeter .row.. " + row );
+        
+        if ( ! ( row > -1 ) ) {
+            return;
+        }
+        
+       
         setButtonsState.setDosimeterBtsUpdate(true);
         
         setCleanState.cleanDosimeter();
@@ -165,6 +180,21 @@ public class ManagementDosimeter {
         setDsmtInfo.fillDosimeterInfo(dbPkIDs.getWorker_id(),"update");
      
         this.frmMan.getTxtInfoAction().setText("Updating Dosimeter info");
+    
+        table.setRowSelectionInterval(row, row);
+  
+  /*      
+        JTable.DropLocation dropLocation = table.getDropLocation();
+          System.out.append(" aqui ... lixo ??  " + dropLocation);
+         if (dropLocation != null
+             && !dropLocation.isInsertRow()
+             && dropLocation.getRow() == dbPkIDs.getDsmtRowSelected() ) {
+        
+          
+        System.out.append(" aqui ... lixo ??");
+
+         } */
+   
         
     }
     
