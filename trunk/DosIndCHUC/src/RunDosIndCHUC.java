@@ -10,7 +10,7 @@ import dosindchuc.UI.swing.MainFrm;
  *
  * @author ir
  */
-public class NewMain {
+public class RunDosIndCHUC {
   
   
  /**
@@ -29,6 +29,7 @@ public class NewMain {
                 System.out.println(points[2][0][0]);
                  System.out.println(points.length);
                 new MainFrm().setVisible(true);
+                
             }
         });
     }

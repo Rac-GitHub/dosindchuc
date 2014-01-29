@@ -7,6 +7,7 @@ package dosindchuc.model.service;
 import dosindchuc.UI.swing.Help.ManagementButtons;
 import dosindchuc.UI.controller.ManagementActionListener;
 import dosindchuc.UI.swing.Help.ManagementTablesModel;
+import dosindchuc.UI.swing.MainFrm;
 import dosindchuc.UI.swing.ManagementFrm;
 import dosindchuc.model.dao.Dose_infoDao;
 import dosindchuc.model.dao.Dose_notesDao;
@@ -37,6 +38,7 @@ public class ManagementSearch {
     private DaoConnections daoHelper;
     private DefaultTableModel model;
     private Object [][] workerList;
+    private MainFrm frmMain;
     private ManagementFrm frmMan;
     private WorkerDao workerdao;
     private DbPkIDs dbPkIDs;
@@ -64,7 +66,7 @@ public class ManagementSearch {
         daoHelper = new DaoConnections();
         this.frmMan = frmMan;
         serviceBtns = new ManagementButtons(this.frmMan);
-        tableModel = new ManagementTablesModel(this.frmMan);
+        tableModel = new ManagementTablesModel(this.frmMain, this.frmMan);
         dbPkIDs = new DbPkIDs();
         workerdao = new WorkerDao();
         doseinfodao = new Dose_infoDao();

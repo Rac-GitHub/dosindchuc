@@ -7,8 +7,10 @@ package dosindchuc.UI.controller;
 import dosindchuc.UI.swing.MainFrm;
 import dosindchuc.UI.swing.ManagementFrm;
 import dosindchuc.model.dao.UsersDao;
+import dosindchuc.model.service.AlertNotesService;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.awt.event.MouseEvent;
 import javax.swing.JOptionPane;
 
 /**
@@ -20,6 +22,8 @@ public final class MainActionListener implements ActionListener {
     
     private MainFrm frm;
     private UsersDao service;
+    private AlertNotesService alertNoteService;
+ 
  //   private DisablePanel panel;
  
     
@@ -27,8 +31,10 @@ public final class MainActionListener implements ActionListener {
         
         this.frm = frm;
         service = new UsersDao();
+        alertNoteService = new AlertNotesService(this.frm);
         addListeners();
         initState();
+        
  //       inicializaTableModel();
     }
  
@@ -69,16 +75,7 @@ public final class MainActionListener implements ActionListener {
     }
     
     
-    
-//    public void inicializaTableModel() {
-//        List<Paciente> pacientes = service.getPacientes();
-//        tableModel = new PacienteTableModel(pacientes);
-//        frm.getTbPacientes().setModel(tableModel);
-//        frm.getTbPacientes()
-//                .getSelectionModel()
-//                .addListSelectionListener( this );
-//    }
-    
+
     public void addListeners() {
         frm.getBtLoginOk().addActionListener(this);
         frm.getBtLoginCancel().addActionListener(this);
@@ -89,6 +86,14 @@ public final class MainActionListener implements ActionListener {
         frm.getBtNoteCancel().addActionListener(this);
         frm.getTxtUsername().addActionListener(this);
         frm.getTxtPassword().addActionListener(this);
+        
+        frm.NoteTable.addMouseListener(new java.awt.event.MouseAdapter() {
+            @Override
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                noteTableInfoMouseClicked(evt);
+            }
+        });
+        
     }
 
     
@@ -122,16 +127,49 @@ public final class MainActionListener implements ActionListener {
                 this.frm.txtNameOfUser.setEditable(false);
                 this.frm.txtUsername.setText(null);
                 this.frm.txtPassword.setText(null);
+                
+                alertNoteService.fillAlertNotesTable();
+                
             } else {   
                 this.frm.txtUsername.setText(null);
                 this.frm.txtPassword.setText(null);
-               JOptionPane.showMessageDialog(this.frm,"Incorrect username or password ");
+                JOptionPane.showMessageDialog(this.frm,"Incorrect username or password ");
              }  
         }
-    
-              
         
     }
+    
+    
+     public void noteTableInfoMouseClicked(MouseEvent mevent) {
+     
+   /*     if ( ! this.frmMan.btDoseInfoUpdate.isEnabled() ) {
+            return;
+        }
+        
+        
+       if ( ! this.frmMan.tableDoseInfo.isEnabled() ) {
+            System.out.println("  Aqui dentro dose ---- ");
+            return;
+        }  
+        
+        ArrayList2D doseNoteInfo = new ArrayList2D();
+
+        // info dose-note selected for update
+        for (int i = 0; i < 4; i++) {
+            doseNoteInfo.Add(null, 0);
+        }
+
+        dbPkIDs.setDoseNotes_id(doseNoteInfo);
+
+        System.out.println(" No tableDoseInfoMouseClicked pois " + dbPkIDs.getDoseNotes_id().get(0, 0));
+
+        serviceSearch.fillDoseNotesCBIndex(); */
+ 
+         alertNoteService.editAlertNotesTable();
+         
+        
+    }    
+ 
     
     
 }

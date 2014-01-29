@@ -4,6 +4,7 @@
  */
 package dosindchuc.UI.swing.Help;
 
+import dosindchuc.UI.swing.MainFrm;
 import dosindchuc.UI.swing.ManagementFrm;
 
 /**
@@ -14,6 +15,7 @@ public class ManagementClean {
     
 
     private ManagementFrm frmMan;
+    private MainFrm frmMain;
     private ManagementTablesModel tableModel;
     
     
@@ -21,7 +23,7 @@ public class ManagementClean {
     public ManagementClean (ManagementFrm frmMan) {
 
         this.frmMan = frmMan;
-        tableModel = new ManagementTablesModel(this.frmMan);
+        tableModel = new ManagementTablesModel(this.frmMain, this.frmMan);
         
     }
     

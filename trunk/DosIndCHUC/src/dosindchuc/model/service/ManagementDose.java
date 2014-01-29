@@ -7,12 +7,14 @@ package dosindchuc.model.service;
 import dosindchuc.UI.swing.Help.ManagementButtons;
 import dosindchuc.UI.swing.Help.ManagementClean;
 import dosindchuc.UI.swing.Help.ManagementTablesModel;
+import dosindchuc.UI.swing.MainFrm;
 import dosindchuc.UI.swing.ManagementFrm;
 import dosindchuc.model.dao.Dose_infoDao;
 import dosindchuc.model.entities.DbPkIDs;
 import dosindchuc.model.entities.Dose_info;
 import dosindchuc.model.entities.Help.DateAndTime;
 import dosindchuc.model.entities.Help.SetEnums;
+import java.awt.Color;
 import javax.swing.JTable;
 
 /**
@@ -21,6 +23,7 @@ import javax.swing.JTable;
  */
 public class ManagementDose {
 
+    private MainFrm frmMain;
     private ManagementFrm frmMan;
     private Dose_infoDao dosedao;
     private DbPkIDs dbPkIDs;
@@ -40,7 +43,7 @@ public class ManagementDose {
         this.frmMan = frmMan;
         dbPkIDs = new DbPkIDs();
         dosedao = new Dose_infoDao();
-        tableModel = new ManagementTablesModel(this.frmMan);
+        tableModel = new ManagementTablesModel(this.frmMain, this.frmMan);
         setButtonsState = new ManagementButtons(this.frmMan);
         setCleanState = new ManagementClean(this.frmMan);
         setDoseInfo = new ManagementSearch(this.frmMan, null);
@@ -183,6 +186,9 @@ public class ManagementDose {
         this.frmMan.getTxtInfoAction().setText("Updating Dose info");
         
         table.setRowSelectionInterval(row, row);
+        
+        table.setSelectionBackground(Color.yellow);
+        table.setSelectionForeground(Color.red);
         
     }
     

@@ -4,6 +4,7 @@
  */
 package dosindchuc.UI.swing.Help;
 
+import dosindchuc.UI.swing.MainFrm;
 import dosindchuc.UI.swing.ManagementFrm;
 
 /**
@@ -13,6 +14,7 @@ import dosindchuc.UI.swing.ManagementFrm;
 public class ManagementFields {
     
     private ManagementFrm frmMan;
+    private MainFrm frmMain;
     private ManagementTablesModel tableModel;
     
     
@@ -20,7 +22,7 @@ public class ManagementFields {
     public ManagementFields(ManagementFrm frmMan) {
 
         this.frmMan = frmMan;
-        tableModel = new ManagementTablesModel(this.frmMan);
+        tableModel = new ManagementTablesModel(this.frmMain, this.frmMan);
         
     }
     

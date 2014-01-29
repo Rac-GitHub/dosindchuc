@@ -4,21 +4,28 @@
  */
 package dosindchuc.UI.swing.Help;
 
+import dosindchuc.UI.swing.MainFrm;
 import dosindchuc.UI.swing.ManagementFrm;
 import dosindchuc.model.entities.DbPkIDs;
 import dosindchuc.model.entities.Help.DateAndTime;
 import dosindchuc.model.entities.Help.SetEnums;
 import java.awt.Color;
 import java.awt.Component;
+import java.sql.Array;
 import java.util.ArrayList;
 import javax.swing.DefaultCellEditor;
+import javax.swing.JCheckBox;
 import javax.swing.JComboBox;
 import javax.swing.JLabel;
 import javax.swing.JTable;
 import javax.swing.ListSelectionModel;
+import javax.swing.RowFilter;
 import javax.swing.table.DefaultTableCellRenderer;
 import javax.swing.table.DefaultTableModel;
 import javax.swing.table.TableCellRenderer;
+import javax.swing.table.TableColumn;
+import javax.swing.table.TableColumnModel;
+import javax.swing.table.TableRowSorter;
 
 /**
  *
@@ -28,17 +35,21 @@ public class ManagementTablesModel {
 
     
     private ManagementFrm frmMan;
+    private MainFrm frmMain;
     private DbPkIDs dbPkIDs;
     private DateAndTime dateAndTime = new DateAndTime();
     private JTable table;
+    private DefaultTableModel alertTable;
     private DefaultTableModel searchTable;
     private DefaultTableModel doseTable;
     private DefaultTableModel dsmtTable;
+    private TableColumnModel tcm;
  
     
     
-    public ManagementTablesModel(ManagementFrm frmMan) {
+    public ManagementTablesModel(MainFrm frmMain, ManagementFrm frmMan) {
         this.frmMan = frmMan;
+        this.frmMain = frmMain;
         dbPkIDs = new DbPkIDs();
    //     dateAndTime = DateAndTime
   
@@ -46,7 +57,15 @@ public class ManagementTablesModel {
     }
     
    
- 
+    public DefaultTableModel getAlertTable() {
+        return alertTable;
+    }
+    
+    public void setAlertTable(DefaultTableModel alertTable) {
+        this.alertTable = alertTable;
+    }
+    
+    
     
     public DefaultTableModel getSearchTable() {
         return searchTable;
@@ -74,12 +93,22 @@ public class ManagementTablesModel {
     
     
     
+    // 
+    
+    public void setDefaultAlertTable (String tableStatus) {
+        
+        if (tableStatus.equalsIgnoreCase("readonly")) {
+            setAlertTable(setDefaultSettingsAlertTable());
+        } else {
+        setAlertTable(setEditSettingsAlertTable());
+                }
+    }
     
     
     
     public void setDefaultSearchTable () {
-        
-        setSearchTable(setDefaultSettingsSearchTable());
+      
+         setSearchTable(setDefaultSettingsSearchTable());
         
     }
     
@@ -122,6 +151,124 @@ public class ManagementTablesModel {
      * 
      */
  
+    /*
+     * 
+     *  Alert Table  - Default
+     *   
+     */
+    
+    
+    
+    private DefaultTableModel setDefaultSettingsAlertTable() {
+       
+        table = this.frmMain.NoteTable;
+
+        String[] colNames = noteAlertTable("name");
+   
+        
+        DefaultTableModel model = new DefaultTableModel(new Object [][] {},
+                colNames
+                ){
+                   @Override
+                   public boolean isCellEditable(int rowIndex, int colIndex) {
+                                return false;
+                        }
+                   
+                };
+        
+       
+        table.setModel(model);
+        
+        tableDefaultSettings();
+
+        String[] colWidths = noteAlertTable("width");
+    
+        tableColumnsSettings(colWidths);
+        
+        table.setRowSorter(new TableRowSorter(model));
+        
+        System.out.println(" Nome da table --- " + table.getSelectedColumnCount());
+        
+        int colArray [] = new int [] {0,8};
+        hiddenColumn (colArray);
+        
+        return model;
+        
+    }
+
+   
+    
+    private DefaultTableModel setEditSettingsAlertTable() {
+       
+        table = this.frmMain.NoteTable;
+
+        String[] colNames = noteAlertTable("name");
+        
+        System.out.print("colnames    " + colNames);
+        
+        DefaultTableModel model = new DefaultTableModel(new Object [][] {},
+                colNames
+                ){
+                   @Override
+                   public boolean isCellEditable(int rowIndex, int colIndex) {
+                        switch(colIndex){
+                            case 2:                   // ONLY 4TH COL IS EDITABLE
+                                return true;
+                            case 6:                   // ONLY 4TH COL IS EDITABLE
+                                return true;
+                            case 7:                   // ONLY 4TH COL IS EDITABLE
+                                return true;
+                            case 9:                   // ONLY 4TH COL IS EDITABLE
+                                return true;
+                            default:
+                                return false;
+                        }
+       
+                    }
+                };
+        
+        table.setModel(model);
+        
+        tableDefaultSettings();
+
+        String[] colWidths = noteAlertTable("width");
+        
+        System.out.print("colnames    " + colWidths);
+        tableColumnsSettings(colWidths);
+        
+        
+        JComboBox cbLevel = new JComboBox(SetEnums.note_alertlevel.values());
+        JComboBox cbStatus = new JComboBox(SetEnums.status.values());
+        
+        table.getColumnModel().getColumn(2).setCellEditor(new DefaultCellEditor(cbLevel));
+        table.getColumnModel().getColumn(7).setCellEditor(new DefaultCellEditor(cbStatus));
+        table.getColumnModel().getColumn(9).setCellEditor(new DefaultCellEditor(new JCheckBox()));
+        
+        
+        
+  /*      sorter = new TableRowSorter<model>(m);
+        table.setRowSorter(sorter);
+        sorter.setSortsOnUpdates(true); */
+        
+   //     TableRowSorter sorter = new TableRowSorter(model);
+   //     sorter.setRowFilter(RowFilter.regexFilter(".*foo.*"));
+   
+   //     table.setRowSorter(sorter);
+        
+    //    TableModel myModel = createMyTableModel();
+    //    JTable table = new JTable(myModel);
+        table.setRowSorter(new TableRowSorter(model));
+        
+        int colArray [] = new int [] {0};
+        hiddenColumn (colArray);
+        
+        return model;
+        
+    }
+
+    
+    
+    
   
     /*
      * 
@@ -528,6 +675,17 @@ public class ManagementTablesModel {
         
     }
      
+    private String [] noteAlertTable (String nameOrwidth) {
+    
+         if (nameOrwidth.equalsIgnoreCase("name")) {
+            String[] names = { "id", "Type", "Level", "Mec", "Name", "Department", "Note", "Status", "LastChanged", "Save" };
+            return names;
+        } else {
+            String[] widths = {"5", "15", "15", "15", "55", "30", "80", "10", "80", "10"};
+            return widths;
+        }
+    }
+    
     
     private String [] dsmtTable (String nameOrwidth) {
     
@@ -553,6 +711,18 @@ public class ManagementTablesModel {
             String[] widths = {"10", "10", "35", "20", "10", "10", "70", "80", "70"};
             return widths;
         }
+    }
+    
+     
+    private void hiddenColumn ( int[] colArray) {
+        
+        tcm = table.getColumnModel();
+        TableColumn column;
+        for (int colIndex: colArray) {
+           column = tcm.getColumn(colIndex);
+           tcm.removeColumn(column);
+        }
+       
     }
     
     
