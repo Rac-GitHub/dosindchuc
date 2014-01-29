@@ -7,6 +7,7 @@ package dosindchuc.model.service;
 import dosindchuc.UI.swing.Help.ManagementButtons;
 import dosindchuc.UI.swing.Help.ManagementClean;
 import dosindchuc.UI.swing.Help.ManagementTablesModel;
+import dosindchuc.UI.swing.MainFrm;
 import dosindchuc.UI.swing.ManagementFrm;
 import dosindchuc.model.dao.DosimeterDao;
 import dosindchuc.model.entities.DbPkIDs;
@@ -27,6 +28,7 @@ import javax.swing.table.TableCellRenderer;
 public class ManagementDosimeter {
     
     
+    private MainFrm frmMain;
     private ManagementFrm frmMan;
     private DosimeterDao dsmtdao;
     private DbPkIDs dbPkIDs;
@@ -46,7 +48,7 @@ public class ManagementDosimeter {
         this.frmMan = frmMan;
         dbPkIDs = new DbPkIDs();
         dsmtdao = new DosimeterDao();
-        tableModel = new ManagementTablesModel(this.frmMan);
+        tableModel = new ManagementTablesModel(this.frmMain, this.frmMan);
         setButtonsState = new ManagementButtons(this.frmMan);
         setCleanState = new ManagementClean(this.frmMan);
         setDsmtInfo = new ManagementSearch(this.frmMan, null);
