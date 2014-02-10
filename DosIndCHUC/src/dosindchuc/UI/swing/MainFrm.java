@@ -5,6 +5,7 @@
 package dosindchuc.UI.swing;
 
 import dosindchuc.UI.controller.MainActionListener;
+import dosindchuc.UI.swing.Help.AlertTableWithRowRendering;
 import java.awt.Color;
 import java.awt.Component;
 import javax.swing.JButton;
@@ -17,6 +18,7 @@ import javax.swing.table.TableCellRenderer;
 import org.edisoncor.gui.passwordField.PasswordField;
 import org.edisoncor.gui.textField.TextField;
 
+
 /**
  *
  * @author ir
@@ -24,6 +26,7 @@ import org.edisoncor.gui.textField.TextField;
 public class MainFrm extends javax.swing.JFrame {
 
     private MainActionListener listeners;
+    private AlertTableWithRowRendering tableNote;
     
     /**
      * Creates new form MainFrm
@@ -31,6 +34,9 @@ public class MainFrm extends javax.swing.JFrame {
     public MainFrm() {
         initComponents();
         listeners = new MainActionListener(this);
+        System.out.println("3+3");
+        tableNote = new AlertTableWithRowRendering(this);
+         System.out.println("3+3");
   //      setNotetable();
         
     }
@@ -61,8 +67,7 @@ public class MainFrm extends javax.swing.JFrame {
         panelNotes = new org.edisoncor.gui.panel.PanelRectTranslucido();
         btNoteSave = new javax.swing.JButton();
         btNoteCancel = new javax.swing.JButton();
-        jScrollPane2 = new javax.swing.JScrollPane();
-        NoteTable = new javax.swing.JTable();
+        jScrollPane1 = new javax.swing.JScrollPane();
         panelShadow2 = new org.edisoncor.gui.panel.PanelShadow();
         txtNameOfUser = new org.edisoncor.gui.textField.TextFieldRound();
 
@@ -244,52 +249,35 @@ public class MainFrm extends javax.swing.JFrame {
         panelNotes.setVerifyInputWhenFocusTarget(false);
 
         btNoteSave.setText("Save");
+        btNoteSave.setActionCommand("btNoteSave");
 
         btNoteCancel.setText("Cancel");
+        btNoteCancel.setActionCommand("btNoteCancel");
 
-        NoteTable.setBackground(new java.awt.Color(255, 204, 204));
-        NoteTable.setBorder(javax.swing.BorderFactory.createTitledBorder(""));
-        NoteTable.setFont(new java.awt.Font("DejaVu Sans", 0, 10)); // NOI18N
-        NoteTable.setModel(new javax.swing.table.DefaultTableModel(
-            new Object [][] {
-
-            },
-            new String [] {
-
-            }
-        ));
-        NoteTable.setAutoResizeMode(javax.swing.JTable.AUTO_RESIZE_LAST_COLUMN);
-        NoteTable.setCellSelectionEnabled(false);
-        NoteTable.setGridColor(new java.awt.Color(0, 0, 255));
-        NoteTable.setSelectionMode(javax.swing.ListSelectionModel.SINGLE_SELECTION);
-        NoteTable.setShowHorizontalLines(false);
-        NoteTable.setShowVerticalLines(false);
-        NoteTable.getTableHeader().setReorderingAllowed(false);
-        NoteTable.setUpdateSelectionOnSort(false);
-        jScrollPane2.setViewportView(NoteTable);
-        NoteTable.getColumnModel().getSelectionModel().setSelectionMode(javax.swing.ListSelectionModel.SINGLE_SELECTION);
+        jScrollPane1.setOpaque(false);
 
         javax.swing.GroupLayout panelNotesLayout = new javax.swing.GroupLayout(panelNotes);
         panelNotes.setLayout(panelNotesLayout);
         panelNotesLayout.setHorizontalGroup(
             panelNotesLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(panelNotesLayout.createSequentialGroup()
-                .addGap(244, 244, 244)
-                .addComponent(btNoteSave)
-                .addGap(154, 154, 154)
-                .addComponent(btNoteCancel)
-                .addContainerGap(219, Short.MAX_VALUE))
-            .addGroup(panelNotesLayout.createSequentialGroup()
-                .addContainerGap()
-                .addComponent(jScrollPane2)
-                .addContainerGap())
+                .addGroup(panelNotesLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(panelNotesLayout.createSequentialGroup()
+                        .addGap(244, 244, 244)
+                        .addComponent(btNoteSave)
+                        .addGap(154, 154, 154)
+                        .addComponent(btNoteCancel))
+                    .addGroup(panelNotesLayout.createSequentialGroup()
+                        .addGap(34, 34, 34)
+                        .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 707, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                .addContainerGap(25, Short.MAX_VALUE))
         );
         panelNotesLayout.setVerticalGroup(
             panelNotesLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(panelNotesLayout.createSequentialGroup()
-                .addContainerGap()
-                .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 337, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 41, Short.MAX_VALUE)
+                .addContainerGap(23, Short.MAX_VALUE)
+                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 349, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(18, 18, 18)
                 .addGroup(panelNotesLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(btNoteSave)
                     .addComponent(btNoteCancel))
@@ -339,7 +327,7 @@ public class MainFrm extends javax.swing.JFrame {
                 .addComponent(panelCHUC, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGroup(panel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(panel2Layout.createSequentialGroup()
-                        .addGroup(panel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                        .addGroup(panel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
                             .addGroup(panel2Layout.createSequentialGroup()
                                 .addGap(99, 99, 99)
                                 .addComponent(btProfInfo)
@@ -348,7 +336,7 @@ public class MainFrm extends javax.swing.JFrame {
                                 .addGap(121, 121, 121)
                                 .addComponent(btAdministration)
                                 .addGap(0, 108, Short.MAX_VALUE))
-                            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, panel2Layout.createSequentialGroup()
+                            .addGroup(panel2Layout.createSequentialGroup()
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                                 .addComponent(panelShadow2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
                         .addContainerGap())
@@ -586,16 +574,15 @@ public class MainFrm extends javax.swing.JFrame {
     */
     
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    public javax.swing.JTable NoteTable;
     public javax.swing.JButton btAdministration;
     public javax.swing.JButton btInsertIndDosimetry;
     public javax.swing.JButton btLoginCancel;
     public javax.swing.JButton btLoginOk;
-    private javax.swing.JButton btNoteCancel;
-    private javax.swing.JButton btNoteSave;
+    public javax.swing.JButton btNoteCancel;
+    public javax.swing.JButton btNoteSave;
     public javax.swing.JButton btProfInfo;
     private javax.swing.JButton jButton1;
-    private javax.swing.JScrollPane jScrollPane2;
+    public javax.swing.JScrollPane jScrollPane1;
     private org.edisoncor.gui.label.LabelMetric labelMetric1;
     private org.edisoncor.gui.label.LabelMetric labelMetric2;
     private org.edisoncor.gui.panel.Panel panel2;

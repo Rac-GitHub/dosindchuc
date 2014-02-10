@@ -5,6 +5,9 @@
 package dosindchuc.model.entities;
 
 import dosindchuc.model.entities.Help.SetEnums;
+import dosindchuc.model.entities.Help.SetEnums.note_alertlevel;
+import java.util.Comparator;
+import java.util.Objects;
 
 /**
  *
@@ -28,6 +31,7 @@ public class AlertNotes {
     public AlertNotes() {
     }
 
+       
     
     
     public String getPk_notes() {
@@ -102,8 +106,34 @@ public class AlertNotes {
     public void setNotesDate(String notesDate) {
         this.notesDate = notesDate;
     }
+
     
-    
+    @Override
+    public int hashCode() {
+        int hash = 7;
+        return hash;
+    }
+
+    @Override
+    public boolean equals(Object obj) {
+        if (obj == null) {
+            return false;
+        }
+        if (getClass() != obj.getClass()) {
+            return false;
+        }
+        final AlertNotes other = (AlertNotes) obj;
+        if (this.notesLevel != other.notesLevel) {
+            return false;
+        }
+        if (!Objects.equals(this.notesNote, other.notesNote)) {
+            return false;
+        }
+        if (this.notesStatus != other.notesStatus) {
+            return false;
+        }
+        return true;
+    }
     
     
     

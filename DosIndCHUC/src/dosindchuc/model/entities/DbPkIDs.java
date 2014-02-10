@@ -21,6 +21,7 @@ public class DbPkIDs {
     private static ArrayList2D doseNotes_id;
     private static int dsmtRowSelected;
     private static int doseRowSelected;
+    private static ArrayList<Object []> alertNote;
 
 
     
@@ -85,6 +86,14 @@ public class DbPkIDs {
 
     public void setDoseRowSelected(int doseRowSelected) {
         DbPkIDs.doseRowSelected = doseRowSelected;
+    }
+
+    public ArrayList<Object[]> getAlertNote() {
+        return alertNote;
+    }
+
+    public void setAlertNote(ArrayList<Object[]> alertNote) {
+        DbPkIDs.alertNote = alertNote;
     }
     
     
