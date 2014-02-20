@@ -4,6 +4,7 @@
  */
 package dosindchuc.UI.swing;
 
+import dosindchuc.UI.controller.DIVActionListener;
 import dosindchuc.UI.controller.MainActionListener;
 import dosindchuc.UI.swing.Help.AlertTableWithRowRendering;
 import java.awt.Color;
@@ -27,11 +28,13 @@ public class MainFrm extends javax.swing.JFrame {
 
     private MainActionListener listeners;
     private AlertTableWithRowRendering tableNote;
+  
     
     /**
      * Creates new form MainFrm
      */
     public MainFrm() {
+   
         initComponents();
         listeners = new MainActionListener(this);
         System.out.println("3+3");
@@ -223,6 +226,7 @@ public class MainFrm extends javax.swing.JFrame {
 
         btInsertIndDosimetry.setIcon(new javax.swing.ImageIcon(getClass().getResource("/images/Open-Folder-Accept48.png"))); // NOI18N
         btInsertIndDosimetry.setText("Insert\nDoses");
+        btInsertIndDosimetry.setActionCommand("InsertNewDIV");
         btInsertIndDosimetry.setBorderPainted(false);
         btInsertIndDosimetry.setContentAreaFilled(false);
         btInsertIndDosimetry.setFocusPainted(false);

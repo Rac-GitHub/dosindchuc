@@ -6,6 +6,7 @@ package dosindchuc.UI.controller;
 
 import dosindchuc.UI.swing.Help.ManagementTablesModel;
 import dosindchuc.UI.swing.Help.AlertTableWithRowRendering;
+import dosindchuc.UI.swing.DIVFrm;
 import dosindchuc.UI.swing.MainFrm;
 import dosindchuc.UI.swing.ManagementFrm;
 import dosindchuc.model.dao.UsersDao;
@@ -26,20 +27,21 @@ public final class MainActionListener implements ActionListener, MouseListener {
     
     
     private MainFrm frm;
+    private DIVFrm frmDIV;
     private UsersDao service;
     private AlertNotesService alertNoteService;
     private AlertTableWithRowRendering alertNotesTable;
-
  
- //   private DisablePanel panel;
  
     
     public MainActionListener(MainFrm frm) {
         
         this.frm = frm;
+        
         service = new UsersDao();
         alertNoteService = new AlertNotesService(this.frm);
         alertNotesTable = new AlertTableWithRowRendering(this.frm);
+        
         addListeners();
         initState();
  
@@ -85,8 +87,18 @@ public final class MainActionListener implements ActionListener, MouseListener {
           
              alertNoteService.cancelAlertNotesTable();
              
-         }
+         } else if (command.equalsIgnoreCase("InsertNewDIV")) {
+
+        java.awt.EventQueue.invokeLater(new Runnable() {
+            @Override
+            public void run() {
+                DIVFrm frmDIV = new DIVFrm();
+                frmDIV.setVisible(true);
+   
+            }
+         });
         
+         }
     }
     
     

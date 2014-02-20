@@ -22,6 +22,7 @@ public class DbPkIDs {
     private static int dsmtRowSelected;
     private static int doseRowSelected;
     private static ArrayList<Object []> alertNote;
+    private static ArrayList<Object []> div_dsmtID;
 
 
     
@@ -94,6 +95,14 @@ public class DbPkIDs {
 
     public void setAlertNote(ArrayList<Object[]> alertNote) {
         DbPkIDs.alertNote = alertNote;
+    }
+
+    public ArrayList<Object[]> getDiv_dsmtID() {
+        return div_dsmtID;
+    }
+
+    public void setDiv_dsmtID(ArrayList<Object[]> div_dsmtID) {
+        DbPkIDs.div_dsmtID = div_dsmtID;
     }
     
     
