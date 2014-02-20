@@ -354,6 +354,7 @@
               <Image iconType="3" name="/images/Open-Folder-Accept48.png"/>
             </Property>
             <Property name="text" type="java.lang.String" value="Insert&#xa;Doses"/>
+            <Property name="actionCommand" type="java.lang.String" value="InsertNewDIV"/>
             <Property name="borderPainted" type="boolean" value="false"/>
             <Property name="contentAreaFilled" type="boolean" value="false"/>
             <Property name="focusPainted" type="boolean" value="false"/>

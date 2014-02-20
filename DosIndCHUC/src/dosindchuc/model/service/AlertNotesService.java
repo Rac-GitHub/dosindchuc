@@ -224,7 +224,7 @@ public class AlertNotesService {
             
         }
 
-   //       table.repaint();
+  
           dbPkIDs.setAlertNote(alertNoteInfo);
           System.out.println(" Dentro do IF  size  ->  " + alertNoteInfo.size());
           
@@ -237,7 +237,6 @@ public class AlertNotesService {
      public void cancelAlertNotesTable () {
          
        
-       // DefaultTableModel tmodel = AlertTableWithRowRendering.modelAlertTable; // tableNote.getModelAlertTable();
         DefaultTableModel tmodel = tableNote.getModelAlertTable();
          
         

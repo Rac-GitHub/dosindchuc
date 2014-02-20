@@ -43,4 +43,13 @@ public class DateAndTime {
               
      }
          
+     public String currMonth () {
+
+        Date dNow = new Date();
+        SimpleDateFormat ft = new SimpleDateFormat ("MM");
+        return ft.format(dNow);
+              
+     }
+     
+     
 }
