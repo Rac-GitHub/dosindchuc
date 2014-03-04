@@ -353,9 +353,9 @@ public class DaoConnections {
         }
          
         
-        if (where.isEmpty()) {
+     /*   if (where.isEmpty()) {
             where = null;
-        }
+        } */
         
         return where;
         

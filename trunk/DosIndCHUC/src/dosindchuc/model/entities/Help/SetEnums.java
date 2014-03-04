@@ -4,6 +4,8 @@
  */
 package dosindchuc.model.entities.Help;
 
+import java.util.ArrayList;
+
 /**
  *
  * @author ir
@@ -87,7 +89,7 @@ public class SetEnums {
         
     }
     
-    
+  
     
     public enum status { 
         

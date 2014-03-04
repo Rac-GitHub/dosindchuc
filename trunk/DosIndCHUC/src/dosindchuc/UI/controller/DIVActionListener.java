@@ -4,25 +4,30 @@
  */
 package dosindchuc.UI.controller;
 
-import dosindchuc.UI.swing.Help.ManagementButtons;
-import dosindchuc.UI.swing.Help.ManagementClean;
 import dosindchuc.UI.swing.DIVFrm;
 import dosindchuc.UI.swing.Help.DIVTablesModel;
-import dosindchuc.UI.swing.ManagementFrm;
-import dosindchuc.model.dao.Help.ArrayList2D;
+import dosindchuc.UI.swing.Help.ManagementButtons;
+import dosindchuc.UI.swing.Help.ManagementClean;
+import dosindchuc.model.entities.DbPkIDs;
+import dosindchuc.model.entities.Help.SetEnums;
+import dosindchuc.model.service.DIVService;
+import dosindchuc.model.service.Help.YearMonthAndTrimester;
 import dosindchuc.model.service.ManagementDose;
 import dosindchuc.model.service.ManagementDose_Notes;
 import dosindchuc.model.service.ManagementDosimeter;
+import dosindchuc.model.service.ManagementDosimeter_Notes;
 import dosindchuc.model.service.ManagementSearch;
 import dosindchuc.model.service.ManagementWorker;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.awt.event.ItemEvent;
+import java.awt.event.ItemListener;
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
-import dosindchuc.model.entities.DbPkIDs;
-import dosindchuc.model.service.DIVService;
-import dosindchuc.model.service.ManagementDosimeter_Notes;
 import javax.swing.JTable;
+import javax.swing.event.ListSelectionEvent;
+import javax.swing.event.ListSelectionListener;
+import javax.swing.table.TableModel;
 
 
 
@@ -45,10 +50,12 @@ public final class DIVActionListener implements ActionListener, MouseListener {
     private ManagementDosimeter_Notes serviceDsmtNotes;
     public DbPkIDs dbPkIDs;
     private JTable table;
+    private YearMonthAndTrimester yearMonthTrimester;
     
     public Object [][] workerList = null;
     public ActionListener Listeners;
-    private DIVTablesModel newInfoDIVTable;
+    private DIVTablesModel infoDIVTables;
+ 
     
     
     public DIVActionListener(DIVFrm frmDIV) {
@@ -64,7 +71,8 @@ public final class DIVActionListener implements ActionListener, MouseListener {
         dbPkIDs = new DbPkIDs();
         serviceDIV = new DIVService(this.frmDIV);
         
-        newInfoDIVTable = new DIVTablesModel(this.frmDIV);
+        infoDIVTables = new DIVTablesModel(this.frmDIV);
+   
    /*     serviceSearch = new ManagementSearch(this.frmMan, this);
         serviceDIV = new DIVService(this.frmMan, this);
         serviceDosimeter = new ManagementDosimeter(this.frmMan);
@@ -94,16 +102,9 @@ public final class DIVActionListener implements ActionListener, MouseListener {
                 System.out.println(" AQUI no btDIV_Search --- > ");
                 serviceDIV.searchDIVInfo();
                      break;
-  /*          case "btDIV_Clean":  serviceDIV.searchDIVInfo();
+            case "btDIV_Clean":  serviceDIV.clearNewDIVTables();
                      break;
-           case "cbDIV_Department":  serviceWorker.updateWorker();
-                break;
-            case "cbDIV_Category":  serviceWorker.updateWorker();
-                     break;
-            case "txtDIV_ID":  serviceWorker.saveUpdateWorker();
-                     break;
-            case "txtDIV_Name":  serviceWorker.btWorkerCancel();
-                     break;    
+  /*
             case "btDIV_Save":  serviceDIV.searchDIVInfo();
                      break;
             case "btDIV_cancel":  serviceDIV.searchDIVInfo();
@@ -119,95 +120,91 @@ public final class DIVActionListener implements ActionListener, MouseListener {
      *
      */
     public void addListeners() {
-        
+ 
         System.out.println("noa add listenesrs --- " + this);
-        
+
         frmDIV.btDIV_Search.addActionListener(this);
         frmDIV.btDIV_Clean.addActionListener(this);
-        
-        frmDIV.tableOldDosimetry.addMouseListener(new java.awt.event.MouseAdapter() {
-            @Override
-            public void mouseClicked(java.awt.event.MouseEvent evt) {
-                System.out.println("evento tabela::::doseInfo  " + evt);
-       //         tableNewDIVInfoMouseClicked(evt);
-            }
-        });
-        
-      
-       System.out.println("noa add listenesrs --- " + this);
-       
-   //     frmDIV.cbDIV_Category.addActionListener(this);
-   //     frmDIV.cbDIV_Department.addActionListener(this);
-       
-   /*     frmDIV.txtDIV_dsmtID.addMouseListener(new java.awt.event.MouseAdapter() {
-            @Override
-            public void mouseClicked(java.awt.event.MouseEvent evt) {
-                System.out.println("evento dsmt ID  " + evt);
-           /*     frmDIV.cbDIV_Category.setEnabled(false);
-                frmDIV.cbDIV_Department.setEnabled(false);
-                frmDIV.txtDIV_Name.setEnabled(false); 
-            } 
-        }); */
-        
-    //    frmDIV.txtDIV_Name.addActionListener(this);
-        
+
+
+        System.out.println("noa add listenesrs --- " + this);
+
         frmDIV.btDIV_Save.addActionListener(this);
         frmDIV.btDIV_Cancel.addActionListener(this);
+
+     //   int indexItem = 0;
+
+       
         
         
-  
-        
+        frmDIV.comboDsmtID.addItemListener(new ItemListener() {
+          @Override
+            public void itemStateChanged(ItemEvent e) {
      
-    }
+                
+                if (e.getStateChange() == ItemEvent.SELECTED) {
 
-    
-    public void addNewDIVInfoTableListeners() {
+                    
+                   // System.out.println((state == ItemEvent.SELECTED) ? "Selected" : "Deselected");
 
-        newInfoDIVTable.setSettingsNewDIVinfoTable("newToActionListeners");
-  
-        System.out.println("  Que caracas -TAble- Addd NEw- >>>> " + newInfoDIVTable.getTableNewDIVinfo());
-        System.out.println("  Que caracas -MODEL -- ADD NEW  >>>> " + newInfoDIVTable.getModelTableNewDIVinfo());
-     /*   
-        newInfoDIVTable.getTableNewDIVinfo().addMouseListener(new java.awt.event.MouseAdapter() {
-            @Override
-            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                    int selectedRow = infoDIVTables.getTableNewDIVinfo().getSelectedRow();
 
-                tableNewDIVInfoMouseClicked(evt);
+                    if (!(selectedRow == -1)) {
+
+                        int colSetPerd = 8;
+                        int colPerd = 2;
+
+                        yearMonthTrimester = new YearMonthAndTrimester();
+
+                        SetEnums.month Month[] = SetEnums.month.values();
+                        SetEnums.Trimester Trimester[] = SetEnums.Trimester.values();
+
+                        int indexSelectedItem = frmDIV.comboDsmtID.getSelectedIndex();
+
+            //            indexItem = indexSelectedItem;
+                        
+                        System.out.println(e.getItem() + "     dadadada1 --> " + indexSelectedItem + "  selected row -->  " + selectedRow);
+
+                        String newPerd = DbPkIDs.getAllDsmtPeriod().get(selectedRow).get(indexSelectedItem);
+
+                        infoDIVTables.getModelTableNewDIVinfo().setValueAt(newPerd, selectedRow, colPerd);
+          
+
+                        switch (newPerd) {
+                            case "Mensal":
+                                infoDIVTables.getModelTableNewDIVinfo().setValueAt(Month[yearMonthTrimester.Month()], selectedRow, colSetPerd);
+                                infoDIVTables.getModelTableNewDIVinfo().setValueAt(yearMonthTrimester.Year(), selectedRow, colSetPerd + 1);
+                                break;
+                            case "Trimestral":
+                                infoDIVTables.getModelTableNewDIVinfo().setValueAt(Trimester[yearMonthTrimester.Trimester()], selectedRow, colSetPerd);
+                                infoDIVTables.getModelTableNewDIVinfo().setValueAt(yearMonthTrimester.Year(), selectedRow, colSetPerd + 1);
+                                break;
+
+                        }
+
+
+                        System.out.println(e.getItem() + "     dadadada2 --> " + indexSelectedItem + "  selected row -->  " + selectedRow);
+
+                        System.out.println(e.getItem() + "   dadadada3 --->  " + newPerd);
+
+                    }
+
+                }
             }
         });
-*/
+
+
+        
+       System.out.println ( " EStou aqui no tableModel --- >  ") ;
+    //    frmDIV.tableNewDIVinfo.
+  
+ 
+    
+
 
     }
-    
-    
-    
-    public void tableNewDIVInfoMouseClicked(MouseEvent mevent) {
-  /*   
-        if ( ! this.frmMan.btDoseInfoUpdate.isEnabled() ) {
-            return;
-        }
-        
-        
-       if ( ! this.frmMan.tableDoseInfo.isEnabled() ) {
-            System.out.println("  Aqui dentro dose ---- ");
-            return;
-        }  */
-        
-        ArrayList2D doseNoteInfo = new ArrayList2D();
 
-        // info dose-note selected for update
-        for (int i = 0; i < 4; i++) {
-            doseNoteInfo.Add(null, 0);
-        }
-
-        dbPkIDs.setDoseNotes_id(doseNoteInfo);
-
-        System.out.println(" No tableDoseInfoMouseClicked pois " + dbPkIDs.getDoseNotes_id().get(0, 0));
-
-        serviceSearch.fillDoseNotesCBIndex();
- 
-    }    
- 
+   
     
     
     
