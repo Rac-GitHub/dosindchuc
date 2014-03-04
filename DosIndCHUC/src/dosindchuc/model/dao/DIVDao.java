@@ -8,6 +8,7 @@ import dosindchuc.model.dao.Help.ArrayList2D;
 import dosindchuc.model.dao.Help.DaoConnections;
 import dosindchuc.model.dao.Help.QueryMapper;
 import dosindchuc.model.entities.DIVinfo;
+import dosindchuc.model.entities.OldDIVinfo;
 import dosindchuc.model.entities.DbPkIDs;
 import dosindchuc.model.entities.Help.DateAndTime;
 import dosindchuc.model.entities.Help.SetEnums;
@@ -56,17 +57,29 @@ public class DIVDao {
                     + " p1.id_mec, p1.department, p1.category, p2.id, p2.periodicity ";
             String from = " FROM worker as p1, dosimeter as p2 ";
     
-            String where = " WHERE ";
-            
+            String defaulWhere = " p1.status = 'Activo' and p2.status = 'Activo' and p1.pk_id = p2.pk_id";
+        
             String[][][] searchWhere = {{{"name", "LIKE", name}},
             {{"department", "null", department}},
             {{"category", "null", category}},
             {{"id", "LIKE", dsmt_id}}};
             
             
-            where = where + daoConnection.buildQueryWhere(searchWhere);
+             String where = daoConnection.buildQueryWhere(searchWhere);
             
-            where = where + " and p1.status = 'Activo' and p2.status = 'Activo' and p1.pk_id = p2.pk_id";
+            if (where.isEmpty()) {
+           
+                where = " WHERE "+ defaulWhere;
+            
+            } else {
+                
+                where = " WHERE " + where + "and " + defaulWhere;
+                
+            }
+            
+           
+            
+            
              
              System.out.println(" DIV Where ---- > " + where);
             
@@ -108,6 +121,68 @@ public class DIVDao {
 
     }
    
+     
+     
+     
+     public List<OldDIVinfo> getOldDIVInfo(String pk_id) {
+
+        final List<OldDIVinfo> oldDIVInfo = new ArrayList<>();
+
+        System.out.println("I am in DIV info ");
+
+        try {
+         
+            String query = "SELECT DISTINCT p1.pk_dose, p2.periodicity, p2.id, p1.trimester,"
+                    + " p1.month, p1.year, p1.hp007, p1.hp10, p1.timestamp, p1.comments, p1.lastchange";
+            String from = " FROM dose_info as p1, dosimeter as p2 ";
+    
+            String where = " WHERE p1.pk_id = " + pk_id + " and p1.pk_dsmt = p2.pk_dsmt ";
+  
+    
+             
+             System.out.println(" DIV Where ---- > " + where);
+            
+            String sort = " ORDER BY p1.timestamp DESC ";
+            
+            String limit = " LIMIT 0, 10 ";
+ 
+            query = query + from + where + sort + limit;
+            
+            System.out.println(" DIV Where ---- >  " + query);
+
+            daoConnection.executePreparedQuery(query, new QueryMapper<OldDIVinfo>() {
+                @Override
+                public List<OldDIVinfo> mapping(ResultSet rset) throws SQLException {
+                    while (rset.next()) {
+                        OldDIVinfo olddivinfo = new OldDIVinfo();
+                       olddivinfo.setPk_dose( rset.getString("pk_dose") );
+                        olddivinfo.setPeriodicity( rset.getString("periodicity") );
+                        olddivinfo.setId_dsmt( rset.getString("id") );
+                        olddivinfo.setTrimester( rset.getString("trimester") );
+                        olddivinfo.setMonth( rset.getString("month") );
+                        olddivinfo.setYear( rset.getString("year") );
+                        olddivinfo.setHp007( rset.getString("hp007") );
+                        olddivinfo.setHp10( rset.getString("hp10") );
+                        olddivinfo.setTimestamp( rset.getString("timestamp") );
+                        olddivinfo.setComments( rset.getString("comments") );
+                        olddivinfo.setLastchange( rset.getString("lastchange") );
+                        
+                        oldDIVInfo.add(olddivinfo);
+                    }
+                    return oldDIVInfo;
+                }
+            });
+        } catch (SQLException e) {
+            e.printStackTrace();
+            //ignore exception
+        }
+
+        return oldDIVInfo;
+
+    }
+     
+     
+     
      
       public List<AlertNotes> getDsmtAlerNotes() {
 

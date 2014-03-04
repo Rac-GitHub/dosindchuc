@@ -7,6 +7,7 @@ package dosindchuc.model.entities;
 
 import dosindchuc.model.dao.Help.ArrayList2D;
 import java.util.ArrayList;
+import javax.swing.JComboBox;
 
 /**
  *
@@ -22,7 +23,10 @@ public class DbPkIDs {
     private static int dsmtRowSelected;
     private static int doseRowSelected;
     private static ArrayList<Object []> alertNote;
+    
     private static ArrayList<Object []> div_dsmtID;
+    private static ArrayList<ArrayList<String>> allDsmtIDs;
+    private static ArrayList<ArrayList<String>> allDsmtPeriod;
 
 
     
@@ -104,6 +108,31 @@ public class DbPkIDs {
     public void setDiv_dsmtID(ArrayList<Object[]> div_dsmtID) {
         DbPkIDs.div_dsmtID = div_dsmtID;
     }
+
+    
+    
+    public static ArrayList<ArrayList<String>> getAllDsmtIDs() {
+        return allDsmtIDs;
+    }
+
+    public static void setAllDsmtIDs(ArrayList<ArrayList<String>> allDsmtIDs) {
+        DbPkIDs.allDsmtIDs = allDsmtIDs;
+    }
+
+    public static ArrayList<ArrayList<String>> getAllDsmtPeriod() {
+        return allDsmtPeriod;
+    }
+
+    public static void setAllDsmtPeriod(ArrayList<ArrayList<String>> allDsmtPeriod) {
+        DbPkIDs.allDsmtPeriod = allDsmtPeriod;
+    }
+
+    
+    
+
+    
+
+    
     
     
     

@@ -6,10 +6,13 @@ package dosindchuc.UI.swing;
 
 
 import dosindchuc.UI.controller.DIVActionListener;
+import dosindchuc.UI.swing.Help.DIVButtons;
 import dosindchuc.UI.swing.Help.ManagementButtons;
 import dosindchuc.UI.swing.Help.ManagementFields;
+import dosindchuc.model.entities.Help.SetEnums;
 import javax.swing.JButton;
 import javax.swing.JComboBox;
+import javax.swing.JTable;
 import javax.swing.JTextField;
 
 /**
@@ -20,7 +23,7 @@ public class DIVFrm extends javax.swing.JFrame {
 
     DIVActionListener listeners;
 //    ManagementFields setFieldsState;
-//    ManagementButtons setButtonsState;
+    DIVButtons setButtonsState;
     
     
     /**
@@ -32,7 +35,7 @@ public class DIVFrm extends javax.swing.JFrame {
    
         listeners = new DIVActionListener(this);
    //     setFieldsState = new DosimetryFields(this);
-   //     setButtonsState = new DosimetryButtons(this);
+        setButtonsState = new DIVButtons(this);
         
         initState ();
        
@@ -61,14 +64,13 @@ public class DIVFrm extends javax.swing.JFrame {
         txtDIV_dsmtID = new javax.swing.JTextField();
         jLabel23 = new javax.swing.JLabel();
         txtDIV_Name = new javax.swing.JTextField();
-        jScrollPane1 = new javax.swing.JScrollPane();
-        tableOldDosimetry = new javax.swing.JTable();
         btDIV_Save = new javax.swing.JButton();
         btDIV_Cancel = new javax.swing.JButton();
         jLabel1 = new javax.swing.JLabel();
         jScrollPane2 = new javax.swing.JScrollPane();
         jTable1 = new javax.swing.JTable();
         panelTableNewDIVinfo = new javax.swing.JScrollPane();
+        panelTableOldDIVInfo = new javax.swing.JScrollPane();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
@@ -153,18 +155,6 @@ public class DIVFrm extends javax.swing.JFrame {
 
         txtDIV_Name.setFont(new java.awt.Font("Dialog", 0, 10)); // NOI18N
 
-        tableOldDosimetry.setFont(new java.awt.Font("Dialog", 0, 10)); // NOI18N
-        tableOldDosimetry.setModel(new javax.swing.table.DefaultTableModel(
-            new Object [][] {
-
-            },
-            new String [] {
-
-            }
-        ));
-        tableOldDosimetry.getTableHeader().setReorderingAllowed(false);
-        jScrollPane1.setViewportView(tableOldDosimetry);
-
         btDIV_Save.setText("Save");
         btDIV_Save.setActionCommand("btDIV_Save");
 
@@ -217,15 +207,15 @@ public class DIVFrm extends javax.swing.JFrame {
                         .addContainerGap()
                         .addComponent(panelTableNewDIVinfo, javax.swing.GroupLayout.PREFERRED_SIZE, 940, javax.swing.GroupLayout.PREFERRED_SIZE)))
                 .addGap(18, 18, 18)
-                .addGroup(panelDosimetryLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                .addGroup(panelDosimetryLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                     .addGroup(panelDosimetryLayout.createSequentialGroup()
                         .addGap(20, 20, 20)
                         .addComponent(btDIV_Search)
                         .addGap(91, 91, 91)
                         .addComponent(btDIV_Clean))
-                    .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jLabel1)
-                    .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(jScrollPane2)
+                    .addComponent(panelTableOldDIVInfo))
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
         panelDosimetryLayout.setVerticalGroup(
@@ -260,8 +250,8 @@ public class DIVFrm extends javax.swing.JFrame {
                             .addComponent(btDIV_Cancel))
                         .addGap(23, 23, 23))
                     .addGroup(panelDosimetryLayout.createSequentialGroup()
-                        .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(18, 18, 18)
+                        .addComponent(panelTableOldDIVInfo, javax.swing.GroupLayout.PREFERRED_SIZE, 390, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(31, 31, 31)
                         .addComponent(jLabel1)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 84, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -332,14 +322,16 @@ public class DIVFrm extends javax.swing.JFrame {
         setFieldsState.setAllEdit(false,false,false);
         setButtonsState.setAllWorkerBtsInit(true);
         btWorkerUpdate.setEnabled(false);
-        
-        setButtonsState.setAllDosimeterBtsInit(false);
-        setButtonsState.setAllDoseBtsInit(false);
+   */     
+        setButtonsState.setAllDIVBtsInit(true);
+  /*      setButtonsState.setAllDoseBtsInit(false);
         
         setButtonsState.setAllDoseNoteBtsInit(false);
         setButtonsState.setAllDsmtNoteBtsInit(false);  */
         
-        listeners.addNewDIVInfoTableListeners();
+       
+        
+  //      listeners.addNewDIVInfoTableListeners();
                 
     } 
 
@@ -401,8 +393,50 @@ public class DIVFrm extends javax.swing.JFrame {
     }
     
     
+    // para IdDSmt
+    public JComboBox comboDsmtID = new JComboBox();
+
+    public JComboBox getComboDsmtID() {
+        return comboDsmtID;
+    }
+
+    public void setComboDsmtID(JComboBox comboDsmtID) {
+        this.comboDsmtID = comboDsmtID;
+    }
   
+    // para Periodicity  - Mensal
+    public JComboBox comboPerdMonth = new JComboBox(SetEnums.month.values());
+
+    public JComboBox getComboPerdMonth() {
+        return comboPerdMonth;
+    }
+
+    public void setPerdMonth(JComboBox comboPerdMonth) {
+        this.comboPerdMonth = comboPerdMonth;
+    }
+
     
+    // para Perioodicity - Trimestral
+    public JComboBox comboPerdTrimester = new JComboBox(SetEnums.Trimester.values());
+
+    public JComboBox getComboPerdTrimester() {
+        return comboPerdTrimester;
+    }
+
+    public void setComboPerdTrimester(JComboBox comboPerdTrimester) {
+        this.comboPerdTrimester = comboPerdTrimester;
+    }
+    
+    
+   /* public JTable tableNewDIVinfo = new JTable();
+    
+    public JTable getTableNewDIVinfor() {
+        return tableNewDIVinfo;
+    }
+
+    public void setTableNewDIVinfo(JTable tableNewDIVinfo) {
+        this.tableNewDIVinfo = tableNewDIVinfo;
+    } */
 //    
     
     
@@ -421,12 +455,11 @@ public class DIVFrm extends javax.swing.JFrame {
     private javax.swing.JLabel jLabel22;
     private javax.swing.JLabel jLabel23;
     private javax.swing.JPanel jPanel1;
-    private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JScrollPane jScrollPane2;
     private javax.swing.JTable jTable1;
     private javax.swing.JPanel panelDosimetry;
     public javax.swing.JScrollPane panelTableNewDIVinfo;
-    public javax.swing.JTable tableOldDosimetry;
+    public javax.swing.JScrollPane panelTableOldDIVInfo;
     public javax.swing.JTextField txtDIV_Name;
     public javax.swing.JTextField txtDIV_dsmtID;
     // End of variables declaration//GEN-END:variables
