@@ -6,7 +6,7 @@ package dosindchuc.UI.swing;
 
 import dosindchuc.UI.controller.DIVActionListener;
 import dosindchuc.UI.controller.MainActionListener;
-import dosindchuc.UI.swing.Help.AlertTableWithRowRendering;
+import dosindchuc.UI.swing.Help.AlertTableInMainFrm;
 import java.awt.Color;
 import java.awt.Component;
 import javax.swing.JButton;
@@ -27,7 +27,7 @@ import org.edisoncor.gui.textField.TextField;
 public class MainFrm extends javax.swing.JFrame {
 
     private MainActionListener listeners;
-    private AlertTableWithRowRendering tableNote;
+    private AlertTableInMainFrm tableNote;
   
     
     /**
@@ -38,7 +38,7 @@ public class MainFrm extends javax.swing.JFrame {
         initComponents();
         listeners = new MainActionListener(this);
         System.out.println("3+3");
-        tableNote = new AlertTableWithRowRendering(this);
+        tableNote = new AlertTableInMainFrm(this);
          System.out.println("3+3");
   //      setNotetable();
         

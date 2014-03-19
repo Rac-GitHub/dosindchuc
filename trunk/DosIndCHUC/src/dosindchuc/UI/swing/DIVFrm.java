@@ -67,10 +67,10 @@ public class DIVFrm extends javax.swing.JFrame {
         btDIV_Save = new javax.swing.JButton();
         btDIV_Cancel = new javax.swing.JButton();
         jLabel1 = new javax.swing.JLabel();
-        jScrollPane2 = new javax.swing.JScrollPane();
-        jTable1 = new javax.swing.JTable();
         panelTableNewDIVinfo = new javax.swing.JScrollPane();
         panelTableOldDIVInfo = new javax.swing.JScrollPane();
+        panelTableDIVNotes = new javax.swing.JScrollPane();
+        txtWorkerNameDIV = new javax.swing.JTextField();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
@@ -163,16 +163,15 @@ public class DIVFrm extends javax.swing.JFrame {
 
         jLabel1.setText("Notes:");
 
-        jTable1.setFont(new java.awt.Font("Dialog", 0, 10)); // NOI18N
-        jTable1.setModel(new javax.swing.table.DefaultTableModel(
-            new Object [][] {
-
-            },
-            new String [] {
-
-            }
-        ));
-        jScrollPane2.setViewportView(jTable1);
+        txtWorkerNameDIV.setEditable(false);
+        txtWorkerNameDIV.setBackground(new java.awt.Color(238, 238, 238));
+        txtWorkerNameDIV.setFont(new java.awt.Font("Dialog", 2, 10)); // NOI18N
+        txtWorkerNameDIV.setForeground(new java.awt.Color(153, 204, 255));
+        txtWorkerNameDIV.setHorizontalAlignment(javax.swing.JTextField.RIGHT);
+        txtWorkerNameDIV.setBorder(null);
+        txtWorkerNameDIV.setFocusable(false);
+        txtWorkerNameDIV.setOpaque(false);
+        txtWorkerNameDIV.setRequestFocusEnabled(false);
 
         javax.swing.GroupLayout panelDosimetryLayout = new javax.swing.GroupLayout(panelDosimetry);
         panelDosimetry.setLayout(panelDosimetryLayout);
@@ -212,10 +211,12 @@ public class DIVFrm extends javax.swing.JFrame {
                         .addGap(20, 20, 20)
                         .addComponent(btDIV_Search)
                         .addGap(91, 91, 91)
-                        .addComponent(btDIV_Clean))
+                        .addComponent(btDIV_Clean)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(txtWorkerNameDIV, javax.swing.GroupLayout.DEFAULT_SIZE, 172, Short.MAX_VALUE))
                     .addComponent(jLabel1)
-                    .addComponent(jScrollPane2)
-                    .addComponent(panelTableOldDIVInfo))
+                    .addComponent(panelTableOldDIVInfo)
+                    .addComponent(panelTableDIVNotes))
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
         panelDosimetryLayout.setVerticalGroup(
@@ -239,7 +240,8 @@ public class DIVFrm extends javax.swing.JFrame {
                         .addContainerGap()
                         .addGroup(panelDosimetryLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addComponent(btDIV_Search, javax.swing.GroupLayout.Alignment.TRAILING)
-                            .addComponent(btDIV_Clean, javax.swing.GroupLayout.Alignment.TRAILING))))
+                            .addComponent(btDIV_Clean, javax.swing.GroupLayout.Alignment.TRAILING)
+                            .addComponent(txtWorkerNameDIV, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addGroup(panelDosimetryLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(panelDosimetryLayout.createSequentialGroup()
@@ -253,9 +255,9 @@ public class DIVFrm extends javax.swing.JFrame {
                         .addComponent(panelTableOldDIVInfo, javax.swing.GroupLayout.PREFERRED_SIZE, 390, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addGap(31, 31, 31)
                         .addComponent(jLabel1)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 84, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addContainerGap(39, Short.MAX_VALUE))))
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                        .addComponent(panelTableDIVNotes, javax.swing.GroupLayout.PREFERRED_SIZE, 100, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addContainerGap(24, Short.MAX_VALUE))))
         );
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
@@ -426,18 +428,16 @@ public class DIVFrm extends javax.swing.JFrame {
     public void setComboPerdTrimester(JComboBox comboPerdTrimester) {
         this.comboPerdTrimester = comboPerdTrimester;
     }
-    
-    
-   /* public JTable tableNewDIVinfo = new JTable();
-    
-    public JTable getTableNewDIVinfor() {
-        return tableNewDIVinfo;
+
+    public JTextField getTxtWorkerNameDIV() {
+        return txtWorkerNameDIV;
     }
 
-    public void setTableNewDIVinfo(JTable tableNewDIVinfo) {
-        this.tableNewDIVinfo = tableNewDIVinfo;
-    } */
-//    
+    public void setTxtWorkerNameDIV(JTextField txtWorkerNameDIV) {
+        this.txtWorkerNameDIV = txtWorkerNameDIV;
+    }
+    
+ 
     
     
     // Variables declaration - do not modify//GEN-BEGIN:variables
@@ -455,12 +455,12 @@ public class DIVFrm extends javax.swing.JFrame {
     private javax.swing.JLabel jLabel22;
     private javax.swing.JLabel jLabel23;
     private javax.swing.JPanel jPanel1;
-    private javax.swing.JScrollPane jScrollPane2;
-    private javax.swing.JTable jTable1;
     private javax.swing.JPanel panelDosimetry;
+    public javax.swing.JScrollPane panelTableDIVNotes;
     public javax.swing.JScrollPane panelTableNewDIVinfo;
     public javax.swing.JScrollPane panelTableOldDIVInfo;
     public javax.swing.JTextField txtDIV_Name;
     public javax.swing.JTextField txtDIV_dsmtID;
+    public javax.swing.JTextField txtWorkerNameDIV;
     // End of variables declaration//GEN-END:variables
 }

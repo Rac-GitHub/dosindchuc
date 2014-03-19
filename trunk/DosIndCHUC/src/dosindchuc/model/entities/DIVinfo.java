@@ -7,6 +7,8 @@ package dosindchuc.model.entities;
 import dosindchuc.model.entities.Help.SetEnums;
 import dosindchuc.model.entities.Help.SetEnums.Trimester;
 import dosindchuc.model.entities.Help.SetEnums.dsmt_periodicity;
+import dosindchuc.model.entities.Help.SetEnums.note_alertlevel;
+import dosindchuc.model.entities.Help.SetEnums.note_status;
 import dosindchuc.model.entities.Help.SetEnums.worker_category;
 import dosindchuc.model.entities.Help.SetEnums.worker_department;
 
@@ -32,6 +34,10 @@ public class DIVinfo {
     private String hp10;
     private String comments;
     private String dose_note;
+    private SetEnums.note_alertlevel noteAlertlevel;
+    private SetEnums.note_status noteStatus;
+    private String timestamp;
+    private String perd;
     
     
     
@@ -171,9 +177,39 @@ public class DIVinfo {
         this.dose_note = dose_note;
     }
 
+    public String getTimestamp() {
+        return timestamp;
+    }
+
+    public void setTimestamp(String timestamp) {
+        this.timestamp = timestamp;
+    }
+
     
     
-//     
+    public String getPerd() {
+        return perd;
+    }
+
+    public void setPerd(String perd) {
+        this.perd = perd;
+    }
+
+    public note_alertlevel getNoteAlertlevel() {
+        return noteAlertlevel;
+    }
+
+    public void setNoteAlertlevel(note_alertlevel noteAlertlevel) {
+        this.noteAlertlevel = noteAlertlevel;
+    }
+
+    public note_status getNoteStatus() {
+        return noteStatus;
+    }
+
+    public void setNoteStatus(note_status noteStatus) {
+        this.noteStatus = noteStatus;
+    }
     
  
   
