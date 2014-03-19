@@ -4,16 +4,12 @@
  */
 package dosindchuc.UI.swing.Help;
 
-import dosindchuc.UI.controller.DIVActionListener;
-import dosindchuc.UI.controller.Help.DIVTablesActionListener;
 import dosindchuc.UI.swing.DIVFrm;
 import dosindchuc.model.entities.DbPkIDs;
 import dosindchuc.model.entities.Help.DateAndTime;
 import dosindchuc.model.entities.Help.SetEnums;
-import dosindchuc.model.service.DIVService;
 import java.awt.Color;
 import java.awt.Component;
-import java.awt.event.MouseEvent;
 import java.util.ArrayList;
 import javax.swing.DefaultCellEditor;
 import javax.swing.DefaultComboBoxModel;
@@ -21,13 +17,10 @@ import javax.swing.JComboBox;
 import javax.swing.JLabel;
 import javax.swing.JTable;
 import javax.swing.ListSelectionModel;
-import javax.swing.event.ListSelectionEvent;
-import javax.swing.event.ListSelectionListener;
 import javax.swing.table.DefaultTableCellRenderer;
 import javax.swing.table.DefaultTableModel;
 import javax.swing.table.TableCellEditor;
 import javax.swing.table.TableCellRenderer;
-import javax.swing.table.TableModel;
 
 
 
@@ -38,23 +31,26 @@ public class DIVTablesModel {
 
     public static JTable tableNewDIVinfo;
     public static JTable tableOldDIVinfo;
+    public static JTable tableNotesDIVinfo;
     public static DefaultTableModel modelTableNewDIVinfo;
     public static DefaultTableModel modelTableOldDIVinfo;
+    public static DefaultTableModel modelTableNotesDIVinfo;
  
     
     private DIVFrm frmDIV;
     private DateAndTime dateAndTime = new DateAndTime();
     private CheckBoxRenderer checkBoxRenderer;
+    private DIVButtons divButtons;
     
-  //  private DIVTablesActionListener divTablesActionListener;
-    
- //   private DIVActionListener listeners;
-    //     public static JComboBox trimester1 = new JComboBox();
+ 
     final int colPeriod = 2;
     final int colName = 3;
     final int colIdDsmt = 7;
     final int colSetPeriod = 8;
     final int colSetYear = 9;
+    final int colSetNoteLevel = 14;
+    final int colSetNoteStatus = 15;
+    final int colToSave = 16;
 
     
     
@@ -62,9 +58,7 @@ public class DIVTablesModel {
 
         this.frmDIV = frmDIV;
         checkBoxRenderer = new CheckBoxRenderer();
-  //      divTablesActionListener = new DIVTablesActionListener(this.frmDIV);
-   //     divService = new DIVService(this.frmDIV);
- //       listeners = new DIVActionListener(this.frmDIV);
+        divButtons = new DIVButtons(this.frmDIV);
  
     }
 
@@ -108,6 +102,30 @@ public class DIVTablesModel {
 
  
     
+  /*
+  *   getters and setters for DIV Notes table
+  */   
+    
+    public JTable getTableNotesDIVinfo() {
+        return tableNotesDIVinfo;
+    }
+
+    public  void setTableNotesDIVinfo(JTable tableNotesDIVinfo) {
+        DIVTablesModel.tableNotesDIVinfo = tableNotesDIVinfo;
+    }
+
+    public  DefaultTableModel getModelTableNotesDIVinfo() {
+        return modelTableNotesDIVinfo;
+    }
+
+    public  void setModelTableNotesDIVinfo(DefaultTableModel modelTableNotesDIVinfo) {
+        DIVTablesModel.modelTableNotesDIVinfo = modelTableNotesDIVinfo;
+    }
+
+    
+    
+    
+    
  /*
   *  For New Table
   * 
@@ -121,25 +139,27 @@ public class DIVTablesModel {
         System.out.println("  Que caracas 1--- >>>> " + tableStatus);
 
         if (tableStatus.equalsIgnoreCase("removeTable")) {
+            
+            System.out.println("  Que caracas 1--- >>>> " + getTableNewDIVinfo());
+            
+            if ( getTableNewDIVinfo() != null  ) {
+                this.frmDIV.panelTableNewDIVinfo.getViewport().remove(getTableNewDIVinfo()); 
+            }
+   
     
-            this.frmDIV.panelTableNewDIVinfo.remove(tableNewDIVinfo);
+            
+            divButtons.setAllDIVBtsSaveCancel(false);
 
             
-            this.frmDIV.btDIV_Save.setEnabled(true);
-            this.frmDIV.btDIV_Cancel.setEnabled(true);
-
         }
 
         if (tableStatus.equalsIgnoreCase("newTable")) {
 
             setModelTableNewDIVinfo(setModelNewDIVinfoTable());
             setTableNewDIVinfo(tableNewDIVinfo);
-
-            System.out.println(" Aqui ..... 1111 -> " + this.frmDIV);
+         
             this.frmDIV.panelTableNewDIVinfo.add(tableNewDIVinfo);
             this.frmDIV.panelTableNewDIVinfo.setViewportView(tableNewDIVinfo);
-            
-     //       divTablesActionListener.addNewDIVInfoTableListeners(tableNewDIVinfo);
         
             
         }
@@ -160,18 +180,16 @@ public class DIVTablesModel {
         System.out.println("  Que caracas OLD--- >>>> " + tableStatus);
 
         if (tableStatus.equalsIgnoreCase("removeTable")) {
-    
-            this.frmDIV.panelTableOldDIVInfo.remove(tableOldDIVinfo);
-
-/*            
-            this.frmDIV.btDIV_Save.setEnabled(true);
-            this.frmDIV.btDIV_Cancel.setEnabled(true);
-*/
+        
+            if ( getTableOldDIVinfo() != null  ) {
+            
+                this.frmDIV.panelTableOldDIVInfo.getViewport().remove(getTableOldDIVinfo());
+            }
         }
 
         if (tableStatus.equalsIgnoreCase("newTable")) {
 
-            System.out.println("  Que caracas OLD nova--- >>>> " + tableStatus);
+           
             
             setModelTableOldDIVinfo(setModelOldDIVinfoTable());
             setTableOldDIVinfo(tableOldDIVinfo);
@@ -183,6 +201,34 @@ public class DIVTablesModel {
 
     }
 
+    
+     public void setSettingsNotesDIVinfoTable(String tableStatus) {
+
+
+        System.out.println("  Que caracas Notes--- >>>> " + tableStatus);
+
+        if (tableStatus.equalsIgnoreCase("removeTable")) {
+            if ( getTableNotesDIVinfo() != null ) {
+                this.frmDIV.panelTableDIVNotes.getViewport().remove(getTableNotesDIVinfo());
+            }
+        }
+
+        if (tableStatus.equalsIgnoreCase("newTable")) {
+
+            System.out.println("  Que caracas Notes nova--- >>>> " + tableStatus);
+            
+            setModelTableNotesDIVinfo(setModelDIVNotesTable());
+            setTableNotesDIVinfo(tableNotesDIVinfo);
+
+      
+            this.frmDIV.panelTableDIVNotes.add(tableNotesDIVinfo);
+            this.frmDIV.panelTableDIVNotes.setViewportView(tableNotesDIVinfo);
+        }
+
+    }
+
+    
+    
     
     
     
@@ -207,7 +253,7 @@ public class DIVTablesModel {
 
         String[] colWidths = newDIVTable("width");
 
-        tableColumnsSettings(colWidths,tableNewDIVinfo);
+        tableNewDIVColumnsSettings(colWidths,tableNewDIVinfo);
 
         System.out.println ("   colocar model --- com picuinhices  --- > ");
         DefaultCellEditor defaultDsmtIDCellEditor = new CustomComboBoxEditor(this.frmDIV.comboDsmtID);
@@ -228,93 +274,99 @@ public class DIVTablesModel {
     }
 
     private JTable createTableNewDIVinfo(DefaultTableModel model) {
-         
+  
         System.out.println(" crear tabela ... DIV >  " + this.frmDIV);
         
-            
-           final ArrayList year = new ArrayList();
-            int yearNow = Integer.parseInt(dateAndTime.currYear());
-
-       
-           for (int j = yearNow; j > 2009; --j) {
-             year.add(j);
-            }
+        
+        final ArrayList year = new ArrayList();
+        int yearNow = Integer.parseInt(dateAndTime.currYear());
+        
+        for (int j = yearNow; j > 2009; --j) {
+            year.add(j);
+        }
         
         
         
-        JTable table = new JTable(model) {
-            
+        JTable table;
+        table = new JTable(model) {
             JComboBox month = new JComboBox(SetEnums.month.values());
             JComboBox trimester = new JComboBox(SetEnums.Trimester.values());
-        
+            JComboBox noteLevel = new JComboBox(SetEnums.note_alertlevel.values());
+            JComboBox noteStatus = new JComboBox(SetEnums.note_status.values());
             JComboBox cbYear = new JComboBox(year.toArray());
-            
             
             @Override
             public TableCellEditor getCellEditor(int row, int column) {
-
+                
                 int modelColumn = convertColumnIndexToModel(column);
-
-                 System.out.println(" Aqui no model column --- > " + modelColumn);
+                
+                System.out.println(" Aqui no model column --- > " + modelColumn);
                 
                 switch (modelColumn) {
                     case colSetPeriod:
-
+                        
                         String value = getModel().getValueAt(row, colPeriod).toString();
-
+                        System.out.println(" Aqui value --- > " + value);
+                        
                         if (value.equalsIgnoreCase("Mensal")) {
-                            DefaultCellEditor defaultCellEditor = new DefaultCellEditor(month);
-                            return defaultCellEditor;
+                            return new DefaultCellEditor(month);
+                            
                         }
-
+                        
                         if (value.equalsIgnoreCase("Trimestral")) {
-                            DefaultCellEditor defaultCellEditor = new DefaultCellEditor(trimester);
-                            return defaultCellEditor;
+                            return new DefaultCellEditor(trimester);
+                            
                         }
-
-                    break;
                         
-                     case colSetYear:   
-                            DefaultCellEditor defaultCellEditor = new DefaultCellEditor(cbYear);
-                            return defaultCellEditor;
-                   
-                        
+                        break;
+                    
+                    case colSetYear:
+                        return new DefaultCellEditor(cbYear);
+                    
+                    case colSetNoteLevel:
+                        return new DefaultCellEditor(noteLevel);
+                    
+                    case colSetNoteStatus:
+                        return new DefaultCellEditor(noteStatus);
+                    
+                    case colToSave:
+                        return getDefaultEditor(Boolean.class);
+                    
                     default:
-                        System.out.println(" Aqui no default name --- > " );
+                        System.out.println(" Aqui no default Cell editor  --- > " + super.getCellEditor(row, column));
                         return super.getCellEditor(row, column);
-       
+                    
                 }
-
+                
                 return null;
-
+                
             }
             
-  
             @Override
             public Component prepareRenderer(TableCellRenderer renderer, int row, int column) {
-
+                
                 int modelColumn = convertColumnIndexToModel(column);
                 
                 Component c = super.prepareRenderer(renderer, row, column);
 
                 //  Color row based on a cell property
                 c.setBackground(getBackground());
-              //  c.setForeground(getForeground());
+                //  c.setForeground(getForeground());
 
                 if (!getModel().isCellEditable(row, modelColumn)) {
                     c.setBackground(Color.getHSBColor(110, 110, 110));
-                  //  c.setForeground(Color.getHSBColor(90, 90, 90));
+                    //  c.setForeground(Color.getHSBColor(90, 90, 90));
                 }
-
-
+                
+                
                 return c;
             }
         };
-
+        
         return table;
-
+        
     }
-
+    
     private DefaultTableModel setModelSettingsNewDIVTable() {
 
         String[] colNames = newDIVTable("name");
@@ -356,7 +408,7 @@ public class DIVTablesModel {
 
         String[] colWidths = oldDIVTable("width");
 
-        tableColumnsSettings(colWidths,tableOldDIVinfo);
+        tableOldDIVColumnsSettings(colWidths,tableOldDIVinfo);
        
         tableOldDIVinfo.removeColumn(tableOldDIVinfo.getColumnModel().getColumn(0));
 
@@ -419,6 +471,85 @@ public class DIVTablesModel {
     
     
     
+    /*
+     *   DIV Notes Table
+     * 
+     */
+    
+    
+      private DefaultTableModel setModelDIVNotesTable() {
+
+
+        DefaultTableModel model = setModelSettingsNotesDIVTable();
+
+        tableNotesDIVinfo = createTableNotesDIVinfo(model);
+
+        tableDefaultSettings(tableNotesDIVinfo);
+
+        String[] colWidths = notesDIVTable("width");
+
+        tableNotesDIVColumnsSettings(colWidths,tableNotesDIVinfo);
+       
+   //     tableOldDIVinfo.removeColumn(tableNotesDIVinfo.getColumnModel().getColumn(0));
+
+        return model;
+
+
+    }
+    
+    
+    
+    
+    private JTable createTableNotesDIVinfo(DefaultTableModel model) {
+         
+             
+        
+        JTable table = new JTable(model) {
+    
+            @Override
+            public Component prepareRenderer(TableCellRenderer renderer, int row, int column) {
+
+                int modelColumn = convertColumnIndexToModel(column);
+                
+                Component c = super.prepareRenderer(renderer, row, column);
+
+                //  Color row based on a cell property
+                c.setBackground(getBackground());
+              //  c.setForeground(getForeground());
+
+                if (!getModel().isCellEditable(row, modelColumn)) {
+                    c.setBackground(Color.getHSBColor(110, 110, 110));
+                  //  c.setForeground(Color.getHSBColor(90, 90, 90));
+                }
+
+
+                return c;
+            }
+        };
+
+        return table;
+
+    }
+    
+    
+    
+    private DefaultTableModel setModelSettingsNotesDIVTable() {
+
+        String[] colNames = notesDIVTable("name");
+
+        DefaultTableModel model = new DefaultTableModel(new Object[][]{},
+                colNames) {
+            @Override
+            public boolean isCellEditable(int rowIndex, int colIndex) {
+                    return false;
+        };
+                };
+  
+        return model;
+
+    }
+    
+    
     
     
     
@@ -450,7 +581,7 @@ public class DIVTablesModel {
 
     }
 
-    private void tableColumnsSettings(String[] widths, JTable table) {
+    private void tableNewDIVColumnsSettings(String[] widths, JTable table) {
 
 
         DefaultTableCellRenderer centerRenderer = new DefaultTableCellRenderer();
@@ -473,15 +604,65 @@ public class DIVTablesModel {
         }
 
     }
+    
+    private void tableOldDIVColumnsSettings(String[] widths, JTable table) {
+
+
+        DefaultTableCellRenderer centerRenderer = new DefaultTableCellRenderer();
+        centerRenderer.setHorizontalAlignment(JLabel.CENTER);
+        DefaultTableCellRenderer leftRenderer = new DefaultTableCellRenderer();
+        leftRenderer.setHorizontalAlignment(JLabel.LEFT);
+
+        for (int i = 0; i < widths.length; i++) {
+
+            table.getColumnModel().getColumn(i).setPreferredWidth(Integer.parseInt(widths[i]));
+
+            switch (i) {
+                case 7:
+                    table.getColumnModel().getColumn(i).setCellRenderer(leftRenderer);
+                    break;
+                default:
+                    table.getColumnModel().getColumn(i).setCellRenderer(centerRenderer);
+            }
+
+        }
+
+    }
+    
+    private void tableNotesDIVColumnsSettings(String[] widths, JTable table) {
+
+
+        DefaultTableCellRenderer centerRenderer = new DefaultTableCellRenderer();
+        centerRenderer.setHorizontalAlignment(JLabel.CENTER);
+        DefaultTableCellRenderer leftRenderer = new DefaultTableCellRenderer();
+        leftRenderer.setHorizontalAlignment(JLabel.LEFT);
+
+        for (int i = 0; i < widths.length; i++) {
+
+            table.getColumnModel().getColumn(i).setPreferredWidth(Integer.parseInt(widths[i]));
+
+            switch (i) {
+                case 0:
+                    table.getColumnModel().getColumn(i).setCellRenderer(leftRenderer);
+                    break;
+                default:
+                    table.getColumnModel().getColumn(i).setCellRenderer(centerRenderer);
+            }
+
+        }
+
+    }
+    
+    
 
     private String[] newDIVTable(String nameOrwidth) {
 
         if (nameOrwidth.equalsIgnoreCase("name")) {
             String[] names = {"pk_id", "pk_dsmt", "Periodicity", "Name", "Mec", "Category", "Dept", "Dsmt_ID", "Per",
-                "Year", "Hp007", "Hp10", "Comments", "Note", "OK"};
+                "Year", "Hp007", "Hp10", "Comments", "Note", "Level", "Status", "OK"};
             return names;
         } else {
-            String[] widths = {"0", "0", "0", "70", "10", "10", "10", "10", "10", "10", "10", "10", "60", "85", "10"};
+            String[] widths = {"0", "0", "0", "70", "10", "10", "10", "10", "10", "10", "10", "10", "60", "85", "10", "10", "10"};
             return widths;
         }
 
@@ -493,13 +674,23 @@ public class DIVTablesModel {
             String[] names = {"pk_dose", "Dsmt", "Perd", "Year", "Hp007", "Hp10", "Inserted ", "Comments", "LastChange"};
             return names;
         } else {
-            String[] widths = {"10", "10", "10", "10", "10", "10", "70", "80", "70"};
+            String[] widths = {"0", "10", "10", "10", "10", "10", "70", "80", "70"};
             return widths;
         }
 
     }
     
-    
+     private String[] notesDIVTable(String nameOrwidth) {
+
+        if (nameOrwidth.equalsIgnoreCase("name")) {
+            String[] names = {"Note", "Status", "Level", "LastChange"};
+            return names;
+        } else {
+            String[] widths = {"60", "10", "10", "30"};
+            return widths;
+        }
+
+    }
     
     
     

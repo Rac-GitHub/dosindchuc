@@ -7,21 +7,18 @@ package dosindchuc.model.service;
 import dosindchuc.UI.swing.DIVFrm;
 import dosindchuc.UI.swing.Help.DIVButtons;
 import dosindchuc.UI.swing.Help.DIVTablesModel;
-import dosindchuc.model.entities.Help.SetEnums;
-import dosindchuc.UI.swing.MainFrm;
 import dosindchuc.model.dao.DIVDao;
 import dosindchuc.model.entities.DIVinfo;
+import dosindchuc.model.entities.DIVnotes;
 import dosindchuc.model.entities.DbPkIDs;
 import dosindchuc.model.entities.Help.DateAndTime;
-import dosindchuc.model.entities.OldDIVinfo;
-import dosindchuc.model.service.Help.TesteNullandEmpty;
+import dosindchuc.model.entities.Help.SetEnums;
+import dosindchuc.model.entities.DIVOldInfo;
 import dosindchuc.model.service.Help.YearMonthAndTrimester;
 import java.util.ArrayList;
-import java.util.Calendar;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
-import javax.swing.JComboBox;
 import javax.swing.JTable;
 import javax.swing.event.ListSelectionEvent;
 import javax.swing.event.ListSelectionListener;
@@ -34,14 +31,15 @@ import javax.swing.table.TableModel;
  */
 public class DIVService {
     
-    
-   
-    private MainFrm frmMain;
+    private int colOK = 16;
+  
     private DIVFrm frmDIV;
     private DIVDao divdao;
     private DbPkIDs dbPkIDs;
     private List<DIVinfo> divInfo;
-    private List<OldDIVinfo> oldDivInfo;
+    private List<DIVOldInfo> oldDivInfo;
+    private List<DIVnotes> notesDiv;
+    private DIVinfo divINFO;
     
     private YearMonthAndTrimester yearMonthTrimester;
 
@@ -53,45 +51,112 @@ public class DIVService {
     private ArrayList<ArrayList<String>> allDsmtPeriod = new ArrayList<>();
     private DIVButtons setButtonsState;
     
-    private TesteNullandEmpty testeNullandEmpty;
-/*    private ManagementClean setCleanState;
-    private DIVTablesModel_old tableModel;
-    private ManagementSearch setDoseInfo;
-    private JTable table;
-    */
     
     
 
-    public DIVService(DIVFrm frmDIV) {
+    public DIVService(final DIVFrm frmDIV) {
         
         this.frmDIV = frmDIV;
         divTableModel = new DIVTablesModel(this.frmDIV);
         divdao = new DIVDao();
         dbPkIDs = new DbPkIDs();
         setButtonsState = new DIVButtons(this.frmDIV);
+        divINFO = new DIVinfo();
   
         
     }
     
         
-    
-    // insert into the database 
-    
-    public void saveNewDIV () {
-        
-  
-        
-        setNewDIVTableModel("readonly");
-        
-        
+      
+     public void saveDIVs () {
+   
+        divInfo.clear();
+
+        List<Integer> rowToBeRemove = new ArrayList<>();
+
+
+        DefaultTableModel tmodel = divTableModel.getModelTableNewDIVinfo();
+
+        System.out.println(" Numero de rows " + tmodel.getRowCount());
+
+        int newDivs = tmodel.getRowCount();
+
+        for (int i = 0; i < newDivs; i++) {
+
+            boolean isToSave = tmodel.getValueAt(i, colOK).equals(true);
+
+            System.out.println(" Is to save ? __> " + isToSave + " iiii  ->  " + i);
+
+            String note = null;
+
+            if (isToSave) {
+
+                divINFO.setPk_id(tmodel.getValueAt(i, 0).toString());
+                divINFO.setPk_dsmt(tmodel.getValueAt(i, 1).toString());
+                divINFO.setPeriodicity(SetEnums.dsmt_periodicity.valueOf(tmodel.getValueAt(i, 2).toString()));
+                divINFO.setYear(tmodel.getValueAt(i, 9).toString());
+                divINFO.setPerd(tmodel.getValueAt(i, 8).toString());
+                divINFO.setHp007(tmodel.getValueAt(i, 10).toString());
+                divINFO.setHp10(tmodel.getValueAt(i, 11).toString());
+
+                System.out.println(" Value period --- > " + divINFO.getPeriodicity());
+
+                if (!(tmodel.getValueAt(i, 12) == null)) {
+                    divINFO.setComments(tmodel.getValueAt(i, 12).toString());
+                }
+
+                if (!(tmodel.getValueAt(i, 13) == null)) {
+                    divINFO.setDose_note(tmodel.getValueAt(i, 13).toString());
+                }
+
+                divINFO.setTimestamp(dateAndTime.currDateTime());
+
+                divINFO.setNoteAlertlevel(SetEnums.note_alertlevel.valueOf(tmodel.getValueAt(i, 14).toString()));
+                divINFO.setNoteStatus(SetEnums.note_status.valueOf(tmodel.getValueAt(i, 15).toString()));
+
+
+                divInfo.add(divINFO);
+
+                String pk_dose = divdao.saveDIV_doseInfo(divInfo);
+
+                System.out.println(" pk dose --->  " + pk_dose);
+
+                if (!(divINFO.getDose_note() == null)) {
+
+                    String pk_dose_note = divdao.saveDIV_doseNote(divInfo, pk_dose);
+                    System.out.println(" pk dose note --->  " + pk_dose_note);
+
+                }
+
+
+                rowToBeRemove.add(i);
+
+
+            }
+
+        }
+
+        int nRow = 0;
+        for (int i = 0; i < rowToBeRemove.size(); i++) {
+
+            int row = rowToBeRemove.get(i) - nRow;
+            tmodel.removeRow(row);
+
+            nRow = nRow + 1;
+
+        }
+
         
     }
+   
     
-       
     
     public void searchDIVInfo() {
        
+        frmDIV.txtWorkerNameDIV.setText("");
         clearNewDIVTables();
+        clearOldDIVTables();
+        clearNotesDIVTables();
                
         String department = frmDIV.getCbDIV_Department().getSelectedItem().toString();
         String dsmt_id = frmDIV.txtDIV_dsmtID.getText();
@@ -145,9 +210,14 @@ public class DIVService {
         model = setNewDIVTableModel("newTable");   
   
         for (DIVinfo div : divInfo) {
+            
+            div.setNoteAlertlevel(SetEnums.note_alertlevel.N);
+            div.setNoteStatus(SetEnums.note_status.O);
+            
             Object newDIVInfo[] = new Object[]{div.getPk_id(), div.getPk_dsmt(), div.getPeriodicity(),
                 div.getName(), div.getId_mec(), div.getCategory(), div.getDepartment(), div.getId_dsmt(), div.getMonth(),
-                div.getYear(), div.getHp007(), div.getHp10(), div.getComments(), div.getDose_note(), Boolean.TRUE};
+                div.getYear(), div.getHp007(), div.getHp10(), div.getComments(), div.getDose_note(), div.getNoteAlertlevel(),
+                div.getNoteStatus(), Boolean.FALSE};
             
             
             newDIVInfo = selectPeriod(newDIVInfo);
@@ -162,9 +232,11 @@ public class DIVService {
         //     return workerList; */
 
      
-        setButtonsState.setAllDIVBtsSearchClean(true);
+        setButtonsState.setAllDIVBtsSaveCancel(true);
         
+        DbPkIDs.setRowSelectedNewDIV(-1);
         addNewDIVInfoTableListeners(divTableModel.getTableNewDIVinfo());
+         
         
     }
     
@@ -265,7 +337,6 @@ public class DIVService {
         int colPeriod = 2;
         int colMonthTrim = 8;
         int colYear = 9;
-        int month = 0;
         int trimester = 0;
         int year = yearMonthTrimester.Year();
 
@@ -278,7 +349,7 @@ public class DIVService {
         switch (period) {
             case "Mensal":
               
-                month = yearMonthTrimester.Month();
+                int month = yearMonthTrimester.Month();
                 year = yearMonthTrimester.Year();
    
                 newDIVInfo[colMonthTrim] = Month[month];
@@ -306,7 +377,210 @@ public class DIVService {
 
     }
 
+    
      
+     
+    private void addNewDIVInfoTableListeners(final JTable table) {
+
+        System.out.println(" Estou a entrar no listener _176__>  ... ");
+
+        final TableModel tableModel = table.getModel();
+ 
+     
+        table.getSelectionModel().addListSelectionListener(new ListSelectionListener() {
+            @Override
+            public void valueChanged(ListSelectionEvent e) {
+
+                int selectedColumn = table.getSelectedColumn();
+                int selectedRow = table.getSelectedRow();
+
+                System.out.println(" Estou a entrar no listener --- selected column___>  ... " + selectedColumn);
+                System.out.println(" Estou a entrar no listener ---Ncolumns ___>  ... " + table.getColumnCount());
+               
+             
+
+                //if (!(selectedColumn == (table.getColumnCount() - 1))) {
+                if ( selectedColumn == 0  ) {
+
+                    System.out.println(" Selected rows antes if ... " + e.getFirstIndex() + " last index antes if " + e.getLastIndex());
+
+
+                    if (e.getSource() == table.getSelectionModel() && e.getFirstIndex() >= 0) {
+
+
+                        System.out.println(" Selected rows ... " + e.getFirstIndex() + " last index " + e.getLastIndex());
+                        int rowSelected = table.getSelectedRow();
+                        String pk_id = (String) tableModel.getValueAt(table.getSelectedRow(), 0);
+
+                        if (rowSelected != DbPkIDs.getRowSelectedNewDIV()) {
+                            // Display the selected item
+                            System.out.println("Value selected KKKKK  = " + pk_id);
+                    
+                            selectDIVtable(pk_id);
+                            DbPkIDs.setRowSelectedNewDIV(rowSelected);
+                            
+                            frmDIV.txtWorkerNameDIV.setText(table.getValueAt(selectedRow, selectedColumn).toString());
+                            
+                            
+                        }
+
+                    }
+                } else {
+                    
+                    frmDIV.txtWorkerNameDIV.setText("");
+                    clearOldDIVTables();
+                    clearNotesDIVTables();
+                }
+            }
+        });
+
+
+    }
+
+     
+   
+    
+   
+     private void selectDIVtable (String pk_id) {
+        
+         clearOldDIVTables ();
+         
+         
+         oldDivInfo = divdao.getOldDIVInfo(pk_id);
+        
+         
+        if (!(oldDivInfo.size() > 0)) {
+            return;
+        }
+       
+        model = setOldDIVTableModel("newTable");   
+  
+        for (DIVOldInfo div : oldDivInfo) {
+            
+            if ( div.getPeriodicity().equalsIgnoreCase("Trimestral") ) {
+                div.setChoosePerd(div.getTrimester());
+            } 
+            
+            if ( div.getPeriodicity().equalsIgnoreCase("Mensal") ) {
+                div.setChoosePerd(div.getMonth());
+            }
+       
+            div.setTimestamp(div.getTimestamp().toString().split("\\s+")[0]);
+       
+            
+            System.out.println("   LastChange --- > " + div.getLastchange() );
+            
+          //  if ( testeNullandEmpty.TesteNull(div.getLastchange()) ) {
+            if ( div.getLastchange() != null ) {
+                div.setLastchange(div.getLastchange().toString().split("\\s+")[0]);
+             }
+            
+            
+            Object oldDIVInfo[] = new Object[]{div.getPk_dose(), div.getId_dsmt(), div.getChoosePerd(),
+                div.getYear(), div.getHp007(), div.getHp10(), div.getTimestamp(), div.getComments(), div.getLastchange()};
+  
+            model.addRow(oldDIVInfo);
+            
+            
+        }
+
+    
+        
+        clearNotesDIVTables();
+        DbPkIDs.setRowSelectedOldDIV(-1);
+        
+        System.out.println(" divTableModel.getTableNotesDIVinfo() +++++ " + divTableModel.getTableNotesDIVinfo());
+        
+        addOldDIVInfoTableListeners(divTableModel.getTableOldDIVinfo());
+         
+         
+     }
+     
+     
+      
+      private void addOldDIVInfoTableListeners(final JTable table) {
+
+        System.out.println(" AQUI ------ Add listener .. " + table.getModel());
+          
+          
+        final TableModel tableModel = table.getModel();
+         
+        table.getSelectionModel().addListSelectionListener(new ListSelectionListener() 
+        
+        {
+            @Override
+            public void valueChanged(ListSelectionEvent e)
+            {
+            //    int modelColumn = convertColumnIndexToModel(table.getSelectedColumn());
+                
+                if ( e.getSource() == table.getSelectionModel() && e.getFirstIndex() >= 0 ) {
+                
+              //  if ( e.getFirstIndex() > -1 ) {
+                    
+                    int rowSelected = table.getSelectedRow();
+                
+                String pk_dose = (String)tableModel.getValueAt(table.getSelectedRow(), 0);
+                
+                if ( rowSelected != DbPkIDs.getRowSelectedOldDIV() ) {
+			// Display the selected item
+			System.out.println( "Value selected on OLD table = " + pk_dose );
+                        
+                        selectOldDIVtable (pk_dose);
+                      DbPkIDs.setRowSelectedOldDIV(rowSelected);
+                }
+                
+                    
+                System.out.println( " Selected rows ... " + e.getFirstIndex() + " last index " + e.getLastIndex());
+                
+
+			
+                
+                }
+            }
+        });
+  
+ }
+     
+     
+   
+    
+   
+    private void selectOldDIVtable(String pk_dose) {
+
+        System.out.println("   selectOldDIVtable --- > ");
+
+        notesDiv = divdao.getDIVNotes(pk_dose);
+
+        if (!(notesDiv.size() > 0)) {
+            removeNotesDIVTables();
+            return;
+        }
+
+        model = setNotesDIVTableModel("newTable");
+
+        for (DIVnotes div : notesDiv) {
+
+
+            System.out.println("   LastChange --- > " + div.getLastchange());
+
+            if (div.getLastchange() != null) {
+                div.setLastchange(div.getLastchange().toString().split("\\s+")[0]);
+            }
+
+            Object notesDIV[] = new Object[]{div.getNote(), div.getStatus(), div.getAlert_level(), div.getLastchange()};
+
+            model.addRow(notesDIV);
+
+        }
+
+
+    }
+     
+     
+    
+    
+    
+    
     
     /*
      * 
@@ -316,6 +590,9 @@ public class DIVService {
       
        
      private DefaultTableModel setNewDIVTableModel ( String type ) {
+         
+         
+         System.out.println("  --- Set MOdel SET TABLE ---- > " + type);
          
              divTableModel.setSettingsNewDIVinfoTable(type);
              model= divTableModel.getModelTableNewDIVinfo();
@@ -328,13 +605,11 @@ public class DIVService {
      
      
      
-     public void clearNewDIVTables () {
+    private void clearNewDIVTables () {
+         
+         System.out.println("  --- Clear TABLE ---- > " );
          
          divTableModel.setSettingsNewDIVinfoTable("newTable");
-         divTableModel.setSettingsNewDIVinfoTable("removeTable");
-         
-         setButtonsState.setAllDIVBtsSearchClean(false);
-  
              
      }
      
@@ -361,6 +636,26 @@ public class DIVService {
          
          divTableModel.setSettingsOldDIVinfoTable("newTable");
          divTableModel.setSettingsOldDIVinfoTable("removeTable");
+             
+     }
+     
+  
+      private DefaultTableModel setNotesDIVTableModel ( String type ) {
+         
+             divTableModel.setSettingsNotesDIVinfoTable(type);
+             model = divTableModel.getModelTableNotesDIVinfo();
+             
+             System.out.println("  --- Get MOdel SET TABLE Notes ---- > " + model);
+             return model;
+         
+     }
+     
+     
+     
+     private void clearNotesDIVTables () {
+         
+         divTableModel.setSettingsNotesDIVinfoTable("newTable");
+         divTableModel.setSettingsNotesDIVinfoTable("removeTable");
    
          
  //        setButtonsState.setAllDIVBtsSearchClean(false);
@@ -368,93 +663,38 @@ public class DIVService {
              
      }
      
-  
-      private void addNewDIVInfoTableListeners(final JTable table) {
-
-        final TableModel tableModel = table.getModel();
-         
-        table.getSelectionModel().addListSelectionListener(new ListSelectionListener() 
-        
-        {
-            @Override
-            public void valueChanged(ListSelectionEvent e)
-            {
-            //    int modelColumn = convertColumnIndexToModel(table.getSelectedColumn());
-                
-                if ( e.getSource() == table.getSelectionModel() && e.getFirstIndex() >= 0 ) {
-                
-              //  if ( e.getFirstIndex() > -1 ) {
-                System.out.println( " Selected rows ... " + e.getFirstIndex() + " last index " + e.getLastIndex());
-                String pk_id = (String)tableModel.getValueAt(table.getSelectedRow(), 0);
-
-			// Display the selected item
-			System.out.println( "Value selected = " + pk_id );
-                        
-                        selectDIVtable (pk_id);
-                
-                }
-            }
-        });
-  
- }
      
-     
-   
-    
-   
-     private void selectDIVtable (String pk_id) {
+     private void removeNewDIVTables () {
          
-         
-         clearOldDIVTables ();
-         
-         
-         oldDivInfo = divdao.getOldDIVInfo(pk_id);
-         
-         
-         
-        if (!(oldDivInfo.size() > 0)) {
-            return;
-        }
-    
- 
-        
-        model = setOldDIVTableModel("newTable");   
-  
-        for (OldDIVinfo div : oldDivInfo) {
-            
-            if ( div.getPeriodicity().equalsIgnoreCase("Trimestral") ) {
-                div.setChoosePerd(div.getTrimester());
-            } 
-            
-            if ( div.getPeriodicity().equalsIgnoreCase("Mensal") ) {
-                div.setChoosePerd(div.getMonth());
-            }
-       
-            div.setTimestamp(div.getTimestamp().toString().split("\\s+")[0]);
-       
-            
-            System.out.println("   LastChange --- > " + div.getLastchange() );
-            
-          //  if ( testeNullandEmpty.TesteNull(div.getLastchange()) ) {
-            if ( div.getLastchange() != null ) {
-                div.setLastchange(div.getLastchange().toString().split("\\s+")[0]);
-             }
-            
-            
-            Object newDIVInfo[] = new Object[]{div.getPk_dose(), div.getId_dsmt(), div.getChoosePerd(),
-                div.getYear(), div.getHp007(), div.getHp10(), div.getTimestamp(), div.getComments(), div.getLastchange()};
-  
-            model.addRow(newDIVInfo);
-            
-            
-        }
-
-
-         
-         
+         divTableModel.setSettingsNewDIVinfoTable("removeTable");
+         DbPkIDs.setRowSelectedNewDIV(-1);
          
      }
      
+     
+     private void removeOldDIVTables () {
+         
+         divTableModel.setSettingsOldDIVinfoTable("removeTable");
+         DbPkIDs.setRowSelectedOldDIV(-1);
+         
+     }
+     
+     
+     private void removeNotesDIVTables () {
+         
+         divTableModel.setSettingsNotesDIVinfoTable("removeTable");
+         
+     }
+     
+     
+     public void removeDIVTables () {
+         
+         removeNewDIVTables ();
+         removeOldDIVTables ();
+         removeNotesDIVTables ();
+         
+     }
+  
      
      
     

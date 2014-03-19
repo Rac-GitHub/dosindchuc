@@ -5,6 +5,7 @@
 package dosindchuc.UI.controller;
 
 import dosindchuc.UI.swing.DIVFrm;
+import dosindchuc.UI.swing.Help.DIVButtons;
 import dosindchuc.UI.swing.Help.DIVTablesModel;
 import dosindchuc.UI.swing.Help.ManagementButtons;
 import dosindchuc.UI.swing.Help.ManagementClean;
@@ -40,16 +41,9 @@ public final class DIVActionListener implements ActionListener, MouseListener {
     
     private DIVFrm frmDIV;
     private DIVService serviceDIV;
-    private ManagementClean serviceClean;
-    private ManagementButtons serviceBtns;
-    private ManagementSearch serviceSearch;
-    private ManagementWorker serviceWorker;
-    private ManagementDosimeter serviceDosimeter;
-    private ManagementDose serviceDose;
-    private ManagementDose_Notes serviceDoseNotes;
-    private ManagementDosimeter_Notes serviceDsmtNotes;
+    private DIVButtons divBtns;
+   
     public DbPkIDs dbPkIDs;
-    private JTable table;
     private YearMonthAndTrimester yearMonthTrimester;
     
     public Object [][] workerList = null;
@@ -67,19 +61,13 @@ public final class DIVActionListener implements ActionListener, MouseListener {
         Listeners = this;
   
    //     serviceClean = new ManagementClean(this.frmMan);
-   //     serviceBtns = new ManagementButtons(this.frmMan);
+        divBtns = new DIVButtons(this.frmDIV);
         dbPkIDs = new DbPkIDs();
         serviceDIV = new DIVService(this.frmDIV);
         
         infoDIVTables = new DIVTablesModel(this.frmDIV);
-   
-   /*     serviceSearch = new ManagementSearch(this.frmMan, this);
-        serviceDIV = new DIVService(this.frmMan, this);
-        serviceDosimeter = new ManagementDosimeter(this.frmMan);
-        serviceDsmtNotes = new ManagementDosimeter_Notes(this.frmMan,this);
-        serviceDose = new ManagementDose(this.frmMan);
-        serviceDoseNotes = new ManagementDose_Notes(this.frmMan,this); */
-        
+ 
+     //   addNoteTableListeners();
         addListeners();
 
     }
@@ -102,13 +90,19 @@ public final class DIVActionListener implements ActionListener, MouseListener {
                 System.out.println(" AQUI no btDIV_Search --- > ");
                 serviceDIV.searchDIVInfo();
                      break;
-            case "btDIV_Clean":  serviceDIV.clearNewDIVTables();
+            case "btDIV_Clean":  
+                serviceDIV.removeDIVTables();
+                frmDIV.txtWorkerNameDIV.setText("");
+                divBtns.setAllDIVBtsSaveCancel(false);
                      break;
-  /*
-            case "btDIV_Save":  serviceDIV.searchDIVInfo();
+  
+            case "btDIV_Save":  serviceDIV.saveDIVs();
                      break;
-            case "btDIV_cancel":  serviceDIV.searchDIVInfo();
-                     break; */
+            case "btDIV_Cancel":  
+                serviceDIV.removeDIVTables();
+                frmDIV.txtWorkerNameDIV.setText("");
+                serviceDIV.searchDIVInfo();
+                     break;
                 
         }
         
@@ -132,18 +126,22 @@ public final class DIVActionListener implements ActionListener, MouseListener {
         frmDIV.btDIV_Save.addActionListener(this);
         frmDIV.btDIV_Cancel.addActionListener(this);
 
-     //   int indexItem = 0;
+  
 
        
-        
+         System.out.println ( " EStou aqui antes do  addItemListener CB --- >  ") ;
         
         frmDIV.comboDsmtID.addItemListener(new ItemListener() {
           @Override
             public void itemStateChanged(ItemEvent e) {
      
                 
+              System.out.println ( " EStou aqui anda fora do   addItemListener CB --- >  ") ;
+              
                 if (e.getStateChange() == ItemEvent.SELECTED) {
 
+                    
+                    System.out.println ( " EStou aqui dentro do 1º if   addItemListener CB --- >  ") ;
                     
                    // System.out.println((state == ItemEvent.SELECTED) ? "Selected" : "Deselected");
 
@@ -195,16 +193,36 @@ public final class DIVActionListener implements ActionListener, MouseListener {
 
 
         
-       System.out.println ( " EStou aqui no tableModel --- >  ") ;
-    //    frmDIV.tableNewDIVinfo.
-  
- 
+      
     
 
 
     }
 
    
+     public void addNoteTableListeners() {
+
+        infoDIVTables.setSettingsNewDIVinfoTable("newTable");
+
+        System.out.println("  Que caracas -TAble-- >>>> " + infoDIVTables.getTableNewDIVinfo());
+        System.out.println("  Que caracas -MODEL -- >>>> " + infoDIVTables.getModelTableNewDIVinfo());
+        infoDIVTables.getTableNewDIVinfo().addMouseListener(new java.awt.event.MouseAdapter() {
+            @Override
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+
+                noteTableMouseClicked(evt);
+            }
+        });
+
+
+    }
+
+          
+    public void noteTableMouseClicked(MouseEvent mevent) {
+
+            }
+    
+    
     
     
     

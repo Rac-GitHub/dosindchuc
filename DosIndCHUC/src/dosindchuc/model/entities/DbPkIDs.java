@@ -27,6 +27,9 @@ public class DbPkIDs {
     private static ArrayList<Object []> div_dsmtID;
     private static ArrayList<ArrayList<String>> allDsmtIDs;
     private static ArrayList<ArrayList<String>> allDsmtPeriod;
+    
+    private static int rowSelectedNewDIV;
+    private static int rowSelectedOldDIV;
 
 
     
@@ -125,6 +128,22 @@ public class DbPkIDs {
 
     public static void setAllDsmtPeriod(ArrayList<ArrayList<String>> allDsmtPeriod) {
         DbPkIDs.allDsmtPeriod = allDsmtPeriod;
+    }
+
+    public static int getRowSelectedNewDIV() {
+        return rowSelectedNewDIV;
+    }
+
+    public static void setRowSelectedNewDIV(int rowSelectedNewDIV) {
+        DbPkIDs.rowSelectedNewDIV = rowSelectedNewDIV;
+    }
+
+    public static int getRowSelectedOldDIV() {
+        return rowSelectedOldDIV;
+    }
+
+    public static void setRowSelectedOldDIV(int rowSelectedOldDIV) {
+        DbPkIDs.rowSelectedOldDIV = rowSelectedOldDIV;
     }
 
     

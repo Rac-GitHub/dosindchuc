@@ -4,17 +4,11 @@
  */
 package dosindchuc.model.entities;
 
-import dosindchuc.model.entities.Help.SetEnums;
-import dosindchuc.model.entities.Help.SetEnums.Trimester;
-import dosindchuc.model.entities.Help.SetEnums.dsmt_periodicity;
-import dosindchuc.model.entities.Help.SetEnums.worker_category;
-import dosindchuc.model.entities.Help.SetEnums.worker_department;
-
 /**
  *
  * @author ir
  */
-public class OldDIVinfo {
+public class DIVOldInfo {
  
     
     private String pk_dose;
@@ -33,7 +27,7 @@ public class OldDIVinfo {
     
     
     
-    public OldDIVinfo() {
+    public DIVOldInfo() {
     
     }
 

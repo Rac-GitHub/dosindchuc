@@ -31,7 +31,7 @@ public class DIVButtons {
 
     }
     
-    public void setAllDIVBtsSearchClean(boolean divBts) {
+    public void setAllDIVBtsSaveCancel(boolean divBts) {
 
         this.frmDIV.btDIV_Save.setEnabled(divBts);
         this.frmDIV.btDIV_Cancel.setEnabled(divBts);

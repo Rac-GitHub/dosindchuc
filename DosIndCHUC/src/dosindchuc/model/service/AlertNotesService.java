@@ -9,7 +9,7 @@ import dosindchuc.UI.swing.Help.ManagementButtons;
 import dosindchuc.UI.swing.Help.ManagementClean;
 import dosindchuc.UI.swing.Help.ManagementFields;
 import dosindchuc.UI.swing.Help.ManagementTablesModel;
-import dosindchuc.UI.swing.Help.AlertTableWithRowRendering;
+import dosindchuc.UI.swing.Help.AlertTableInMainFrm;
 import dosindchuc.UI.swing.MainFrm;
 import dosindchuc.UI.swing.ManagementFrm;
 import dosindchuc.model.dao.AlertNotesDao;
@@ -51,9 +51,9 @@ public class AlertNotesService {
 
     private ManagementActionListener Listeners;
     private List<AlertNotes> alertNotes;
- //   private AlertTableWithRowRendering tableModel;
+ //   private AlertTableInMainFrm tableModel;
     private DefaultTableModel model;
-    private AlertTableWithRowRendering tableNote;
+    private AlertTableInMainFrm tableNote;
   //  private Comparator<AlertNotes> alertNotesSort = comp;
     
    
@@ -70,7 +70,7 @@ public class AlertNotesService {
    //     this.Listeners = Listeners;
         dbPkIDs = new DbPkIDs();
   //      tableModel = new ManagementTablesModel(this.frmMain, this.frmMan);
-        tableNote = new AlertTableWithRowRendering(this.frmMain);
+        tableNote = new AlertTableInMainFrm(this.frmMain);
         
         alertNotesDao = new AlertNotesDao();
        
@@ -137,7 +137,7 @@ public class AlertNotesService {
             // display sorted info on table 
             
             model = setTableModel("toedit");
-    //        model = AlertTableWithRowRendering.modelAlertTable; // Mode setTableModel("toedit");
+    //        model = AlertTableInMainFrm.modelAlertTable; // Mode setTableModel("toedit");
 
             for (AlertNotes alN : alertNoteList) {
                 Object newAlInfo[] = new Object[]{alN.getPk_notes(), alN.getNotesType(), alN.getNotesLevel(),

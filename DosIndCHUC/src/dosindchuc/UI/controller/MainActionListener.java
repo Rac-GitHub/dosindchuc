@@ -4,17 +4,14 @@
  */
 package dosindchuc.UI.controller;
 
-import dosindchuc.UI.swing.Help.ManagementTablesModel;
-import dosindchuc.UI.swing.Help.AlertTableWithRowRendering;
 import dosindchuc.UI.swing.DIVFrm;
+import dosindchuc.UI.swing.Help.AlertTableInMainFrm;
 import dosindchuc.UI.swing.MainFrm;
 import dosindchuc.UI.swing.ManagementFrm;
 import dosindchuc.model.dao.UsersDao;
 import dosindchuc.model.service.AlertNotesService;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
-import java.awt.event.FocusEvent;
-import java.awt.event.ItemEvent;
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
 import javax.swing.JOptionPane;
@@ -27,10 +24,9 @@ public final class MainActionListener implements ActionListener, MouseListener {
     
     
     private MainFrm frm;
-    private DIVFrm frmDIV;
     private UsersDao service;
     private AlertNotesService alertNoteService;
-    private AlertTableWithRowRendering alertNotesTable;
+    private AlertTableInMainFrm alertNotesTable;
  
  
     
@@ -40,7 +36,7 @@ public final class MainActionListener implements ActionListener, MouseListener {
         
         service = new UsersDao();
         alertNoteService = new AlertNotesService(this.frm);
-        alertNotesTable = new AlertTableWithRowRendering(this.frm);
+        alertNotesTable = new AlertTableInMainFrm(this.frm);
         
         addListeners();
         initState();

@@ -8,15 +8,14 @@ import dosindchuc.model.dao.Help.ArrayList2D;
 import dosindchuc.model.dao.Help.DaoConnections;
 import dosindchuc.model.dao.Help.QueryMapper;
 import dosindchuc.model.entities.DIVinfo;
-import dosindchuc.model.entities.OldDIVinfo;
-import dosindchuc.model.entities.DbPkIDs;
+import dosindchuc.model.entities.DIVnotes;
 import dosindchuc.model.entities.Help.DateAndTime;
 import dosindchuc.model.entities.Help.SetEnums;
+import dosindchuc.model.entities.DIVOldInfo;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
-import javax.swing.JTable;
 
 /**
  *
@@ -28,17 +27,16 @@ public class DIVDao {
     private DaoConnections daoConnection;
     private ArrayList2D queryList;
     private DateAndTime dateAndTime = new DateAndTime();
-    private DbPkIDs dbPkIDs;
-//    private 
- //   private MainFrm frmMain;
+    private DIVinfo divINFO;
+
  
     
     
     public DIVDao() {
-   //     this.frmMain = frmMain;
-        dbPkIDs = new DbPkIDs();
+
         daoConnection = new DaoConnections();
         queryList = new ArrayList2D();
+        divINFO = new DIVinfo();
  
   
     }
@@ -76,10 +74,7 @@ public class DIVDao {
                 where = " WHERE " + where + "and " + defaulWhere;
                 
             }
-            
            
-            
-            
              
              System.out.println(" DIV Where ---- > " + where);
             
@@ -124,9 +119,9 @@ public class DIVDao {
      
      
      
-     public List<OldDIVinfo> getOldDIVInfo(String pk_id) {
+     public List<DIVOldInfo> getOldDIVInfo(String pk_id) {
 
-        final List<OldDIVinfo> oldDIVInfo = new ArrayList<>();
+        final List<DIVOldInfo> oldDIVInfo = new ArrayList<>();
 
         System.out.println("I am in DIV info ");
 
@@ -150,12 +145,12 @@ public class DIVDao {
             
             System.out.println(" DIV Where ---- >  " + query);
 
-            daoConnection.executePreparedQuery(query, new QueryMapper<OldDIVinfo>() {
+            daoConnection.executePreparedQuery(query, new QueryMapper<DIVOldInfo>() {
                 @Override
-                public List<OldDIVinfo> mapping(ResultSet rset) throws SQLException {
+                public List<DIVOldInfo> mapping(ResultSet rset) throws SQLException {
                     while (rset.next()) {
-                        OldDIVinfo olddivinfo = new OldDIVinfo();
-                       olddivinfo.setPk_dose( rset.getString("pk_dose") );
+                        DIVOldInfo olddivinfo = new DIVOldInfo();
+                        olddivinfo.setPk_dose( rset.getString("pk_dose") );
                         olddivinfo.setPeriodicity( rset.getString("periodicity") );
                         olddivinfo.setId_dsmt( rset.getString("id") );
                         olddivinfo.setTrimester( rset.getString("trimester") );
@@ -181,43 +176,47 @@ public class DIVDao {
 
     }
      
+   
      
-     
-     
-      public List<AlertNotes> getDsmtAlerNotes() {
+     public List<DIVnotes> getDIVNotes(String pk_dose) {
 
-        final List<AlertNotes> alertNotes = new ArrayList<>();
+        final List<DIVnotes> notesDIV = new ArrayList<>();
 
-        System.out.println("I am in alert dsmt_ notes ");
+        System.out.println("I am in DIV info ");
 
         try {
-
-            String query = "SELECT DISTINCT p1.pk_notes_dsmt, p1.alert_level, p3.id_mec,"
-                    + "p3.name, p3.department, p1.note, p1.status, p1.lastchange";
-            String from = " FROM dosimeter_notes as p1, dosimeter as p2, worker as p3";
-            String where = " WHERE p1.status = 'O' and p1.pk_dsmt = p2.pk_dsmt and p3.pk_id = p2.pk_id";
-            String sort = " ORDER BY p1.alert_level DESC , p1.lastchange DESC";
+         
+            String query = "SELECT DISTINCT note, status, alert_level, lastchange";
+            String from = " FROM dose_notes  ";
+    
+            String where = " WHERE pk_dose = " + pk_dose;
+  
+    
+             
+             System.out.println(" DIV Where ---- > " + where);
+            
+            String sort = " ORDER BY lastchange DESC ";
+            
+            String limit = " LIMIT 0, 5 ";
  
-            query = query + from + where + sort;
+            query = query + from + where + sort + limit;
+            
+            System.out.println(" DIV Where ---- >  " + query);
 
-            daoConnection.executePreparedQuery(query, new QueryMapper<AlertNotes>() {
+            daoConnection.executePreparedQuery(query, new QueryMapper<DIVnotes>() {
                 @Override
-                public List<AlertNotes> mapping(ResultSet rset) throws SQLException {
+                public List<DIVnotes> mapping(ResultSet rset) throws SQLException {
                     while (rset.next()) {
-                        AlertNotes alertNote = new AlertNotes();
-
-                        alertNote.setPk_notes(rset.getString("pk_notes_dsmt"));
-                        alertNote.setNotesLevel(SetEnums.note_alertlevel.valueOf(rset.getString("alert_level")));
-                        alertNote.setNotesType("dsmt");
-                        alertNote.setNotesMec(rset.getString("id_mec"));
-                        alertNote.setNotesName(rset.getString("name"));
-                        alertNote.setNotesDept(rset.getString("department"));
-                        alertNote.setNotesNote(rset.getString("note"));
-                        alertNote.setNotesStatus(SetEnums.note_status.valueOf(rset.getString("status")));
-                        alertNote.setNotesDate(rset.getString("lastchange").split("\\s+")[0]);
-                        alertNotes.add(alertNote);
+                        DIVnotes notesdiv = new DIVnotes();
+                        notesdiv.setNote(rset.getString("note") );
+                        notesdiv.setStatus(rset.getString("status") );
+                        notesdiv.setAlert_level(rset.getString("alert_level") );
+                        notesdiv.setLastchange( rset.getString("lastchange") );
+                        
+                        
+                        notesDIV.add(notesdiv);
                     }
-                    return alertNotes;
+                    return notesDIV;
                 }
             });
         } catch (SQLException e) {
@@ -225,115 +224,189 @@ public class DIVDao {
             //ignore exception
         }
 
-        return alertNotes;
+        return notesDIV;
 
     }
-    
+     
+     
       
-          
-    private void prepareQuery(Object[] alertNote,  int iRow, JTable table) {
+         public String saveDIV_doseInfo (List<DIVinfo> divInfo) {
+      
+            prepareQueryDoseInfo(divInfo);
 
-      
+            int sizeNparam = queryList.getNumRows();
+
+            String query = "INSERT INTO dose_info (";
+            String valuesInt = " VALUES (";
+            Object param[] = new Object[sizeNparam];
+
+            for (int i = 0; i < sizeNparam; i++) {
+                query += queryList.get(i, 0);
+                valuesInt += queryList.get(i, 1);
+                param[i] = queryList.get(i, 2);
+            }
+
+            queryList.remove();
+            
+            query += ")";
+            valuesInt += ")";
+            query += valuesInt;
+            
+            return daoConnection.insert(query, param);
+ 
+    }
+
         
+     
+ 
+          
+    private void prepareQueryDoseInfo(List<DIVinfo> divInfo) {
+
         String newDate = dateAndTime.currDateTime();
+        
+        divINFO = divInfo.get(0);
         
         int i = 0;
 
-        queryList.Add("note", i);
+        queryList.Add("pk_dsmt", i);
         queryList.Add(" ? ", i);
+        queryList.Add(divINFO.getPk_dsmt(), i);
         
-   //     System.out.println("  note -- no update get value -- >  " + table.getValueAt(iRow, 5) + " -> row  " + iRow + " ---- > type " + noteType);
-        queryList.Add(table.getValueAt(iRow, 5).toString(), i);
+        System.out.println ( " query DIV pk_dsmt ----> " + divINFO.getPk_dsmt());
 
         i += 1;
-        String status = table.getValueAt(iRow, 6).toString();
+        queryList.Add(", pk_id", i);
+        queryList.Add(", ? ", i);
+        queryList.Add(divINFO.getPk_id(), i);
+
+        i += 1;
+        queryList.Add(", year", i);
+        queryList.Add(", ? ", i);
+        queryList.Add(divINFO.getYear(), i);
+       
+        i += 1;
+        System.out.println ("   querylist peri --- > "  + divINFO.getPeriodicity());
+        if (divINFO.getPeriodicity().toString().equalsIgnoreCase("Mensal")) {
+            queryList.Add(", month", i);
+        } else {
+            if (divINFO.getPeriodicity().toString().equalsIgnoreCase("Trimestral")) {
+                queryList.Add(", trimester", i);
+            }
+        }
+        queryList.Add(", ? ", i);
+        queryList.Add(divINFO.getPerd(), i);
+    
+            
+        i += 1;
+        queryList.Add(", hp007", i);
+        queryList.Add(", ? ", i);
+        queryList.Add(divINFO.getHp007(), i);
         
-        System.out.print( " Status da note alert --- > " + status + "  old status" + alertNote[7].toString());
+        i+= 1;
+        queryList.Add(", hp10", i);
+        queryList.Add(", ? ", i);
+        queryList.Add(divINFO.getHp10(), i);
+         
+        i+= 1;
+        queryList.Add(", comments", i);
+        queryList.Add(", ? ", i);
+        queryList.Add(divINFO.getComments(), i);
+      
+        i+= 1;
+        queryList.Add(", timestamp", i);
+        queryList.Add(", ? ", i);
+        queryList.Add(newDate, i);
+    
+        i+= 1;
+        queryList.Add(", lastchange", i);
+        queryList.Add(", ? ", i);
+        queryList.Add(newDate, i);
+        
+        
+    }
+
+    
+           public String saveDIV_doseNote (List<DIVinfo> divInfo, String pk_dose) {
+      
+            prepareQueryDoseNote(divInfo, pk_dose);
+
+            int sizeNparam = queryList.getNumRows();
+
+            String query = "INSERT INTO dose_notes (";
+            String valuesInt = " VALUES (";
+            Object param[] = new Object[sizeNparam];
+
+            for (int i = 0; i < sizeNparam; i++) {
+                query += queryList.get(i, 0);
+                valuesInt += queryList.get(i, 1);
+                param[i] = queryList.get(i, 2);
+            }
+
+            queryList.remove();
+            
+            query += ")";
+            valuesInt += ")";
+            query += valuesInt;
+            
+            return daoConnection.insert(query, param);
+ 
+    }
+
+    
+   private void prepareQueryDoseNote(List<DIVinfo> divInfo, String pk_dose) {
+
+        String newDate = dateAndTime.currDateTime();
+        
+        divINFO = divInfo.get(0);
+        
+        int i = 0;
+
+        queryList.Add("pk_dose", i);
+        queryList.Add(" ? ", i);
+        queryList.Add(pk_dose, i);
+        
+        System.out.println ( " query DIV pk_dose ----> " + pk_dose);
+
+        i += 1;
+        queryList.Add(", note", i);
+        queryList.Add(", ? ", i);
+        queryList.Add(divINFO.getDose_note(), i);
+        
+        i+= 1;
+        queryList.Add(", timestamp", i);
+        queryList.Add(", ? ", i);
+        queryList.Add(newDate, i);
+
+        i += 1;
         queryList.Add(", status", i);
         queryList.Add(", ? ", i);
-        queryList.Add(status, i);
-
-        if ( ! status.matches(alertNote[7].toString()) ) {
-             i += 1;
-             System.out.print( " Status da note alert, dentro para o time  --- > " + dateAndTime.currDateTime());
-             queryList.Add(", status_timestamp", i);
-             queryList.Add(", ? ", i);
-             queryList.Add(newDate, i);
-             alertNote[7] = status;
-            
-        }
+        queryList.Add(divINFO.getNoteStatus().toString(), i);
         
+        i+= 1;
+        queryList.Add(", status_timestamp", i);
+        queryList.Add(", ? ", i);
+        queryList.Add(newDate, i);
+        
+       
         i += 1;
-        String alertLevel = table.getValueAt(iRow, 1).toString();
-        System.out.print( " Alert Level da note alert --- >  " + alertLevel + "old alert level  " + alertNote[2].toString());
-        
         queryList.Add(", alert_level", i);
         queryList.Add(", ? ", i);
-        queryList.Add(alertLevel, i);
-
-        if ( ! alertLevel.matches(alertNote[2].toString()) ) {
-            i += 1;
-            System.out.print( " LEVEL da note alert, dentro para o time  --- > " + dateAndTime.currDateTime());
-            queryList.Add(", alert_level_timestamp", i);
-             queryList.Add(", ? ", i);
-             queryList.Add(newDate, i);
-             alertNote[2] = alertLevel;
-            
-        }
-      
-    
+        queryList.Add(divINFO.getNoteAlertlevel().toString(), i);
+        
+        i+= 1;
+        queryList.Add(", alert_level_timestamp", i);
+        queryList.Add(", ? ", i);
+        queryList.Add(newDate, i);
+        
+        i+= 1;
+        queryList.Add(", lastchange", i);
+        queryList.Add(", ? ", i);
+        queryList.Add(newDate, i);
+        
+  
         
     }
-
-   
-      
-       public void updateAlertNote(int iRow, JTable table) {
     
-        ArrayList<Object[]> alertNoteInfo;
-        alertNoteInfo = dbPkIDs.getAlertNote();
-        
-        Object[] alertNote;
-        
-        alertNote = alertNoteInfo.get(iRow);
-           
-        String noteType = alertNote[1].toString();
-        prepareQuery(alertNote, iRow, table);
-        
-        alertNoteInfo.set(iRow, alertNote);
-
-        String query = null;
-        String where = null;
-        if (noteType.matches("dose")) {
-            query = "UPDATE dose_notes SET ";
-            where = " WHERE pk_notes_dose = " ;
-        }
-        
-        if (noteType.matches("dsmt")) {
-            query = "UPDATE dosimeter_notes SET ";
-            where = " WHERE pk_notes_dsmt = " ;
-        }
-        
-        System.out.println("query 1 --->   " + queryList );
-        int sizeNparam = queryList.getNumRows();
-        Object param[] = new Object[sizeNparam];
-
-        for (int i = 0; i < sizeNparam; i++) {
-            query += queryList.get(i, 0) + " = ? ";
-            param[i] = queryList.get(i, 2);
-        }
-  
-  
-        query += where + alertNote[0];
-
-        daoConnection.update(query, param);
-
-        queryList.remove();
     
-
-    }
-    
-      
-      
-      
       
 }

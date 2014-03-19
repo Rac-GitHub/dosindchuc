@@ -4,9 +4,7 @@
  */
 package dosindchuc.UI.swing.Help;
 
-import java.awt.Color;
 import java.awt.Component;
-import java.util.Hashtable;
 import javax.swing.JCheckBox;
 import javax.swing.JLabel;
 import javax.swing.JTable;

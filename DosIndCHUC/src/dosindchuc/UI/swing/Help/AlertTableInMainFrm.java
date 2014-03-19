@@ -8,8 +8,6 @@ import dosindchuc.UI.swing.MainFrm;
 import dosindchuc.model.entities.Help.SetEnums;
 import java.awt.Color;
 import java.awt.Component;
-import java.awt.event.ActionListener;
-import java.awt.event.MouseEvent;
 import javax.swing.DefaultCellEditor;
 import javax.swing.JCheckBox;
 import javax.swing.JComboBox;
@@ -23,7 +21,7 @@ import javax.swing.table.TableCellRenderer;
 
 
 
-public class AlertTableWithRowRendering  {
+public class AlertTableInMainFrm  {
    
     
         public static JTable NoteTable;
@@ -34,7 +32,7 @@ public class AlertTableWithRowRendering  {
         
     
       
-	public AlertTableWithRowRendering(MainFrm frmMain) {
+	public AlertTableInMainFrm(MainFrm frmMain) {
             
             this.frmMain = frmMain;
             checkBoxRenderer = new CheckBoxRenderer();
@@ -47,7 +45,7 @@ public class AlertTableWithRowRendering  {
     }
 
     public void setNoteTable(JTable NoteTable) {
-        AlertTableWithRowRendering.NoteTable = NoteTable;
+        AlertTableInMainFrm.NoteTable = NoteTable;
     }
 
     public DefaultTableModel getModelAlertTable() {
@@ -55,7 +53,7 @@ public class AlertTableWithRowRendering  {
     }
 
     public void setModelAlertTable(DefaultTableModel modelAlertTable) {
-        AlertTableWithRowRendering.modelAlertTable = modelAlertTable;
+        AlertTableInMainFrm.modelAlertTable = modelAlertTable;
     }
 
  
