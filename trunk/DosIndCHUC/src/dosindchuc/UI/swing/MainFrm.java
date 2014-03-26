@@ -74,7 +74,7 @@ public class MainFrm extends javax.swing.JFrame {
         panelShadow2 = new org.edisoncor.gui.panel.PanelShadow();
         txtNameOfUser = new org.edisoncor.gui.textField.TextFieldRound();
 
-        setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
+        setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
         panel2.setColorPrimario(new java.awt.Color(204, 204, 255));
         panel2.setIcon(new javax.swing.ImageIcon(getClass().getResource("/images/dosimetry1.jpg"))); // NOI18N
@@ -578,13 +578,13 @@ public class MainFrm extends javax.swing.JFrame {
     */
     
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    public javax.swing.JButton btAdministration;
-    public javax.swing.JButton btInsertIndDosimetry;
+    public static javax.swing.JButton btAdministration;
+    public static javax.swing.JButton btInsertIndDosimetry;
     public javax.swing.JButton btLoginCancel;
     public javax.swing.JButton btLoginOk;
     public javax.swing.JButton btNoteCancel;
     public javax.swing.JButton btNoteSave;
-    public javax.swing.JButton btProfInfo;
+    public static javax.swing.JButton btProfInfo;
     private javax.swing.JButton jButton1;
     public javax.swing.JScrollPane jScrollPane1;
     private org.edisoncor.gui.label.LabelMetric labelMetric1;

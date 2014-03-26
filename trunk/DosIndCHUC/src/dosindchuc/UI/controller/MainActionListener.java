@@ -74,6 +74,8 @@ public final class MainActionListener implements ActionListener, MouseListener {
                     //             panel.disable(frmMan.panelWorkerInfo);   // nao funciona
             }
          });
+        
+        MainFrm.btProfInfo.setEnabled(false);
 
          } else if (command.equalsIgnoreCase("btNoteSave")) {
           
@@ -93,6 +95,8 @@ public final class MainActionListener implements ActionListener, MouseListener {
    
             }
          });
+        
+        MainFrm.btInsertIndDosimetry.setEnabled(false);
         
          }
     }
@@ -147,9 +151,7 @@ public final class MainActionListener implements ActionListener, MouseListener {
             if (!((Boolean) alertNotesTable.getNoteTable().getValueAt(rowSelected, 8)) && (colSelected != -1)) {
 
                 alertNotesTable.getNoteTable().setValueAt(Boolean.TRUE, rowSelected, 8);
-//
-//                this.frm.btNoteSave.setEnabled(true);
-//                this.frm.btNoteCancel.setEnabled(true);
+
             }
 
         }
