@@ -637,6 +637,8 @@ public class DIVTablesModel {
         DefaultTableCellRenderer leftRenderer = new DefaultTableCellRenderer();
         leftRenderer.setHorizontalAlignment(JLabel.LEFT);
 
+        System.out.println(" Fonts " + leftRenderer.getFont());
+        
         for (int i = 0; i < widths.length; i++) {
 
             table.getColumnModel().getColumn(i).setPreferredWidth(Integer.parseInt(widths[i]));
@@ -671,10 +673,10 @@ public class DIVTablesModel {
     private String[] oldDIVTable(String nameOrwidth) {
 
         if (nameOrwidth.equalsIgnoreCase("name")) {
-            String[] names = {"pk_dose", "Dsmt", "Perd", "Year", "Hp007", "Hp10", "Inserted ", "Comments", "LastChange"};
+            String[] names = {"pk_dose", "Dsmt", "Per", "Year", "Hp007", "Hp10", "Inserted ", "Comments", "LastChange"};
             return names;
         } else {
-            String[] widths = {"0", "10", "10", "10", "10", "10", "70", "80", "70"};
+            String[] widths = {"0", "15", "10", "10", "20", "20", "60", "60", "60"};
             return widths;
         }
 

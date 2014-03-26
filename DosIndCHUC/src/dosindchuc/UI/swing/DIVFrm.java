@@ -7,12 +7,9 @@ package dosindchuc.UI.swing;
 
 import dosindchuc.UI.controller.DIVActionListener;
 import dosindchuc.UI.swing.Help.DIVButtons;
-import dosindchuc.UI.swing.Help.ManagementButtons;
-import dosindchuc.UI.swing.Help.ManagementFields;
 import dosindchuc.model.entities.Help.SetEnums;
 import javax.swing.JButton;
 import javax.swing.JComboBox;
-import javax.swing.JTable;
 import javax.swing.JTextField;
 
 /**
@@ -22,7 +19,6 @@ import javax.swing.JTextField;
 public class DIVFrm extends javax.swing.JFrame {
 
     DIVActionListener listeners;
-//    ManagementFields setFieldsState;
     DIVButtons setButtonsState;
     
     
@@ -34,7 +30,6 @@ public class DIVFrm extends javax.swing.JFrame {
         initComponents();
    
         listeners = new DIVActionListener(this);
-   //     setFieldsState = new DosimetryFields(this);
         setButtonsState = new DIVButtons(this);
         
         initState ();
@@ -72,7 +67,12 @@ public class DIVFrm extends javax.swing.JFrame {
         panelTableDIVNotes = new javax.swing.JScrollPane();
         txtWorkerNameDIV = new javax.swing.JTextField();
 
-        setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+        setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
+        addWindowListener(new java.awt.event.WindowAdapter() {
+            public void windowClosing(java.awt.event.WindowEvent evt) {
+                formWindowClosing(evt);
+            }
+        });
 
         jPanel1.setBackground(new java.awt.Color(255, 255, 255));
         jPanel1.setBorder(javax.swing.BorderFactory.createTitledBorder(""));
@@ -165,7 +165,7 @@ public class DIVFrm extends javax.swing.JFrame {
 
         txtWorkerNameDIV.setEditable(false);
         txtWorkerNameDIV.setBackground(new java.awt.Color(238, 238, 238));
-        txtWorkerNameDIV.setFont(new java.awt.Font("Dialog", 2, 10)); // NOI18N
+        txtWorkerNameDIV.setFont(new java.awt.Font("Dialog", 3, 10)); // NOI18N
         txtWorkerNameDIV.setForeground(new java.awt.Color(153, 204, 255));
         txtWorkerNameDIV.setHorizontalAlignment(javax.swing.JTextField.RIGHT);
         txtWorkerNameDIV.setBorder(null);
@@ -281,6 +281,12 @@ public class DIVFrm extends javax.swing.JFrame {
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
+
+    private void formWindowClosing(java.awt.event.WindowEvent evt) {//GEN-FIRST:event_formWindowClosing
+        // TODO add your handling code here:
+        MainFrm.btInsertIndDosimetry.setEnabled(true);
+        
+    }//GEN-LAST:event_formWindowClosing
    /**
      * @param args the command line arguments
      */
@@ -318,22 +324,9 @@ public class DIVFrm extends javax.swing.JFrame {
     
     
     private void initState () {
- /*         
-        getCbDoseNoteIndex().setEnabled(false);
-        getCbDosimeterNotesIndex().setEnabled(false);
-        setFieldsState.setAllEdit(false,false,false);
-        setButtonsState.setAllWorkerBtsInit(true);
-        btWorkerUpdate.setEnabled(false);
-   */     
+ 
         setButtonsState.setAllDIVBtsInit(true);
-  /*      setButtonsState.setAllDoseBtsInit(false);
-        
-        setButtonsState.setAllDoseNoteBtsInit(false);
-        setButtonsState.setAllDsmtNoteBtsInit(false);  */
-        
-       
-        
-  //      listeners.addNewDIVInfoTableListeners();
+ 
                 
     } 
 

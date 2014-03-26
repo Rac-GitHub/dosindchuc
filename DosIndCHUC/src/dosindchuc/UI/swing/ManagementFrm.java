@@ -171,8 +171,13 @@ public class ManagementFrm extends javax.swing.JFrame {
         searchTxtMec = new javax.swing.JTextField();
         searchBtClean = new javax.swing.JButton();
 
-        setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+        setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
         setPreferredSize(new java.awt.Dimension(1447, 840));
+        addWindowListener(new java.awt.event.WindowAdapter() {
+            public void windowClosing(java.awt.event.WindowEvent evt) {
+                formWindowClosing(evt);
+            }
+        });
 
         jPanel1.setBackground(new java.awt.Color(255, 255, 255));
         jPanel1.setBorder(javax.swing.BorderFactory.createTitledBorder(""));
@@ -1088,6 +1093,11 @@ public class ManagementFrm extends javax.swing.JFrame {
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
+
+    private void formWindowClosing(java.awt.event.WindowEvent evt) {//GEN-FIRST:event_formWindowClosing
+        // TODO add your handling code here:
+        MainFrm.btProfInfo.setEnabled(true);
+    }//GEN-LAST:event_formWindowClosing
    /**
      * @param args the command line arguments
      */
@@ -1109,13 +1119,7 @@ public class ManagementFrm extends javax.swing.JFrame {
         }
         //</editor-fold>
 
-       
-        /* Create and display the form */
-//        java.awt.EventQueue.invokeLater(new Runnable() {
-//            public void run() {
-//                new ManagementFrm().setVisible(true);
-//            }
-//        });
+
     }
     
     
