@@ -6,6 +6,7 @@ package dosindchuc.model.dao;
 
 import dosindchuc.model.dao.Help.ArrayList2D;
 import dosindchuc.model.dao.Help.DaoConnections;
+import dosindchuc.model.dao.Help.DaoExceptions;
 import dosindchuc.model.dao.Help.QueryMapper;
 import dosindchuc.model.dao.Help.RandomNumbers;
 import dosindchuc.model.entities.Dosimeter;
@@ -37,75 +38,70 @@ public class DosimeterDao {
     
     
     public List<Dosimeter> getDosimetersInfo(String dsmt_id, String worker_id) {
-		
-		final List<Dosimeter> dosimeters = new ArrayList<>();
-		
-		try {
-                        System.out.println("get INfo "+ worker_id.isEmpty() + "  " + dsmt_id.isEmpty());
-                        String sort = " ORDER BY status, pk_dsmt DESC ";
-                        String limit = " LIMIT 10";
-                        
-                        String query = null;
-                        
-                        if ( worker_id.isEmpty() && dsmt_id.isEmpty() ) {
-                            query = "SELECT * from dosimeter" + sort;
-                        } else if ( ! (worker_id.isEmpty()) && dsmt_id.isEmpty() ) {
-                            System.out.println("get INfo "+ worker_id.isEmpty() + "  " + dsmt_id.isEmpty());
-                            query = "SELECT * FROM dosimeter WHERE pk_id = " + worker_id  + sort;
-                        } else if ( dsmt_id.isEmpty() && worker_id.isEmpty() ) {
-                            query = "SELECT * FROM dosimeter WHERE pk_dsmt = " + dsmt_id + sort;
-                        } else {
-                            query = "SELECT * FROM dosimeter WHERE pk_dsmt = " + dsmt_id + " AND pk_id = " + worker_id + sort;
-                        }
-                           
-			daoConnection.executePreparedQuery(query, new QueryMapper<Dosimeter>() {
+	
+        final List<Dosimeter> dosimeters = new ArrayList<>();
 
-				@Override
-				public List<Dosimeter> mapping(ResultSet rset) throws SQLException {
-					while (rset.next()) {
-						Dosimeter dosimeter = new Dosimeter();
-						dosimeter.setPk_dsmt( rset.getString("pk_dsmt") );
-						dosimeter.setPk_id( rset.getString("pk_id") );
-						dosimeter.setId( rset.getString("id") );
-						dosimeter.setLabel( rset.getString("label") );
-						dosimeter.setType( SetEnums.dsmt_type.valueOf( rset.getString("type")) );
-						dosimeter.setPeriodicity( SetEnums.dsmt_periodicity.valueOf( rset.getString("periodicity")) );
-						dosimeter.setSupplier( SetEnums.dsmt_supplier.valueOf( rset.getString("supplier")) );
-						dosimeter.setComments( rset.getString("comments") );
-						dosimeter.setTimestamp( rset.getString("timestamp") );
-                                                dosimeter.setStatus( SetEnums.status.valueOf( rset.getString("status") ) );
-                                                dosimeter.setStatus_timestamp( rset.getString("status_timestamp") );
-                                                dosimeter.setLastchange( rset.getString("lastchange") );
-                                                dosimeters.add(dosimeter);
-					}
- 					return dosimeters;
-				}
-				
-			});
-		} catch (SQLException e) {
-                    e.printStackTrace();
-			//ignore exception
-		}
-		
-		return dosimeters;
-		
-	}
+        String sort = " ORDER BY status, pk_dsmt DESC ";
+        String limit = " LIMIT 10";
+
+        String query = null;
+
+        if (worker_id.isEmpty() && dsmt_id.isEmpty()) {
+            query = "SELECT * from dosimeter" + sort;
+        } else if (!(worker_id.isEmpty()) && dsmt_id.isEmpty()) {
+            query = "SELECT * FROM dosimeter WHERE pk_id = " + worker_id + sort;
+        } else if (dsmt_id.isEmpty() && worker_id.isEmpty()) {
+            query = "SELECT * FROM dosimeter WHERE pk_dsmt = " + dsmt_id + sort;
+        } else {
+            query = "SELECT * FROM dosimeter WHERE pk_dsmt = " + dsmt_id + " AND pk_id = " + worker_id + sort;
+        }
+
+        daoConnection.executePreparedQuery(query, new QueryMapper<Dosimeter>() {
+            @Override
+            public List<Dosimeter> mapping(ResultSet rset) {
+
+                try {
+                    while (rset.next()) {
+                        Dosimeter dosimeter = new Dosimeter();
+                        dosimeter.setPk_dsmt(rset.getString("pk_dsmt"));
+                        dosimeter.setPk_id(rset.getString("pk_id"));
+                        dosimeter.setId(rset.getString("id"));
+                        dosimeter.setLabel(rset.getString("label"));
+                        dosimeter.setType(SetEnums.dsmt_type.valueOf(rset.getString("type")));
+                        dosimeter.setPeriodicity(SetEnums.dsmt_periodicity.valueOf(rset.getString("periodicity")));
+                        dosimeter.setSupplier(SetEnums.dsmt_supplier.valueOf(rset.getString("supplier")));
+                        dosimeter.setComments(rset.getString("comments"));
+                        dosimeter.setTimestamp(rset.getString("timestamp"));
+                        dosimeter.setStatus(SetEnums.status.valueOf(rset.getString("status")));
+                        dosimeter.setStatus_timestamp(rset.getString("status_timestamp"));
+                        dosimeter.setLastchange(rset.getString("lastchange"));
+                        dosimeters.add(dosimeter);
+                    }
+                    return dosimeters;
+
+                } catch (SQLException ex) {
+                    throw new DaoExceptions("Error on ResulSet of query (getDosimetersInfo): ",
+                            DaoConnections.class, ex);
+                }
+            }
+        });
+
+
+
+        return dosimeters;
+
+    }
     
-    
-   
-    
-    private void prepareQuery (Dosimeter dsmt, String newOrUpdate) {
-  
+     private void prepareQuery(Dosimeter dsmt, String newOrUpdate) {
+
         int i = 0;
 
-        System.out.print(" dadasd adasd a : " + dsmt.getPk_id());
         if (dsmt.getPk_id().isEmpty()) {
         }
         queryList.Add("pk_id", i);
         queryList.Add(" ? ", i);
         queryList.Add(dsmt.getPk_id(), i);
 
-        System.out.print(" dadasd adasd a : " + dsmt.getPk_id());
         i += 1;
         if (dsmt.getId().isEmpty()) {
             dsmt.setId(Integer.toString(random.RandomNumbers(999999, 123399933)));
@@ -167,57 +163,53 @@ public class DosimeterDao {
 
     }
 
-    
-         public String insertDosimeter (Dosimeter dsmt) {
-      
-            prepareQuery(dsmt,"new");
+       public String insertDosimeter(Dosimeter dsmt) {
 
-            int sizeNparam = queryList.getNumRows();
+        prepareQuery(dsmt, "new");
 
-            String query = "INSERT INTO dosimeter (";
-            String valuesInt = " VALUES (";
-            Object param[] = new Object[sizeNparam];
+        int sizeNparam = queryList.getNumRows();
 
-            for (int i = 0; i < sizeNparam; i++) {
-                query += queryList.get(i, 0);
-                valuesInt += queryList.get(i, 1);
-                param[i] = queryList.get(i, 2);
-            }
+        String query = "INSERT INTO dosimeter (";
+        String valuesInt = " VALUES (";
+        Object param[] = new Object[sizeNparam];
 
-            queryList.remove();
-            
-            query += ")";
-            valuesInt += ")";
-            query += valuesInt;
-            
-            return daoConnection.insert(query, param);
- 
-    }
+        for (int i = 0; i < sizeNparam; i++) {
+            query += queryList.get(i, 0);
+            valuesInt += queryList.get(i, 1);
+            param[i] = queryList.get(i, 2);
+        }
 
-        
-        
-     public void updateDosimeter (Dosimeter dsmt, String dsmt_id) {
-      
-            System.out.println("Dosimeter info no update Dosimeter id mec" + dsmt.getId());
-            System.out.println("Dosimeter info no update Dosimeter dsmt_id  OOO " + dsmt_id);
-            prepareQuery(dsmt,"update");
-            
-            int sizeNparam = queryList.getNumRows();
-            String query = "UPDATE dosimeter SET ";
-            Object param[] = new Object[sizeNparam];
+        queryList.remove();
 
-            for (int i = 0; i < sizeNparam; i++) {
-                query += queryList.get(i, 0) + " = ? " ;
-                param[i] = queryList.get(i, 2);
-            }
+        query += ")";
+        valuesInt += ")";
+        query += valuesInt;
 
-            query += " WHERE pk_dsmt = " + dsmt_id;
-
-            daoConnection.update(query, param);
-            
-            queryList.remove();
+        return daoConnection.insert(query, param);
 
     }
+
         
+    public void updateDosimeter(Dosimeter dsmt, String dsmt_id) {
+
+        prepareQuery(dsmt, "update");
+
+        int sizeNparam = queryList.getNumRows();
+        String query = "UPDATE dosimeter SET ";
+        Object param[] = new Object[sizeNparam];
+
+        for (int i = 0; i < sizeNparam; i++) {
+            query += queryList.get(i, 0) + " = ? ";
+            param[i] = queryList.get(i, 2);
+        }
+
+        query += " WHERE pk_dsmt = " + dsmt_id;
+
+        daoConnection.update(query, param);
+
+        queryList.remove();
+
+    }
+      
     
 }

@@ -22,12 +22,6 @@ public class RunDosIndCHUC {
             java.awt.EventQueue.invokeLater(new Runnable() {
             @Override
             public void run() {
-                int[][][] points = {{{100,200,300}},{{122,202,402}},{{203,253,143}}};
-                System.out.println(points[0][0][0]);
-                System.out.println(points[0][0][1]);
-                System.out.println(points[0][0][2]);
-                System.out.println(points[2][0][0]);
-                 System.out.println(points.length);
                 new MainFrm().setVisible(true);
                 
             }

@@ -9,14 +9,12 @@ import dosindchuc.model.entities.Help.SetEnums.dsmt_supplier;
 import dosindchuc.model.entities.Help.SetEnums.dsmt_type;
 import dosindchuc.model.entities.Help.SetEnums.status;
 
-
-
 /**
  *
  * @author ir
  */
 public class Dosimeter {
-    
+
     private String pk_dsmt;
     private String pk_id;
     private String id;
@@ -30,52 +28,12 @@ public class Dosimeter {
     private String status_timestamp;
     private String lastchange;
 
-    
-    
     // constructors
-    
     public Dosimeter() {
-        
     }
 
-    public Dosimeter(String pk_dsmt, String pk_id, String id, String label, dsmt_type type,
-            dsmt_periodicity periodicity, dsmt_supplier supplier, String comments, String timestamp,
-            status status, String status_timestamp, String lastchange) {
-        this.pk_dsmt = pk_dsmt;
-        this.pk_id = pk_id;
-        this.id = id;
-        this.label = label;
-        this.type = type;
-        this.periodicity = periodicity;
-        this.supplier = supplier;
-        this.comments = comments;
-        this.timestamp = timestamp;
-        this.status = status;
-        this.status_timestamp = status_timestamp;
-        this.lastchange = lastchange;
-    }
 
-    public Dosimeter(String pk_id, String id, String label, dsmt_type type, dsmt_periodicity periodicity, dsmt_supplier supplier
-            , String comments, String timestamp, status status, String status_timestamp) {
-        this.pk_id = pk_id;
-        this.id = id;
-        this.label = label;
-        this.type = type;
-        this.periodicity = periodicity;
-        this.supplier = supplier;
-        this.comments = comments;
-        this.timestamp = timestamp;
-        this.status = status;
-        this.status_timestamp = status_timestamp;
-    }
-
-    
-    
-    
-    
-    
     // set and getters
-
     public String getPk_dsmt() {
         return pk_dsmt;
     }
@@ -171,21 +129,4 @@ public class Dosimeter {
     public void setLastchange(String lastchange) {
         this.lastchange = lastchange;
     }
-    
-    
-    
-    
-    
-    // toString
-
-    @Override
-    public String toString() {
-        return "Dosimeter{" + "pk_dsmt=" + pk_dsmt + ", pk_id=" + pk_id + ", id=" 
-                + id + ", label=" + label + ", type=" + type + ", periodicity=" + periodicity + ", supplier=" 
-                + supplier + ", comments=" + comments + ", timestamp=" + timestamp + ", status=" + status 
-                + ", status_timestamp=" + status_timestamp + ", lastchange=" + lastchange + '}';
-    }
-    
-    
-    
 }

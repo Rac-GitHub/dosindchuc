@@ -168,7 +168,7 @@ public class DIVService {
         for (DIVinfo div : divInfo) {
 
             div.setNoteAlertlevel(SetEnums.note_alertlevel.N);
-            div.setNoteStatus(SetEnums.note_status.O);
+            div.setNoteStatus(SetEnums.note_status.C);
 
             Object newDIVInfo[] = new Object[]{div.getPk_id(), div.getPk_dsmt(), div.getPeriodicity(),
                 div.getName(), div.getId_mec(), div.getCategory(), div.getDepartment(), div.getId_dsmt(), div.getMonth(),
@@ -196,12 +196,10 @@ public class DIVService {
 
         String pk_id = divPk_id.toString();
 
-        ArrayList<Object[]> dsmtIds = new ArrayList();
-
         ArrayList<String> allDsmtIds = new ArrayList();
         ArrayList<String> allDsmtPerd = new ArrayList();
 
-        dsmtIds = dbPkIDs.getDiv_dsmtID();
+        ArrayList<Object[]> dsmtIds = dbPkIDs.getDiv_dsmtID();
 
         for (int i = 0; i < dsmtIds.size(); i++) {
 
@@ -340,6 +338,7 @@ public class DIVService {
 
                 divPeriod[0] = Trimester[trimester];
                 divPeriod[1] = year;
+
                 return divPeriod;
 
             default:

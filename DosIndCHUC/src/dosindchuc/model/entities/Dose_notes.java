@@ -4,7 +4,6 @@
  */
 package dosindchuc.model.entities;
 
-
 import dosindchuc.model.entities.Help.SetEnums.note_alertlevel;
 import dosindchuc.model.entities.Help.SetEnums.note_status;
 
@@ -13,8 +12,7 @@ import dosindchuc.model.entities.Help.SetEnums.note_status;
  * @author ir
  */
 public class Dose_notes {
-    
-    
+
     private String pk_notes_dose;
     private String pk_dose;
     private String note;
@@ -25,17 +23,11 @@ public class Dose_notes {
     private String alert_level_timestamp;
     private String lastchange;
 
-    
-    
     // constructors
-
     public Dose_notes() {
-    
     }
 
-    
     // getter and setters
-
     public String getPk_notes_dose() {
         return pk_notes_dose;
     }
@@ -58,7 +50,7 @@ public class Dose_notes {
 
     public void setTimestamp(String timestamp) {
         this.timestamp = timestamp;
-     }
+    }
 
     public note_status getStatus() {
         return status;
@@ -100,7 +92,6 @@ public class Dose_notes {
         this.alert_level_timestamp = alert_level_timestamp;
     }
 
-    
     public String getLastchange() {
         return lastchange;
     }
@@ -108,7 +99,4 @@ public class Dose_notes {
     public void setLastchange(String lastchange) {
         this.lastchange = lastchange;
     }
-
-
-    
 }

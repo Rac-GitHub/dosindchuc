@@ -17,8 +17,7 @@ import dosindchuc.model.entities.Help.SetEnums.worker_department;
  * @author ir
  */
 public class DIVinfo {
- 
-    
+
     private String pk_id;
     private String pk_dsmt;
     private String name;
@@ -38,15 +37,10 @@ public class DIVinfo {
     private SetEnums.note_status noteStatus;
     private String timestamp;
     private String perd;
-    
-    
-    
+
     public DIVinfo() {
-    
     }
 
-   
-        
     public String getPk_id() {
         return pk_id;
     }
@@ -87,8 +81,6 @@ public class DIVinfo {
         this.category = category;
     }
 
-    
-    
     public worker_department getDepartment() {
         return department;
     }
@@ -96,8 +88,6 @@ public class DIVinfo {
     public void setDepartment(worker_department department) {
         this.department = department;
     }
-
-    
 
     public String getId_dsmt() {
         return id_dsmt;
@@ -115,8 +105,6 @@ public class DIVinfo {
         this.periodicity = periodicity;
     }
 
-    
-    
     public Trimester getTrimester() {
         return trimester;
     }
@@ -140,10 +128,6 @@ public class DIVinfo {
     public void setYear(String year) {
         this.year = year;
     }
-    
-    
-    
-    
 
     public String getHp007() {
         return hp007;
@@ -185,8 +169,6 @@ public class DIVinfo {
         this.timestamp = timestamp;
     }
 
-    
-    
     public String getPerd() {
         return perd;
     }
@@ -210,8 +192,4 @@ public class DIVinfo {
     public void setNoteStatus(note_status noteStatus) {
         this.noteStatus = noteStatus;
     }
-    
- 
-  
-    
 }

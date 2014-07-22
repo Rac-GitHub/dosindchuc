@@ -4,18 +4,8 @@
  */
 package dosindchuc.UI.swing;
 
-import dosindchuc.UI.controller.DIVActionListener;
 import dosindchuc.UI.controller.MainActionListener;
-import dosindchuc.UI.swing.Help.AlertTableInMainFrm;
-import java.awt.Color;
-import java.awt.Component;
 import javax.swing.JButton;
-import javax.swing.JComponent;
-import javax.swing.JScrollPane;
-import javax.swing.JTable;
-import javax.swing.ListSelectionModel;
-import javax.swing.table.DefaultTableModel;
-import javax.swing.table.TableCellRenderer;
 import org.edisoncor.gui.passwordField.PasswordField;
 import org.edisoncor.gui.textField.TextField;
 
@@ -26,9 +16,6 @@ import org.edisoncor.gui.textField.TextField;
  */
 public class MainFrm extends javax.swing.JFrame {
 
-    private MainActionListener listeners;
-    private AlertTableInMainFrm tableNote;
-  
     
     /**
      * Creates new form MainFrm
@@ -36,11 +23,8 @@ public class MainFrm extends javax.swing.JFrame {
     public MainFrm() {
    
         initComponents();
-        listeners = new MainActionListener(this);
-        System.out.println("3+3");
-        tableNote = new AlertTableInMainFrm(this);
-         System.out.println("3+3");
-  //      setNotetable();
+        MainActionListener mainActionListener = new MainActionListener(this);
+        //      tableNote = new AlertTableInMainFrm(this);
         
     }
 
@@ -417,7 +401,7 @@ public class MainFrm extends javax.swing.JFrame {
     }
 
     public void setBtInsertIndDosimetry(JButton btInsertIndDosimetry) {
-        this.btInsertIndDosimetry = btInsertIndDosimetry;
+        MainFrm.btInsertIndDosimetry = btInsertIndDosimetry;
     }
 
     public JButton getBtAdministration() {
@@ -425,7 +409,7 @@ public class MainFrm extends javax.swing.JFrame {
     }
 
     public void setBtAdministration(JButton btAdministration) {
-        this.btAdministration = btAdministration;
+        MainFrm.btAdministration = btAdministration;
     }
 
     public JButton getBtNoteCancel() {
@@ -457,7 +441,7 @@ public class MainFrm extends javax.swing.JFrame {
     }
 
     public void setBtProfInfo(JButton btProfInfo) {
-        this.btProfInfo = btProfInfo;
+        MainFrm.btProfInfo = btProfInfo;
     }
 
     public JButton getBtNoteSave() {
@@ -485,98 +469,7 @@ public class MainFrm extends javax.swing.JFrame {
     }
     
     
-    
-    
-   /* public void setNotetable () {
-      
-              
-        DefaultTableModel model = new DefaultTableModel(new Object [][] {},
-                new String [] {
-                "Level", "Type", "Mec.", "Name", "Dept.", "Note", "Status", "Date"
-                }
-                ){
-                    @Override
-                public boolean isCellEditable(int rowIndex, int colIndex) {
-      
-                        switch(colIndex){
-                            case 0:                   // ONLY 4TH COL IS EDITABLE
-                                return false;
-                            case 6:                   // ONLY 4TH COL IS EDITABLE
-                                return false;
-                            case 8:                   // ONLY 4TH COL IS EDITABLE
-                                return false;
-                            default:
-                                return true;
-                           }
-                        
-                    }
-                };
-        
-        JTable NoteTable = createData(model);
-        
-        NoteTable.setModel(model);
-        
-        NoteTable.setBackground(new java.awt.Color(238, 238, 238));
-        NoteTable.setBorder(javax.swing.BorderFactory.createTitledBorder(""));
-        NoteTable.setFont(new java.awt.Font("DejaVu Sans", 0, 10)); // NOI18N
-       
-        
-        
-        NoteTable.setEnabled(true);
-        NoteTable.setFocusable(true);
-        NoteTable.setGridColor(Color.LIGHT_GRAY);
-        NoteTable.setOpaque(false);
-        NoteTable.setRequestFocusEnabled(false);
-        NoteTable.setSelectionMode(javax.swing.ListSelectionModel.SINGLE_SELECTION);
-        NoteTable.setAutoResizeMode(javax.swing.JTable.AUTO_RESIZE_LAST_COLUMN);
-        NoteTable.setShowHorizontalLines(true);
-        NoteTable.setShowVerticalLines(true);
-        NoteTable.setFont(new java.awt.Font("Dialog", 0, 10)); // NOI18N
-        NoteTable.setUpdateSelectionOnSort(false);
-    //    NoteTable.set
-        
-        NoteTable.setDragEnabled(false);
-        NoteTable.setRowSelectionAllowed(true);
-        NoteTable.setColumnSelectionAllowed(false);
-        System.out.println("nnnote table ... " + NoteTable.getColumnSelectionAllowed());
-        
- 
-        
-    }
-    
-    
-    private JTable createData(DefaultTableModel model)
-	
-       {
-		JTable table = new JTable( model )
-		{
-                    @Override
-			public Component prepareRenderer(TableCellRenderer renderer, int row, int column)
-			{
-				Component c = super.prepareRenderer(renderer, row, column);
 
-				//  Color row based on a cell value
-
-				if (isRowSelected(row))
-				{
-					c.setBackground(Color.BLUE);
-					int modelRow = convertRowIndexToModel(row);
-					String type = (String)getModel().getValueAt(modelRow, 0);
-					if ("Buy".equals(type)) c.setBackground(Color.GREEN);
-					if ("Sell".equals(type)) c.setBackground(Color.YELLOW); 
-				}
-
-				return c;
-			}
-		};
-
-	//	table.setPreferredScrollableViewportSize(table.getPreferredSize());
-		
-       
-		return  table ;
-	}
-    */
-    
     // Variables declaration - do not modify//GEN-BEGIN:variables
     public static javax.swing.JButton btAdministration;
     public static javax.swing.JButton btInsertIndDosimetry;

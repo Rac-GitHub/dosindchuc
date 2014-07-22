@@ -13,13 +13,12 @@ import java.util.List;
  * @author ir
  */
 public interface QueryMapper<T> {
-    
+
     /**
      *
      * @param rset
      * @return
      * @throws SQLException
      */
-    List<T> mapping(ResultSet rset) throws SQLException;
-    
+    List<T> mapping(ResultSet rset) ;
 }

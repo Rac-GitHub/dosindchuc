@@ -18,28 +18,20 @@ import javax.swing.table.DefaultTableCellRenderer;
 import javax.swing.table.DefaultTableModel;
 import javax.swing.table.TableCellRenderer;
 
+public class AlertTableInMainFrm {
 
+    public static JTable NoteTable;
+    public static DefaultTableModel modelAlertTable;
+    private MainFrm frmMain;
+    private CheckBoxRenderer checkBoxRenderer;
 
+    public AlertTableInMainFrm(MainFrm frmMain) {
 
-public class AlertTableInMainFrm  {
-   
-    
-        public static JTable NoteTable;
-        public static DefaultTableModel modelAlertTable;
-  
-        private MainFrm frmMain;
-        private CheckBoxRenderer checkBoxRenderer;
-        
-    
-      
-	public AlertTableInMainFrm(MainFrm frmMain) {
-            
-            this.frmMain = frmMain;
-            checkBoxRenderer = new CheckBoxRenderer();
-                
-	}
+        this.frmMain = frmMain;
+        checkBoxRenderer = new CheckBoxRenderer();
 
-        
+    }
+
     public JTable getNoteTable() {
         return NoteTable;
     }
@@ -56,200 +48,167 @@ public class AlertTableInMainFrm  {
         AlertTableInMainFrm.modelAlertTable = modelAlertTable;
     }
 
- 
-    
-    
-        
-        public void  setSettingsAlertTable (String tableStatus) {
-            
-            
-            System.out.println("  Que caracas 1--- >>>> " +  tableStatus);
-            
-            if (tableStatus.equalsIgnoreCase("toedit")) {
-             
-                this.frmMain.btNoteSave.setEnabled(true);
-                this.frmMain.btNoteCancel.setEnabled(true);
-                
-            }
-            
-            if (tableStatus.equalsIgnoreCase("newToActionListeners")) {
-                
-                setModelAlertTable(setModelForAlertTable());
-                setNoteTable(NoteTable);
-           
-                System.out.println("  Que caracas -Model-- >>>> " +  getModelAlertTable());
-                System.out.println("  Que caracas -Table -- >>>> " +  getNoteTable());
-                System.out.println(" Aqui ..... -> " +  this.frmMain);
-                this.frmMain.jScrollPane1.add(NoteTable);
-                this.frmMain.jScrollPane1.setViewportView( NoteTable );
-            }
-            
-          }
-                
- 
-        
-        
-       private DefaultTableModel setModelForAlertTable () {
-             
-           DefaultTableModel model = setModelSettingsAlertTable();
+    public void setSettingsAlertTable(String tableStatus) {
 
-           NoteTable = createTableWithrowRendering(model);
+        if (tableStatus.equalsIgnoreCase("toedit")) {
 
-           tableDefaultSettings();
+            this.frmMain.btNoteSave.setEnabled(true);
+            this.frmMain.btNoteCancel.setEnabled(true);
 
-           String[] colWidths = noteAlertTable("width");
+        }
 
-           tableColumnsSettings(colWidths);
+        if (tableStatus.equalsIgnoreCase("newToActionListeners")) {
 
-           JComboBox cbLevel = new JComboBox(SetEnums.note_alertlevel.values());
-           JComboBox cbStatus = new JComboBox(SetEnums.note_status.values());
-           
-           NoteTable.getColumnModel().getColumn(2).setCellEditor(new DefaultCellEditor(cbLevel));
-           NoteTable.getColumnModel().getColumn(7).setCellEditor(new DefaultCellEditor(cbStatus));
-           NoteTable.getColumnModel().getColumn(9).setCellEditor(new DefaultCellEditor(new JCheckBox()));
-           
-           NoteTable.getColumnModel().getColumn(9).setCellRenderer(checkBoxRenderer);
+            setModelAlertTable(setModelForAlertTable());
+            setNoteTable(NoteTable);
+            this.frmMain.jScrollPane1.add(NoteTable);
+            this.frmMain.jScrollPane1.setViewportView(NoteTable);
+        }
 
-  //         NoteTable.setRowSorter(new TableRowSorter(model));
- 
-           NoteTable.removeColumn(NoteTable.getColumnModel().getColumn(0));
-     
-           return model;
-
-                
     }
-        
-        
-          
-          
-	private JTable createTableWithrowRendering (DefaultTableModel model) {
-		
-           JTable table = new JTable( model ) 
-                        
-		{
-                        @Override
-			public Component prepareRenderer(TableCellRenderer renderer, int row, int column)
-			{
-				Component c = super.prepareRenderer(renderer, row, column);
 
-				//  Color row based on a cell value
-                                c.setBackground(getBackground());   
-                                
-                                if (!isRowSelected(row))
-				{
-					int modelRow = convertRowIndexToModel(row);
-					String type = getModel().getValueAt(modelRow, 2).toString();
-                                        
-                                        if ("I".equals(type)) {
-                                        c.setBackground(Color.MAGENTA);
-                                    }
-					if ("C".equals(type)) {
-                                        c.setBackground(Color.RED);
-                                    }
-                                        if ("MI".equals(type)) {
-                                        c.setBackground(Color.ORANGE);
-                                    }
-                                        if ("N".equals(type)) {
-                                        c.setBackground(Color.gray);
-                                    }
-				}
-     
-                                
-				return c;
-			}
-		};
-           
-                return table;
-		
-                
-	}
+    private DefaultTableModel setModelForAlertTable() {
 
-        
-        
-        
-        
-    private DefaultTableModel setModelSettingsAlertTable() {
-        
-        String[] colNames = noteAlertTable("name");
-        
-        DefaultTableModel model = new DefaultTableModel(new Object [][] {},
-                colNames
-                ){
-                   @Override
-                   public boolean isCellEditable(int rowIndex, int colIndex) {
-                        switch(colIndex){
-                            case 2:                   // ONLY 4TH COL IS EDITABLE
-                                return true;
-                            case 6:                   // ONLY 4TH COL IS EDITABLE
-                                return true;
-                            case 7:                   // ONLY 4TH COL IS EDITABLE
-                                return true;
-                            case 9:                   // ONLY 4TH COL IS EDITABLE
-                                return true;
-                            default:
-                                return false;
-                        }
-       
-                    }
-                };
-  
-      
+        DefaultTableModel model = setModelSettingsAlertTable();
+
+        NoteTable = createTableWithrowRendering(model);
+
+        tableDefaultSettings();
+
+        String[] colWidths = noteAlertTable("width");
+
+        tableColumnsSettings(colWidths);
+
+        JComboBox cbLevel = new JComboBox(SetEnums.note_alertlevel.values());
+        JComboBox cbStatus = new JComboBox(SetEnums.note_status.values());
+
+        NoteTable.getColumnModel().getColumn(2).setCellEditor(new DefaultCellEditor(cbLevel));
+        NoteTable.getColumnModel().getColumn(7).setCellEditor(new DefaultCellEditor(cbStatus));
+        NoteTable.getColumnModel().getColumn(9).setCellEditor(new DefaultCellEditor(new JCheckBox()));
+
+        NoteTable.getColumnModel().getColumn(9).setCellRenderer(checkBoxRenderer);
+
+        //         NoteTable.setRowSorter(new TableRowSorter(model));
+
+        NoteTable.removeColumn(NoteTable.getColumnModel().getColumn(0));
+
         return model;
-        
+
+
     }
 
-    
-       
+    private JTable createTableWithrowRendering(DefaultTableModel model) {
+
+        JTable table = new JTable(model) {
+            @Override
+            public Component prepareRenderer(TableCellRenderer renderer, int row, int column) {
+                Component c = super.prepareRenderer(renderer, row, column);
+
+                //  Color row based on a cell value
+                c.setBackground(getBackground());
+
+                if (!isRowSelected(row)) {
+                    int modelRow = convertRowIndexToModel(row);
+                    String type = getModel().getValueAt(modelRow, 2).toString();
+
+                    if ("I".equals(type)) {
+                        c.setBackground(Color.MAGENTA);
+                    }
+                    if ("C".equals(type)) {
+                        c.setBackground(Color.RED);
+                    }
+                    if ("MI".equals(type)) {
+                        c.setBackground(Color.ORANGE);
+                    }
+                    if ("N".equals(type)) {
+                        c.setBackground(Color.gray);
+                    }
+                }
+
+
+                return c;
+            }
+        };
+
+        return table;
+
+
+    }
+
+    private DefaultTableModel setModelSettingsAlertTable() {
+
+        String[] colNames = noteAlertTable("name");
+
+        DefaultTableModel model = new DefaultTableModel(new Object[][]{},
+                colNames) {
+            @Override
+            public boolean isCellEditable(int rowIndex, int colIndex) {
+                switch (colIndex) {
+                    case 2:                   // ONLY 4TH COL IS EDITABLE
+                        return true;
+                    case 6:                   // ONLY 4TH COL IS EDITABLE
+                        return true;
+                    case 7:                   // ONLY 4TH COL IS EDITABLE
+                        return true;
+                    case 9:                   // ONLY 4TH COL IS EDITABLE
+                        return true;
+                    default:
+                        return false;
+                }
+
+            }
+        };
+
+
+        return model;
+
+    }
+
     /**
      *
      * @param table
      */
-    private void tableDefaultSettings () {
-        
-        
+    private void tableDefaultSettings() {
+
+
         NoteTable.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
         NoteTable.setAutoResizeMode(javax.swing.JTable.AUTO_RESIZE_LAST_COLUMN);
         NoteTable.getTableHeader().setReorderingAllowed(false);
         NoteTable.setFont(new java.awt.Font("Dialog", 0, 10)); // NOI18N
         NoteTable.setFocusable(true);
-        
+
         NoteTable.setRequestFocusEnabled(true);
         NoteTable.setUpdateSelectionOnSort(false);
         NoteTable.setDragEnabled(false);
         NoteTable.setRowSelectionAllowed(true);
-   
+
     }
-     
-    
-    
-    private void tableColumnsSettings (String [] widths) {
-        
-  
+
+    private void tableColumnsSettings(String[] widths) {
+
+
         DefaultTableCellRenderer centerRenderer = new DefaultTableCellRenderer();
         centerRenderer.setHorizontalAlignment(JLabel.CENTER);
-   
+
         for (int i = 0; i < widths.length; i++) {
 
             NoteTable.getColumnModel().getColumn(i).setPreferredWidth(Integer.parseInt(widths[i]));
             NoteTable.getColumnModel().getColumn(i).setCellRenderer(centerRenderer);
 
-       
+
         }
-   
-        
+
+
     }
-     
-    private String [] noteAlertTable (String nameOrwidth) {
-    
-         if (nameOrwidth.equalsIgnoreCase("name")) {
-            String[] names = { "id", "Type", "Level", "Mec", "Name", "Department", "Note", "Status", "LastChanged", "Save" };
+
+    private String[] noteAlertTable(String nameOrwidth) {
+
+        if (nameOrwidth.equalsIgnoreCase("name")) {
+            String[] names = {"id", "Type", "Level", "Mec", "Name", "Department", "Note", "Status", "LastChanged", "Save"};
             return names;
         } else {
             String[] widths = {"5", "15", "15", "15", "55", "30", "80", "10", "80", "10"};
             return widths;
         }
     }
-    
-	
 }
-

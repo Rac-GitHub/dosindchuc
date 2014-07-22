@@ -39,8 +39,12 @@ public class YearMonthAndTrimester {
     public int Trimester() {
 
         c.add(Calendar.MONTH, -4);
+        
+        System.out.println(" Dentro do trimester ---> " + c.get(Calendar.MONTH));
+        
 
-        return (c.get(Calendar.MONTH)) / 3;
+        //return (c.get(Calendar.MONTH) / 3 );
+        return ( c.get(Calendar.MONTH) - 1 );
 
     }
 

@@ -13,43 +13,38 @@ import java.util.Date;
  */
 public class DateAndTime {
 
-    
     public DateAndTime() {
     }
-   
-     
-     public String currDate () {
+
+    public String currDate() {
 
         Date dNow = new Date();
-        SimpleDateFormat ft = new SimpleDateFormat ("yyyy-MM-dd");
+        SimpleDateFormat ft = new SimpleDateFormat("yyyy-MM-dd");
         return ft.format(dNow);
-              
-     }
-    
-     public String currDateTime () {
+
+    }
+
+    public String currDateTime() {
 
         Date dNow = new Date();
-        SimpleDateFormat ft = new SimpleDateFormat ("yyyy-MM-dd HH:mm:ss");
+        SimpleDateFormat ft = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
         return ft.format(dNow);
-              
-     }
-     
-     
-     public String currYear () {
+
+    }
+
+    public String currYear() {
 
         Date dNow = new Date();
-        SimpleDateFormat ft = new SimpleDateFormat ("yyyy");
+        SimpleDateFormat ft = new SimpleDateFormat("yyyy");
         return ft.format(dNow);
-              
-     }
-         
-     public String currMonth () {
+
+    }
+
+    public String currMonth() {
 
         Date dNow = new Date();
-        SimpleDateFormat ft = new SimpleDateFormat ("MM");
+        SimpleDateFormat ft = new SimpleDateFormat("MM");
         return ft.format(dNow);
-              
-     }
-     
-     
+
+    }
 }

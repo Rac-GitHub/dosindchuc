@@ -4,7 +4,6 @@
  */
 package dosindchuc.UI.swing;
 
-
 import dosindchuc.UI.controller.ManagementActionListener;
 import dosindchuc.UI.swing.Help.ManagementButtons;
 import dosindchuc.UI.swing.Help.ManagementFields;
@@ -24,21 +23,20 @@ public class ManagementFrm extends javax.swing.JFrame {
     ManagementActionListener listeners;
     ManagementFields setFieldsState;
     ManagementButtons setButtonsState;
-    
-    
+
     /**
      * Creates new form ManagementFrm
      */
     public ManagementFrm() {
-        
+
         initComponents();
-   
+
         listeners = new ManagementActionListener(this);
         setFieldsState = new ManagementFields(this);
         setButtonsState = new ManagementButtons(this);
-        
-        initState ();
-       
+
+        initState();
+
     }
 
     /**
@@ -1098,7 +1096,7 @@ public class ManagementFrm extends javax.swing.JFrame {
         // TODO add your handling code here:
         MainFrm.btProfInfo.setEnabled(true);
     }//GEN-LAST:event_formWindowClosing
-   /**
+    /**
      * @param args the command line arguments
      */
     public static void main(String args[]) {
@@ -1121,32 +1119,25 @@ public class ManagementFrm extends javax.swing.JFrame {
 
 
     }
-    
-    
-    
-       
+
 //     searchTable
-    
-    
-    private void initState () {
-          
+    private void initState() {
+
         getCbDoseNoteIndex().setEnabled(false);
         getCbDosimeterNotesIndex().setEnabled(false);
-        setFieldsState.setAllEdit(false,false,false);
+        setFieldsState.setAllEdit(false, false, false);
         setButtonsState.setAllWorkerBtsInit(true);
         btWorkerUpdate.setEnabled(false);
-        
+
         setButtonsState.setAllDosimeterBtsInit(false);
         setButtonsState.setAllDoseBtsInit(false);
-        
+
         setButtonsState.setAllDoseNoteBtsInit(false);
         setButtonsState.setAllDsmtNoteBtsInit(false);
-                
-    } 
-    
-    
-    // getter and setters 
 
+    }
+
+    // getter and setters 
     public JComboBox getSearchCBCategory() {
         return searchCBCategory;
     }
@@ -1211,11 +1202,6 @@ public class ManagementFrm extends javax.swing.JFrame {
         this.txtInfoAction = txtInfoAction;
     }
 
-    
-    
-    
-    
-    
     public JButton getBtWorkerNew() {
         return btWorkerNew;
     }
@@ -1240,10 +1226,6 @@ public class ManagementFrm extends javax.swing.JFrame {
         this.btSaveWorkerUpdate = btSaveWorkerUpdate;
     }
 
-    
-    
-    
-    
     public JButton getBtWorkerUpdate() {
         return btWorkerUpdate;
     }
@@ -1396,11 +1378,6 @@ public class ManagementFrm extends javax.swing.JFrame {
         this.txtWorkerLastModified = txtWorkerLastModified;
     }
 
-
-    
-    
-    
-    
     public JComboBox getCbDoseNoteLevel() {
         return cbDoseNoteLevel;
     }
@@ -1457,10 +1434,6 @@ public class ManagementFrm extends javax.swing.JFrame {
         this.txtDoseNotesDateCreated = txtDoseNotesDateCreated;
     }
 
-    
-    
-    
-    
     public JComboBox getCbDosimeterNotesAlert() {
         return cbDosimeterNotesAlert;
     }
@@ -1501,8 +1474,6 @@ public class ManagementFrm extends javax.swing.JFrame {
         this.txtDosimeterNoteAlertdate = txtDosimeterNoteAlertdate;
     }
 
-    
-    
     public JTextField getTxtDosimeterNoteStatusDate() {
         return txtDosimeterNoteStatusDate;
     }
@@ -1558,20 +1529,7 @@ public class ManagementFrm extends javax.swing.JFrame {
     public void setBtDosimeterInfoUpdate(JButton btDosimeterInfoUpdate) {
         this.btDosimeterInfoUpdate = btDosimeterInfoUpdate;
     }
-
-    
-    
-    
-
- 
-    
-    
-   
-    
-    
 //    
-    
-    
     // Variables declaration - do not modify//GEN-BEGIN:variables
     public javax.swing.JButton btCancelDoseNote;
     public javax.swing.JButton btCancelDsmtNote;

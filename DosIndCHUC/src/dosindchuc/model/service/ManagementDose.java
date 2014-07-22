@@ -38,8 +38,7 @@ public class ManagementDose {
     
     
     public ManagementDose (ManagementFrm frmMan) {
-
-     
+    
         this.frmMan = frmMan;
         dbPkIDs = new DbPkIDs();
         dosedao = new Dose_infoDao();
@@ -59,7 +58,7 @@ public class ManagementDose {
     /* ###############################################  */ 
 
     private Dose_info getDoseInfo (String newOrUpdate) {
-        
+      
         Dose_info dose = new Dose_info();
         int row = 0;
         
@@ -67,12 +66,9 @@ public class ManagementDose {
         
         if ( ! newOrUpdate.equalsIgnoreCase("new") ) {
             row = table.getSelectedRow();
-            System.out.println(" get dose : " + row );
             dose.setPk_dose(dbPkIDs.getDose_id().get(row).toString());
-//            dose.setPk_dose(dbPkIDs.getDose_id());
-            System.out.println(" get dose pk_dose : " + dose.getPk_dose() );
+    
         }
-        
         
         String idDsmt = table.getValueAt(row, 0).toString();
         dose.setDsmt_id(idDsmt);
@@ -80,8 +76,6 @@ public class ManagementDose {
         int i=0;
         while (  ! (dbPkIDs.getDsmt_id().get(i)[1].toString().equalsIgnoreCase(idDsmt)) ) {   i++;  }
         dose.setPk_dsmt(dbPkIDs.getDsmt_id().get(i)[0].toString());
- 
-        System.out.println("while pk_dsmt--- " + dose.getPk_dsmt());
   
         dose.setYear( table.getValueAt(row, 1) == null ? "" : table.getValueAt(row, 1).toString());
         dose.setTrimester(SetEnums.Trimester.valueOf(table.getValueAt(row, 2).toString()));
@@ -94,8 +88,10 @@ public class ManagementDose {
 //      creation date and time
             dose.setTimestamp(dateAndTime.currDateTime());
             dose.setLastchange(dateAndTime.currDateTime());
+            
          } else {
             dose.setTimestamp(table.getValueAt(row, 6) == null ? "" : table.getValueAt(row, 6).toString());
+            
         }
         
         return dose;
@@ -110,9 +106,7 @@ public class ManagementDose {
     public void newDose () {
         
         /* tudo ok para escrever */
-        
-        System.out.println(" Estou no newDose ... ");
-        
+
         tableModel.setDefaultDoseTable("newdose");
 
         setButtonsState.setDoseBtsNew(true);
@@ -127,26 +121,14 @@ public class ManagementDose {
     
     public void saveNewDose () {
         
-        
         Dose_info dose = getDoseInfo("new");
-        
-        System.out.println("  Save dose  " + dose);
-        System.out.println("  Save dose2  " + dbPkIDs.getWorker_id());
-
         
         String worker_id = dbPkIDs.getWorker_id();
         dose.setPk_id(worker_id);
         
-        
         String id = dosedao.insertDose(dose);
         
-        System.out.println("  Save dose3  " + id);
-        
-        
         dose.setPk_dose(id);
-        
-   //     dbPkIDs.setDose_id(id);
-    
         
         this.frmMan.getTxtInfoAction().setText("Dose info to dsmt_id = "+ dose.getDsmt_id() + " saved into database");
         
@@ -163,20 +145,14 @@ public class ManagementDose {
     
     public void updateDose() {
         
-        System.out.println(" Estou no Update Dose ... ");
-        
-        
         table = this.frmMan.tableDoseInfo;
         int row = table.getSelectedRow();
         
         dbPkIDs.setDoseRowSelected(row);
         
-        System.out.println(" Estou no Update Dose .row.. " + row );
-        
         if ( ! ( row > -1 ) ) {
             return;
         }
-        
         
         setButtonsState.setDoseBtsUpdate(true);
         
@@ -187,26 +163,27 @@ public class ManagementDose {
         
         table.setRowSelectionInterval(row, row);
         
-        table.setSelectionBackground(Color.yellow);
-        table.setSelectionForeground(Color.red);
-        
     }
     
     
     public void saveUpdateDose () {
         
+        table = this.frmMan.tableDoseInfo;
+        int row = table.getSelectedRow();
+        
+        int rowToUpdate = dbPkIDs.getDoseRowSelected();
+        
+        if ( row != rowToUpdate ) {
+            this.frmMan.getTxtInfoAction().setText("Nothing to be done: Selected row differs from row to be updated");
+            // actualiza info
+            fillWokerDoseInfo ();
+            return;
+        }
+        
         Dose_info dose = getDoseInfo("update");
-   
-        System.out.println(" Dose UPDATE  info " + dose);
-        
         String dose_id = dose.getPk_dose();
-        
-        System.out.println("save update dose   " +  dose_id);
-        
         dose.setPk_id(dbPkIDs.getWorker_id());
-
         dosedao.updateDose(dose, dose_id);
-        
         this.frmMan.getTxtInfoAction().setText("Dose for dsmt = "+ dose.getDsmt_id() + " updated into database");
         
         // actualiza info
@@ -216,22 +193,12 @@ public class ManagementDose {
     
     
      public void fillWokerDoseInfo () {
-        
-        /* tudo ok para escrever */
-        
-        System.out.println(" Estou no fill doselDose ... ");
-        
-        // actualiza info
-        setCleanState.cleanDose();
+
+         setCleanState.cleanDose();
         setDoseInfo.fillDoseInfo(dbPkIDs.getWorker_id(),"new");
     
         setButtonsState.setDoseBtsSearch(true);
-       
         
     }
-    
-    
-    
-    
     
 }

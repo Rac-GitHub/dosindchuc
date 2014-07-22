@@ -5,11 +5,9 @@
 package dosindchuc.model.dao;
 
 import dosindchuc.model.dao.Help.ArrayList2D;
-import dosindchuc.model.dao.Help.CreateDaoException;
 import dosindchuc.model.dao.Help.DaoConnections;
-import dosindchuc.model.dao.Help.DeleteDaoException;
+import dosindchuc.model.dao.Help.DaoExceptions;
 import dosindchuc.model.dao.Help.QueryMapper;
-import dosindchuc.model.dao.Help.UpdateDaoException;
 import dosindchuc.model.entities.Help.SetEnums;
 import dosindchuc.model.entities.Worker;
 import java.sql.ResultSet;
@@ -36,155 +34,204 @@ public class WorkerDao {
     }
     
     
+      public List<Worker> getSearchWorker(String name, String department, String category, String id_mec) {
+
+        final List<Worker> workerInfo = new ArrayList<>();
+
+        String query = "SELECT pk_id, id_mec, name, category, department, status ";
+
+        String from = " FROM worker ";
+
+        String[][][] searchWhere = {{{"name", "LIKE", name}},
+            {{"department", "null", department}},
+            {{"category", "null", category}},
+            {{"id_mec", "LIKE", id_mec}}};
+
+        String where = "WHERE " + daoConnection.buildQueryWhere(searchWhere);
+
+//       String sort = " ORDER BY p1.name , p1.department DESC, p2.pk_dsmt DESC ";
+//        query = query + from + where + sort;
+        query = query + from + where;
+
+          daoConnection.executePreparedQuery(query, new QueryMapper<Worker>() {
+              @Override
+              public List<Worker> mapping(ResultSet rset) {
+
+                  try {
+                      while (rset.next()) {
+                          Worker workerinfo = new Worker();
+
+                          workerinfo.setPk_id(rset.getString("pk_id"));
+                          workerinfo.setName(rset.getString("name"));
+                          workerinfo.setId_mec(rset.getString("id_mec"));
+                          workerinfo.setCategory(SetEnums.worker_category.valueOf(rset.getString("category")));
+                          workerinfo.setDepartment(SetEnums.worker_department.valueOf(rset.getString("department")));
+                          workerinfo.setStatus(SetEnums.status.valueOf(rset.getString("status")));
+
+                          workerInfo.add(workerinfo);
+                      }
+                      return workerInfo;
+                  } catch (SQLException ex) {
+                      throw new DaoExceptions("Error on ResulSet of query (getSearchWorker): ",
+                              DaoConnections.class, ex);
+                  }
+              }
+              
+          });
+
+
+        return workerInfo;
+
+    }
+
     
-    public List<Worker> getWorkersInfo(String worker_id) {
-		
-		final List<Worker> workers = new ArrayList<>();
-		
-		try {   
-                        String query = null;
-                        if (worker_id.isEmpty()) {
-                            query = "SELECT * from worker";
-                        } else {
-                            query = "SELECT * FROM worker WHERE pk_id = " + worker_id;
-                        }
-  
-			daoConnection.executePreparedQuery(query, new QueryMapper<Worker>() {
+    
+       public List<Worker> getWorkersInfo(String worker_id) {
 
-				@Override
-				public List<Worker> mapping(ResultSet rset) throws SQLException {
-					while (rset.next()) {
-						Worker worker = new Worker();
-						worker.setPk_id( rset.getString("pk_id") );
-						worker.setId_mec( rset.getString("id_mec") );
-						worker.setName( rset.getString("name") );
-						worker.setNick( rset.getString("nick") );
-						worker.setBI( rset.getString("BI") );
-						worker.setNationality( rset.getString("nationality") );
-						worker.setNif( rset.getString("nif") );
-						worker.setBirth( rset.getString("birth") );
-						worker.setSex( SetEnums.worker_sex.valueOf( rset.getString("sex") ) );
-						worker.setCategory( SetEnums.worker_category.valueOf( rset.getString("category") ) );
-                                                worker.setDepartment( SetEnums.worker_department.valueOf( rset.getString("department") ) );
-                                                worker.setSector( rset.getString("sector") );
-						worker.setComments( rset.getString("comments") );
-						worker.setTimestamp( rset.getString("timestamp") );
-                                                worker.setStatus( SetEnums.status.valueOf( rset.getString("status") ) );
-                                                worker.setStatus_timestamp( rset.getString("status_timestamp") );
-                                                worker.setLastchange( rset.getString("lastchange") );
-                                                workers.add(worker);
-					}
-                                	return workers;
-				}
-				
-			});
-		} catch (SQLException e) {
-                    e.printStackTrace();
-			//ignore exception
-		}
-		
-		return workers;
-		
-	}
+        final List<Worker> workers = new ArrayList<>();
 
-   
+        String query = null;
+        if (worker_id.isEmpty()) {
+            query = "SELECT * from worker";
+        } else {
+            query = "SELECT * FROM worker WHERE pk_id = " + worker_id;
+        }
+
+           daoConnection.executePreparedQuery(query, new QueryMapper<Worker>() {
+               @Override
+               public List<Worker> mapping(ResultSet rset) {
+
+                   try {
+                       while (rset.next()) {
+                           Worker worker = new Worker();
+                           worker.setPk_id(rset.getString("pk_id"));
+                           worker.setId_mec(rset.getString("id_mec"));
+                           worker.setName(rset.getString("name"));
+                           worker.setNick(rset.getString("nick"));
+                           worker.setBI(rset.getString("BI"));
+                           worker.setNationality(rset.getString("nationality"));
+                           worker.setNif(rset.getString("nif"));
+                           worker.setBirth(rset.getString("birth"));
+                           worker.setSex(SetEnums.worker_sex.valueOf(rset.getString("sex")));
+                           worker.setCategory(SetEnums.worker_category.valueOf(rset.getString("category")));
+                           worker.setDepartment(SetEnums.worker_department.valueOf(rset.getString("department")));
+                           worker.setSector(rset.getString("sector"));
+                           worker.setComments(rset.getString("comments"));
+                           worker.setTimestamp(rset.getString("timestamp"));
+                           worker.setStatus(SetEnums.status.valueOf(rset.getString("status")));
+                           worker.setStatus_timestamp(rset.getString("status_timestamp"));
+                           worker.setLastchange(rset.getString("lastchange"));
+                           workers.add(worker);
+                       }
+                       return workers;
+                   } catch (SQLException ex) {
+                       throw new DaoExceptions("Error on ResulSet of query (getWorkersInfo): ",
+                               DaoConnections.class, ex);
+                   }
+               }
+           });
+
+        return workers;
+
+    }
+
+ 
         
-      
-    public void prepareQuery (Worker worker, String newOrUpdate) {
-       
-        int i=0;
+      public void prepareQuery(Worker worker, String newOrUpdate) {
+
+        int i = 0;
         if (worker.getName().isEmpty()) {
         }
-        queryList.Add("name",i);
-        queryList.Add(" ? ",i);
-        queryList.Add(worker.getName(),i);
-  
-        i+=1;
+        queryList.Add("name", i);
+        queryList.Add(" ? ", i);
+        queryList.Add(worker.getName(), i);
+
+        i += 1;
         if (worker.getId_mec().isEmpty()) {
         }
-        queryList.Add(", id_mec",i);
-        queryList.Add(", ? ",i);
+        queryList.Add(", id_mec", i);
+        queryList.Add(", ? ", i);
         System.out.println("prepare query .... " + worker.getId_mec());
-        
-        queryList.Add(worker.getId_mec(),i);
+
+        queryList.Add(worker.getId_mec(), i);
         System.out.println("prepare query .... " + queryList.get(1, 2));
-  
-          
-        if (! worker.getNick().isEmpty()) {
-            i+=1;
-            queryList.Add(", nick",i);
-            queryList.Add(", ? ",i);
-            queryList.Add(worker.getNick(),i);
+
+
+        if (!worker.getNick().isEmpty()) {
+            i += 1;
+            queryList.Add(", nick", i);
+            queryList.Add(", ? ", i);
+            queryList.Add(worker.getNick(), i);
         }
- 
-        if (! worker.getBI().isEmpty()) {
-            i+=1;
-            queryList.Add(", BI",i);
-            queryList.Add(", ? ",i);
-            queryList.Add(worker.getBI(),i);
+
+        if (!worker.getBI().isEmpty()) {
+            i += 1;
+            queryList.Add(", BI", i);
+            queryList.Add(", ? ", i);
+            queryList.Add(worker.getBI(), i);
         }
-        
-        if (! worker.getNationality().isEmpty()) {
-            i+=1;
-            queryList.Add(", nationality",i);
-            queryList.Add( ", ? ", i);
+
+        if (!worker.getNationality().isEmpty()) {
+            i += 1;
+            queryList.Add(", nationality", i);
+            queryList.Add(", ? ", i);
             queryList.Add(worker.getNationality(), i);
-       }
-        
-        if (! worker.getNif().isEmpty()) {
-            i+=1;
+        }
+
+        if (!worker.getNif().isEmpty()) {
+            i += 1;
             queryList.Add(", nif", i);
             queryList.Add(", ? ", i);
             queryList.Add(worker.getNif(), i);
-       }
-        
-        if (! worker.getBirth().isEmpty()) {
-            i+=1;
+        }
+
+        if (!worker.getBirth().isEmpty()) {
+            i += 1;
             queryList.Add(", birth", i);
             queryList.Add(", ? ", i);
             queryList.Add(worker.getBirth(), i);
         }
-        
-        i+=1;
+
+        i += 1;
         queryList.Add(", sex", i);
         queryList.Add(", ? ", i);
         queryList.Add(worker.getSex().toString(), i);
 
-        i+=1;
+        i += 1;
         queryList.Add(", category", i);
         queryList.Add(", ? ", i);
         queryList.Add(worker.getCategory().toString(), i);
- 
-  
-        i+=1;
+
+
+        i += 1;
         queryList.Add(", department", i);
         queryList.Add(", ? ", i);
         queryList.Add(worker.getDepartment().toString(), i);
-        
-        if (! worker.getSector().isEmpty()) {
-            i+=1;
+
+        if (!worker.getSector().isEmpty()) {
+            i += 1;
             queryList.Add(", sector", i);
             queryList.Add(", ? ", i);
             queryList.Add(worker.getSector(), i);
         }
-        
-        if (! worker.getComments().isEmpty()) {
-            i+=1;
+
+        if (!worker.getComments().isEmpty()) {
+            i += 1;
             queryList.Add(", comments", i);
             queryList.Add(", ? ", i);
             queryList.Add(worker.getComments(), i);
         }
- 
-        i+=1;
+
+        i += 1;
         queryList.Add(", timestamp", i);
         queryList.Add(", ? ", i);
         queryList.Add(worker.getTimestamp(), i);
-      
-        i+=1;
+
+        i += 1;
         queryList.Add(", status", i);
         queryList.Add(", ? ", i);
         queryList.Add(worker.getStatus().toString(), i);
-  
+
         if (newOrUpdate.equalsIgnoreCase("new")) {
             i += 1;
             queryList.Add(", status_timestamp", i);
@@ -196,57 +243,54 @@ public class WorkerDao {
             queryList.Add(", ? ", i);
             queryList.Add(worker.getLastchange(), i);
         }
- 
+
     }
-    
-    
-         public String insertWorker (Worker worker) {
-      
-            prepareQuery(worker,"new");
 
-            int sizeNparam = queryList.getNumRows();
+      public String insertWorker(Worker worker) {
 
-            String query = "INSERT INTO worker (";
-            String valuesInt = " VALUES (";
-            Object param[] = new Object[sizeNparam];
+        prepareQuery(worker, "new");
 
-            for (int i = 0; i < sizeNparam; i++) {
-                query += queryList.get(i, 0);
-                valuesInt += queryList.get(i, 1);
-                param[i] = queryList.get(i, 2);
-            }
+        int sizeNparam = queryList.getNumRows();
 
-            queryList.remove();
-            
-            query += ")";
-            valuesInt += ")";
-            query += valuesInt;
-            
-            return daoConnection.insert(query, param);
- 
+        String query = "INSERT INTO worker (";
+        String valuesInt = " VALUES (";
+        Object param[] = new Object[sizeNparam];
+
+        for (int i = 0; i < sizeNparam; i++) {
+            query += queryList.get(i, 0);
+            valuesInt += queryList.get(i, 1);
+            param[i] = queryList.get(i, 2);
+        }
+
+        queryList.remove();
+
+        query += ")";
+        valuesInt += ")";
+        query += valuesInt;
+
+        return daoConnection.insert(query, param);
+
     }
 
         
-        
-     public void updateWorker (Worker worker, String worker_id) {
-      
-            System.out.println("Worker info no update Worker id mec" + worker.getId_mec());
-            prepareQuery(worker,"update");
-            
-            int sizeNparam = queryList.getNumRows();
-            String query = "UPDATE worker SET ";
-            Object param[] = new Object[sizeNparam];
+       public void updateWorker(Worker worker, String worker_id) {
 
-            for (int i = 0; i < sizeNparam; i++) {
-                query += queryList.get(i, 0) + " = ? " ;
-                param[i] = queryList.get(i, 2);
-            }
+        prepareQuery(worker, "update");
 
-            query += " WHERE pk_id = " + worker_id;
+        int sizeNparam = queryList.getNumRows();
+        String query = "UPDATE worker SET ";
+        Object param[] = new Object[sizeNparam];
 
-            daoConnection.update(query, param);
-            
-            queryList.remove();
+        for (int i = 0; i < sizeNparam; i++) {
+            query += queryList.get(i, 0) + " = ? ";
+            param[i] = queryList.get(i, 2);
+        }
+
+        query += " WHERE pk_id = " + worker_id;
+
+        daoConnection.update(query, param);
+
+        queryList.remove();
 
     }
         

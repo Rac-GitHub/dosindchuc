@@ -12,28 +12,22 @@ import dosindchuc.model.entities.Help.SetEnums.note_status;
  * @author ir
  */
 public class Dosimeter_notes {
-    
-   private String pk_notes_dsmt;
-   private String pk_dsmt;
-   private String note;
-   private String timestamp;
-   private note_status status;
-   private String status_timestamp;
-   private note_alertlevel alert_level;
-   private String alert_level_timestamp;
-   private String lastchange;
 
-   
-   
-      // constructors
+    private String pk_notes_dsmt;
+    private String pk_dsmt;
+    private String note;
+    private String timestamp;
+    private note_status status;
+    private String status_timestamp;
+    private note_alertlevel alert_level;
+    private String alert_level_timestamp;
+    private String lastchange;
 
+    // constructors
     public Dosimeter_notes() {
-        
     }
- 
-   
-    // getter and setters
 
+    // getter and setters
     public String getPk_notes_dsmt() {
         return pk_notes_dsmt;
     }
@@ -81,8 +75,8 @@ public class Dosimeter_notes {
     public void setPk_dsmt(String pk_dsmt) {
         this.pk_dsmt = pk_dsmt;
     }
-    
-     public note_alertlevel getAlert_level() {
+
+    public note_alertlevel getAlert_level() {
         return alert_level;
     }
 
@@ -97,7 +91,7 @@ public class Dosimeter_notes {
     public void setAlert_level_timestamp(String alert_level_timestamp) {
         this.alert_level_timestamp = alert_level_timestamp;
     }
-    
+
     public String getLastchange() {
         return lastchange;
     }
@@ -105,19 +99,4 @@ public class Dosimeter_notes {
     public void setLastchange(String lastchange) {
         this.lastchange = lastchange;
     }
-   
-    
-       
-  
-    // to String
-
-    @Override
-    public String toString() {
-        return "Dosimeter_notes{" + "pk_notes_dsmt=" + pk_notes_dsmt + ", pk_dsmt=" + pk_dsmt + ", note=" + note + ", timestamp=" 
-                + timestamp + ", status=" + status + ", status_timestamp=" + status_timestamp + ", alert_level=" 
-                + alert_level + ", lastchange=" + lastchange + '}';
-    }
-
-        
-    
 }

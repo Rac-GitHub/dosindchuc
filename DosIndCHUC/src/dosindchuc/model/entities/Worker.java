@@ -5,97 +5,43 @@
 package dosindchuc.model.entities;
 
 //
-
-
 import dosindchuc.model.entities.Help.SetEnums.status;
 import dosindchuc.model.entities.Help.SetEnums.worker_category;
 import dosindchuc.model.entities.Help.SetEnums.worker_department;
 import dosindchuc.model.entities.Help.SetEnums.worker_sex;
-
-
 
 /**
  *
  * @author ir
  */
 public class Worker {
-  
-    
-  private String pk_id;
-  private String id_mec;
-  private String name;
-  private String nick;
-  private String BI;
-  private String nationality;
-  private String nif;
-  private String birth;
-  
-  private worker_sex sex; 
-  private worker_category category;
-  private worker_department department;
-  private String sector;
 
-  private String comments;
-  private String timestamp;
-  private status status;
-  private String status_timestamp;
-  private String lastchange;
+    private String pk_id;
+    private String id_mec;
+    private String name;
+    private String nick;
+    private String BI;
+    private String nationality;
+    private String nif;
+    private String birth;
+    private worker_sex sex;
+    private worker_category category;
+    private worker_department department;
+    private String sector;
+    private String comments;
+    private String timestamp;
+    private status status;
+    private String status_timestamp;
+    private String lastchange;
 
-  
-  
-  // constructors
+    // constructors
     public Worker() {
 
         this.nationality = "Portuguese";
-        
+
     }
 
-    public Worker(String pk_id, String id_mec, String name, String nick, String nationality, String nif, 
-            String birth, worker_sex sex, worker_category category, worker_department department, String sector, 
-            String comments, String timestamp, status status, String status_timestamp, String lastchange) {
-        this.pk_id = pk_id;
-        this.id_mec = id_mec;
-        this.name = name;
-        this.nick = nick;
-        this.nationality = nationality;
-        this.nif = nif;
-        this.birth = birth;
-        this.sex = sex;
-        this.category = category;
-        this.department = department;
-        this.sector = sector;
-        this.comments = comments;
-        this.timestamp = timestamp;
-        this.status = status;
-        this.status_timestamp = status_timestamp;
-        this.lastchange = lastchange;
-    }
-
-    public Worker(String id_mec, String name, String nick, String BI, String nationality, String nif,
-            String birth, worker_sex sex, worker_category category, worker_department department, 
-            String sector, String comments, String timestamp, status status, String status_timestamp) {
-        this.id_mec = id_mec;
-        this.name = name;
-        this.nick = nick;
-        this.BI = BI;
-        this.nationality = nationality;
-        this.nif = nif;
-        this.birth = birth;
-        this.sex = sex;
-        this.category = category;
-        this.department = department;
-        this.sector = sector;
-        this.comments = comments;
-        this.timestamp = timestamp;
-        this.status = status;
-        this.status_timestamp = status_timestamp;
-    }
-
-    
-    
- 
-  // getters and setters  
-    
+    // getters and setters  
     public String getPk_id() {
         return pk_id;
     }
@@ -231,42 +177,4 @@ public class Worker {
     public void setLastchange(String lastchange) {
         this.lastchange = lastchange;
     }
-
-    
-    
-        
- 
-    // to string
-
-    @Override
-    public String toString() {
-        return "Worker{" + "pk_id=" + pk_id + ", id_mec=" + id_mec + ", name=" + name + ", nick=" 
-                + nick + ", BI=" + BI + ", nationality=" + nationality + ", nif=" + nif + ", birth=" + birth + ", sex=" 
-                + sex + ", category=" + category + ", department=" + department + ", sector=" + sector + ", comments=" 
-                + comments + ", timestamp=" + timestamp + ", status=" + status + ", status_timestamp=" 
-                + status_timestamp + ", lastchange=" + lastchange + '}';
-    }
-
-    
-    
-    public void setStatus(String name) {
-        status.valueOf(name);
-    }
-
-    public void setSex(String name) {
-        sex.valueOf(name);
-    }
-
-    public void setCategory(String name) {
-        sex.valueOf(name);
-    }
-
-    public void setDepartment(String name) {
-        department.valueOf(name);
-    }
-    
-    
-  
-    
-    
 }
