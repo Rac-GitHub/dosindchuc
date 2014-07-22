@@ -6,6 +6,7 @@ package dosindchuc.model.dao;
 
 import dosindchuc.model.dao.Help.ArrayList2D;
 import dosindchuc.model.dao.Help.DaoConnections;
+import dosindchuc.model.dao.Help.DaoExceptions;
 import dosindchuc.model.dao.Help.QueryMapper;
 import dosindchuc.model.entities.Dose_notes;
 import dosindchuc.model.entities.Help.SetEnums;
@@ -23,35 +24,28 @@ public class Dose_notesDao {
     private DaoConnections daoConnection;
     private ArrayList2D queryList;
 
-    
-    
     public Dose_notesDao() {
         daoConnection = new DaoConnections();
         queryList = new ArrayList2D();
     }
 
-    
-    
     public List<Dose_notes> getDose_notesInfo(String dose_id) {
 
         final List<Dose_notes> dose_notes = new ArrayList<>();
 
+        String sort = " ORDER BY status, alert_level DESC";
+        String query = null;
+        if (dose_id.isEmpty()) {
+            query = "SELECT * from dose_notes" + sort;
+        } else {
+            query = "SELECT * FROM dose_notes WHERE pk_dose= " + dose_id + sort;
+        }
 
-        System.out.println("I am in dose_ notes " + dose_id);
+        daoConnection.executePreparedQuery(query, new QueryMapper<Dose_notes>() {
+            @Override
+            public List<Dose_notes> mapping(ResultSet rset) {
 
-        try {
-            System.out.println("dose_id??? " + dose_id);
-            String sort = " ORDER BY status, alert_level DESC";
-            String query = null;
-            if (dose_id.isEmpty()) {
-                query = "SELECT * from dose_notes" + sort;
-            } else {
-                query = "SELECT * FROM dose_notes WHERE pk_dose= " + dose_id + sort;
-            }
-
-            daoConnection.executePreparedQuery(query, new QueryMapper<Dose_notes>() {
-                @Override
-                public List<Dose_notes> mapping(ResultSet rset) throws SQLException {
+                try {
                     while (rset.next()) {
                         Dose_notes dose_note = new Dose_notes();
 
@@ -67,19 +61,17 @@ public class Dose_notesDao {
                         dose_notes.add(dose_note);
                     }
                     return dose_notes;
+                } catch (SQLException ex) {
+                    throw new DaoExceptions("Error on ResulSet of query (getDose_notesInfo): ",
+                            DaoConnections.class, ex);
                 }
-            });
-        } catch (SQLException e) {
-            e.printStackTrace();
-            //ignore exception
-        }
+            }
+        });
 
         return dose_notes;
 
     }
 
-    
-    
     private void prepareQuery(Dose_notes dose_note, String newOrUpdate) {
 
         int i = 0;
@@ -119,7 +111,7 @@ public class Dose_notesDao {
         queryList.Add(", ? ", i);
         queryList.Add(dose_note.getAlert_level_timestamp(), i);
 
-        if ( newOrUpdate.equalsIgnoreCase("new") ) {
+        if (newOrUpdate.equalsIgnoreCase("new")) {
             i += 1;
             queryList.Add(", lastchange", i);
             queryList.Add(", ? ", i);
@@ -128,8 +120,6 @@ public class Dose_notesDao {
 
     }
 
-    
-    
     public String insertDoseNote(Dose_notes dose_note) {
 
         prepareQuery(dose_note, "new");
@@ -156,13 +146,8 @@ public class Dose_notesDao {
 
     }
 
-    
-    
-    
     public void updateDoseNote(Dose_notes dose_note, String dose_note_id) {
 
-        System.out.println("Dose Note info no update Dose dose ID  " + dose_note.getPk_dose());
-        System.out.println("Dose Note info no update Dose dose note id " + dose_note.getPk_notes_dose());
         prepareQuery(dose_note, "update");
 
         int sizeNparam = queryList.getNumRows();
@@ -181,6 +166,4 @@ public class Dose_notesDao {
         queryList.remove();
 
     }
-    
-    
 }

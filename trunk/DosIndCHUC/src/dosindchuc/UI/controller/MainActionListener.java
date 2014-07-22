@@ -21,35 +21,28 @@ import javax.swing.JOptionPane;
  * @author ir
  */
 public final class MainActionListener implements ActionListener, MouseListener {
-    
-    
+
     private MainFrm frm;
     private UsersDao service;
     private AlertNotesService alertNoteService;
     private AlertTableInMainFrm alertNotesTable;
- 
- 
-    
+
     public MainActionListener(MainFrm frm) {
-        
+
         this.frm = frm;
-        
+
         service = new UsersDao();
         alertNoteService = new AlertNotesService(this.frm);
         alertNotesTable = new AlertTableInMainFrm(this.frm);
-        
+
         addListeners();
         initState();
- 
+
     }
- 
-    
-    
+
 //
     @Override
     public void actionPerformed(ActionEvent aevent) {
-      
-        System.out.println(aevent);
 
         String command = aevent.getActionCommand();
 
@@ -66,44 +59,42 @@ public final class MainActionListener implements ActionListener, MouseListener {
 
         } else if (command.equalsIgnoreCase("Management")) {
 
-        java.awt.EventQueue.invokeLater(new Runnable() {
-            @Override
-            public void run() {
-                ManagementFrm frmMan = new ManagementFrm();
-                frmMan.setVisible(true);
-                    //             panel.disable(frmMan.panelWorkerInfo);   // nao funciona
-            }
-         });
-        
-        MainFrm.btProfInfo.setEnabled(false);
+            java.awt.EventQueue.invokeLater(new Runnable() {
+                @Override
+                public void run() {
+                    ManagementFrm frmMan = new ManagementFrm();
+                    frmMan.setVisible(true);
+                }
+            });
 
-         } else if (command.equalsIgnoreCase("btNoteSave")) {
-          
-             alertNoteService.saveAlertNotesTable();
-             
-         }  else if (command.equalsIgnoreCase("btNoteCancel")) {
-          
-             alertNoteService.cancelAlertNotesTable();
-             
-         } else if (command.equalsIgnoreCase("InsertNewDIV")) {
+            MainFrm.btProfInfo.setEnabled(false);
 
-        java.awt.EventQueue.invokeLater(new Runnable() {
-            @Override
-            public void run() {
-                DIVFrm frmDIV = new DIVFrm();
-                frmDIV.setVisible(true);
-   
-            }
-         });
-        
-        MainFrm.btInsertIndDosimetry.setEnabled(false);
-        
-         }
+        } else if (command.equalsIgnoreCase("btNoteSave")) {
+
+            alertNoteService.saveAlertNotesTable();
+
+        } else if (command.equalsIgnoreCase("btNoteCancel")) {
+
+            alertNoteService.cancelAlertNotesTable();
+
+        } else if (command.equalsIgnoreCase("InsertNewDIV")) {
+
+            java.awt.EventQueue.invokeLater(new Runnable() {
+                @Override
+                public void run() {
+                    DIVFrm frmDIV = new DIVFrm();
+                    frmDIV.setVisible(true);
+
+                }
+            });
+
+            MainFrm.btInsertIndDosimetry.setEnabled(false);
+
+        }
     }
-    
-    
 
     public void addListeners() {
+ 
         frm.getBtLoginOk().addActionListener(this);
         frm.getBtLoginCancel().addActionListener(this);
         frm.getBtProfInfo().addActionListener(this);
@@ -113,17 +104,12 @@ public final class MainActionListener implements ActionListener, MouseListener {
         frm.getBtNoteCancel().addActionListener(this);
         frm.getTxtUsername().addActionListener(this);
         frm.getTxtPassword().addActionListener(this);
-        
-         System.out.println("teste ---- > " + frm.jScrollPane1.getComponentCount()); // 
-    
+
     }
-    
+
     public void addNoteTableListeners() {
 
         alertNotesTable.setSettingsAlertTable("newToActionListeners");
-
-        System.out.println("  Que caracas -TAble-- >>>> " + alertNotesTable.getNoteTable());
-        System.out.println("  Que caracas -MODEL -- >>>> " + alertNotesTable.getModelAlertTable());
         alertNotesTable.getNoteTable().addMouseListener(new java.awt.event.MouseAdapter() {
             @Override
             public void mouseClicked(java.awt.event.MouseEvent evt) {
@@ -135,77 +121,61 @@ public final class MainActionListener implements ActionListener, MouseListener {
 
     }
 
-          
     public void noteTableMouseClicked(MouseEvent mevent) {
 
         int colSelected = alertNotesTable.getNoteTable().getSelectedColumn();
 
-        System.out.print(" Column selected --- >   " + colSelected);
-
         if (!(colSelected == 8)) {
 
             int rowSelected = alertNotesTable.getNoteTable().getSelectedRow();
-            
-            System.out.print(" Row selected --- >   " + rowSelected);
 
             if (!((Boolean) alertNotesTable.getNoteTable().getValueAt(rowSelected, 8)) && (colSelected != -1)) {
-
                 alertNotesTable.getNoteTable().setValueAt(Boolean.TRUE, rowSelected, 8);
-
             }
 
         }
 
     }
-    
-    private void initState () {
-        
+
+    private void initState() {
+
         this.frm.getBtProfInfo().setEnabled(false);
         this.frm.getBtInsertIndDosimetry().setEnabled(false);
         this.frm.getBtAdministration().setEnabled(false);
         this.frm.txtNameOfUser.setEditable(false);
         this.frm.getBtNoteSave().setEnabled(false);
         this.frm.getBtNoteCancel().setEnabled(false);
-                
-    } 
- 
-        
-    public void login() { 
-    /* Acciones formulario login */
-         
-         String NameOfUser = this.service.loginUsers(this.frm.getTxtUsername().getText(),this.frm.getTxtPassword().getText());
-        
-         
-        {            
-            if( NameOfUser != null ) {
- 
+
+    }
+
+    public void login() {
+
+        String NameOfUser = this.service.loginUsers(this.frm.getTxtUsername().getText(), this.frm.getTxtPassword().getText());
+
+        {
+            if (NameOfUser != null) {
+
                 this.frm.getBtProfInfo().setEnabled(true);
                 this.frm.getBtInsertIndDosimetry().setEnabled(true);
                 this.frm.getBtAdministration().setEnabled(true);
-               
+
                 this.frm.txtNameOfUser.setText(NameOfUser);
                 this.frm.txtNameOfUser.setEditable(false);
                 this.frm.txtUsername.setText(null);
                 this.frm.txtPassword.setText(null);
-                
-                
+
                 // alert note table
-                System.out.println("  ANTES  ");
                 addNoteTableListeners();
-                System.out.println(" LOgin --- actiolIsterner TABLE  --- > " + alertNotesTable.getNoteTable());
-                
-         //       alertNotetable fill.
+                // alertNotetable fill.
                 alertNoteService.fillAlertNotesTable();
-             
-  
-                
-            } else {   
+
+            } else {
                 this.frm.txtUsername.setText(null);
                 this.frm.txtPassword.setText(null);
-                JOptionPane.showMessageDialog(this.frm,"Incorrect username or password ");
-             }  
+                JOptionPane.showMessageDialog(this.frm, "Incorrect username or password ");
+            }
         }
-        
+
     }
 
     @Override
@@ -232,8 +202,4 @@ public final class MainActionListener implements ActionListener, MouseListener {
     public void mouseExited(MouseEvent me) {
         throw new UnsupportedOperationException("Not supported yet.");
     }
-    
-    
-       
-    
 }

@@ -12,11 +12,9 @@ import java.util.Random;
  */
 public class RandomNumbers {
 
-    
     public RandomNumbers() {
-    
     }
-    
+
     /**
      * Returns a psuedo-random number between min and max, inclusive. The
      * difference between min and max can be at most
@@ -27,9 +25,6 @@ public class RandomNumbers {
      * @return Integer between min and max, inclusive.
      * @see java.util.Random#nextInt(int)
      */
-    
-    
-    
     public int RandomNumbers(int min, int max) {
 
         // Usually this can be a field rather than a method variable
@@ -41,7 +36,4 @@ public class RandomNumbers {
 
         return randomNum;
     }
-
-    
-    
 }

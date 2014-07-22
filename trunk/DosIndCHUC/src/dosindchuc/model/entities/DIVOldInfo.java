@@ -9,8 +9,7 @@ package dosindchuc.model.entities;
  * @author ir
  */
 public class DIVOldInfo {
- 
-    
+
     private String pk_dose;
     private String periodicity;
     private String id_dsmt;
@@ -23,17 +22,9 @@ public class DIVOldInfo {
     private String comments;
     private String lastchange;
     private String choosePerd;
-    
-    
-    
-    
+
     public DIVOldInfo() {
-    
     }
-
-   
-    
-
 
     public String getPk_dose() {
         return pk_dose;
@@ -130,10 +121,4 @@ public class DIVOldInfo {
     public void setChoosePerd(String choosePerd) {
         this.choosePerd = choosePerd;
     }
-    
- 
-    
-    
-  
-    
 }

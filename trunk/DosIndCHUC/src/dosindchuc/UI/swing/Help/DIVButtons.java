@@ -11,9 +11,8 @@ import dosindchuc.UI.swing.DIVFrm;
  * @author ir
  */
 public class DIVButtons {
-    
-    
-   private DIVFrm frmDIV;
+
+    private DIVFrm frmDIV;
 
     public DIVButtons(DIVFrm frmDIV) {
 
@@ -30,14 +29,11 @@ public class DIVButtons {
         this.frmDIV.btDIV_Cancel.setEnabled(!divBts);
 
     }
-    
+
     public void setAllDIVBtsSaveCancel(boolean divBts) {
 
         this.frmDIV.btDIV_Save.setEnabled(divBts);
         this.frmDIV.btDIV_Cancel.setEnabled(divBts);
 
     }
-    
-    
-    
 }

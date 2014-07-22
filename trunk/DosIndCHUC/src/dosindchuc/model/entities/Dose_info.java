@@ -4,17 +4,15 @@
  */
 package dosindchuc.model.entities;
 
-import dosindchuc.model.entities.Help.DateAndTime;
 import dosindchuc.model.entities.Help.SetEnums.Trimester;
 import dosindchuc.model.entities.Help.SetEnums.month;
-import java.util.Objects;
 
 /**
  *
  * @author ir
  */
 public class Dose_info {
-    
+
     private String pk_dose;
     private String pk_dsmt;
     private String pk_id;
@@ -26,23 +24,14 @@ public class Dose_info {
     private String comments;
     private String timestamp;
     private String lastchange;
-    
     // para ter info sobre dsmt a que pertence a dose (não esta na table   dose_info da database)
     private String dsmt_id;
 
-    
-    
     // constructors
-
     public Dose_info() {
-        
     }
 
-     
-    
-    
     // getter and setters
-
     public String getPk_dose() {
         return pk_dose;
     }
@@ -74,7 +63,7 @@ public class Dose_info {
     public void setMonth(month month) {
         this.month = month;
     }
-    
+
     public String getHp007() {
         return hp007;
     }
@@ -104,7 +93,7 @@ public class Dose_info {
     }
 
     public void setTimestamp(String timestamp) {
-        this.timestamp = new DateAndTime().currDateTime();
+        this.timestamp = timestamp;
     }
 
     public String getPk_dsmt() {
@@ -138,21 +127,4 @@ public class Dose_info {
     public void setDsmt_id(String dsmt_id) {
         this.dsmt_id = dsmt_id;
     }
-    
-    
-    
-    
-    
-    // toString
-
-    @Override
-    public String toString() {
-        return "Dose_info{" + "pk_dose=" + pk_dose + ", pk_dsmt=" + pk_dsmt + ", pk_id=" + pk_id + ", year=" + year 
-                + ", trimester=" + trimester + ", month=" + month + ", hp007=" + hp007 + ", hp10=" + hp10 
-                + ", comments=" + comments + ", timestamp=" + timestamp + ", lastchange=" + lastchange + '}';
-    }
-
-    
-    
-    
 }

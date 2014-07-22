@@ -12,58 +12,49 @@ import dosindchuc.UI.swing.ManagementFrm;
  * @author ir
  */
 public class ManagementClean {
-    
 
     private ManagementFrm frmMan;
     private MainFrm frmMain;
     private ManagementTablesModel tableModel;
-    
-    
-    
-    public ManagementClean (ManagementFrm frmMan) {
+
+    public ManagementClean(ManagementFrm frmMan) {
 
         this.frmMan = frmMan;
         tableModel = new ManagementTablesModel(this.frmMain, this.frmMan);
-        
+
     }
-    
-    
-    
-    public void cleanAllInfo () {
-        
-        cleanWorker ();
-        cleanDosimeter ();
-        cleanDose ();
-  
+
+    public void cleanAllInfo() {
+
+        cleanWorker();
+        cleanDosimeter();
+        cleanDose();
+
     }
-    
-    
-    public void cleanAllInfoWithSearch () {
-        
+
+    public void cleanAllInfoWithSearch() {
+
         cleanSearch();
-        cleanWorker ();
-        cleanDosimeter ();
-        cleanDose ();
-  
+        cleanWorker();
+        cleanDosimeter();
+        cleanDose();
+
     }
-    
-      
+
     public void cleanSearch() {
-        
+
         frmMan.getSearchWorkerName().setText("");
         frmMan.getSearchCBdepartment().setSelectedItem("NoDef");
         frmMan.getSearchCBCategory().setSelectedItem("NoDef");
         frmMan.getSearchTxtMec().setText("");
 //        
         tableModel.setDefaultSearchTable();
-        
-      
+
+
     }
-    
-    
-    
-    public void cleanWorker () {
-        
+
+    public void cleanWorker() {
+
         this.frmMan.txtWorkerName.setText(null);
         this.frmMan.txtWorkerNick.setText(null);
         this.frmMan.txtWorkerBI.setText(null);
@@ -81,76 +72,67 @@ public class ManagementClean {
         this.frmMan.cbWorkerDept.setSelectedIndex(1);
         this.frmMan.cbWorkerSex.setSelectedIndex(0);
         this.frmMan.cbWorkerStatus.setSelectedIndex(0);
-        
-    //    frmMan.btWorkerNew.setEnabled(true);
-    //    frmMan.btWorkerUpdate.setEnabled(false);
+
+        //    frmMan.btWorkerNew.setEnabled(true);
+        //    frmMan.btWorkerUpdate.setEnabled(false);
         frmMan.getTxtInfoAction().setText(null);
-        
-        
+
+
     }
-    
-    
+
     // dosimeter
-    
-    public void cleanDosimeter () {
-        
+    public void cleanDosimeter() {
+
         cleanDsmtNotes();
-        
+
         tableModel.setDefaultDsmtTable("readonly");
-        
-        if ( ! this.frmMan.tableDosimeterInfo.isEnabled()) {
+
+        if (!this.frmMan.tableDosimeterInfo.isEnabled()) {
             this.frmMan.tableDosimeterInfo.setEnabled(true);
         }
-        
+
     }
-    
-    
-    public void cleanDsmtNotes () {
-        
+
+    public void cleanDsmtNotes() {
+
         this.frmMan.txtDosimeterNote.setText(null);
         this.frmMan.txtDosimeterNote.setEditable(false);
         this.frmMan.txtDosimeterNoteAlertdate.setText(null);
         this.frmMan.txtDosimeterNoteStatusDate.setText(null);
         this.frmMan.txtDosimeterNotesDateCreated.setText(null);
-        
+
         this.frmMan.cbDosimeterNotesIndex.setEnabled(false);
         this.frmMan.cbDosimeterNotesAlert.setEnabled(false);
         this.frmMan.cbDosimeterNotesStatus.setEnabled(false);
-  
-    
+
+
     }
-    
-   
+
     // dose
-    
-    public void cleanDose () {
-        
-        cleanDoseNotes ();
- 
+    public void cleanDose() {
+
+        cleanDoseNotes();
+
         tableModel.setDefaultDoseTable("readonly");
-          
-        if ( ! this.frmMan.tableDoseInfo.isEnabled()) {
+
+        if (!this.frmMan.tableDoseInfo.isEnabled()) {
             this.frmMan.tableDoseInfo.setEnabled(true);
         }
-      
-        
+
+
     }
-    
-    
-    public void cleanDoseNotes () {
-        
+
+    public void cleanDoseNotes() {
+
         this.frmMan.txtDoseNote.setText(null);
         this.frmMan.txtDoseNote.setEditable(false);
         this.frmMan.txtDoseNoteLevelDate.setText(null);
         this.frmMan.txtDoseNoteStatusDate.setText(null);
         this.frmMan.txtDoseNotesDateCreated.setText(null);
-        
+
         this.frmMan.cbDoseNoteIndex.setEnabled(false);
         this.frmMan.cbDoseNoteLevel.setEnabled(false);
         this.frmMan.cbDoseNoteStatus.setEnabled(false);
-        
+
     }
-    
-    
-    
 }

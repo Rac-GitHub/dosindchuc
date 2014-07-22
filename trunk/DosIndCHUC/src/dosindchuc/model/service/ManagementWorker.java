@@ -32,7 +32,6 @@ public class ManagementWorker {
     
     
     public ManagementWorker (ManagementFrm frmMan) {
-
      
         this.frmMan = frmMan;
         dbPkIDs = new DbPkIDs();
@@ -41,37 +40,33 @@ public class ManagementWorker {
         setButtonsState = new ManagementButtons(this.frmMan);
         setCleanState = new ManagementClean(this.frmMan);
         setWorkerInfo = new ManagementSearch(this.frmMan, null);
- //       dateAndTime = = new DateAndTime();
-    
+
+
     }
-    
-    
-     /* ############################################### */
-    /*                                                  */ 
+
+    /* ############################################### */
+    /*                                                  */
     /*               Worker  info                       */
-    /*                                                  */ 
-    /* ###############################################  */ 
-    
-    
-    private Worker getWorkerInfo (String newOrUpdate) {
-        
+    /*                                                  */
+    /* ###############################################  */
+    private Worker getWorkerInfo(String newOrUpdate) {
+
         Worker worker = new Worker();
-    
+
         worker.setName(this.frmMan.getTxtWorkerName().getText());
         worker.setNick(this.frmMan.getTxtWorkerNick().getText());
         worker.setStatus(SetEnums.status.valueOf(this.frmMan.getCbWorkerStatus().getSelectedItem().toString()));
         worker.setId_mec(this.frmMan.getTxtWorkerMec().getText());
 
- // birth yyyy-mm-dd
+        // birth yyyy-mm-dd
         String birthYear = this.frmMan.getTxtWorkerBirthYear().getText();
         String birthMonth = this.frmMan.getTxtWorkerBirthMonth().getText();
         String birthDay = this.frmMan.getTxtWorkerBirthDay().getText();
-        if ( birthYear.isEmpty() || birthMonth.isEmpty() || birthDay.isEmpty() ) {
+        if (birthYear.isEmpty() || birthMonth.isEmpty() || birthDay.isEmpty()) {
             worker.setBirth("");
         } else {
-        worker.setBirth(birthYear + "-" + birthMonth + "-" + birthDay);
+            worker.setBirth(birthYear + "-" + birthMonth + "-" + birthDay);
         }
-//        
 
         worker.setBI(this.frmMan.getTxtWorkerBI().getText());
         worker.setSex(SetEnums.worker_sex.valueOf(this.frmMan.cbWorkerSex.getSelectedItem().toString()));
@@ -81,29 +76,24 @@ public class ManagementWorker {
         worker.setNif(this.frmMan.getTxtWorkerNIF().getText());
         worker.setNationality(this.frmMan.getTxtWorkerNationality().getText());
         worker.setComments(this.frmMan.getTxtWorkerComments().getText());
-        
+
         if (newOrUpdate.equalsIgnoreCase("new")) {
 //      creation date and time
             worker.setTimestamp(dateAndTime.currDateTime());
             worker.setStatus_timestamp(dateAndTime.currDateTime());
             worker.setLastchange(dateAndTime.currDateTime());
-         } else {
+        } else {
             worker.setTimestamp(this.frmMan.getTxtWorkerCretedDate().getText());
         }
-        
+
         return worker;
-        
+
     }
-    
-    
-  
-    
-    
-    
-    public void newWorker () {
-        
+
+    public void newWorker() {
+
         /* tudo ok para escrever */
-        
+
         setFieldsState.setWorkerAllEdit(true);
         setButtonsState.setSaveWorkerNew(false);
         setCleanState.cleanAllInfo();
@@ -111,78 +101,65 @@ public class ManagementWorker {
         setButtonsState.setAllDoseNoteBtsInit(false);
         setButtonsState.setAllDosimeterBtsInit(false);
         setButtonsState.setAllDsmtNoteBtsInit(false);
-        
+
         this.frmMan.getTxtInfoAction().setText("Inserting a New Worker");
 
     }
-    
-    
+
     // insert into the database 
-    
-    public void saveNewWorker () {
-        
-        Worker worker = getWorkerInfo ("new");
+    public void saveNewWorker() {
+
+        Worker worker = getWorkerInfo("new");
         worker.setPk_id(workerdao.insertWorker(worker));
         setFieldsState.setWorkerAllEdit(false);
-        
+
         String id = worker.getPk_id();
-        this.frmMan.getTxtInfoAction().setText("Worker with id= "+ id + "saved into database");
-        
+        this.frmMan.getTxtInfoAction().setText("Worker with id= " + id + "saved into database");
+
         // actualiza info
         setWorkerInfo.fillWorkerInfo(id);
         setButtonsState.setAllWorkerBtsInit(true);
-        
+
         dbPkIDs.setWorker_id(id);
-         
+
     }
-    
-    
-    
+
     /**
      *
      */
-    public void updateWorker () {
-        
+    public void updateWorker() {
+
         setFieldsState.setWorkerAllEdit(true);
         setButtonsState.setSaveWorkerUpdate(false);
-        
+
         this.frmMan.getTxtInfoAction().setText("Updating Worker info");
-        
+
     }
-    
-    
-    public void saveUpdateWorker () {
-        
-        Worker worker = getWorkerInfo ("update");
+
+    public void saveUpdateWorker() {
+
+        Worker worker = getWorkerInfo("update");
         setFieldsState.setWorkerAllEdit(false);
-        
+
         String worker_id = dbPkIDs.getWorker_id();
-        
-        System.out.println("save update    " +  worker_id);
+
+        System.out.println("save update    " + worker_id);
         workerdao.updateWorker(worker, worker_id);
-        
-        this.frmMan.getTxtInfoAction().setText("Worker with id= "+ worker_id + " updated into database");
-        
+
+        this.frmMan.getTxtInfoAction().setText("Worker with id= " + worker_id + " updated into database");
+
         // actualiza info
         setWorkerInfo.fillWorkerInfo(worker_id);
         setButtonsState.setAllWorkerBtsInit(true);
         this.frmMan.btWorkerUpdate.setEnabled(true);
-        
+
     }
-    
-    
-    public void btWorkerCancel () {
-        
-        System.out.println(" Iam h   ");
-        
+
+    public void btWorkerCancel() {
+
         setButtonsState.setAllSearchClearBts();
-  //      setButtonsState.setDosimeterBtsSearch(true);
-  //      setButtonsState.setDoseBtsSearch(true);
         setCleanState.cleanAllInfo();
         this.frmMan.getTxtInfoAction().setText("Cancel");
-        
-        
+
     }
-    
-    
 }

@@ -21,7 +21,6 @@ public class DIVFrm extends javax.swing.JFrame {
     DIVActionListener listeners;
     DIVButtons setButtonsState;
     
-    
     /**
      * Creates new form ManagementFrm
      */
@@ -324,10 +323,7 @@ public class DIVFrm extends javax.swing.JFrame {
     
     
     private void initState () {
- 
         setButtonsState.setAllDIVBtsInit(true);
- 
-                
     } 
 
     public JButton getBtDIV_Clean() {
@@ -409,8 +405,7 @@ public class DIVFrm extends javax.swing.JFrame {
     public void setPerdMonth(JComboBox comboPerdMonth) {
         this.comboPerdMonth = comboPerdMonth;
     }
-
-    
+   
     // para Perioodicity - Trimestral
     public JComboBox comboPerdTrimester = new JComboBox(SetEnums.Trimester.values());
 
@@ -429,10 +424,6 @@ public class DIVFrm extends javax.swing.JFrame {
     public void setTxtWorkerNameDIV(JTextField txtWorkerNameDIV) {
         this.txtWorkerNameDIV = txtWorkerNameDIV;
     }
-    
- 
-    
-    
     // Variables declaration - do not modify//GEN-BEGIN:variables
     public javax.swing.JButton btDIV_Cancel;
     public javax.swing.JButton btDIV_Clean;

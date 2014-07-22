@@ -6,6 +6,13 @@ package dosindchuc.model.dao;
 
 
 import dosindchuc.model.dao.Help.DaoConnections;
+import dosindchuc.model.dao.Help.DaoExceptions;
+import dosindchuc.model.dao.Help.QueryMapper;
+import dosindchuc.model.entities.Users;
+import java.sql.ResultSet;
+import java.sql.SQLException;
+import java.util.ArrayList;
+import java.util.List;
 
 /**
  *
@@ -15,25 +22,48 @@ public class UsersDao {
     
     
     private DaoConnections daoConnection;
-    
 	
     public UsersDao () {
 	daoConnection = new DaoConnections();
     }
     
-    
-    public String loginUsers (String username, String password) {
-        
-  
-        String [][][] where = { {{"username", "null", username}}, {{"password", "null", password}} };
-        Object [][] loginUsers = daoConnection.executeSelectivePreparedQuery("users", "name, username, password ", where);
-        
-        if (loginUsers.length > 0) {
-            return loginUsers[0][0].toString();
+      public String loginUsers(String username, String password) {
+
+        final List<Users> users = new ArrayList<>();
+
+        String query = "SELECT name, username, password ";
+        String from = " FROM users ";
+        String[][][] searchWhere = {{{"username", "null", username}}, {{"password", "null", password}}};
+
+        String where = "WHERE " + daoConnection.buildQueryWhere(searchWhere);
+
+        query = query + from + where;
+
+          daoConnection.executePreparedQuery(query, new QueryMapper<Users>() {
+              @Override
+              public List<Users> mapping(ResultSet rset) {
+
+                  try {
+                      while (rset.next()) {
+                          Users usersInfo = new Users();
+                          usersInfo.setName(rset.getString("name"));
+                          users.add(usersInfo);
+                      }
+                      return users;
+                  } catch (SQLException ex) {
+                      throw new DaoExceptions("Error on ResulSet of query (loginUsers): ",
+                              DaoConnections.class, ex);
+                  }
+              }
+              
+          });
+
+        if (users.size() > 0) {
+            return users.get(0).getName().toString();
         } else {
             return null;
         }
     }
-    
+
     
 }

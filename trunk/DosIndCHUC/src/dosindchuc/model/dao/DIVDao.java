@@ -6,6 +6,7 @@ package dosindchuc.model.dao;
 
 import dosindchuc.model.dao.Help.ArrayList2D;
 import dosindchuc.model.dao.Help.DaoConnections;
+import dosindchuc.model.dao.Help.DaoExceptions;
 import dosindchuc.model.dao.Help.QueryMapper;
 import dosindchuc.model.entities.DIVOldInfo;
 import dosindchuc.model.entities.DIVinfo;
@@ -32,8 +33,6 @@ public class DIVDao {
 
         daoConnection = new DaoConnections();
         queryList = new ArrayList2D();
-        divINFO = new DIVinfo();
-
 
     }
 
@@ -41,46 +40,39 @@ public class DIVDao {
 
         final List<DIVinfo> divInfo = new ArrayList<>();
 
-        System.out.println("I am in DIV info ");
+        String query = "SELECT p1.pk_id, p2.pk_dsmt, p1.name,"
+                + " p1.id_mec, p1.department, p1.category, p2.id, p2.periodicity ";
+        String from = " FROM worker as p1, dosimeter as p2 ";
 
-        try {
+        String defaulWhere = " p1.status = 'Activo' and p2.status = 'Activo' and p1.pk_id = p2.pk_id";
 
-            String query = "SELECT p1.pk_id, p2.pk_dsmt, p1.name,"
-                    + " p1.id_mec, p1.department, p1.category, p2.id, p2.periodicity ";
-            String from = " FROM worker as p1, dosimeter as p2 ";
-
-            String defaulWhere = " p1.status = 'Activo' and p2.status = 'Activo' and p1.pk_id = p2.pk_id";
-
-            String[][][] searchWhere = {{{"name", "LIKE", name}},
-                {{"department", "null", department}},
-                {{"category", "null", category}},
-                {{"id", "LIKE", dsmt_id}}};
+        String[][][] searchWhere = {{{"name", "LIKE", name}},
+            {{"department", "null", department}},
+            {{"category", "null", category}},
+            {{"id", "LIKE", dsmt_id}}};
 
 
-            String where = daoConnection.buildQueryWhere(searchWhere);
+        String where = daoConnection.buildQueryWhere(searchWhere);
 
-            if (where.isEmpty()) {
+        if (where.isEmpty()) {
 
-                where = " WHERE " + defaulWhere;
+            where = " WHERE " + defaulWhere;
 
-            } else {
+        } else {
 
-                where = " WHERE " + where + "and " + defaulWhere;
+            where = " WHERE " + where + "and " + defaulWhere;
 
-            }
+        }
 
+        String sort = " ORDER BY p1.name , p1.department DESC, p2.pk_dsmt DESC ";
 
-            System.out.println(" DIV Where ---- > " + where);
+        query = query + from + where + sort;
 
-            String sort = " ORDER BY p1.name , p1.department DESC, p2.pk_dsmt DESC ";
+        daoConnection.executePreparedQuery(query, new QueryMapper<DIVinfo>() {
+            @Override
+            public List<DIVinfo> mapping(ResultSet rset) {
 
-            query = query + from + where + sort;
-
-            System.out.println(" DIV Where ---- >  " + query);
-
-            daoConnection.executePreparedQuery(query, new QueryMapper<DIVinfo>() {
-                @Override
-                public List<DIVinfo> mapping(ResultSet rset) throws SQLException {
+                try {
                     while (rset.next()) {
                         DIVinfo divinfo = new DIVinfo();
 
@@ -99,90 +91,70 @@ public class DIVDao {
                         divInfo.add(divinfo);
                     }
                     return divInfo;
+                } catch (SQLException ex) {
+                    throw new DaoExceptions("Error on ResulSet of query (getDIVInfo): ",
+                            DaoConnections.class, ex);
                 }
-            });
-        } catch (SQLException e) {
-            e.printStackTrace();
-            //ignore exception
-        }
+            }
+        });
+
 
         return divInfo;
 
     }
-   
-    
-    public boolean getDIVAlreadyInserted(Object testeDIVAlready[]) {
- 
-        final List<Boolean> divAlready = new ArrayList<>();
-        
-        try {
 
-            String query = "SELECT pk_dose FROM dose_info WHERE"
-                    + " pk_dsmt='" + testeDIVAlready[0] + "' and (trimester = '" 
-                    + testeDIVAlready[1] + "' or month = '"
-                    + testeDIVAlready[1] + "') and year = '"
-                    + testeDIVAlready[2] + "'";
-            
-            
-            daoConnection.executePreparedQuery(query, new QueryMapper<Boolean>() {
-                @Override
-                public List<Boolean> mapping(ResultSet rset) throws SQLException {
-                    
-                        System.out.println("result do rset ---> ... " + rset.first());
-                        divAlready.add(rset.first());
-                        
-                        return divAlready;
-     
-                }
-            });
-        } catch (SQLException e) {
-            e.printStackTrace();
-            //ignore exception
-        }
-        
+    public boolean getDIVAlreadyInserted(Object testeDIVAlready[]) {
+
+        final List<Boolean> divAlready = new ArrayList<>();
+
+
         String query = "SELECT pk_dose FROM dose_info WHERE"
-                    + " pk_dsmt='" + testeDIVAlready[0] + "' and (trimester = '" 
-                    + testeDIVAlready[1] + "' or month = '"
-                    + testeDIVAlready[1] + "') and year = '"
-                    + testeDIVAlready[2] + "'";
-        
-        System.out.println(" divAlready ... -> " +  divAlready.get(0) + "  query --->  " + query);
-        
+                + " pk_dsmt='" + testeDIVAlready[0] + "' and (trimester = '"
+                + testeDIVAlready[1] + "' or month = '"
+                + testeDIVAlready[1] + "') and year = '"
+                + testeDIVAlready[2] + "'";
+
+
+        daoConnection.executePreparedQuery(query, new QueryMapper<Boolean>() {
+            @Override
+            public List<Boolean> mapping(ResultSet rset) {
+
+                try {
+                    divAlready.add(rset.first());
+                    return divAlready;
+
+                } catch (SQLException ex) {
+                    throw new DaoExceptions("Error on ResulSet of query (getDIVAlreadyInserted): ",
+                            DaoConnections.class, ex);
+                }
+            }
+        });
+
         return divAlready.get(0);
-            
+
     }
 
-    
-    
     public List<DIVOldInfo> getOldDIVInfo(String pk_id) {
 
         final List<DIVOldInfo> oldDIVInfo = new ArrayList<>();
 
-        System.out.println("I am in DIV info ");
+        String query = "SELECT p1.pk_dose, p2.periodicity, p2.id, p1.trimester,"
+                + " p1.month, p1.year, p1.hp007, p1.hp10, p1.timestamp, p1.comments, p1.lastchange";
+        String from = " FROM dose_info as p1, dosimeter as p2 ";
 
-        try {
+        String where = " WHERE p1.pk_id = " + pk_id + " and p1.pk_dsmt = p2.pk_dsmt ";
 
-            String query = "SELECT p1.pk_dose, p2.periodicity, p2.id, p1.trimester,"
-                    + " p1.month, p1.year, p1.hp007, p1.hp10, p1.timestamp, p1.comments, p1.lastchange";
-            String from = " FROM dose_info as p1, dosimeter as p2 ";
+        String sort = " ORDER BY p1.timestamp DESC ";
 
-            String where = " WHERE p1.pk_id = " + pk_id + " and p1.pk_dsmt = p2.pk_dsmt ";
+        String limit = " LIMIT 0, 10 ";
 
+        query = query + from + where + sort + limit;
 
+        daoConnection.executePreparedQuery(query, new QueryMapper<DIVOldInfo>() {
+            @Override
+            public List<DIVOldInfo> mapping(ResultSet rset) {
 
-            System.out.println(" DIV Where ---- > " + where);
-
-            String sort = " ORDER BY p1.timestamp DESC ";
-
-            String limit = " LIMIT 0, 10 ";
-
-            query = query + from + where + sort + limit;
-
-            System.out.println(" DIV Where ---- >  " + query);
-
-            daoConnection.executePreparedQuery(query, new QueryMapper<DIVOldInfo>() {
-                @Override
-                public List<DIVOldInfo> mapping(ResultSet rset) throws SQLException {
+                try {
                     while (rset.next()) {
                         DIVOldInfo olddivinfo = new DIVOldInfo();
                         olddivinfo.setPk_dose(rset.getString("pk_dose"));
@@ -200,46 +172,37 @@ public class DIVDao {
                         oldDIVInfo.add(olddivinfo);
                     }
                     return oldDIVInfo;
+                } catch (SQLException ex) {
+                    throw new DaoExceptions("Error on ResulSet of query (getOldDIVInfo): ",
+                            DaoConnections.class, ex);
                 }
-            });
-        } catch (SQLException e) {
-            e.printStackTrace();
-            //ignore exception
-        }
+            }
+        });
 
         return oldDIVInfo;
 
     }
 
-    
-    
-    
     public List<DIVnotes> getDIVNotes(String pk_dose) {
 
         final List<DIVnotes> notesDIV = new ArrayList<>();
 
-        System.out.println("I am in DIV info ");
+        String query = "SELECT note, status, alert_level, lastchange";
+        String from = " FROM dose_notes  ";
 
-        try {
+        String where = " WHERE pk_dose = " + pk_dose;
 
-            String query = "SELECT note, status, alert_level, lastchange";
-            String from = " FROM dose_notes  ";
+        String sort = " ORDER BY lastchange DESC ";
 
-            String where = " WHERE pk_dose = " + pk_dose;
+        String limit = " LIMIT 0, 5 ";
 
-            System.out.println(" DIV Where ---- > " + where);
+        query = query + from + where + sort + limit;
 
-            String sort = " ORDER BY lastchange DESC ";
+        daoConnection.executePreparedQuery(query, new QueryMapper<DIVnotes>() {
+            @Override
+            public List<DIVnotes> mapping(ResultSet rset) {
 
-            String limit = " LIMIT 0, 5 ";
-
-            query = query + from + where + sort + limit;
-
-            System.out.println(" DIV Where ---- >  " + query);
-
-            daoConnection.executePreparedQuery(query, new QueryMapper<DIVnotes>() {
-                @Override
-                public List<DIVnotes> mapping(ResultSet rset) throws SQLException {
+                try {
                     while (rset.next()) {
                         DIVnotes notesdiv = new DIVnotes();
                         notesdiv.setNote(rset.getString("note"));
@@ -247,23 +210,20 @@ public class DIVDao {
                         notesdiv.setAlert_level(rset.getString("alert_level"));
                         notesdiv.setLastchange(rset.getString("lastchange"));
 
-
                         notesDIV.add(notesdiv);
                     }
                     return notesDIV;
+                } catch (SQLException ex) {
+                    throw new DaoExceptions("Error on ResulSet of query (getDIVNotes): ",
+                            DaoConnections.class, ex);
                 }
-            });
-        } catch (SQLException e) {
-            e.printStackTrace();
-            //ignore exception
-        }
+            }
+        });
 
         return notesDIV;
 
     }
 
-    
-    
     public String saveDIV_doseInfo(List<DIVinfo> divInfo) {
 
         prepareQueryDoseInfo(divInfo);
@@ -290,8 +250,6 @@ public class DIVDao {
 
     }
 
-    
-    
     private void prepareQueryDoseInfo(List<DIVinfo> divInfo) {
 
         String newDate = dateAndTime.currDateTime();
@@ -304,8 +262,6 @@ public class DIVDao {
         queryList.Add(" ? ", i);
         queryList.Add(divINFO.getPk_dsmt(), i);
 
-        System.out.println(" query DIV pk_dsmt ----> " + divINFO.getPk_dsmt());
-
         i += 1;
         queryList.Add(", pk_id", i);
         queryList.Add(", ? ", i);
@@ -317,7 +273,6 @@ public class DIVDao {
         queryList.Add(divINFO.getYear(), i);
 
         i += 1;
-        System.out.println("   querylist peri --- > " + divINFO.getPeriodicity());
         if (divINFO.getPeriodicity().toString().equalsIgnoreCase("Mensal")) {
             queryList.Add(", month", i);
         } else {
@@ -353,7 +308,6 @@ public class DIVDao {
         queryList.Add(", lastchange", i);
         queryList.Add(", ? ", i);
         queryList.Add(newDate, i);
-
 
     }
 
@@ -395,8 +349,6 @@ public class DIVDao {
         queryList.Add(" ? ", i);
         queryList.Add(pk_dose, i);
 
-        System.out.println(" query DIV pk_dose ----> " + pk_dose);
-
         i += 1;
         queryList.Add(", note", i);
         queryList.Add(", ? ", i);
@@ -432,8 +384,6 @@ public class DIVDao {
         queryList.Add(", lastchange", i);
         queryList.Add(", ? ", i);
         queryList.Add(newDate, i);
-
-
 
     }
 }

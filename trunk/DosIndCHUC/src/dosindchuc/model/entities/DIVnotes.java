@@ -9,7 +9,7 @@ package dosindchuc.model.entities;
  * @author ir
  */
 public class DIVnotes {
-    
+
     private String note;
     private String status;
     private String alert_level;
@@ -18,9 +18,6 @@ public class DIVnotes {
     public DIVnotes() {
     }
 
-    
-    
-    
     public String getNote() {
         return note;
     }
@@ -52,10 +49,4 @@ public class DIVnotes {
     public void setLastchange(String lastchange) {
         this.lastchange = lastchange;
     }
-
-    
-    
-    
-    
-    
 }

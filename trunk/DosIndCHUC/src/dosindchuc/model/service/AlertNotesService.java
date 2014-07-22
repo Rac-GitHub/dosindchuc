@@ -36,13 +36,11 @@ public class AlertNotesService {
         this.frmMain = frmMain;
         dbPkIDs = new DbPkIDs();
         tableNote = new AlertTableInMainFrm(this.frmMain);
-
         alertNotesDao = new AlertNotesDao();
 
     }
 
     public void fillAlertNotesTable() {
-
 
         ArrayList<Object[]> alertNoteInfo = new ArrayList();
 
@@ -55,17 +53,12 @@ public class AlertNotesService {
         if (nResultsDose > 0) {
 
             for (int i = 0; i < nResultsDose; i++) {
-
                 AlertNotes alertNote = alertNotes.get(i);
                 alertNoteList.add(alertNote);
-
             }
-
         }
 
-
         alertNotes.clear();
-
         alertNotes = alertNotesDao.getDsmtAlerNotes();
 
         int nResultsDsmt = alertNotes.size();
@@ -77,19 +70,14 @@ public class AlertNotesService {
                 alertNoteList.add(alertNote);
             }
 
-
             if (!(nResultsDose > 0) && !(nResultsDsmt > 0)) {
-
                 return;
             }
 
-
             // sort Collection
-
             Collections.sort(alertNoteList, Collections.reverseOrder(new sortArrayList()));
 
             // display sorted info on table 
-
             model = setTableModel("toedit");
 
             for (AlertNotes alN : alertNoteList) {
@@ -105,7 +93,6 @@ public class AlertNotesService {
             }
 
             // save to use later 
-
             dbPkIDs.setAlertNote(alertNoteInfo);
 
         }
@@ -135,9 +122,7 @@ public class AlertNotesService {
                 table.setValueAt(Boolean.FALSE, i, 8);
 
                 if (table.getValueAt(i, 6).toString().matches("C")) {
-
                     removedRows.add(i);
-
                 }
             }
         }
@@ -145,23 +130,17 @@ public class AlertNotesService {
 
         int nR = 0;
         for (int i = 0; i < removedRows.size(); i++) {
-
             int rowR = removedRows.get(i);
-
             tmodel.removeRow(rowR - nR);
             alertNoteInfo.remove(rowR - nR);
-
             nR++;
-
         }
-
 
         dbPkIDs.setAlertNote(alertNoteInfo);
 
     }
 
     public void cancelAlertNotesTable() {
-
 
         DefaultTableModel tmodel = tableNote.getModelAlertTable();
 
@@ -190,15 +169,11 @@ public class AlertNotesService {
         alertNoteInfo = dbPkIDs.getAlertNote();
 
         for (int i = 0; i < alertNoteInfo.size(); i++) {
-
             Object alertNote[] = alertNoteInfo.get(i);
-
             model.addRow(alertNote);
-
         }
-
-
     }
+
 }
 
 // class to sort an ArrayList --- AlertNotes based on a column value

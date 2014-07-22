@@ -15,8 +15,7 @@ import javax.swing.table.TableCellRenderer;
  * @author ir
  */
 public class CheckBoxRenderer extends JCheckBox implements TableCellRenderer {
-    
-    
+
     CheckBoxRenderer() {
         setHorizontalAlignment(JLabel.CENTER);
     }
@@ -24,10 +23,9 @@ public class CheckBoxRenderer extends JCheckBox implements TableCellRenderer {
     @Override
     public Component getTableCellRendererComponent(JTable table, Object value,
             boolean isSelected, boolean hasFocus, int row, int column) {
-        
+
         setSelected((value != null && ((Boolean) value).booleanValue()));
         return this;
-        
+
     }
- 
 }
