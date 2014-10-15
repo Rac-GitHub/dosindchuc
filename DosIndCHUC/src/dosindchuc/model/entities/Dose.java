@@ -11,7 +11,7 @@ import dosindchuc.model.entities.Help.SetEnums.month;
  *
  * @author ir
  */
-public class Dose_info {
+public class Dose {
 
     private String pk_dose;
     private String pk_dsmt;
@@ -28,7 +28,7 @@ public class Dose_info {
     private String dsmt_id;
 
     // constructors
-    public Dose_info() {
+    public Dose() {
     }
 
     // getter and setters

@@ -5,10 +5,10 @@
 package dosindchuc.model.entities;
 
 //
-import dosindchuc.model.entities.Help.SetEnums.status;
 import dosindchuc.model.entities.Help.SetEnums.worker_category;
 import dosindchuc.model.entities.Help.SetEnums.worker_department;
 import dosindchuc.model.entities.Help.SetEnums.worker_sex;
+import dosindchuc.model.entities.Help.SetEnums.worker_status;
 
 /**
  *
@@ -28,9 +28,10 @@ public class Worker {
     private worker_category category;
     private worker_department department;
     private String sector;
+    private String job_activity;
     private String comments;
     private String timestamp;
-    private status status;
+    private worker_status status;
     private String status_timestamp;
     private String lastchange;
 
@@ -138,6 +139,14 @@ public class Worker {
         this.sector = sector;
     }
 
+    public String getJob_activity() {
+        return job_activity;
+    }
+
+    public void setJob_activity(String job_activity) {
+        this.job_activity = job_activity;
+    }
+    
     public String getComments() {
         return comments;
     }
@@ -154,11 +163,11 @@ public class Worker {
         this.timestamp = timestamp;
     }
 
-    public status getStatus() {
+    public worker_status getStatus() {
         return status;
     }
 
-    public void setStatus(status status) {
+    public void setStatus(worker_status status) {
         this.status = status;
     }
 

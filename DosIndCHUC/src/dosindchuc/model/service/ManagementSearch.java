@@ -9,17 +9,17 @@ import dosindchuc.UI.controller.ManagementActionListener;
 import dosindchuc.UI.swing.Help.ManagementTablesModel;
 import dosindchuc.UI.swing.MainFrm;
 import dosindchuc.UI.swing.ManagementFrm;
-import dosindchuc.model.dao.Dose_infoDao;
+import dosindchuc.model.dao.DoseDao;
 import dosindchuc.model.dao.Dose_notesDao;
 import dosindchuc.model.dao.DosimeterDao;
 import dosindchuc.model.dao.Dosimeter_notesDao;
 import dosindchuc.model.dao.Help.ArrayList2D;
 import dosindchuc.model.dao.WorkerDao;
 import dosindchuc.model.entities.DbPkIDs;
-import dosindchuc.model.entities.Dose_info;
+import dosindchuc.model.entities.Dose;
 import dosindchuc.model.entities.Dose_notes;
 import dosindchuc.model.entities.Dosimeter;
-import dosindchuc.model.entities.Dosimeter_notes;
+import dosindchuc.model.entities.Dsmt_notes;
 import dosindchuc.model.entities.Worker;
 import java.util.ArrayList;
 import java.util.List;
@@ -42,9 +42,9 @@ public class ManagementSearch {
     
     private List<Worker> workerList;
     
-    private Dose_infoDao doseinfodao;
+    private DoseDao doseinfodao;
     private Dose_notesDao doseNotesDao;
-    private List<Dose_info> dose_info;
+    private List<Dose> dose_info;
     private List<Dose_notes> dosenotes; 
     
     private ManagementTablesModel tableModel;
@@ -52,7 +52,7 @@ public class ManagementSearch {
     private DosimeterDao dosimeterdao;
     private Dosimeter_notesDao dosimeterNotesDao;
     private List<Dosimeter> dosimeter_info;
-    private List<Dosimeter_notes> dosimeterNotes;
+    private List<Dsmt_notes> dosimeterNotes;
     
     private ManagementActionListener Listeners;
     private ManagementButtons serviceBtns;
@@ -67,7 +67,7 @@ public class ManagementSearch {
         tableModel = new ManagementTablesModel(this.frmMain, this.frmMan);
         dbPkIDs = new DbPkIDs();
         workerdao = new WorkerDao();
-        doseinfodao = new Dose_infoDao();
+        doseinfodao = new DoseDao();
         doseNotesDao = new Dose_notesDao();
         dosimeterdao = new DosimeterDao();
         dosimeterNotesDao = new Dosimeter_notesDao();
@@ -212,7 +212,6 @@ public class ManagementSearch {
             tableModel.setDefaultDsmtTable("readonly");
             this.frmMan.btDosimeterInfoNew.setEnabled(true);
             this.frmMan.btDosimeterInfoUpdate.setEnabled(true);
-            System.out.println(" fillDosimeterInfo : erro list:");
         } else {
             System.out.println(" fillDosimeterInfo: erro:");
         }
@@ -291,7 +290,7 @@ public class ManagementSearch {
 
         dosimeterNotes = dosimeterNotesDao.getDosimetry_notes(pk_dsmt);
 
-        Dosimeter_notes dsmt_notes = dosimeterNotes.get(index);
+        Dsmt_notes dsmt_notes = dosimeterNotes.get(index);
 
         frmMan.getTxtDosimeterNote().setText(dsmt_notes.getNote());
         frmMan.getTxtDosimeterNotesDateCreated().setText(dsmt_notes.getTimestamp());
@@ -306,7 +305,7 @@ public class ManagementSearch {
 
         int i = 0;
         // info dose-note selected dor update
-        dsmtNoteInfo.Add(dsmt_notes.getPk_notes_dsmt(), i);
+        dsmtNoteInfo.Add(dsmt_notes.getPk_dsmt_notes(), i);
         dsmtNoteInfo.Add(dsmt_notes.getPk_dsmt(), i);
         dsmtNoteInfo.Add(dsmt_notes.getAlert_level().name(), i);
         dsmtNoteInfo.Add(dsmt_notes.getStatus().name(), i);
@@ -367,7 +366,7 @@ public class ManagementSearch {
 
         for (int i = 0; i < nResults; i++) {
 
-            Dose_info worker_dose = dose_info.get(i);
+            Dose worker_dose = dose_info.get(i);
             String dsmtID = dosimeterdao.getDosimetersInfo(worker_dose.getPk_dsmt(), worker_id).get(0).getId();
 
             Object newRow[] = new Object[]{dsmtID, worker_dose.getYear(), worker_dose.getTrimester(), worker_dose.getMonth(), worker_dose.getHp007(), worker_dose.getHp10(), worker_dose.getTimestamp(), worker_dose.getComments(), worker_dose.getLastchange()};
@@ -447,7 +446,7 @@ public class ManagementSearch {
 
         int i = 0;
         // info dose-note selected dor update
-        doseNoteInfo.Add(dose_notes.getPk_notes_dose(), i);
+        doseNoteInfo.Add(dose_notes.getPk_dose_notes(), i);
         doseNoteInfo.Add(dose_notes.getPk_dose(), i);
         doseNoteInfo.Add(dose_notes.getAlert_level().name(), i);
         doseNoteInfo.Add(dose_notes.getStatus().name(), i);

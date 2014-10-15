@@ -5,6 +5,8 @@
 package dosindchuc.model.dao;
 
 
+import dosindchuc.globals.Conn_db;
+import dosindchuc.globals.Tbl_users;
 import dosindchuc.model.dao.Help.DaoConnections;
 import dosindchuc.model.dao.Help.DaoExceptions;
 import dosindchuc.model.dao.Help.QueryMapper;
@@ -28,14 +30,14 @@ public class UsersDao {
     }
     
       public String loginUsers(String username, String password) {
-
+          
         final List<Users> users = new ArrayList<>();
+     
+        String query = "SELECT " + Tbl_users.name + ", " + Tbl_users.username + ", " + Tbl_users.password;
+        String from = " FROM " + Conn_db.tbl_users;
+        String[][][] searchWhere = {{{Tbl_users.username, "null", username}}, {{Tbl_users.password, "null", password}}};
 
-        String query = "SELECT name, username, password ";
-        String from = " FROM users ";
-        String[][][] searchWhere = {{{"username", "null", username}}, {{"password", "null", password}}};
-
-        String where = "WHERE " + daoConnection.buildQueryWhere(searchWhere);
+        String where = " WHERE " + daoConnection.buildQueryWhere(searchWhere);
 
         query = query + from + where;
 
@@ -46,7 +48,7 @@ public class UsersDao {
                   try {
                       while (rset.next()) {
                           Users usersInfo = new Users();
-                          usersInfo.setName(rset.getString("name"));
+                          usersInfo.setName(rset.getString(Tbl_users.name));
                           users.add(usersInfo);
                       }
                       return users;

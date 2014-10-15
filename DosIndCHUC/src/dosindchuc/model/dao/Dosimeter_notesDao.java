@@ -8,7 +8,7 @@ import dosindchuc.model.dao.Help.ArrayList2D;
 import dosindchuc.model.dao.Help.DaoConnections;
 import dosindchuc.model.dao.Help.DaoExceptions;
 import dosindchuc.model.dao.Help.QueryMapper;
-import dosindchuc.model.entities.Dosimeter_notes;
+import dosindchuc.model.entities.Dsmt_notes;
 import dosindchuc.model.entities.Help.SetEnums;
 import java.sql.ResultSet;
 import java.sql.SQLException;
@@ -31,9 +31,9 @@ public class Dosimeter_notesDao {
         queryList = new ArrayList2D();
     }
 
-    public List<Dosimeter_notes> getDosimetry_notes(String dsmt_id) {
+    public List<Dsmt_notes> getDosimetry_notes(String dsmt_id) {
 
-        final List<Dosimeter_notes> dsmt_notes = new ArrayList<>();
+        final List<Dsmt_notes> dsmt_notes = new ArrayList<>();
 
         String query = null;
         String sort = " ORDER BY status, alert_level DESC, lastchange DESC";
@@ -44,15 +44,15 @@ public class Dosimeter_notesDao {
         }
 
 
-        daoConnection.executePreparedQuery(query, new QueryMapper<Dosimeter_notes>() {
+        daoConnection.executePreparedQuery(query, new QueryMapper<Dsmt_notes>() {
             @Override
-            public List<Dosimeter_notes> mapping(ResultSet rset) {
+            public List<Dsmt_notes> mapping(ResultSet rset) {
 
                 try {
                     while (rset.next()) {
-                        Dosimeter_notes dsmt_note = new Dosimeter_notes();
+                        Dsmt_notes dsmt_note = new Dsmt_notes();
 
-                        dsmt_note.setPk_notes_dsmt(rset.getString("pk_notes_dsmt"));
+                        dsmt_note.setPk_dsmt_notes(rset.getString("pk_notes_dsmt"));
                         dsmt_note.setPk_dsmt(rset.getString("pk_dsmt"));
                         dsmt_note.setNote(rset.getString("note"));
                         dsmt_note.setTimestamp(rset.getString("timestamp"));
@@ -76,7 +76,7 @@ public class Dosimeter_notesDao {
 
     }
 
-    private void prepareQuery(Dosimeter_notes dsmt_note, String newOrUpdate) {
+    private void prepareQuery(Dsmt_notes dsmt_note, String newOrUpdate) {
 
         int i = 0;
 
@@ -124,7 +124,7 @@ public class Dosimeter_notesDao {
 
     }
 
-    public String insertDsmtNote(Dosimeter_notes dsmt_note) {
+    public String insertDsmtNote(Dsmt_notes dsmt_note) {
 
         prepareQuery(dsmt_note, "new");
 
@@ -150,7 +150,7 @@ public class Dosimeter_notesDao {
 
     }
 
-    public void updateDsmtNote(Dosimeter_notes dstm_note, String dsmt_note_id) {
+    public void updateDsmtNote(Dsmt_notes dstm_note, String dsmt_note_id) {
 
         prepareQuery(dstm_note, "update");
 

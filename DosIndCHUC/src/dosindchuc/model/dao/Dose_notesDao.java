@@ -4,6 +4,8 @@
  */
 package dosindchuc.model.dao;
 
+import dosindchuc.globals.Conn_db;
+import dosindchuc.globals.Tbl_dose_notes;
 import dosindchuc.model.dao.Help.ArrayList2D;
 import dosindchuc.model.dao.Help.DaoConnections;
 import dosindchuc.model.dao.Help.DaoExceptions;
@@ -23,6 +25,10 @@ public class Dose_notesDao {
 
     private DaoConnections daoConnection;
     private ArrayList2D queryList;
+    
+    private String table_doseNotes = Conn_db.tbl_doseNotes;
+//    private String table_doseNotes = Conn_db.tbl_doseNotes;
+    
 
     public Dose_notesDao() {
         daoConnection = new DaoConnections();
@@ -32,13 +38,17 @@ public class Dose_notesDao {
     public List<Dose_notes> getDose_notesInfo(String dose_id) {
 
         final List<Dose_notes> dose_notes = new ArrayList<>();
-
-        String sort = " ORDER BY status, alert_level DESC";
+        
+        String select = "SELECT * ";
+        String from = " FROM " + table_doseNotes;
+        String where = " WHERE " + Tbl_dose_notes.pk_dose + " = " + dose_id;
+        String sort = " ORDER BY " + Tbl_dose_notes.status + ", " + Tbl_dose_notes.alert_level + " DESC";
+        
         String query = null;
         if (dose_id.isEmpty()) {
-            query = "SELECT * from dose_notes" + sort;
+            query = query + select + from + sort;
         } else {
-            query = "SELECT * FROM dose_notes WHERE pk_dose= " + dose_id + sort;
+            query = query + select + from + where + sort;
         }
 
         daoConnection.executePreparedQuery(query, new QueryMapper<Dose_notes>() {
@@ -49,15 +59,15 @@ public class Dose_notesDao {
                     while (rset.next()) {
                         Dose_notes dose_note = new Dose_notes();
 
-                        dose_note.setPk_notes_dose(rset.getString("pk_notes_dose"));
-                        dose_note.setPk_dose(rset.getString("pk_dose"));
-                        dose_note.setNote(rset.getString("note"));
-                        dose_note.setTimestamp(rset.getString("timestamp"));
-                        dose_note.setStatus(SetEnums.note_status.valueOf(rset.getString("status")));
-                        dose_note.setStatus_timestamp(rset.getString("status_timestamp"));
-                        dose_note.setAlert_level(SetEnums.note_alertlevel.valueOf(rset.getString("alert_level")));
-                        dose_note.setAlert_level_timestamp(rset.getString("alert_level_timestamp"));
-                        dose_note.setLastchange(rset.getString("lastchange"));
+                        dose_note.setPk_dose_notes(rset.getString(Tbl_dose_notes.pk_dose_notes));
+                        dose_note.setPk_dose(rset.getString(Tbl_dose_notes.pk_dose));
+                        dose_note.setNote(rset.getString(Tbl_dose_notes.note));
+                        dose_note.setTimestamp(rset.getString(Tbl_dose_notes.timestamp));
+                        dose_note.setStatus(SetEnums.note_status.valueOf(rset.getString(Tbl_dose_notes.status)));
+                        dose_note.setStatus_timestamp(rset.getString(Tbl_dose_notes.status_timestamp));
+                        dose_note.setAlert_level(SetEnums.note_alertlevel.valueOf(rset.getString(Tbl_dose_notes.alert_level)));
+                        dose_note.setAlert_level_timestamp(rset.getString(Tbl_dose_notes.alert_level_timestamp));
+                        dose_note.setLastchange(rset.getString(Tbl_dose_notes.lastchange));
                         dose_notes.add(dose_note);
                     }
                     return dose_notes;
@@ -76,44 +86,44 @@ public class Dose_notesDao {
 
         int i = 0;
 
-        queryList.Add("pk_dose", i);
+        queryList.Add(Tbl_dose_notes.pk_dose, i);
         queryList.Add(" ? ", i);
         queryList.Add(dose_note.getPk_dose(), i);
 
 
         i += 1;
-        queryList.Add(", note", i);
+        queryList.Add(", " + Tbl_dose_notes.note, i);
         queryList.Add(", ? ", i);
         queryList.Add(dose_note.getNote(), i);
 
         i += 1;
-        queryList.Add(", status", i);
+        queryList.Add(", " + Tbl_dose_notes.status, i);
         queryList.Add(", ? ", i);
         queryList.Add(dose_note.getStatus().toString(), i);
 
         i += 1;
-        queryList.Add(", alert_level", i);
+        queryList.Add(", " + Tbl_dose_notes.alert_level, i);
         queryList.Add(", ? ", i);
         queryList.Add(dose_note.getAlert_level().toString(), i);
 
         i += 1;
-        queryList.Add(", timestamp", i);
+        queryList.Add(", " + Tbl_dose_notes.timestamp, i);
         queryList.Add(", ? ", i);
         queryList.Add(dose_note.getTimestamp(), i);
 
         i += 1;
-        queryList.Add(", status_timestamp", i);
+        queryList.Add(", " + Tbl_dose_notes.status_timestamp, i);
         queryList.Add(", ? ", i);
         queryList.Add(dose_note.getStatus_timestamp(), i);
 
         i += 1;
-        queryList.Add(", alert_level_timestamp", i);
+        queryList.Add(", " + Tbl_dose_notes.alert_level_timestamp, i);
         queryList.Add(", ? ", i);
         queryList.Add(dose_note.getAlert_level_timestamp(), i);
 
         if (newOrUpdate.equalsIgnoreCase("new")) {
             i += 1;
-            queryList.Add(", lastchange", i);
+            queryList.Add(", " + Tbl_dose_notes.lastchange, i);
             queryList.Add(", ? ", i);
             queryList.Add(dose_note.getLastchange(), i);
         }
@@ -126,7 +136,7 @@ public class Dose_notesDao {
 
         int sizeNparam = queryList.getNumRows();
 
-        String query = "INSERT INTO dose_notes (";
+        String query = "INSERT INTO " + table_doseNotes + " (";
         String valuesInt = " VALUES (";
         Object param[] = new Object[sizeNparam];
 
@@ -151,7 +161,7 @@ public class Dose_notesDao {
         prepareQuery(dose_note, "update");
 
         int sizeNparam = queryList.getNumRows();
-        String query = "UPDATE dose_notes SET ";
+        String query = "UPDATE " + table_doseNotes + " SET ";
         Object param[] = new Object[sizeNparam];
 
         for (int i = 0; i < sizeNparam; i++) {
@@ -159,7 +169,7 @@ public class Dose_notesDao {
             param[i] = queryList.get(i, 2);
         }
 
-        query += " WHERE pk_notes_dose = " + dose_note_id;
+        query += " WHERE " + Tbl_dose_notes.pk_dose_notes + " = " + dose_note_id;
 
         daoConnection.update(query, param);
 

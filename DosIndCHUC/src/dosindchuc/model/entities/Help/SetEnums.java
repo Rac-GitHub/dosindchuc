@@ -4,8 +4,6 @@
  */
 package dosindchuc.model.entities.Help;
 
-import java.util.ArrayList;
-
 /**
  *
  * @author ir
@@ -14,7 +12,7 @@ public class SetEnums {
 
     public enum worker_category {
 
-        Médico, Físico, Técnico, Secretário, Enfermeiro, Auxiliar, NoDef
+        Médico, Físico, Técnico, Secretário, Enfermeiro, Auxiliar, NULL
     }
 
     public enum worker_sex {
@@ -29,7 +27,8 @@ public class SetEnums {
         Orto("Ortopedia"),
         BOC("Bloco Operatório"),
         MN("Medicina Nuclear"),
-        NoDef("No defined");
+        NULL("Not defined");
+        
         private String displayName;
 
         worker_department(String displayName) {
@@ -41,13 +40,21 @@ public class SetEnums {
         }
     }
 
+    
+    public enum worker_status {
+
+        Activo, 
+        Inactivo
+        
+    }
+    
     public enum Trimester {
 
         P(1),
         S(2),
         T(3),
         Q(4),
-        NoDef(5);
+        NULL(5);
         private final int displayName;
 
         private Trimester(int displayName) {
@@ -61,12 +68,19 @@ public class SetEnums {
 
     public enum month {
 
-        Jan, Fev, Mar, Abr, Mai, Jun, Jul, Ago, Set, Out, Nov, Dez, NoDef
+        Jan, Fev, Mar, Abr, Mai, Jun, Jul, Ago, Set, Out, Nov, Dez, NULL
     }
 
-    public enum status {
+    public enum dsmt_status {
 
-        Activo, Inactivo
+        Activo, 
+        Inactivo,
+        Pedido,
+        Chegou,
+        Perdido,
+        Recuperado,
+        PedCancelamento,
+        Cancelado
     }
 
     public enum dsmt_type {
@@ -95,7 +109,8 @@ public class SetEnums {
         Fluencia("Fluência"),
         ITN("ITN"),
         DPR("DPR"),
-        NoDef("No defined");
+        NULL("Not defined");
+        
         private String displayName;
 
         dsmt_supplier(String displayName) {

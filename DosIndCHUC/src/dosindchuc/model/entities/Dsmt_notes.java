@@ -11,9 +11,9 @@ import dosindchuc.model.entities.Help.SetEnums.note_status;
  *
  * @author ir
  */
-public class Dosimeter_notes {
+public class Dsmt_notes {
 
-    private String pk_notes_dsmt;
+    private String pk_dsmt_notes;
     private String pk_dsmt;
     private String note;
     private String timestamp;
@@ -24,16 +24,16 @@ public class Dosimeter_notes {
     private String lastchange;
 
     // constructors
-    public Dosimeter_notes() {
+    public Dsmt_notes() {
     }
 
     // getter and setters
-    public String getPk_notes_dsmt() {
-        return pk_notes_dsmt;
+    public String getPk_dsmt_notes() {
+        return pk_dsmt_notes;
     }
 
-    public void setPk_notes_dsmt(String pk_notes_dsmt) {
-        this.pk_notes_dsmt = pk_notes_dsmt;
+    public void setPk_dsmt_notes(String pk_dsmt_notes) {
+        this.pk_dsmt_notes = pk_dsmt_notes;
     }
 
     public String getNote() {

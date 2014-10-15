@@ -26,7 +26,6 @@ public class Users {
     public Users() {
     }
 
-
     // getter and setters
     public int getPk_users() {
         return pk_users;

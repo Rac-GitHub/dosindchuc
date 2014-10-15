@@ -4,6 +4,10 @@
  */
 package dosindchuc.model.dao;
 
+import dosindchuc.globals.Conn_db;
+import dosindchuc.globals.Tbl_dosimeters;
+import dosindchuc.globals.Tbl_dsmt_status;
+import dosindchuc.globals.Tbl_workers;
 import dosindchuc.model.dao.Help.ArrayList2D;
 import dosindchuc.model.dao.Help.DaoConnections;
 import dosindchuc.model.dao.Help.DaoExceptions;
@@ -29,6 +33,13 @@ public class DIVDao {
     private DateAndTime dateAndTime = new DateAndTime();
     private DIVinfo divINFO;
 
+    String table_workers = Conn_db.tbl_workers;
+    String table_dmst = Conn_db.tbl_dsmt;
+    String table_dmstStatus = Conn_db.tbl_dsmtStatus;
+    String table_doses = Conn_db.tbl_doses;
+    String table_doseNotes = Conn_db.tbl_doseNotes;
+    
+    
     public DIVDao() {
 
         daoConnection = new DaoConnections();
@@ -40,16 +51,20 @@ public class DIVDao {
 
         final List<DIVinfo> divInfo = new ArrayList<>();
 
-        String query = "SELECT p1.pk_id, p2.pk_dsmt, p1.name,"
-                + " p1.id_mec, p1.department, p1.category, p2.id, p2.periodicity ";
-        String from = " FROM worker as p1, dosimeter as p2 ";
+        String query = "SELECT p1." + Tbl_workers.pk_id + ",  p2." +  Tbl_dosimeters.pk_dsmt + ", p1." + Tbl_workers.name 
+                + ", p1." + Tbl_workers.id_mec + ", p1." + Tbl_workers.department + ", p1." + Tbl_workers.category 
+                + ", p2." + Tbl_dosimeters.id + ", p2." + Tbl_dosimeters.periodicity;
 
-        String defaulWhere = " p1.status = 'Activo' and p2.status = 'Activo' and p1.pk_id = p2.pk_id";
+        String from = " FROM " + table_workers + " as p1, " + table_dmst + " as p2, " 
+                + table_dmstStatus + " as p3";
 
-        String[][][] searchWhere = {{{"name", "LIKE", name}},
-            {{"department", "null", department}},
-            {{"category", "null", category}},
-            {{"id", "LIKE", dsmt_id}}};
+        String defaulWhere = " p1." + Tbl_workers.status + " = 'Activo' and p3." + Tbl_dsmt_status.status + "= 'Activo' and p1." 
+                + Tbl_workers.pk_id + " = p2." + Tbl_dosimeters.pk_id;
+
+        String[][][] searchWhere = {{{Tbl_workers.name, "LIKE", name}},
+            {{Tbl_workers.department, "null", department}},
+            {{Tbl_workers.category, "null", category}},
+            {{Tbl_dosimeters.id, "LIKE", dsmt_id}}};
 
 
         String where = daoConnection.buildQueryWhere(searchWhere);
@@ -64,7 +79,8 @@ public class DIVDao {
 
         }
 
-        String sort = " ORDER BY p1.name , p1.department DESC, p2.pk_dsmt DESC ";
+        String sort = " ORDER BY p1." + Tbl_workers.name + ", p1." + Tbl_workers.department + " DESC, p2." 
+                + Tbl_dosimeters.pk_dsmt + " DESC ";
 
         query = query + from + where + sort;
 
@@ -76,14 +92,14 @@ public class DIVDao {
                     while (rset.next()) {
                         DIVinfo divinfo = new DIVinfo();
 
-                        divinfo.setPk_id(rset.getString("pk_id"));
-                        divinfo.setPk_dsmt(rset.getString("pk_dsmt"));
-                        divinfo.setName(rset.getString("name"));
-                        divinfo.setId_mec(rset.getString("id_mec"));
-                        divinfo.setCategory(SetEnums.worker_category.valueOf(rset.getString("category")));
-                        divinfo.setDepartment(SetEnums.worker_department.valueOf(rset.getString("department")));
-                        divinfo.setId_dsmt(rset.getString("id"));
-                        divinfo.setPeriodicity(SetEnums.dsmt_periodicity.valueOf(rset.getString("periodicity")));
+                        divinfo.setPk_id(rset.getString(Tbl_workers.pk_id));
+                        divinfo.setPk_dsmt(rset.getString(Tbl_dosimeters.pk_dsmt));
+                        divinfo.setName(rset.getString(Tbl_workers.name));
+                        divinfo.setId_mec(rset.getString(Tbl_workers.id_mec));
+                        divinfo.setCategory(SetEnums.worker_category.valueOf(rset.getString(Tbl_workers.category)));
+                        divinfo.setDepartment(SetEnums.worker_department.valueOf(rset.getString(Tbl_workers.department)));
+                        divinfo.setId_dsmt(rset.getString(Tbl_dosimeters.id));
+                        divinfo.setPeriodicity(SetEnums.dsmt_periodicity.valueOf(rset.getString(Tbl_dosimeters.periodicity)));
 
                         divinfo.setHp007("0.00");
                         divinfo.setHp10("0.00");
@@ -140,7 +156,8 @@ public class DIVDao {
 
         String query = "SELECT p1.pk_dose, p2.periodicity, p2.id, p1.trimester,"
                 + " p1.month, p1.year, p1.hp007, p1.hp10, p1.timestamp, p1.comments, p1.lastchange";
-        String from = " FROM dose_info as p1, dosimeter as p2 ";
+        
+        String from = " FROM " + table_doses + " as p1, " + table_dmst + " as p2 ";
 
         String where = " WHERE p1.pk_id = " + pk_id + " and p1.pk_dsmt = p2.pk_dsmt ";
 
