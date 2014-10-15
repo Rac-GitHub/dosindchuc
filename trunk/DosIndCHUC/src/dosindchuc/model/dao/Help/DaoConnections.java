@@ -4,6 +4,7 @@
  */
 package dosindchuc.model.dao.Help;
 
+import dosindchuc.globals.Conn_db;
 import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.PreparedStatement;
@@ -12,8 +13,6 @@ import java.sql.SQLException;
 import java.sql.Statement;
 import java.util.ArrayList;
 import java.util.List;
-import java.util.logging.Level;
-import java.util.logging.Logger;
 
 /**
  *
@@ -23,7 +22,6 @@ public class DaoConnections {
 
     // only one connection to database at a time. The connection is used during the wait_timout (120 s)
     // New one is then created.
-    
     private static final ThreadLocal<Connection> context = new ThreadLocal<>();
 
     /**
@@ -32,36 +30,25 @@ public class DaoConnections {
      * @return conn
      * @throws SQLException
      */
-    
-    
-    
-    
-    
     private Connection getConnection() {
 
-        /* DATOS PARA LA CONEXION */
-        String driver = "com.mysql.jdbc.Driver";
-        String host = "localhost";
-        String port = "3306";
-        String bd = "dosim_indiv_CHUC";
-        String login = "dichuc";
-        String password = "dichuc";
+ 
 
-        String url = "jdbc:mysql://" + host + ":" + port + "/" + bd;
+        String url = "jdbc:mysql://" + Conn_db.host + ":" + Conn_db.port + "/" + Conn_db.bd;
 
         Connection conn = null;
 
         try {
-            Class.forName(driver);
+            Class.forName(Conn_db.driver);
         } catch (ClassNotFoundException ex) {
-            throw new DaoExceptions ("Error: No Driver Class Found (ClassNotFoundException) ", DaoConnections.class);
+            throw new DaoExceptions("Error: No Driver Class Found (ClassNotFoundException) ", DaoConnections.class);
         }
 
         try {
-            conn = DriverManager.getConnection(url, login, password);
+            conn = DriverManager.getConnection(url, Conn_db.login, Conn_db.password);
 
         } catch (SQLException ex) {
-            throw new DaoExceptions ("Error connecting to the Database ", DaoConnections.class);
+            throw new DaoExceptions("Error connecting to the Database ", DaoConnections.class);
         }
 
         return conn;
@@ -89,8 +76,8 @@ public class DaoConnections {
                     return true;
                 }
             } catch (SQLException ex) {
-                throw new DaoExceptions ("Error: connection CLOSED or notValid  ", DaoConnections.class);
-              
+                throw new DaoExceptions("Error: connection CLOSED or not Valid  ", DaoConnections.class);
+
             }
 
         }
@@ -106,10 +93,10 @@ public class DaoConnections {
         Connection conn = context.get();
 
         if (conn == null) {
-            throw new DaoExceptions ("Error: NULL connection ", DaoConnections.class);
+            throw new DaoExceptions("Error: NULL connection ", DaoConnections.class);
         }
         if (conn.isClosed()) {
-            throw new DaoExceptions ("Error: connection CLOSED ", DaoConnections.class);
+            throw new DaoExceptions("Error: connection CLOSED ", DaoConnections.class);
         }
 
         return conn;
@@ -129,7 +116,7 @@ public class DaoConnections {
         try {
             rset.close();
         } catch (SQLException ex) {
-            throw new DaoExceptions ("Error on ResultSet close ", DaoConnections.class);
+            throw new DaoExceptions("Error on ResultSet close ", DaoConnections.class);
         }
 
     }
@@ -147,7 +134,7 @@ public class DaoConnections {
         try {
             stmt.close();
         } catch (SQLException ex) {
-            throw new DaoExceptions ("Error on statement close ", DaoConnections.class);
+            throw new DaoExceptions("Error on statement close ", DaoConnections.class);
         }
 
     }
@@ -191,8 +178,7 @@ public class DaoConnections {
                 result = rset.getInt(1);
             }
         } catch (SQLException ex) {
-            DaoExceptions createDaoException = new DaoExceptions ("Invalid Insert transition: ",
-                    DaoConnections.class, ex);
+            throw new DaoExceptions("Invalid Insert transition: ", DaoConnections.class, ex);
         } finally {
             releaseAll(rset, pstmt);
         }
@@ -217,8 +203,7 @@ public class DaoConnections {
             }
             pstmt.executeUpdate();
         } catch (SQLException ex) {
-            DaoExceptions createDaoException = new DaoExceptions ("Invalid Update transition: ",
-                    DaoConnections.class, ex);
+            throw new DaoExceptions("Invalid Update transition: ", DaoConnections.class, ex);
         } finally {
             release(pstmt);
         }
@@ -240,8 +225,7 @@ public class DaoConnections {
             list = mapper.mapping(rset);
 
         } catch (SQLException ex) {
-            DaoExceptions createDaoException = new DaoExceptions ("Invalid Query transition: ",
-                    DaoConnections.class, ex);
+            throw new DaoExceptions("Invalid Query transition: ", DaoConnections.class, ex);
 
         } finally {
             releaseAll(rset, pstmt);
@@ -253,11 +237,10 @@ public class DaoConnections {
 
     public String buildQueryWhere(String[][][] searchWhere) {
 
-
         String where = "";
 
         int iand = 0;
-       String newWhere = null;
+        String newWhere = null;
         for (int i = 0; i <= searchWhere.length - 1; i++) {
             if ((!searchWhere[i][0][2].isEmpty()) && (!searchWhere[i][0][2].equalsIgnoreCase("NoDef"))) {
 
@@ -301,6 +284,7 @@ public class DaoConnections {
         executePreparedUpdate(query, param);
 
     }
+
     /*  
     
      public void delete(String worker_id) throws DeleteDaoException {

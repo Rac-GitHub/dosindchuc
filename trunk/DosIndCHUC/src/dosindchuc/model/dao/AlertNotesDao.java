@@ -4,6 +4,15 @@
  */
 package dosindchuc.model.dao;
 
+
+import dosindchuc.globals.Conn_db;
+import dosindchuc.globals.Tbl_dose_notes;
+import dosindchuc.globals.Tbl_doses;
+import dosindchuc.globals.Tbl_dosimeters;
+import dosindchuc.globals.Tbl_dsmt_hist;
+import dosindchuc.globals.Tbl_dsmt_notes;
+import dosindchuc.globals.Tbl_dsmt_status;
+import dosindchuc.globals.Tbl_workers;
 import dosindchuc.model.dao.Help.ArrayList2D;
 import dosindchuc.model.dao.Help.DaoConnections;
 import dosindchuc.model.dao.Help.DaoExceptions;
@@ -29,6 +38,14 @@ public class AlertNotesDao {
     private DateAndTime dateAndTime = new DateAndTime();
     private DbPkIDs dbPkIDs;
 
+    private String table_workers = Conn_db.tbl_workers;
+    private String table_dmst = Conn_db.tbl_dsmt;
+    private String table_dmstStatus = Conn_db.tbl_dsmtStatus;
+    private String table_dmstNotes = Conn_db.tbl_dsmtNotes;
+    private String table_doses = Conn_db.tbl_doses;
+    private String table_doseNotes = Conn_db.tbl_doseNotes;
+    
+    
     public AlertNotesDao() {
 
         dbPkIDs = new DbPkIDs();
@@ -42,14 +59,20 @@ public class AlertNotesDao {
 
         final List<AlertNotes> alertNotes = new ArrayList<>();
 
-        String query = "SELECT DISTINCT p1.pk_notes_dose, p1.alert_level, p3.id_mec,"
-                + "p3.name, p3.department, p1.note, p1.status, p1.lastchange";
-        String from = " FROM dose_notes as p1, dose_info as p2, worker as p3";
-        String where = " WHERE p1.status = 'O' and p1.pk_dose = p2.pk_dose and p3.pk_id = p2.pk_id";
-        String sort = " ORDER BY p1.alert_level DESC , p1.lastchange DESC";
+        String query = "SELECT DISTINCT p1." + Tbl_dose_notes.pk_dose_notes + ", p1." + Tbl_dose_notes.alert_level 
+                + ", p3." + Tbl_workers.id_mec + ", p3." + Tbl_workers.name + ", p3." + Tbl_workers.department 
+                + ", p1." + Tbl_dose_notes.note + ", p1." + Tbl_dose_notes.status + ", p1." + Tbl_dose_notes.lastchange;
+        
+        String from = " FROM " + table_doseNotes + " as p1, " + table_doses + " as p2, " 
+                + table_workers + " as p3";
+        
+        String where = " WHERE p1." + Tbl_dose_notes.status + " = 'O' and p1." + Tbl_dose_notes.pk_dose + " = p2." + Tbl_doses.pk_dose 
+                + " and p3." + Tbl_workers.pk_id + " = p2." + Tbl_doses.pk_id;
+        
+        String sort = " ORDER BY p1." + Tbl_dose_notes.alert_level + " DESC, p1." + Tbl_dose_notes.lastchange + " DESC";
 
         query = query + from + where + sort;
-
+ 
         daoConnection.executePreparedQuery(query, new QueryMapper<AlertNotes>() {
             @Override
             public List<AlertNotes> mapping(ResultSet rset) {
@@ -58,15 +81,15 @@ public class AlertNotesDao {
                     while (rset.next()) {
                         AlertNotes alertNote = new AlertNotes();
 
-                        alertNote.setPk_notes(rset.getString("pk_notes_dose"));
-                        alertNote.setNotesLevel(SetEnums.note_alertlevel.valueOf(rset.getString("alert_level")));
+                        alertNote.setPk_notes(rset.getString(Tbl_dose_notes.pk_dose_notes));
+                        alertNote.setNotesLevel(SetEnums.note_alertlevel.valueOf(rset.getString(Tbl_dose_notes.alert_level)));
                         alertNote.setNotesType("dose");
-                        alertNote.setNotesMec(rset.getString("id_mec"));
-                        alertNote.setNotesName(rset.getString("name"));
-                        alertNote.setNotesDept(rset.getString("department"));
-                        alertNote.setNotesNote(rset.getString("note"));
-                        alertNote.setNotesStatus(SetEnums.note_status.valueOf(rset.getString("status")));
-                        alertNote.setNotesDate(rset.getString("lastchange").split("\\s+")[0]);
+                        alertNote.setNotesMec(rset.getString(Tbl_workers.id_mec));
+                        alertNote.setNotesName(rset.getString(Tbl_workers.name));
+                        alertNote.setNotesDept(rset.getString(Tbl_workers.department));
+                        alertNote.setNotesNote(rset.getString(Tbl_dose_notes.note));
+                        alertNote.setNotesStatus(SetEnums.note_status.valueOf(rset.getString(Tbl_dose_notes.status)));
+                        alertNote.setNotesDate(rset.getString(Tbl_dose_notes.lastchange).split("\\s+")[0]);
                         alertNotes.add(alertNote);
                     }
                     return alertNotes;
@@ -86,11 +109,17 @@ public class AlertNotesDao {
 
         final List<AlertNotes> alertNotes = new ArrayList<>();
 
-        String query = "SELECT DISTINCT p1.pk_notes_dsmt, p1.alert_level, p3.id_mec,"
-                + "p3.name, p3.department, p1.note, p1.status, p1.lastchange";
-        String from = " FROM dosimeter_notes as p1, dosimeter as p2, worker as p3";
-        String where = " WHERE p1.status = 'O' and p1.pk_dsmt = p2.pk_dsmt and p3.pk_id = p2.pk_id";
-        String sort = " ORDER BY p1.alert_level DESC , p1.lastchange DESC";
+        String query = "SELECT DISTINCT p1." + Tbl_dsmt_status.pk_dsmt_status + ", p1." + Tbl_dsmt_status.alert_level 
+                + ", p3." + Tbl_workers.id_mec + ", p3." + Tbl_workers.name + ", p3." + Tbl_workers.department 
+                + ", p1." + Tbl_dsmt_status.note + ", p1." + Tbl_dsmt_status.status + ", p1." + Tbl_dsmt_status.lastchange;
+        
+        String from = " FROM " + table_dmstStatus + " as p1, " + table_dmst + " as p2, " 
+                + table_workers + " as p3";
+        
+        String where = " WHERE p1." + Tbl_dsmt_status.status + " = 'O' and p1." + Tbl_dsmt_status.pk_dsmt + " = p2. " 
+                + Tbl_dosimeters.pk_dsmt + " and p3." + Tbl_workers.pk_id + " = p2." + Tbl_dosimeters.pk_id;
+        
+        String sort = " ORDER BY p1." + Tbl_dsmt_status.alert_level + " DESC, p1." + Tbl_dsmt_status.lastchange + " DESC";
 
         query = query + from + where + sort;
 
@@ -102,15 +131,15 @@ public class AlertNotesDao {
                     while (rset.next()) {
                         AlertNotes alertNote = new AlertNotes();
 
-                        alertNote.setPk_notes(rset.getString("pk_notes_dsmt"));
-                        alertNote.setNotesLevel(SetEnums.note_alertlevel.valueOf(rset.getString("alert_level")));
+                        alertNote.setPk_notes(rset.getString(Tbl_dsmt_status.pk_dsmt_status));
+                        alertNote.setNotesLevel(SetEnums.note_alertlevel.valueOf(rset.getString(Tbl_dsmt_status.alert_level)));
                         alertNote.setNotesType("dsmt");
-                        alertNote.setNotesMec(rset.getString("id_mec"));
-                        alertNote.setNotesName(rset.getString("name"));
-                        alertNote.setNotesDept(rset.getString("department"));
-                        alertNote.setNotesNote(rset.getString("note"));
-                        alertNote.setNotesStatus(SetEnums.note_status.valueOf(rset.getString("status")));
-                        alertNote.setNotesDate(rset.getString("lastchange").split("\\s+")[0]);
+                        alertNote.setNotesMec(rset.getString(Tbl_workers.id_mec));
+                        alertNote.setNotesName(rset.getString(Tbl_workers.name));
+                        alertNote.setNotesDept(rset.getString(Tbl_workers.department));
+                        alertNote.setNotesNote(rset.getString(Tbl_dsmt_status.note));
+                        alertNote.setNotesStatus(SetEnums.note_status.valueOf(rset.getString(Tbl_dsmt_status.status)));
+                        alertNote.setNotesDate(rset.getString(Tbl_dsmt_hist.lastchange).split("\\s+")[0]);
                         alertNotes.add(alertNote);
                     }
                     return alertNotes;
@@ -131,7 +160,7 @@ public class AlertNotesDao {
 
         int i = 0;
 
-        queryList.Add("note", i);
+        queryList.Add(Tbl_dsmt_status.note, i);
         queryList.Add(" ? ", i);
 
         queryList.Add(table.getValueAt(iRow, 5).toString(), i);
@@ -139,13 +168,13 @@ public class AlertNotesDao {
         i += 1;
         String status = table.getValueAt(iRow, 6).toString();
 
-        queryList.Add(", status", i);
+        queryList.Add(", " + Tbl_dsmt_status.status, i);
         queryList.Add(", ? ", i);
         queryList.Add(status, i);
 
         if (!status.matches(alertNote[7].toString())) {
             i += 1;
-            queryList.Add(", status_timestamp", i);
+            queryList.Add(", " + Tbl_dsmt_status.status_timestamp, i);
             queryList.Add(", ? ", i);
             queryList.Add(newDate, i);
             alertNote[7] = status;
@@ -155,13 +184,13 @@ public class AlertNotesDao {
         i += 1;
         String alertLevel = table.getValueAt(iRow, 1).toString();
 
-        queryList.Add(", alert_level", i);
+        queryList.Add(", " + Tbl_dsmt_status.alert_level, i);
         queryList.Add(", ? ", i);
         queryList.Add(alertLevel, i);
 
         if (!alertLevel.matches(alertNote[2].toString())) {
             i += 1;
-            queryList.Add(", alert_level_timestamp", i);
+            queryList.Add(", " + Tbl_dsmt_status.alert_level_timestamp, i);
             queryList.Add(", ? ", i);
             queryList.Add(newDate, i);
             alertNote[2] = alertLevel;
@@ -187,13 +216,13 @@ public class AlertNotesDao {
         String query = null;
         String where = null;
         if (noteType.matches("dose")) {
-            query = "UPDATE dose_notes SET ";
-            where = " WHERE pk_notes_dose = ";
+            query = "UPDATE " + table_doseNotes + " SET ";
+            where = " WHERE " + Tbl_dose_notes.pk_dose_notes + " = ";
         }
 
         if (noteType.matches("dsmt")) {
-            query = "UPDATE dosimeter_notes SET ";
-            where = " WHERE pk_notes_dsmt = ";
+            query = "UPDATE " + table_dmstNotes + " SET ";
+            where = " WHERE " + Tbl_dsmt_notes.pk_dsmt_notes + " = ";
         }
 
         int sizeNparam = queryList.getNumRows();

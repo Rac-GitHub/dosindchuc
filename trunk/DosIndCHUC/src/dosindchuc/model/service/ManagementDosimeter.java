@@ -70,7 +70,7 @@ public class ManagementDosimeter {
         dsmt.setPeriodicity(SetEnums.dsmt_periodicity.valueOf(table.getValueAt(row, 3).toString()));
         dsmt.setSupplier(SetEnums.dsmt_supplier.valueOf(table.getValueAt(row, 4).toString()));
         dsmt.setComments(table.getValueAt(row, 6) == null ? "" : table.getValueAt(row, 6).toString());
-        dsmt.setStatus(SetEnums.status.valueOf(table.getValueAt(row, 7).toString()));
+        dsmt.setStatus(SetEnums.dsmt_status.valueOf(table.getValueAt(row, 7).toString()));
 
         if (newOrUpdate.equalsIgnoreCase("new")) {
 //      creation date and time
@@ -113,6 +113,12 @@ public class ManagementDosimeter {
         } else {
 
         dsmt.setPk_dsmt(id);
+        
+        // trigger history
+        
+        
+        
+        
         this.frmMan.getTxtInfoAction().setText("Dosimeter with id= " + dsmt.getId() + " saved into database");
         
         }

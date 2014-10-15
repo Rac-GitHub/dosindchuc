@@ -13,7 +13,7 @@ import dosindchuc.model.entities.Help.SetEnums.note_status;
  */
 public class Dose_notes {
 
-    private String pk_notes_dose;
+    private String pk_dose_notes;
     private String pk_dose;
     private String note;
     private String timestamp;
@@ -28,12 +28,12 @@ public class Dose_notes {
     }
 
     // getter and setters
-    public String getPk_notes_dose() {
-        return pk_notes_dose;
+    public String getPk_dose_notes() {
+        return pk_dose_notes;
     }
 
-    public void setPk_notes_dose(String pk_notes_dose) {
-        this.pk_notes_dose = pk_notes_dose;
+    public void setPk_dose_notes(String pk_notes_dose) {
+        this.pk_dose_notes = pk_notes_dose;
     }
 
     public String getNote() {

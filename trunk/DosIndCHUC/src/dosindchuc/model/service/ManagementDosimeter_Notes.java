@@ -10,7 +10,7 @@ import dosindchuc.UI.swing.Help.ManagementFields;
 import dosindchuc.UI.swing.ManagementFrm;
 import dosindchuc.model.dao.Dosimeter_notesDao;
 import dosindchuc.model.entities.DbPkIDs;
-import dosindchuc.model.entities.Dosimeter_notes;
+import dosindchuc.model.entities.Dsmt_notes;
 import dosindchuc.model.entities.Help.DateAndTime;
 import dosindchuc.model.entities.Help.SetEnums;
 import javax.swing.JTable;
@@ -46,11 +46,11 @@ public class ManagementDosimeter_Notes {
     /*              dose Note  info                       */
     /*                                                  */
     /* ###############################################  */
-    private Dosimeter_notes getDsmtNote(String newOrUpdate) {
+    private Dsmt_notes getDsmtNote(String newOrUpdate) {
 
         String currDateTime = dateAndTime.currDateTime();
 
-        Dosimeter_notes dsmtNote = new Dosimeter_notes();
+        Dsmt_notes dsmtNote = new Dsmt_notes();
 
         table = this.frmMan.tableDosimeterInfo;
 
@@ -106,7 +106,7 @@ public class ManagementDosimeter_Notes {
     // insert into the database 
     public void saveNewDsmtNote() {
 
-        Dosimeter_notes dsmtNote = getDsmtNote("new");
+        Dsmt_notes dsmtNote = getDsmtNote("new");
 
         String id = dsmtNotesdao.insertDsmtNote(dsmtNote);
 
@@ -133,7 +133,7 @@ public class ManagementDosimeter_Notes {
 
     public void saveUpdateDsmtNote() {
 
-        Dosimeter_notes dsmtNote = getDsmtNote("update");
+        Dsmt_notes dsmtNote = getDsmtNote("update");
 
         String dsmtNote_id = dbPkIDs.getDsmtNotes_id().get(0, 0).toString();
 

@@ -40,6 +40,7 @@ public class ManagementWorker {
         setButtonsState = new ManagementButtons(this.frmMan);
         setCleanState = new ManagementClean(this.frmMan);
         setWorkerInfo = new ManagementSearch(this.frmMan, null);
+        dateAndTime = new DateAndTime();
 
 
     }
@@ -55,7 +56,7 @@ public class ManagementWorker {
 
         worker.setName(this.frmMan.getTxtWorkerName().getText());
         worker.setNick(this.frmMan.getTxtWorkerNick().getText());
-        worker.setStatus(SetEnums.status.valueOf(this.frmMan.getCbWorkerStatus().getSelectedItem().toString()));
+        worker.setStatus(SetEnums.worker_status.valueOf(this.frmMan.getCbWorkerStatus().getSelectedItem().toString()));
         worker.setId_mec(this.frmMan.getTxtWorkerMec().getText());
 
         // birth yyyy-mm-dd
@@ -110,17 +111,23 @@ public class ManagementWorker {
     public void saveNewWorker() {
 
         Worker worker = getWorkerInfo("new");
-        worker.setPk_id(workerdao.insertWorker(worker));
+
+        String id = workerdao.insertWorker(worker);
+
+        if (id.equals("0")) {
+           setCleanState.cleanAllInfo();
+           this.frmMan.getTxtInfoAction().setText("New worker not inserted into database");
+       
+        } else {
+            worker.setPk_id(id);
+            this.frmMan.getTxtInfoAction().setText("Worker with id= " + id + " saved into database");
+            // actualiza info
+            setWorkerInfo.fillWorkerInfo(id);
+            dbPkIDs.setWorker_id(id);
+        }
+
         setFieldsState.setWorkerAllEdit(false);
-
-        String id = worker.getPk_id();
-        this.frmMan.getTxtInfoAction().setText("Worker with id= " + id + "saved into database");
-
-        // actualiza info
-        setWorkerInfo.fillWorkerInfo(id);
         setButtonsState.setAllWorkerBtsInit(true);
-
-        dbPkIDs.setWorker_id(id);
 
     }
 
@@ -142,10 +149,7 @@ public class ManagementWorker {
         setFieldsState.setWorkerAllEdit(false);
 
         String worker_id = dbPkIDs.getWorker_id();
-
-        System.out.println("save update    " + worker_id);
         workerdao.updateWorker(worker, worker_id);
-
         this.frmMan.getTxtInfoAction().setText("Worker with id= " + worker_id + " updated into database");
 
         // actualiza info

@@ -5,9 +5,9 @@
 package dosindchuc.model.entities;
 
 import dosindchuc.model.entities.Help.SetEnums.dsmt_periodicity;
+import dosindchuc.model.entities.Help.SetEnums.dsmt_status;
 import dosindchuc.model.entities.Help.SetEnums.dsmt_supplier;
 import dosindchuc.model.entities.Help.SetEnums.dsmt_type;
-import dosindchuc.model.entities.Help.SetEnums.status;
 
 /**
  *
@@ -24,7 +24,7 @@ public class Dosimeter {
     private dsmt_supplier supplier;
     private String comments;
     private String timestamp;
-    private status status;
+    private dsmt_status status;
     private String status_timestamp;
     private String lastchange;
 
@@ -106,11 +106,11 @@ public class Dosimeter {
         this.pk_id = pk_id;
     }
 
-    public status getStatus() {
+    public dsmt_status getStatus() {
         return status;
     }
 
-    public void setStatus(status status) {
+    public void setStatus(dsmt_status status) {
         this.status = status;
     }
 

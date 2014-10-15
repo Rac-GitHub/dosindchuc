@@ -4,6 +4,8 @@
  */
 package dosindchuc.model.dao;
 
+import dosindchuc.globals.Conn_db;
+import dosindchuc.globals.Tbl_workers;
 import dosindchuc.model.dao.Help.ArrayList2D;
 import dosindchuc.model.dao.Help.DaoConnections;
 import dosindchuc.model.dao.Help.DaoExceptions;
@@ -38,16 +40,17 @@ public class WorkerDao {
 
         final List<Worker> workerInfo = new ArrayList<>();
 
-        String query = "SELECT pk_id, id_mec, name, category, department, status ";
+        String query = "SELECT " + Tbl_workers.pk_id + ", " + Tbl_workers.id_mec + ", " + Tbl_workers.name + ", " + 
+                Tbl_workers.category + ", " + Tbl_workers.department + ", " + Tbl_workers.status;
 
-        String from = " FROM worker ";
+        String from = " FROM " + Conn_db.tbl_workers;
 
-        String[][][] searchWhere = {{{"name", "LIKE", name}},
-            {{"department", "null", department}},
-            {{"category", "null", category}},
-            {{"id_mec", "LIKE", id_mec}}};
+        String[][][] searchWhere = {{{Tbl_workers.name, "LIKE", name}},
+            {{Tbl_workers.department, "null", department}},
+            {{Tbl_workers.category, "null", category}},
+            {{Tbl_workers.id_mec, "LIKE", id_mec}}};
 
-        String where = "WHERE " + daoConnection.buildQueryWhere(searchWhere);
+        String where = " WHERE " + daoConnection.buildQueryWhere(searchWhere);
 
 //       String sort = " ORDER BY p1.name , p1.department DESC, p2.pk_dsmt DESC ";
 //        query = query + from + where + sort;
@@ -61,12 +64,12 @@ public class WorkerDao {
                       while (rset.next()) {
                           Worker workerinfo = new Worker();
 
-                          workerinfo.setPk_id(rset.getString("pk_id"));
-                          workerinfo.setName(rset.getString("name"));
-                          workerinfo.setId_mec(rset.getString("id_mec"));
-                          workerinfo.setCategory(SetEnums.worker_category.valueOf(rset.getString("category")));
-                          workerinfo.setDepartment(SetEnums.worker_department.valueOf(rset.getString("department")));
-                          workerinfo.setStatus(SetEnums.status.valueOf(rset.getString("status")));
+                          workerinfo.setPk_id(rset.getString(Tbl_workers.pk_id));
+                          workerinfo.setName(rset.getString(Tbl_workers.name));
+                          workerinfo.setId_mec(rset.getString(Tbl_workers.id_mec));
+                          workerinfo.setCategory(SetEnums.worker_category.valueOf(rset.getString(Tbl_workers.category)));
+                          workerinfo.setDepartment(SetEnums.worker_department.valueOf(rset.getString(Tbl_workers.department)));
+                          workerinfo.setStatus(SetEnums.worker_status.valueOf(rset.getString(Tbl_workers.status)));
 
                           workerInfo.add(workerinfo);
                       }
@@ -92,9 +95,9 @@ public class WorkerDao {
 
         String query = null;
         if (worker_id.isEmpty()) {
-            query = "SELECT * from worker";
+            query = "SELECT * FROM " + Conn_db.tbl_workers;
         } else {
-            query = "SELECT * FROM worker WHERE pk_id = " + worker_id;
+            query = "SELECT * FROM " + Conn_db.tbl_workers + " WHERE " + Tbl_workers.pk_id + " = " + worker_id;
         }
 
            daoConnection.executePreparedQuery(query, new QueryMapper<Worker>() {
@@ -104,23 +107,23 @@ public class WorkerDao {
                    try {
                        while (rset.next()) {
                            Worker worker = new Worker();
-                           worker.setPk_id(rset.getString("pk_id"));
-                           worker.setId_mec(rset.getString("id_mec"));
-                           worker.setName(rset.getString("name"));
-                           worker.setNick(rset.getString("nick"));
-                           worker.setBI(rset.getString("BI"));
-                           worker.setNationality(rset.getString("nationality"));
-                           worker.setNif(rset.getString("nif"));
-                           worker.setBirth(rset.getString("birth"));
-                           worker.setSex(SetEnums.worker_sex.valueOf(rset.getString("sex")));
-                           worker.setCategory(SetEnums.worker_category.valueOf(rset.getString("category")));
-                           worker.setDepartment(SetEnums.worker_department.valueOf(rset.getString("department")));
-                           worker.setSector(rset.getString("sector"));
-                           worker.setComments(rset.getString("comments"));
-                           worker.setTimestamp(rset.getString("timestamp"));
-                           worker.setStatus(SetEnums.status.valueOf(rset.getString("status")));
-                           worker.setStatus_timestamp(rset.getString("status_timestamp"));
-                           worker.setLastchange(rset.getString("lastchange"));
+                           worker.setPk_id(rset.getString(Tbl_workers.pk_id));
+                           worker.setId_mec(rset.getString(Tbl_workers.id_mec));
+                           worker.setName(rset.getString(Tbl_workers.name));
+                           worker.setNick(rset.getString(Tbl_workers.nick));
+                           worker.setBI(rset.getString(Tbl_workers.BI));
+                           worker.setNationality(rset.getString(Tbl_workers.nationality));
+                           worker.setNif(rset.getString(Tbl_workers.nif));
+                           worker.setBirth(rset.getString(Tbl_workers.birth));
+                           worker.setSex(SetEnums.worker_sex.valueOf(rset.getString(Tbl_workers.sex)));
+                           worker.setCategory(SetEnums.worker_category.valueOf(rset.getString(Tbl_workers.category)));
+                           worker.setDepartment(SetEnums.worker_department.valueOf(rset.getString(Tbl_workers.department)));
+                           worker.setSector(rset.getString(Tbl_workers.sector));
+                           worker.setComments(rset.getString(Tbl_workers.comments));
+                           worker.setTimestamp(rset.getString(Tbl_workers.timestamp));
+                           worker.setStatus(SetEnums.worker_status.valueOf(rset.getString(Tbl_workers.status)));
+                           worker.setStatus_timestamp(rset.getString(Tbl_workers.status_timestamp));
+                           worker.setLastchange(rset.getString(Tbl_workers.lastchange));
                            workers.add(worker);
                        }
                        return workers;
@@ -142,117 +145,116 @@ public class WorkerDao {
         int i = 0;
         if (worker.getName().isEmpty()) {
         }
-        queryList.Add("name", i);
+        queryList.Add(Tbl_workers.name, i);
         queryList.Add(" ? ", i);
         queryList.Add(worker.getName(), i);
 
         i += 1;
         if (worker.getId_mec().isEmpty()) {
         }
-        queryList.Add(", id_mec", i);
+        queryList.Add(", " + Tbl_workers.id_mec, i);
         queryList.Add(", ? ", i);
-        System.out.println("prepare query .... " + worker.getId_mec());
-
         queryList.Add(worker.getId_mec(), i);
-        System.out.println("prepare query .... " + queryList.get(1, 2));
 
 
         if (!worker.getNick().isEmpty()) {
             i += 1;
-            queryList.Add(", nick", i);
+            queryList.Add(", " + Tbl_workers.nick, i);
             queryList.Add(", ? ", i);
             queryList.Add(worker.getNick(), i);
         }
 
         if (!worker.getBI().isEmpty()) {
             i += 1;
-            queryList.Add(", BI", i);
+            queryList.Add(", " + Tbl_workers.BI, i);
             queryList.Add(", ? ", i);
             queryList.Add(worker.getBI(), i);
         }
 
         if (!worker.getNationality().isEmpty()) {
             i += 1;
-            queryList.Add(", nationality", i);
+            queryList.Add(", " + Tbl_workers.nationality, i);
             queryList.Add(", ? ", i);
             queryList.Add(worker.getNationality(), i);
         }
 
         if (!worker.getNif().isEmpty()) {
             i += 1;
-            queryList.Add(", nif", i);
+            queryList.Add(", " + Tbl_workers.nif, i);
             queryList.Add(", ? ", i);
             queryList.Add(worker.getNif(), i);
         }
 
         if (!worker.getBirth().isEmpty()) {
             i += 1;
-            queryList.Add(", birth", i);
+            queryList.Add(", " + Tbl_workers.birth, i);
             queryList.Add(", ? ", i);
             queryList.Add(worker.getBirth(), i);
         }
 
         i += 1;
-        queryList.Add(", sex", i);
+        queryList.Add(", " + Tbl_workers.sex, i);
         queryList.Add(", ? ", i);
         queryList.Add(worker.getSex().toString(), i);
 
         i += 1;
-        queryList.Add(", category", i);
+        queryList.Add(", " + Tbl_workers.category, i);
         queryList.Add(", ? ", i);
         queryList.Add(worker.getCategory().toString(), i);
 
 
         i += 1;
-        queryList.Add(", department", i);
+        queryList.Add(", " + Tbl_workers.department, i);
         queryList.Add(", ? ", i);
         queryList.Add(worker.getDepartment().toString(), i);
 
         if (!worker.getSector().isEmpty()) {
             i += 1;
-            queryList.Add(", sector", i);
+            queryList.Add(", " + Tbl_workers.sector, i);
             queryList.Add(", ? ", i);
             queryList.Add(worker.getSector(), i);
         }
 
         if (!worker.getComments().isEmpty()) {
             i += 1;
-            queryList.Add(", comments", i);
+            queryList.Add(", " + Tbl_workers.comments, i);
             queryList.Add(", ? ", i);
             queryList.Add(worker.getComments(), i);
         }
 
         i += 1;
-        queryList.Add(", timestamp", i);
+        queryList.Add(", " + Tbl_workers.timestamp, i);
         queryList.Add(", ? ", i);
         queryList.Add(worker.getTimestamp(), i);
 
         i += 1;
-        queryList.Add(", status", i);
+        queryList.Add(", " + Tbl_workers.status, i);
         queryList.Add(", ? ", i);
         queryList.Add(worker.getStatus().toString(), i);
 
         if (newOrUpdate.equalsIgnoreCase("new")) {
             i += 1;
-            queryList.Add(", status_timestamp", i);
+            queryList.Add(", " + Tbl_workers.status_timestamp, i);
             queryList.Add(", ? ", i);
             queryList.Add(worker.getStatus_timestamp(), i);
 
             i += 1;
-            queryList.Add(", lastchange", i);
+            queryList.Add(", " + Tbl_workers.lastchange, i);
             queryList.Add(", ? ", i);
             queryList.Add(worker.getLastchange(), i);
         }
 
     }
 
+      
+      
       public String insertWorker(Worker worker) {
 
         prepareQuery(worker, "new");
 
         int sizeNparam = queryList.getNumRows();
 
-        String query = "INSERT INTO worker (";
+        String query = "INSERT INTO " + Conn_db.tbl_workers + "(";
         String valuesInt = " VALUES (";
         Object param[] = new Object[sizeNparam];
 
@@ -278,7 +280,7 @@ public class WorkerDao {
         prepareQuery(worker, "update");
 
         int sizeNparam = queryList.getNumRows();
-        String query = "UPDATE worker SET ";
+        String query = "UPDATE " + Conn_db.tbl_workers + " SET ";
         Object param[] = new Object[sizeNparam];
 
         for (int i = 0; i < sizeNparam; i++) {
