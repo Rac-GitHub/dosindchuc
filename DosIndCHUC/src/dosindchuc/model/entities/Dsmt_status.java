@@ -4,6 +4,9 @@
  */
 package dosindchuc.model.entities;
 
+import dosindchuc.model.entities.Help.SetEnums.dsmt_status;
+import dosindchuc.model.entities.Help.SetEnums.note_alertlevel;
+
 /**
  *
  * @author ir
@@ -13,11 +16,11 @@ public class Dsmt_status {
     private String pk_dsmt_status;
     private String pk_dsmt;
     private String pk_id;
-    private String status;
+    private dsmt_status status;
     private String status_timestamp;
     private String note;
     private String timestamp;
-    private String alert_level;
+    private note_alertlevel alert_level;
     private String alert_level_timestamp;
     private String lastchange;
 
@@ -51,11 +54,11 @@ public class Dsmt_status {
         this.pk_id = pk_id;
     }
 
-    public String getStatus() {
+    public dsmt_status getStatus() {
         return status;
     }
 
-    public void setStatus(String status) {
+    public void setStatus(dsmt_status status) {
         this.status = status;
     }
 
@@ -83,11 +86,11 @@ public class Dsmt_status {
         this.timestamp = timestamp;
     }
 
-    public String getAlert_level() {
+    public note_alertlevel getAlert_level() {
         return alert_level;
     }
 
-    public void setAlert_level(String alert_level) {
+    public void setAlert_level(note_alertlevel alert_level) {
         this.alert_level = alert_level;
     }
 
