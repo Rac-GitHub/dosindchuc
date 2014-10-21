@@ -12,7 +12,7 @@ import dosindchuc.UI.swing.ManagementFrm;
 import dosindchuc.model.dao.DoseDao;
 import dosindchuc.model.dao.Dose_notesDao;
 import dosindchuc.model.dao.DosimeterDao;
-import dosindchuc.model.dao.Dosimeter_notesDao;
+import dosindchuc.model.dao.DsmtNotesDao;
 import dosindchuc.model.dao.Help.ArrayList2D;
 import dosindchuc.model.dao.WorkerDao;
 import dosindchuc.model.entities.DbPkIDs;
@@ -50,7 +50,7 @@ public class ManagementSearch {
     private ManagementTablesModel tableModel;
     
     private DosimeterDao dosimeterdao;
-    private Dosimeter_notesDao dosimeterNotesDao;
+    private DsmtNotesDao dosimeterNotesDao;
     private List<Dosimeter> dosimeter_info;
     private List<Dsmt_notes> dosimeterNotes;
     
@@ -70,7 +70,7 @@ public class ManagementSearch {
         doseinfodao = new DoseDao();
         doseNotesDao = new Dose_notesDao();
         dosimeterdao = new DosimeterDao();
-        dosimeterNotesDao = new Dosimeter_notesDao();
+        dosimeterNotesDao = new DsmtNotesDao();
         this.Listeners = Listeners;
         
     }
@@ -253,7 +253,7 @@ public class ManagementSearch {
             pk_dsmt = dosimeter_info.get(row).getPk_dsmt();
         }
 
-        dosimeterNotes = dosimeterNotesDao.getDosimetry_notes(pk_dsmt.toString());
+        dosimeterNotes = dosimeterNotesDao.getDsmt_notes(pk_dsmt.toString());
 
         if (!this.frmMan.btDosimeterInfoUpdate.isEnabled()) {
             return;
@@ -288,7 +288,7 @@ public class ManagementSearch {
         int row = frmMan.tableDosimeterInfo.getSelectedRow();
         String pk_dsmt = dosimeter_info.get(row).getPk_dsmt();
 
-        dosimeterNotes = dosimeterNotesDao.getDosimetry_notes(pk_dsmt);
+        dosimeterNotes = dosimeterNotesDao.getDsmt_notes(pk_dsmt);
 
         Dsmt_notes dsmt_notes = dosimeterNotes.get(index);
 
@@ -307,6 +307,7 @@ public class ManagementSearch {
         // info dose-note selected dor update
         dsmtNoteInfo.Add(dsmt_notes.getPk_dsmt_notes(), i);
         dsmtNoteInfo.Add(dsmt_notes.getPk_dsmt(), i);
+        dsmtNoteInfo.Add(dsmt_notes.getNote(), i);
         dsmtNoteInfo.Add(dsmt_notes.getAlert_level().name(), i);
         dsmtNoteInfo.Add(dsmt_notes.getStatus().name(), i);
 
@@ -448,6 +449,7 @@ public class ManagementSearch {
         // info dose-note selected dor update
         doseNoteInfo.Add(dose_notes.getPk_dose_notes(), i);
         doseNoteInfo.Add(dose_notes.getPk_dose(), i);
+        doseNoteInfo.Add(dose_notes.getNote(), i);
         doseNoteInfo.Add(dose_notes.getAlert_level().name(), i);
         doseNoteInfo.Add(dose_notes.getStatus().name(), i);
 

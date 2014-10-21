@@ -4,14 +4,15 @@
  */
 package dosindchuc.model.service;
 
-import dosindchuc.UI.controller.ManagementActionListener;
 import dosindchuc.UI.swing.Help.ManagementButtons;
 import dosindchuc.UI.swing.Help.ManagementClean;
 import dosindchuc.UI.swing.Help.ManagementFields;
 import dosindchuc.UI.swing.ManagementFrm;
+import dosindchuc.model.dao.DoseNotesHistDao;
 import dosindchuc.model.dao.Dose_notesDao;
 import dosindchuc.model.entities.DbPkIDs;
 import dosindchuc.model.entities.Dose_notes;
+import dosindchuc.model.entities.Dose_notes_hist;
 import dosindchuc.model.entities.Help.DateAndTime;
 import dosindchuc.model.entities.Help.SetEnums;
 import javax.swing.JTable;
@@ -20,28 +21,30 @@ import javax.swing.JTable;
  *
  * @author ir
  */
-public class ManagementDose_Notes {
+public class ManagementDoseNotes {
 
     private ManagementFrm frmMan;
     private Dose_notesDao doseNotesdao;
+    private DoseNotesHistDao doseNotesHistdao;
     private DbPkIDs dbPkIDs;
     private DateAndTime dateAndTime = new DateAndTime();
     private ManagementButtons setButtonsState;
     private ManagementClean setCleanState;
     private ManagementFields setFieldState;
-  //  private ManagementSearch setDoseNoteInfo;
+    //  private ManagementSearch setDoseNoteInfo;
     private JTable table;
- //   private ManagementActionListener Listeners;
+    //   private ManagementActionListener Listeners;
 
-    public ManagementDose_Notes(ManagementFrm frmMan) {
+    public ManagementDoseNotes(ManagementFrm frmMan) {
 
         this.frmMan = frmMan;
         dbPkIDs = new DbPkIDs();
         doseNotesdao = new Dose_notesDao();
+        doseNotesHistdao = new DoseNotesHistDao();
         setButtonsState = new ManagementButtons(this.frmMan);
         setCleanState = new ManagementClean(this.frmMan);
         setFieldState = new ManagementFields(this.frmMan);
- 
+
     }
 
     /* ############################################### */
@@ -121,7 +124,7 @@ public class ManagementDose_Notes {
 
     }
 
-    /**
+    /*
      *
      */
     public void updateDoseNote() {
@@ -144,9 +147,42 @@ public class ManagementDose_Notes {
 
         this.frmMan.getTxtInfoAction().setText("Dose note updated into database");
 
+        /* 
+         *history
+         */
+
+        String value[] = new String[]{doseNote.getNote(), doseNote.getStatus().toString(), doseNote.getAlert_level().toString()};
+
+        for (int i = 0; i < 2; i++) {
+
+            if (!dbPkIDs.getDoseNotes_id().contains(value[i])) {
+                String id_change = Integer.toString(i + 1);
+                saveDoseNoteHist(doseNote_id, id_change, value[i]);
+            }
+
+        }
+
+        // end hist
+
+
         // actualiza info
         this.frmMan.tableDoseInfo.setEnabled(true);
         fillDoseNoteInfo();
+
+    }
+
+    /* 
+     *history
+     */
+    private void saveDoseNoteHist(String doseNote_id, String id_change, String value) {
+
+        Dose_notes_hist doseNoteHist = new Dose_notes_hist();
+
+        doseNoteHist.setPk_dose_notes(doseNote_id);
+        doseNoteHist.setId_change(id_change);
+        doseNoteHist.setValue(value);
+
+        doseNotesHistdao.insertDoseNoteHist(doseNoteHist);
 
     }
 

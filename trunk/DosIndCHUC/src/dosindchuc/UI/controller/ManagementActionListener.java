@@ -10,9 +10,9 @@ import dosindchuc.UI.swing.ManagementFrm;
 import dosindchuc.model.dao.Help.ArrayList2D;
 import dosindchuc.model.entities.DbPkIDs;
 import dosindchuc.model.service.ManagementDose;
-import dosindchuc.model.service.ManagementDose_Notes;
+import dosindchuc.model.service.ManagementDoseNotes;
 import dosindchuc.model.service.ManagementDosimeter;
-import dosindchuc.model.service.ManagementDosimeter_Notes;
+import dosindchuc.model.service.ManagementDsmtNotes;
 import dosindchuc.model.service.ManagementSearch;
 import dosindchuc.model.service.ManagementWorker;
 import java.awt.event.ActionEvent;
@@ -34,8 +34,8 @@ public final class ManagementActionListener implements ActionListener, MouseList
     private ManagementWorker serviceWorker;
     private ManagementDosimeter serviceDosimeter;
     private ManagementDose serviceDose;
-    private ManagementDose_Notes serviceDoseNotes;
-    private ManagementDosimeter_Notes serviceDsmtNotes;
+    private ManagementDoseNotes serviceDoseNotes;
+    private ManagementDsmtNotes serviceDsmtNotes;
     public DbPkIDs dbPkIDs;
     public ActionListener Listeners;
 
@@ -50,9 +50,9 @@ public final class ManagementActionListener implements ActionListener, MouseList
         serviceSearch = new ManagementSearch(this.frmMan, this);
         serviceWorker = new ManagementWorker(this.frmMan);
         serviceDosimeter = new ManagementDosimeter(this.frmMan);
-        serviceDsmtNotes = new ManagementDosimeter_Notes(this.frmMan);
+        serviceDsmtNotes = new ManagementDsmtNotes(this.frmMan);
         serviceDose = new ManagementDose(this.frmMan);
-        serviceDoseNotes = new ManagementDose_Notes(this.frmMan);
+        serviceDoseNotes = new ManagementDoseNotes(this.frmMan);
 
         addListeners();
 
@@ -277,8 +277,8 @@ public final class ManagementActionListener implements ActionListener, MouseList
 
         ArrayList2D doseNoteInfo = new ArrayList2D();
 
-        // info dose-note selected for update
-        for (int i = 0; i < 4; i++) {
+        // info dose-note selected for update +1
+        for (int i = 0; i < 5; i++) {
             doseNoteInfo.Add(null, 0);
         }
 
@@ -301,7 +301,7 @@ public final class ManagementActionListener implements ActionListener, MouseList
         ArrayList2D dsmtNoteInfo = new ArrayList2D();
 
         // info dose-note selected for update
-        for (int i = 0; i < 4; i++) {
+        for (int i = 0; i < 5; i++) {
             dsmtNoteInfo.Add(null, 0);
         }
 
