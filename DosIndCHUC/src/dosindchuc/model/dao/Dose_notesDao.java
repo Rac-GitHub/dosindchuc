@@ -44,7 +44,7 @@ public class Dose_notesDao {
         String where = " WHERE " + Tbl_dose_notes.pk_dose + " = " + dose_id;
         String sort = " ORDER BY " + Tbl_dose_notes.status + ", " + Tbl_dose_notes.alert_level + " DESC";
         
-        String query = null;
+        String query = "";
         if (dose_id.isEmpty()) {
             query = query + select + from + sort;
         } else {

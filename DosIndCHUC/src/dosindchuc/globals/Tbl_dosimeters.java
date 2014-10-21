@@ -10,7 +10,6 @@ package dosindchuc.globals;
  */
 public class Tbl_dosimeters {
 
-  
     /**
      * columns names
      */
@@ -23,25 +22,27 @@ public class Tbl_dosimeters {
     static public String periodicity = "periodicity";
     static public String supplier = "supplier";
     static public String comments = "comments";
+    static public String status = "status";
     static public String timestamp = "timestamp";
     static public String lastchange = "lastchange";
-    
     /*  
+     
      +-------------+------------------+------+-----+---------+-----------------------------+
      | Field       | Type             | Null | Key | Default | Extra                       |
      +-------------+------------------+------+-----+---------+-----------------------------+
      | pk_dsmt     | int(11) unsigned | NO   | PRI | NULL    | auto_increment              |
      | pk_id       | int(10) unsigned | NO   | PRI | NULL    |                             |
-     | id          | varchar(15)      | NO   | UNI | NULL    |                             |
+     | id          | varchar(15)      | YES  | UNI | NULL    |                             |
      | label       | varchar(45)      | YES  |     | NULL    |                             |
      | dsmt_link   | int(11)          | YES  |     | NULL    |                             |
      | type        | varchar(8)       | NO   |     | NULL    |                             |
      | periodicity | varchar(15)      | NO   |     | NULL    |                             |
      | supplier    | varchar(15)      | NO   |     | NULL    |                             |
      | comments    | varchar(255)     | YES  |     | NULL    |                             |
+     | status      | varchar(20)      | NO   |     | NULL    |                             |
      | timestamp   | varchar(20)      | YES  |     | NULL    |                             |
      | lastchange  | timestamp        | YES  |     | NULL    | on update CURRENT_TIMESTAMP |
      +-------------+------------------+------+-----+---------+-----------------------------+
- 
+
      */
 }

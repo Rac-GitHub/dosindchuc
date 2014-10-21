@@ -8,8 +8,10 @@ import dosindchuc.UI.swing.Help.ManagementButtons;
 import dosindchuc.UI.swing.Help.ManagementClean;
 import dosindchuc.UI.swing.Help.ManagementFields;
 import dosindchuc.UI.swing.ManagementFrm;
-import dosindchuc.model.dao.Dosimeter_notesDao;
+import dosindchuc.model.dao.DsmtHistDao;
+import dosindchuc.model.dao.DsmtNotesDao;
 import dosindchuc.model.entities.DbPkIDs;
+import dosindchuc.model.entities.Dsmt_hist;
 import dosindchuc.model.entities.Dsmt_notes;
 import dosindchuc.model.entities.Help.DateAndTime;
 import dosindchuc.model.entities.Help.SetEnums;
@@ -19,10 +21,11 @@ import javax.swing.JTable;
  *
  * @author ir
  */
-public class ManagementDosimeter_Notes {
+public class ManagementDsmtNotes {
 
     private ManagementFrm frmMan;
-    private Dosimeter_notesDao dsmtNotesdao;
+    private DsmtNotesDao dsmtNotesdao;
+    private DsmtHistDao dsmtHistdao;
     private DbPkIDs dbPkIDs;
     private DateAndTime dateAndTime = new DateAndTime();
     private ManagementButtons setButtonsState;
@@ -30,11 +33,12 @@ public class ManagementDosimeter_Notes {
     private ManagementFields setFieldState;
     private JTable table;
 
-    public ManagementDosimeter_Notes(ManagementFrm frmMan) {
+    public ManagementDsmtNotes(ManagementFrm frmMan) {
 
         this.frmMan = frmMan;
         dbPkIDs = new DbPkIDs();
-        dsmtNotesdao = new Dosimeter_notesDao();
+        dsmtNotesdao = new DsmtNotesDao();
+        dsmtHistdao = new DsmtHistDao();
         setButtonsState = new ManagementButtons(this.frmMan);
         setCleanState = new ManagementClean(this.frmMan);
         setFieldState = new ManagementFields(this.frmMan);
@@ -43,7 +47,7 @@ public class ManagementDosimeter_Notes {
 
     /* ############################################### */
     /*                                                  */
-    /*              dose Note  info                       */
+    /*              Dsmt NOtes                       */
     /*                                                  */
     /* ###############################################  */
     private Dsmt_notes getDsmtNote(String newOrUpdate) {
@@ -131,6 +135,8 @@ public class ManagementDosimeter_Notes {
 
     }
 
+    
+    
     public void saveUpdateDsmtNote() {
 
         Dsmt_notes dsmtNote = getDsmtNote("update");
@@ -140,6 +146,36 @@ public class ManagementDosimeter_Notes {
         dsmtNotesdao.updateDsmtNote(dsmtNote, dsmtNote_id);
 
         this.frmMan.getTxtInfoAction().setText("Dosimeter note updated into database");
+        
+  
+        /* 
+         * history
+         */
+
+        String value[] = new String[]{dsmtNote.getNote(), dsmtNote.getStatus().toString(), dsmtNote.getAlert_level().toString()};
+
+        
+        System.out.println(" -- dsmt value hist --> " + value[0]);
+        System.out.println(" -- dsmt value hist --> " + value[1]);
+        System.out.println(" -- dsmt value hist --> " + value[2]);
+        
+        for (int i = 0; i < 2; i++) {
+
+            System.out.println(" old ...  -> " + dbPkIDs.getDsmtNotes_id().get(0, 0));
+            System.out.println(" old ...  -> " + dbPkIDs.getDsmtNotes_id().get(0, 1));
+            System.out.println(" old ...  -> " + dbPkIDs.getDsmtNotes_id().get(0, 2));
+            System.out.println(" old ...  -> " + dbPkIDs.getDsmtNotes_id().get(0, 3));
+            
+            if (!dbPkIDs.getDsmtNotes_id().contains(value[i])) {
+                String id_change = Integer.toString(i + 1);
+                saveDsmtNoteHist(dsmtNote_id, id_change, value[i]);
+            }
+
+        }
+
+        // end hist
+
+        
 
         // actualiza info
         this.frmMan.tableDosimeterInfo.setEnabled(true);
@@ -147,6 +183,25 @@ public class ManagementDosimeter_Notes {
 
     }
 
+    
+    /* 
+     * history
+     */
+    private void saveDsmtNoteHist(String dsmtNote_id, String id_change, String value) {
+
+        Dsmt_hist dsmtNoteHist = new Dsmt_hist();
+
+        dsmtNoteHist.setPk_dsmt_notes(dsmtNote_id);
+        dsmtNoteHist.setId_change(id_change);
+        dsmtNoteHist.setValue(value);
+
+        dsmtHistdao.insertDsmtHist(dsmtNoteHist,"note");
+
+    }
+    
+    
+    
+    
     public void cancelDsmtNote() {
 
         this.frmMan.getTxtInfoAction().setText("Dosimeter note action cancelled");

@@ -20,15 +20,16 @@ public class Tbl_doseNotesHist {
     static public String lastchange = "lastchange";
 
     /*
-     +--------------------+------------------+------+-----+---------+-----------------------------+
-     | Field              | Type             | Null | Key | Default | Extra                       |
-     +--------------------+------------------+------+-----+---------+-----------------------------+
-     | pk_dose_notes_hist | int(11) unsigned | NO   | PRI | NULL    | auto_increment              |
-     | pk_dose_notes      | int(11) unsigned | NO   | PRI | NULL    |                             |
-     | id_change          | smallint(6)      | NO   |     | NULL    |                             |
-     | value              | varchar(20)      | NO   |     | NULL    |                             |
-     | lastchange         | timestamp        | YES  |     | NULL    | on update CURRENT_TIMESTAMP |
-     +--------------------+------------------+------+-----+---------+-----------------------------+
+     * 
+     +--------------------+------------------+------+-----+-------------------+----------------+
+     | Field              | Type             | Null | Key | Default           | Extra          |
+     +--------------------+------------------+------+-----+-------------------+----------------+
+     | pk_dose_notes_hist | int(11) unsigned | NO   | PRI | NULL              | auto_increment |
+     | pk_dose_notes      | int(11) unsigned | NO   | PRI | NULL              |                |
+     | id_change          | smallint(6)      | NO   |     | NULL              |                |
+     | value              | varchar(255)     | NO   |     | NULL              |                |
+     | lastchange         | timestamp        | YES  |     | CURRENT_TIMESTAMP |                |
+     +--------------------+------------------+------+-----+-------------------+----------------+
 
      */
 }

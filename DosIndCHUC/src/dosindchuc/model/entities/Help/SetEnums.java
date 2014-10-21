@@ -71,18 +71,6 @@ public class SetEnums {
         Jan, Fev, Mar, Abr, Mai, Jun, Jul, Ago, Set, Out, Nov, Dez, NULL
     }
 
-    public enum dsmt_status {
-
-        Activo, 
-        Inactivo,
-        Pedido,
-        Chegou,
-        Perdido,
-        Recuperado,
-        PedCancelamento,
-        Cancelado
-    }
-
     public enum dsmt_type {
 
         CI("Corpo Inteiro"),
@@ -122,6 +110,25 @@ public class SetEnums {
         }
     }
 
+    
+    public enum dsmt_status {
+
+        Pedido,
+        Chegou,
+        Enviado,
+        NaoEnviado,
+        Recebido,
+        NaoRecebido,
+        Perdido,
+        Recuperado,
+        PedCancelamento,
+        Cancelado,
+        Activo,
+        Inactivo
+   
+    }
+    
+    
     public enum note_status {
 
         O("Open"),
