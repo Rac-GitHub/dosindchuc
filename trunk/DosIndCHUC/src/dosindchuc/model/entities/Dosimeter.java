@@ -25,7 +25,6 @@ public class Dosimeter {
     private String comments;
     private String timestamp;
     private dsmt_status status;
-    private String status_timestamp;
     private String lastchange;
 
     // constructors
@@ -112,14 +111,6 @@ public class Dosimeter {
 
     public void setStatus(dsmt_status status) {
         this.status = status;
-    }
-
-    public String getStatus_timestamp() {
-        return status_timestamp;
-    }
-
-    public void setStatus_timestamp(String status_timestamp) {
-        this.status_timestamp = status_timestamp;
     }
 
     public String getLastchange() {

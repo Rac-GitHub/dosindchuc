@@ -197,8 +197,13 @@ public class ManagementSearch {
 
         int nResults = dosimeter_info.size();
 
+        System.out.println("   nResults dsmt -> " + nResults);
+        
         if (!(nResults > 0)) {
             dosimeter_info = null;
+            this.frmMan.btDosimeterInfoNew.setEnabled(true);
+  //          this.frmMan.btDoseInfoNew.setEnabled(false);
+  //          this.frmMan.btDoseInfoUpdate.setEnabled(false);
             return dosimeter_info;
         }
 
@@ -212,6 +217,7 @@ public class ManagementSearch {
             tableModel.setDefaultDsmtTable("readonly");
             this.frmMan.btDosimeterInfoNew.setEnabled(true);
             this.frmMan.btDosimeterInfoUpdate.setEnabled(true);
+//            this.frmMan.btDoseInfoNew.setEnabled(true);
         } else {
             System.out.println(" fillDosimeterInfo: erro:");
         }
@@ -224,12 +230,23 @@ public class ManagementSearch {
         for (int i = 0; i < nResults; i++) {
 
             Dosimeter dosimeter = dosimeter_info.get(i);
-            Object newRow[] = new Object[]{dosimeter.getId(), dosimeter.getLabel(), dosimeter.getType(), dosimeter.getPeriodicity(), dosimeter.getSupplier(), dosimeter.getTimestamp(), dosimeter.getComments(), dosimeter.getStatus(), dosimeter.getLastchange()};
+            Object newRow[] = new Object[]{dosimeter.getId(), dosimeter.getLabel(), dosimeter.getType(), dosimeter.getPeriodicity(), 
+                dosimeter.getSupplier(), dosimeter.getTimestamp(), dosimeter.getComments(), dosimeter.getStatus(), 
+                dosimeter.getLastchange()};
             model.addRow(newRow);
 
-            // info dos dosimetros para a dose
-            Object dsmtInfo[] = new Object[]{dosimeter.getPk_dsmt(), dosimeter.getId(), dosimeter.getStatus(), dosimeter.getPeriodicity()};
+            // info dos dosimetros para a dose and history
+//            Object dsmtInfo[] = new Object[]{dosimeter.getPk_dsmt(), dosimeter.getId(), dosimeter.getStatus(), dosimeter.getPeriodicity()};
+            Object dsmtInfo[] = new Object[]{dosimeter.getPk_dsmt(), dosimeter.getId(), dosimeter.getLabel(), 
+                dosimeter.getType(), dosimeter.getPeriodicity(), dosimeter.getSupplier(), dosimeter.getComments(), 
+                dosimeter.getStatus()};
+            
+            if (dosimeter.getStatus().toString().equalsIgnoreCase("Activo")) {
+                this.frmMan.btDoseInfoNew.setEnabled(true);
+            }
+            
             dsmtIds.add(i, dsmtInfo);
+           
 
         }
 
@@ -245,12 +262,23 @@ public class ManagementSearch {
     public void fillDosimeterNotesCBIndex() {
 
         clearDosimeterNotesInfo();
+        
+   //     dbPkIDs.getDsmt_id().get(i)
 
         Object pk_dsmt = dbPkIDs.getDsmtNotes_id().get(0, 0);
 
         if (pk_dsmt == null) {
+            
+            System.out.println("  fill DosimeterNotesCB --- >  pk_dsmt: " + pk_dsmt);
+            
+            
             int row = frmMan.tableDosimeterInfo.getSelectedRow();
-            pk_dsmt = dosimeter_info.get(row).getPk_dsmt();
+            
+            System.out.println("  fill DosimeterNotesCB --- >  row: " + row);
+//            System.out.println("  fill DosimeterNotesCB --- >  dosimeter_ifo size: " + dosimeter_info.size());
+            
+        //    pk_dsmt = dosimeter_info.get(row).getPk_dsmt();
+            pk_dsmt = dbPkIDs.getDsmt_id().get(row)[0];
         }
 
         dosimeterNotes = dosimeterNotesDao.getDsmt_notes(pk_dsmt.toString());
@@ -286,7 +314,8 @@ public class ManagementSearch {
         int index = frmMan.getCbDosimeterNotesIndex().getSelectedIndex();
 
         int row = frmMan.tableDosimeterInfo.getSelectedRow();
-        String pk_dsmt = dosimeter_info.get(row).getPk_dsmt();
+   //     String pk_dsmt = dosimeter_info.get(row).getPk_dsmt();
+        String pk_dsmt = dbPkIDs.getDsmt_id().get(row)[0].toString();
 
         dosimeterNotes = dosimeterNotesDao.getDsmt_notes(pk_dsmt);
 
@@ -348,15 +377,17 @@ public class ManagementSearch {
         dose_info = doseinfodao.getDoseInfo("", worker_id);
 
         int nResults = dose_info.size();
+        
+        System.out.println("   nResults dose -> " + nResults);
 
         if (!(nResults > 0)) {
             dose_info = null;
-            this.frmMan.btDoseInfoNew.setEnabled(true);
-            this.frmMan.btDoseInfoUpdate.setEnabled(true);
             return dose_info;
         }
 
-
+   /*     this.frmMan.btDoseInfoNew.setEnabled(true); */
+        this.frmMan.btDoseInfoUpdate.setEnabled(true);
+           
         if (newORupdate.equalsIgnoreCase("update")) {
             tableModel.setDefaultDoseTable("updatedose");
         } else {
@@ -370,7 +401,9 @@ public class ManagementSearch {
             Dose worker_dose = dose_info.get(i);
             String dsmtID = dosimeterdao.getDosimetersInfo(worker_dose.getPk_dsmt(), worker_id).get(0).getId();
 
-            Object newRow[] = new Object[]{dsmtID, worker_dose.getYear(), worker_dose.getTrimester(), worker_dose.getMonth(), worker_dose.getHp007(), worker_dose.getHp10(), worker_dose.getTimestamp(), worker_dose.getComments(), worker_dose.getLastchange()};
+            Object newRow[] = new Object[]{dsmtID, worker_dose.getYear(), worker_dose.getTrimester(), worker_dose.getMonth(), 
+                worker_dose.getHp007(), worker_dose.getHp10(), worker_dose.getTimestamp(), worker_dose.getComments(), 
+                worker_dose.getLastchange()};
             model.addRow(newRow);
 
             doseIds.add(i, worker_dose.getPk_dose());
@@ -392,7 +425,8 @@ public class ManagementSearch {
 
         if (pk_dose == null) {
             int row = frmMan.tableDoseInfo.getSelectedRow();
-            pk_dose = dose_info.get(row).getPk_dose();
+   //         pk_dose = dose_info.get(row).getPk_dose();
+            pk_dose = dbPkIDs.getDose_id().get(row);
         }
 
         if (!(dose_info.size() > 0)) {
@@ -429,7 +463,8 @@ public class ManagementSearch {
         int index = frmMan.getCbDoseNoteIndex().getSelectedIndex();
 
         int row = frmMan.tableDoseInfo.getSelectedRow();
-        String pk_dose = dose_info.get(row).getPk_dose();
+    //    String pk_dose = dose_info.get(row).getPk_dose();
+        String pk_dose = dbPkIDs.getDose_id().get(row).toString();
 
         dosenotes = doseNotesDao.getDose_notesInfo(pk_dose);
 

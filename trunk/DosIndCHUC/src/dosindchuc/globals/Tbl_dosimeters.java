@@ -25,6 +25,13 @@ public class Tbl_dosimeters {
     static public String status = "status";
     static public String timestamp = "timestamp";
     static public String lastchange = "lastchange";
+    
+     /*
+     * number and variables to save in history
+     */
+    static public int nrHist = 7;
+    static public String parmHist[] = new String []{id, label, type, periodicity, supplier, comments, status};
+
     /*  
      
      +-------------+------------------+------+-----+---------+-----------------------------+

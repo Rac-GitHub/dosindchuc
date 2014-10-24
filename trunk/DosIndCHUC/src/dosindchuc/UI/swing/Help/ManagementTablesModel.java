@@ -25,6 +25,7 @@ import javax.swing.table.DefaultTableModel;
 public class ManagementTablesModel {
 
     private ManagementFrm frmMan;
+    private ManagementButtons setButtonsState;
  //   private MainFrm frmMain;
     private DbPkIDs dbPkIDs;
     private DateAndTime dateAndTime = new DateAndTime();
@@ -35,6 +36,7 @@ public class ManagementTablesModel {
 
     public ManagementTablesModel(MainFrm frmMain, ManagementFrm frmMan) {
         this.frmMan = frmMan;
+        setButtonsState = new ManagementButtons(this.frmMan);
   //      this.frmMain = frmMain;
         dbPkIDs = new DbPkIDs();
 
@@ -205,7 +207,7 @@ public class ManagementTablesModel {
         table.getColumnModel().getColumn(7).setCellEditor(new DefaultCellEditor(cbStatus));
 
         Object newRow[] = new Object[]{"", "", SetEnums.dsmt_type.CI, SetEnums.dsmt_periodicity.Trimestral, 
-            SetEnums.dsmt_supplier.MedicalConsult, "", "", SetEnums.dsmt_status.Activo, ""};
+            SetEnums.dsmt_supplier.MedicalConsult, "", "", SetEnums.dsmt_status.Pedido, ""};
         model.addRow(newRow);
 
     }
@@ -327,12 +329,30 @@ public class ManagementTablesModel {
         ArrayList idActDsmt = new ArrayList();
         ArrayList year = new ArrayList();
 
+        /*    Object dsmtInfo[] = new Object[]{dosimeter.getPk_dsmt(), dosimeter.getId(), dosimeter.getLabel(), 
+                dosimeter.getType(), dosimeter.getPeriodicity(), dosimeter.getSupplier(), dosimeter.getComments(), 
+                dosimeter.getStatus()}; */
+
+        System.out.println("  size --- > " + dbPkIDs.getDsmt_id().size());
+        System.out.println("  pos 7 --- > " + dbPkIDs.getDsmt_id().get(0)[0]);
+        System.out.println("  pos 7 --- > " + dbPkIDs.getDsmt_id().get(0)[1]);
         for (int i = 0; i < dbPkIDs.getDsmt_id().size(); ++i) {
-            if ((dbPkIDs.getDsmt_id().get(i)[2]).toString().equalsIgnoreCase("Activo")) {
+            if ((dbPkIDs.getDsmt_id().get(i)[7]).toString().equalsIgnoreCase("Activo")) {
                 idActDsmt.add(dbPkIDs.getDsmt_id().get(i)[1]);
             }
         }
 
+        
+        System.out.println("    --->  " + idActDsmt.size());
+  /*      
+        if ( idActDsmt.size() < 1 ) {
+            // falta buttons ????
+             System.out.println("   11  --->  " + idActDsmt.size());
+            this.frmMan.getTxtInfoAction().setText("exist dsmks");
+            setButtonsState.setDoseBtsSearch(true);
+            return;
+        }
+  */      
         int yearNow = Integer.parseInt(dateAndTime.currYear());
 
         for (int i = yearNow; i > 1999; --i) {
@@ -350,7 +370,9 @@ public class ManagementTablesModel {
         table.getColumnModel().getColumn(3).setCellEditor(new DefaultCellEditor(cbMonth));
 
 
-        String dsmtPeriodicity = dbPkIDs.getDsmt_id().get(0)[3].toString();
+        String dsmtPeriodicity = dbPkIDs.getDsmt_id().get(0)[4].toString();
+        System.out.println(" Man tables dsmtPeriodicity -->  " +    dsmtPeriodicity);
+        //= dbPkIDs.getDsmt_id().get(0)[3].toString();
         if (dsmtPeriodicity.equalsIgnoreCase("Mensal")) {
             Object newRow[] = new Object[]{idActDsmt.get(0), yearNow, SetEnums.Trimester.NULL, SetEnums.month.Jan,
                 "", "", "", "", ""};

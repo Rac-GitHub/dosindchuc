@@ -19,7 +19,6 @@ public class Conn_db {
     static public String bd = "dosim_indiv_CHUC";
     static public String login = "dichuc";
     static public String password = "dichuc";
-    
     /**
      * tables names
      */
@@ -34,9 +33,10 @@ public class Conn_db {
     static public String tbl_dsmtStatus = "dsmt_status";
     static public String tbl_dsmtNotes = "dsmt_notes";
     static public String tbl_dsmtHist = "dsmt_hist";
+    static public String tbl_dsmtNotesHist = "dsmt_notes_hist";
+    
     
     /*
-    
      +----------------------------+
      | Tables_in_dosim_indiv_CHUC |
      +----------------------------+
@@ -47,7 +47,7 @@ public class Conn_db {
      | dosimeters                 |
      | dsmt_hist                  |
      | dsmt_notes                 |
-     | dsmt_status                |
+     | dsmt_notes_hist            |
      | users                      |
      | worker_activity_history    |
      | workers                    |

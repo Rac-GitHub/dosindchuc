@@ -24,6 +24,15 @@ public class Tbl_dsmt_notes {
     static public String lastchange = "lastchange";
     
     /*
+     * number and variables to save in history
+     */
+    static public int nrHist = 3;
+    static public String parmHist[] = new String []{note, status, alert_level};
+
+    
+    /*
+    
+    /*
      +-----------------------+------------------+------+-----+---------+-----------------------------+
      | Field                 | Type             | Null | Key | Default | Extra                       |
      +-----------------------+------------------+------+-----+---------+-----------------------------+
