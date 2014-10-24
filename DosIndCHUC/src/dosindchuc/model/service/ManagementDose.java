@@ -14,7 +14,6 @@ import dosindchuc.model.entities.DbPkIDs;
 import dosindchuc.model.entities.Dose;
 import dosindchuc.model.entities.Help.DateAndTime;
 import dosindchuc.model.entities.Help.SetEnums;
-import java.awt.Color;
 import javax.swing.JTable;
 
 /**
@@ -66,11 +65,16 @@ public class ManagementDose {
 
         String idDsmt = table.getValueAt(row, 0).toString();
         dose.setDsmt_id(idDsmt);
+        
+        
+    /*    Object dsmtInfo[] = new Object[]{dosimeter.getPk_dsmt(), dosimeter.getId(), dosimeter.getLabel(), 
+                dosimeter.getType(), dosimeter.getPeriodicity(), dosimeter.getSupplier(), dosimeter.getComments(), 
+                dosimeter.getStatus()}; */
 
         int i = 0;
-        while (!(dbPkIDs.getDsmt_id().get(i)[1].toString().equalsIgnoreCase(idDsmt))) {
+   /*     while (!(dbPkIDs.getDsmt_id().get(i)[1].toString().equalsIgnoreCase(idDsmt))) {
             i++;
-        }
+        }  */
         dose.setPk_dsmt(dbPkIDs.getDsmt_id().get(i)[0].toString());
 
         dose.setYear(table.getValueAt(row, 1) == null ? "" : table.getValueAt(row, 1).toString());
@@ -98,6 +102,8 @@ public class ManagementDose {
 
         /* tudo ok para escrever */
 
+        // deve testar para ver se tem dosimeros associados
+        
         tableModel.setDefaultDoseTable("newdose");
 
         setButtonsState.setDoseBtsNew(true);
@@ -123,6 +129,8 @@ public class ManagementDose {
 
         // actualiza info
         fillWokerDoseInfo();
+        
+        setButtonsState.setDoseBtsSave(true);
 
     }
 
@@ -140,15 +148,15 @@ public class ManagementDose {
             return;
         }
 
-        setButtonsState.setDoseBtsUpdate(true);
-
         setCleanState.cleanDose();
         setDoseInfo.fillDoseInfo(dbPkIDs.getWorker_id(), "update");
 
         this.frmMan.getTxtInfoAction().setText("Updating Dose info");
 
         table.setRowSelectionInterval(row, row);
-
+        
+        setButtonsState.setDoseBtsUpdate(true);
+        
     }
 
     public void saveUpdateDose() {
@@ -173,6 +181,7 @@ public class ManagementDose {
 
         // actualiza info
         fillWokerDoseInfo();
+        setButtonsState.setDoseBtsSave(true);
 
     }
 
@@ -180,8 +189,28 @@ public class ManagementDose {
 
         setCleanState.cleanDose();
         setDoseInfo.fillDoseInfo(dbPkIDs.getWorker_id(), "new");
-
-        setButtonsState.setDoseBtsSearch(true);
+//        setButtonsState.setDoseBtsSearch(true);
 
     }
+    
+    
+     public void fillWokerDoseInfoCancel() {
+
+        // actualiza info
+        setCleanState.cleanDose();
+        setDoseInfo.fillDoseInfo(dbPkIDs.getWorker_id(), "list");
+
+        setButtonsState.setDoseBtsCancel(false);
+
+        this.frmMan.btDoseInfoNew.setEnabled(true);
+  
+        if (!dbPkIDs.getDose_id().isEmpty()) {
+            this.frmMan.btDoseInfoUpdate.setEnabled(true);
+        }
+
+
+
+    }
+
+    
 }

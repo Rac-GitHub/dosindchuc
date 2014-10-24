@@ -8,6 +8,7 @@ import dosindchuc.UI.swing.Help.ManagementButtons;
 import dosindchuc.UI.swing.Help.ManagementClean;
 import dosindchuc.UI.swing.Help.ManagementFields;
 import dosindchuc.UI.swing.ManagementFrm;
+import dosindchuc.globals.Tbl_dose_notes;
 import dosindchuc.model.dao.DoseNotesHistDao;
 import dosindchuc.model.dao.Dose_notesDao;
 import dosindchuc.model.entities.DbPkIDs;
@@ -118,6 +119,7 @@ public class ManagementDoseNotes {
 
         this.frmMan.getTxtInfoAction().setText("Dose note to dose_id = " + doseNote.getPk_dose() + " saved into database");
 
+        recordHist(doseNote, id, -1);
         // actualiza info
         this.frmMan.tableDoseInfo.setEnabled(true);
         fillDoseNoteInfo();
@@ -147,23 +149,7 @@ public class ManagementDoseNotes {
 
         this.frmMan.getTxtInfoAction().setText("Dose note updated into database");
 
-        /* 
-         *history
-         */
-
-        String value[] = new String[]{doseNote.getNote(), doseNote.getStatus().toString(), doseNote.getAlert_level().toString()};
-
-        for (int i = 0; i < 2; i++) {
-
-            if (!dbPkIDs.getDoseNotes_id().contains(value[i])) {
-                String id_change = Integer.toString(i + 1);
-                saveDoseNoteHist(doseNote_id, id_change, value[i]);
-            }
-
-        }
-
-        // end hist
-
+        recordHist(doseNote, doseNote_id, 0);
 
         // actualiza info
         this.frmMan.tableDoseInfo.setEnabled(true);
@@ -174,18 +160,6 @@ public class ManagementDoseNotes {
     /* 
      *history
      */
-    private void saveDoseNoteHist(String doseNote_id, String id_change, String value) {
-
-        Dose_notes_hist doseNoteHist = new Dose_notes_hist();
-
-        doseNoteHist.setPk_dose_notes(doseNote_id);
-        doseNoteHist.setId_change(id_change);
-        doseNoteHist.setValue(value);
-
-        doseNotesHistdao.insertDoseNoteHist(doseNoteHist);
-
-    }
-
     public void cancelDoseNote() {
 
         this.frmMan.getTxtInfoAction().setText("Dose note action cancelled");
@@ -200,6 +174,54 @@ public class ManagementDoseNotes {
 
         setCleanState.cleanDoseNotes();
         setButtonsState.setAllDoseNoteBtsInit(false);
+
+    }
+
+    /* 
+     * history
+     * 
+     */
+    private void recordHist(Dose_notes doseNote, String doseNote_id, int doseRow) {
+
+
+        System.out.println(" .... -> dsmtRow -- > " + doseRow);
+
+        String value[] = new String[]{doseNote.getNote(), doseNote.getStatus().toString(), doseNote.getAlert_level().toString()};
+
+        switch (doseRow) {
+
+            case -1:
+                for (int i = 0; i < Tbl_dose_notes.nrHist; i++) {
+                    String id_change = Tbl_dose_notes.parmHist[i];
+                    saveDoseNoteHist(doseNote_id, id_change, value[i]);
+                }
+                break;
+
+            default:
+
+                for (int i = 0; i < Tbl_dose_notes.nrHist; i++) {
+
+                    if (!dbPkIDs.getDoseNotes_id().contains(value[i])) {
+                        String id_change = Tbl_dose_notes.parmHist[i];
+                        saveDoseNoteHist(doseNote_id, id_change, value[i]);
+                    }
+
+                }
+
+                break;
+
+        }
+    }
+
+    private void saveDoseNoteHist(String doseNote_id, String id_change, String value) {
+
+        Dose_notes_hist doseNoteHist = new Dose_notes_hist();
+
+        doseNoteHist.setPk_dose_notes(doseNote_id);
+        doseNoteHist.setId_change(id_change);
+        doseNoteHist.setValue(value);
+
+        doseNotesHistdao.insertDoseNoteHist(doseNoteHist);
 
     }
 }

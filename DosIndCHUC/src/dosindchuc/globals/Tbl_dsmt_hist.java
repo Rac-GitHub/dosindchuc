@@ -18,6 +18,7 @@ public class Tbl_dsmt_hist {
     static public String id_change = "id_change";
     static public String value = "value";
     static public String lastchange = "lastchange";
+    
 
     /*
      * 
@@ -30,7 +31,6 @@ public class Tbl_dsmt_hist {
      | value        | varchar(255)     | NO   |     | NULL              |                |
      | lastchange   | timestamp        | YES  |     | CURRENT_TIMESTAMP |                |
      +--------------+------------------+------+-----+-------------------+----------------+
-
 
      */
 }

@@ -23,6 +23,14 @@ public class Tbl_dose_notes {
     static public String alert_level = "alert_level";
     static public String alert_level_timestamp = "alert_level_timestamp";
     static public String lastchange = "lastchange";
+    
+     /*
+     * number and variables to save in history
+     */
+    static public int nrHist = 3;
+    static public String parmHist[] = new String []{note, status, alert_level};
+
+    
     /*
 
      +-----------------------+------------------+------+-----+---------+-----------------------------+

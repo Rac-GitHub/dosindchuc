@@ -18,7 +18,7 @@ public class Tbl_dsmtNotesHist {
     static public String id_change = "id_change";
     static public String value = "value";
     static public String lastchange = "lastchange";
-
+   
     /*
      * 
      +------------------+------------------+------+-----+-------------------+----------------+

@@ -6,6 +6,9 @@ package dosindchuc.UI.swing.Help;
 
 import dosindchuc.UI.swing.MainFrm;
 import dosindchuc.UI.swing.ManagementFrm;
+import dosindchuc.model.dao.Help.ArrayList2D;
+import dosindchuc.model.entities.DbPkIDs;
+import java.util.ArrayList;
 
 /**
  *
@@ -16,11 +19,13 @@ public class ManagementClean {
     private ManagementFrm frmMan;
     private MainFrm frmMain;
     private ManagementTablesModel tableModel;
+    private DbPkIDs dbPkIDs;
 
     public ManagementClean(ManagementFrm frmMan) {
 
         this.frmMan = frmMan;
         tableModel = new ManagementTablesModel(this.frmMain, this.frmMan);
+        dbPkIDs = new DbPkIDs();
 
     }
 
@@ -83,6 +88,8 @@ public class ManagementClean {
     // dosimeter
     public void cleanDosimeter() {
 
+        dsmt_idClear();
+
         cleanDsmtNotes();
 
         tableModel.setDefaultDsmtTable("readonly");
@@ -94,6 +101,8 @@ public class ManagementClean {
     }
 
     public void cleanDsmtNotes() {
+        
+        dsmtNotes_idClear();
 
         this.frmMan.txtDosimeterNote.setText(null);
         this.frmMan.txtDosimeterNote.setEditable(false);
@@ -111,6 +120,8 @@ public class ManagementClean {
     // dose
     public void cleanDose() {
 
+        dose_idClear();
+        
         cleanDoseNotes();
 
         tableModel.setDefaultDoseTable("readonly");
@@ -124,6 +135,8 @@ public class ManagementClean {
 
     public void cleanDoseNotes() {
 
+        doseNotes_idClear();
+        
         this.frmMan.txtDoseNote.setText(null);
         this.frmMan.txtDoseNote.setEditable(false);
         this.frmMan.txtDoseNoteLevelDate.setText(null);
@@ -135,4 +148,47 @@ public class ManagementClean {
         this.frmMan.cbDoseNoteStatus.setEnabled(false);
 
     }
+
+    /*
+     *  clear all saved info
+     */
+    
+    public void dsmt_idClear() {
+
+        ArrayList<Object[]> dsmtIds = new ArrayList();
+        dbPkIDs.setDsmt_id(dsmtIds);
+
+    }
+
+    public void dose_idClear() {
+
+        ArrayList dose_id = new ArrayList();
+        dbPkIDs.setDose_id(dose_id);
+
+    }
+
+    public void dsmtNotes_idClear() {
+
+        ArrayList2D dsmtNotes_id = new ArrayList2D();
+        dbPkIDs.setDsmtNotes_id(dsmtNotes_id);
+    }
+    
+    public void doseNotes_idClear() {
+
+        ArrayList2D doseNotes_id = new ArrayList2D();
+        dbPkIDs.setDoseNotes_id(doseNotes_id);
+    }
+    
+    public void alertNoteClear() {
+
+        ArrayList<Object[]> alertNote = new ArrayList();
+        dbPkIDs.setAlertNote(alertNote);
+    }
+    
+     public void div_dsmtIDClear() {
+
+        ArrayList<Object[]> div_dsmtID = new ArrayList();
+        dbPkIDs.setAlertNote(div_dsmtID);
+    }
+    
 }

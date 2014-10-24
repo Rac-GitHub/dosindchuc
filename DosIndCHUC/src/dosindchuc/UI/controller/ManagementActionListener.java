@@ -19,7 +19,6 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
-import javax.swing.JTable;
 
 /**
  *
@@ -71,6 +70,7 @@ public final class ManagementActionListener implements ActionListener, MouseList
             case "cleanManagement":
                 serviceBtns.setAllSearchClearBts();
                 serviceClean.cleanAllInfoWithSearch();
+
                 break;
 
 // worker
@@ -95,20 +95,21 @@ public final class ManagementActionListener implements ActionListener, MouseList
                 serviceDosimeter.newDosimeter();
                 break;
             case "btDosimeterInfoSaveNew":
-                serviceDosimeter.saveNewDsmt();
                 serviceBtns.setAllCancelBts();
+                serviceDosimeter.saveNewDsmt();
                 break;
             case "btDosimeterInfoUpdate":
                 serviceDosimeter.updateDosimeter();
                 break;
             case "btDosimeterInfoSaveUpdate":
-                serviceDosimeter.saveUpdateDsmt();
                 serviceBtns.setAllCancelBts();
+                serviceDosimeter.saveUpdateDsmt();
                 break;
             case "btDosimeterInfoCancel":
                 this.frmMan.getTxtInfoAction().setText("Action on dosimeter cancelled");
-                serviceBtns.setAllCancelBts();
-                serviceDosimeter.fillWokerDsmtInfo();
+  //              serviceBtns.setDsmtCancelBts();
+                serviceDosimeter.fillWokerDsmtInfoCancel();
+            //    serviceDosimeter.fillWokerDsmtInfo();
                 break;
 
             // dosimeter Notes      
@@ -140,20 +141,21 @@ public final class ManagementActionListener implements ActionListener, MouseList
                 serviceDose.newDose();
                 break;
             case "btDoseInfoSaveNew":
-                serviceDose.saveNewDose();
                 serviceBtns.setAllCancelBts();
+                serviceDose.saveNewDose();
                 break;
             case "btDoseInfoUpdate":
                 serviceDose.updateDose();
                 break;
             case "btDoseInfoSaveUpdate":
-                serviceDose.saveUpdateDose();
                 serviceBtns.setAllCancelBts();
+                serviceDose.saveUpdateDose();
                 break;
             case "btDoseInfoCancel":
                 this.frmMan.getTxtInfoAction().setText("Action on dose cancelled");
                 serviceBtns.setAllCancelBts();
-                serviceDose.fillWokerDoseInfo();
+         //       serviceDose.fillWokerDoseInfo();
+                serviceDose.fillWokerDoseInfoCancel();
                 break;
 
             // dose note
@@ -254,10 +256,12 @@ public final class ManagementActionListener implements ActionListener, MouseList
 
         if (mevent.getClickCount() == 2) {
             serviceClean.cleanAllInfo();
+            serviceBtns.setAllSearchClearBts();
             frmMan.btWorkerNew.setEnabled(true);
             frmMan.btWorkerUpdate.setEnabled(true);
-            serviceBtns.setDosimeterBtsSearch(true);
-            serviceBtns.setDoseBtsSearch(true);
+ //           serviceBtns.setDosimeterBtsSearch(true);
+ //           serviceBtns.setDoseBtsSearch(true);
+            
             serviceSearch.fillAllManagement();
             this.frmMan.getTxtInfoAction().setText("");
 

@@ -6,7 +6,6 @@ package dosindchuc.model.dao;
 
 import dosindchuc.globals.Conn_db;
 import dosindchuc.globals.Tbl_dosimeters;
-import dosindchuc.globals.Tbl_dsmt_status;
 import dosindchuc.model.dao.Help.ArrayList2D;
 import dosindchuc.model.dao.Help.DaoConnections;
 import dosindchuc.model.dao.Help.DaoExceptions;
@@ -31,7 +30,6 @@ public class DosimeterDao {
     private RandomNumbers random;
 
     String table_dsmt = Conn_db.tbl_dsmt;
-    String table_dsmtStatus = Conn_db.tbl_dsmtStatus;
     
     
     public DosimeterDao () {
@@ -49,12 +47,12 @@ public class DosimeterDao {
         String select = "SELECT p1." + Tbl_dosimeters.pk_dsmt + ", p1." + Tbl_dosimeters.pk_id  + ", p1." + Tbl_dosimeters.id 
                 + ", p1." + Tbl_dosimeters.label + ", p1." + Tbl_dosimeters.type + ", p1." + Tbl_dosimeters.periodicity 
                 + ", p1." + Tbl_dosimeters.supplier + ", p1." + Tbl_dosimeters.comments + ", p1." + Tbl_dosimeters.timestamp 
-                + ", p2." + Tbl_dsmt_status.status + ", p2." + Tbl_dsmt_status.status_timestamp + ", p2." + Tbl_dsmt_status.lastchange; 
-        String from = " FROM " + table_dsmt + " as p1," + table_dsmtStatus + " as p2";
+                + ", p1." + Tbl_dosimeters.status + ", p1." + Tbl_dosimeters.lastchange; 
+        String from = " FROM " + table_dsmt + " as p1";
 
         String query = select + from;
         
-        String sort = " ORDER BY p2." + Tbl_dsmt_status.status + ", p2." + Tbl_dsmt_status.pk_dsmt + " DESC ";
+        String sort = " ORDER BY p1." + Tbl_dosimeters.status + ", p1." + Tbl_dosimeters.pk_dsmt + " DESC ";
         String limit = " LIMIT 10";
         
         if (worker_id.isEmpty() && dsmt_id.isEmpty()) {
@@ -87,9 +85,8 @@ public class DosimeterDao {
                         dosimeter.setSupplier(SetEnums.dsmt_supplier.valueOf(rset.getString(Tbl_dosimeters.supplier)));
                         dosimeter.setComments(rset.getString(Tbl_dosimeters.comments));
                         dosimeter.setTimestamp(rset.getString(Tbl_dosimeters.timestamp));
-                        dosimeter.setStatus(SetEnums.dsmt_status.valueOf(rset.getString(Tbl_dsmt_status.status)));
-                        dosimeter.setStatus_timestamp(rset.getString(Tbl_dsmt_status.status_timestamp));
-                        dosimeter.setLastchange(rset.getString(Tbl_dsmt_status.lastchange));
+                        dosimeter.setStatus(SetEnums.dsmt_status.valueOf(rset.getString(Tbl_dosimeters.status)));
+                        dosimeter.setLastchange(rset.getString(Tbl_dosimeters.lastchange));
                         dosimeters.add(dosimeter);
                     }
                     return dosimeters;
@@ -155,6 +152,11 @@ public class DosimeterDao {
             queryList.Add(dsmt.getComments(), i);
         }
 
+        i += 1;
+        queryList.Add(", " + Tbl_dosimeters.status, i);
+        queryList.Add(", ? ", i);
+        queryList.Add(dsmt.getStatus().toString(), i);
+        
         i += 1;
         queryList.Add(", " + Tbl_dosimeters.timestamp, i);
         queryList.Add(", ? ", i);

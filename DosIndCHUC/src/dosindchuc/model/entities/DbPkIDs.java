@@ -28,8 +28,10 @@ public class DbPkIDs {
     private static int rowSelectedOldDIV;
 
     public DbPkIDs() {
+    
     }
-
+        
+      
 // getter and setters    
     public String getWorker_id() {
         return worker_id;
@@ -46,7 +48,7 @@ public class DbPkIDs {
     public void setDsmt_id(ArrayList<Object[]> dsmt_id) {
         DbPkIDs.dsmt_id = dsmt_id;
     }
-
+    
     public ArrayList2D getDsmtNotes_id() {
         return dsmtNotes_id;
     }

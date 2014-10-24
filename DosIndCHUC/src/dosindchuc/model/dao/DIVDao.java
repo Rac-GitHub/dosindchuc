@@ -6,7 +6,6 @@ package dosindchuc.model.dao;
 
 import dosindchuc.globals.Conn_db;
 import dosindchuc.globals.Tbl_dosimeters;
-import dosindchuc.globals.Tbl_dsmt_status;
 import dosindchuc.globals.Tbl_workers;
 import dosindchuc.model.dao.Help.ArrayList2D;
 import dosindchuc.model.dao.Help.DaoConnections;
@@ -35,7 +34,6 @@ public class DIVDao {
 
     String table_workers = Conn_db.tbl_workers;
     String table_dmst = Conn_db.tbl_dsmt;
-    String table_dmstStatus = Conn_db.tbl_dsmtStatus;
     String table_doses = Conn_db.tbl_doses;
     String table_doseNotes = Conn_db.tbl_doseNotes;
     
@@ -55,10 +53,9 @@ public class DIVDao {
                 + ", p1." + Tbl_workers.id_mec + ", p1." + Tbl_workers.department + ", p1." + Tbl_workers.category 
                 + ", p2." + Tbl_dosimeters.id + ", p2." + Tbl_dosimeters.periodicity;
 
-        String from = " FROM " + table_workers + " as p1, " + table_dmst + " as p2, " 
-                + table_dmstStatus + " as p3";
+        String from = " FROM " + table_workers + " as p1, " + table_dmst + " as p2 ";
 
-        String defaulWhere = " p1." + Tbl_workers.status + " = 'Activo' and p3." + Tbl_dsmt_status.status + "= 'Activo' and p1." 
+        String defaulWhere = " p1." + Tbl_workers.status + " = 'Activo' and p2." + Tbl_dosimeters.status + "= 'Activo' and p1." 
                 + Tbl_workers.pk_id + " = p2." + Tbl_dosimeters.pk_id;
 
         String[][][] searchWhere = {{{Tbl_workers.name, "LIKE", name}},
