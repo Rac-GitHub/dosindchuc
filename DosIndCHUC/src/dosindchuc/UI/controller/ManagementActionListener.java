@@ -120,15 +120,17 @@ public final class ManagementActionListener implements ActionListener, MouseList
                 serviceDsmtNotes.newDsmtNote();
                 break;
             case "btSaveNewDsmtNote":
-                serviceDsmtNotes.saveNewDsmtNote();
                 serviceBtns.setAllCancelBts();
+                serviceDsmtNotes.saveNewDsmtNote();
+                
                 break;
             case "btUpdateNoteDosimeter":
                 serviceDsmtNotes.updateDsmtNote();
                 break;
             case "btSaveUpdateDsmtNote":
-                serviceDsmtNotes.saveUpdateDsmtNote();
                 serviceBtns.setAllCancelBts();
+                serviceDsmtNotes.saveUpdateDsmtNote();
+
                 break;
             case "btCancelDsmtNote":
                 this.frmMan.getTxtInfoAction().setText("Action on dosimeter note cancelled");
@@ -153,7 +155,7 @@ public final class ManagementActionListener implements ActionListener, MouseList
                 break;
             case "btDoseInfoCancel":
                 this.frmMan.getTxtInfoAction().setText("Action on dose cancelled");
-                serviceBtns.setAllCancelBts();
+         //       serviceBtns.setAllCancelBts();
          //       serviceDose.fillWokerDoseInfo();
                 serviceDose.fillWokerDoseInfoCancel();
                 break;
@@ -166,19 +168,19 @@ public final class ManagementActionListener implements ActionListener, MouseList
                 serviceDoseNotes.newDoseNote();
                 break;
             case "btSaveNewDoseNote":
-                serviceDoseNotes.saveNewDoseNote();
                 serviceBtns.setAllCancelBts();
+                serviceDoseNotes.saveNewDoseNote();
                 break;
             case "btUpdateDoseNote":
                 serviceDoseNotes.updateDoseNote();
                 break;
             case "btSaveUpdateDoseNote":
-                serviceDoseNotes.saveUpdateDoseNote();
                 serviceBtns.setAllCancelBts();
+                serviceDoseNotes.saveUpdateDoseNote();
                 break;
             case "btCancelDoseNote":
                 this.frmMan.getTxtInfoAction().setText("Action on dose note cancelled");
-                serviceBtns.setAllCancelBts();
+                serviceDoseNotes.cancelDoseNote();
                 break;
 
 

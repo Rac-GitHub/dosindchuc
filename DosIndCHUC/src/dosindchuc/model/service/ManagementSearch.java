@@ -279,6 +279,10 @@ public class ManagementSearch {
             
         //    pk_dsmt = dosimeter_info.get(row).getPk_dsmt();
             pk_dsmt = dbPkIDs.getDsmt_id().get(row)[0];
+            
+            System.out.println("  fill DosimeterNotesCB --- >  pk_dsmt2: " + pk_dsmt);
+            
+            
         }
 
         dosimeterNotes = dosimeterNotesDao.getDsmt_notes(pk_dsmt.toString());
@@ -327,13 +331,14 @@ public class ManagementSearch {
         frmMan.getTxtDosimeterNoteAlertdate().setText(dsmt_notes.getAlert_level_timestamp());
         frmMan.getCbDosimeterNotesStatus().setSelectedItem(dsmt_notes.getStatus().name());
         frmMan.getTxtDosimeterNoteStatusDate().setText(dsmt_notes.getStatus_timestamp());
+        frmMan.getTxtDosimeterNotesDateLastChanged().setText(dsmt_notes.getLastchange());
 
 
 
         ArrayList2D dsmtNoteInfo = new ArrayList2D();
 
         int i = 0;
-        // info dose-note selected dor update
+        // info dose-note selected for update
         dsmtNoteInfo.Add(dsmt_notes.getPk_dsmt_notes(), i);
         dsmtNoteInfo.Add(dsmt_notes.getPk_dsmt(), i);
         dsmtNoteInfo.Add(dsmt_notes.getNote(), i);
@@ -429,10 +434,10 @@ public class ManagementSearch {
             pk_dose = dbPkIDs.getDose_id().get(row);
         }
 
-        if (!(dose_info.size() > 0)) {
+  /*      if (!(dose_info.size() > 0)) {
             this.frmMan.btDoseInfoNew.setEnabled(true);
             this.frmMan.btDoseInfoUpdate.setEnabled(true);
-        }
+        } */
 
         dosenotes = doseNotesDao.getDose_notesInfo(pk_dose.toString());
 
@@ -476,6 +481,7 @@ public class ManagementSearch {
         frmMan.getTxtDoseNoteLevelDate().setText(dose_notes.getAlert_level_timestamp());
         frmMan.getCbDoseNoteStatus().setSelectedItem(dose_notes.getStatus().name());
         frmMan.getTxtDoseNoteStatusDate().setText(dose_notes.getStatus_timestamp());
+        frmMan.getTxtDoseNotesDateLastChanged().setText(dose_notes.getLastchange());
 
 
         ArrayList2D doseNoteInfo = new ArrayList2D();

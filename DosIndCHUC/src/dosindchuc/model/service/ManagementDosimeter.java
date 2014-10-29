@@ -264,9 +264,11 @@ public class ManagementDosimeter {
                 for (int i = 0; i < Tbl_dosimeters.nrHist; i++) {
 
                     //System.out.println(" .... -> values old -- > " + dbPkIDs.getDsmt_id().get(1)[i + 2]);
-                    System.out.println(" .... -> values old -- > " + dbPkIDs.getDsmt_id().get(dsmtRow)[i + 2]);
+                    System.out.println(" .... -> values old -- > " + dsmtRow + "nrHist  = " + Tbl_dosimeters.nrHist +
+                            " --i  =  " + i + "  value -- " +
+                            dbPkIDs.getDsmt_id().get(dsmtRow)[i + 1]);
 
-                    if (!dbPkIDs.getDsmt_id().get(dsmtRow)[i + 2].toString().contains(value[i])) {
+                    if (!dbPkIDs.getDsmt_id().get(dsmtRow)[i + 1].toString().contains(value[i])) {
                         String id_change = Tbl_dosimeters.parmHist[i];
                         saveDsmtHist(dsmt_id, id_change, value[i]);
                     }

@@ -83,12 +83,12 @@ public class ManagementDoseNotes {
 
             doseNote.setTimestamp(this.frmMan.getTxtDoseNotesDateCreated().getText());
             doseNote.setStatus_timestamp(this.frmMan.getTxtDoseNoteStatusDate().getText());
-            if (!cbStatus.matches(dbPkIDs.getDoseNotes_id().get(0, 3).toString())) {
+            if (!cbStatus.matches(dbPkIDs.getDoseNotes_id().get(0, 4).toString())) {
                 doseNote.setStatus_timestamp(currDateTime);
             }
 
             doseNote.setAlert_level_timestamp(this.frmMan.getTxtDoseNoteLevelDate().getText());
-            if (!cbAlertLevel.matches(dbPkIDs.getDoseNotes_id().get(0, 2).toString())) {
+            if (!cbAlertLevel.matches(dbPkIDs.getDoseNotes_id().get(0, 3).toString())) {
                 doseNote.setAlert_level_timestamp(currDateTime);
             }
 
@@ -102,6 +102,7 @@ public class ManagementDoseNotes {
 
         setCleanState.cleanDoseNotes();
         setFieldState.setNewDoseNotes(true);
+        
         setButtonsState.setNewDoseNoteBts(true);
 
         this.frmMan.tableDoseInfo.setEnabled(false);
@@ -123,6 +124,9 @@ public class ManagementDoseNotes {
         // actualiza info
         this.frmMan.tableDoseInfo.setEnabled(true);
         fillDoseNoteInfo();
+        
+        this.frmMan.btDoseInfoNew.setEnabled(true);
+        this.frmMan.btDoseInfoUpdate.setEnabled(true);
 
     }
 
@@ -154,6 +158,9 @@ public class ManagementDoseNotes {
         // actualiza info
         this.frmMan.tableDoseInfo.setEnabled(true);
         fillDoseNoteInfo();
+        
+        this.frmMan.btDoseInfoNew.setEnabled(true);
+        this.frmMan.btDoseInfoUpdate.setEnabled(true);
 
     }
 
@@ -167,9 +174,13 @@ public class ManagementDoseNotes {
         setCleanState.cleanDoseNotes();
         setButtonsState.setAllDoseNoteBtsInit(false);
         this.frmMan.tableDoseInfo.setEnabled(true);
-
+        
+        this.frmMan.btDoseInfoNew.setEnabled(true);
+        this.frmMan.btDoseInfoUpdate.setEnabled(true);
+    
     }
-
+    
+    
     public void fillDoseNoteInfo() {
 
         setCleanState.cleanDoseNotes();

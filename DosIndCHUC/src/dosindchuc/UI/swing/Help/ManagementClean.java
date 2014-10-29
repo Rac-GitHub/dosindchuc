@@ -109,6 +109,7 @@ public class ManagementClean {
         this.frmMan.txtDosimeterNoteAlertdate.setText(null);
         this.frmMan.txtDosimeterNoteStatusDate.setText(null);
         this.frmMan.txtDosimeterNotesDateCreated.setText(null);
+        this.frmMan.txtDosimeterNotesDateLastChanged.setText(null);
 
         this.frmMan.cbDosimeterNotesIndex.setEnabled(false);
         this.frmMan.cbDosimeterNotesAlert.setEnabled(false);
@@ -142,6 +143,7 @@ public class ManagementClean {
         this.frmMan.txtDoseNoteLevelDate.setText(null);
         this.frmMan.txtDoseNoteStatusDate.setText(null);
         this.frmMan.txtDoseNotesDateCreated.setText(null);
+        this.frmMan.txtDoseNotesDateLastChanged.setText(null);
 
         this.frmMan.cbDoseNoteIndex.setEnabled(false);
         this.frmMan.cbDoseNoteLevel.setEnabled(false);
