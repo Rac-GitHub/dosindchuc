@@ -154,6 +154,8 @@ public class ManagementFrm extends javax.swing.JFrame {
         btSaveNewDoseNote = new javax.swing.JButton();
         btCancelDoseNote = new javax.swing.JButton();
         btSaveUpdateDoseNote = new javax.swing.JButton();
+        jLabel36 = new javax.swing.JLabel();
+        txtDoseNotesDateLastChanged = new javax.swing.JTextField();
         jSeparator1 = new javax.swing.JSeparator();
         txtInfoAction = new javax.swing.JTextField();
         cbWorkerStatus = new javax.swing.JComboBox();
@@ -411,6 +413,7 @@ public class ManagementFrm extends javax.swing.JFrame {
 
         txtDosimeterNote.setColumns(20);
         txtDosimeterNote.setRows(5);
+        txtDosimeterNote.setMargin(new java.awt.Insets(3, 2, 0, 0));
         jScrollPane5.setViewportView(txtDosimeterNote);
 
         btDosimeterInfoNew.setText("New");
@@ -533,7 +536,7 @@ public class ManagementFrm extends javax.swing.JFrame {
                 .addGroup(jPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(jPanel5Layout.createSequentialGroup()
                         .addComponent(jScrollPane4, javax.swing.GroupLayout.PREFERRED_SIZE, 852, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addContainerGap(21, Short.MAX_VALUE))
+                        .addContainerGap(35, Short.MAX_VALUE))
                     .addGroup(jPanel5Layout.createSequentialGroup()
                         .addGroup(jPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addComponent(jScrollPane7, javax.swing.GroupLayout.PREFERRED_SIZE, 388, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -549,48 +552,46 @@ public class ManagementFrm extends javax.swing.JFrame {
                                 .addComponent(jLayeredPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 271, javax.swing.GroupLayout.PREFERRED_SIZE)
                                 .addGap(66, 66, 66))
                             .addGroup(jPanel5Layout.createSequentialGroup()
-                                .addGap(89, 89, 89)
-                                .addGroup(jPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                                    .addComponent(jLabel30)
-                                    .addComponent(jLabel29))
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addGroup(jPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                    .addComponent(cbDosimeterNotesAlert, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                    .addComponent(cbDosimeterNotesStatus, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                                .addGap(18, 18, 18)
-                                .addGroup(jPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                    .addComponent(txtDosimeterNoteStatusDate, javax.swing.GroupLayout.PREFERRED_SIZE, 133, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                    .addComponent(txtDosimeterNoteAlertdate, javax.swing.GroupLayout.PREFERRED_SIZE, 133, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                    .addGroup(jPanel5Layout.createSequentialGroup()
-                                        .addGap(11, 11, 11)
-                                        .addComponent(jLabel28)))
-                                .addGap(0, 0, Short.MAX_VALUE))
-                            .addGroup(jPanel5Layout.createSequentialGroup()
+                                .addGap(25, 25, 25)
                                 .addGroup(jPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                                     .addGroup(jPanel5Layout.createSequentialGroup()
-                                        .addGap(25, 25, 25)
                                         .addComponent(btNewNoteDosimeter)
                                         .addGap(24, 24, 24)
                                         .addComponent(btUpdateNoteDosimeter)
                                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                                         .addComponent(jLayeredPane5, javax.swing.GroupLayout.PREFERRED_SIZE, 207, javax.swing.GroupLayout.PREFERRED_SIZE))
                                     .addGroup(jPanel5Layout.createSequentialGroup()
-                                        .addGap(38, 38, 38)
-                                        .addComponent(jLabel18)
+                                        .addGap(14, 14, 14)
+                                        .addComponent(cbDosimeterNotesIndex, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                                        .addComponent(jLabel27)
                                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                        .addGroup(jPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                                            .addGroup(jPanel5Layout.createSequentialGroup()
-                                                .addComponent(cbDosimeterNotesIndex, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                                .addComponent(jLabel27)
-                                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                                .addComponent(txtDosimeterNotesDateCreated, javax.swing.GroupLayout.PREFERRED_SIZE, 96, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                                .addComponent(jLabel35)
-                                                .addGap(9, 9, 9)
-                                                .addComponent(txtDosimeterNotesDateLastChanged, javax.swing.GroupLayout.DEFAULT_SIZE, 78, Short.MAX_VALUE))
-                                            .addComponent(jScrollPane5))))
-                                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))))))
+                                        .addComponent(txtDosimeterNotesDateCreated, javax.swing.GroupLayout.PREFERRED_SIZE, 109, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                                        .addComponent(jLabel35)
+                                        .addGap(4, 4, 4)
+                                        .addComponent(txtDosimeterNotesDateLastChanged, javax.swing.GroupLayout.PREFERRED_SIZE, 122, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                            .addGroup(jPanel5Layout.createSequentialGroup()
+                                .addGap(38, 38, 38)
+                                .addComponent(jLabel18)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                .addGroup(jPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                    .addComponent(jScrollPane5, javax.swing.GroupLayout.PREFERRED_SIZE, 372, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                    .addGroup(jPanel5Layout.createSequentialGroup()
+                                        .addGroup(jPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                                            .addComponent(jLabel30)
+                                            .addComponent(jLabel29))
+                                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                        .addGroup(jPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                            .addComponent(cbDosimeterNotesAlert, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                            .addComponent(cbDosimeterNotesStatus, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                        .addGap(18, 18, 18)
+                                        .addGroup(jPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                            .addComponent(txtDosimeterNoteStatusDate, javax.swing.GroupLayout.PREFERRED_SIZE, 133, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                            .addComponent(txtDosimeterNoteAlertdate, javax.swing.GroupLayout.PREFERRED_SIZE, 133, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                            .addComponent(jLabel28))))
+                                .addGap(0, 0, Short.MAX_VALUE))))))
         );
         jPanel5Layout.setVerticalGroup(
             jPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -621,8 +622,8 @@ public class ManagementFrm extends javax.swing.JFrame {
                         .addGroup(jPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addComponent(jLabel18)
                             .addComponent(jScrollPane5, javax.swing.GroupLayout.PREFERRED_SIZE, 47, javax.swing.GroupLayout.PREFERRED_SIZE))
-                        .addGap(18, 18, 18)
-                        .addComponent(jLabel28, javax.swing.GroupLayout.PREFERRED_SIZE, 22, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(24, 24, 24)
+                        .addComponent(jLabel28, javax.swing.GroupLayout.PREFERRED_SIZE, 16, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addGroup(jPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                             .addComponent(jLabel29, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
@@ -641,7 +642,7 @@ public class ManagementFrm extends javax.swing.JFrame {
                                     .addComponent(btUpdateNoteDosimeter)))
                             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel5Layout.createSequentialGroup()
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addComponent(jLayeredPane5, javax.swing.GroupLayout.PREFERRED_SIZE, 38, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                                .addComponent(jLayeredPane5, javax.swing.GroupLayout.PREFERRED_SIZE, 34, javax.swing.GroupLayout.PREFERRED_SIZE)))
                         .addGap(47, 47, 47))))
         );
 
@@ -739,6 +740,13 @@ public class ManagementFrm extends javax.swing.JFrame {
         btSaveUpdateDoseNote.setBounds(10, 0, 62, 23);
         jLayeredPane4.add(btSaveUpdateDoseNote, javax.swing.JLayeredPane.DEFAULT_LAYER);
 
+        jLabel36.setFont(new java.awt.Font("Dialog", 3, 10)); // NOI18N
+        jLabel36.setText("Modified @");
+
+        txtDoseNotesDateLastChanged.setEditable(false);
+        txtDoseNotesDateLastChanged.setFont(new java.awt.Font("Dialog", 0, 10)); // NOI18N
+        txtDoseNotesDateLastChanged.setBorder(null);
+
         javax.swing.GroupLayout jPanel4Layout = new javax.swing.GroupLayout(jPanel4);
         jPanel4.setLayout(jPanel4Layout);
         jPanel4Layout.setHorizontalGroup(
@@ -751,7 +759,11 @@ public class ManagementFrm extends javax.swing.JFrame {
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                         .addComponent(jLabel26)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(txtDoseNotesDateCreated, javax.swing.GroupLayout.PREFERRED_SIZE, 135, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addComponent(txtDoseNotesDateCreated, javax.swing.GroupLayout.PREFERRED_SIZE, 135, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                        .addComponent(jLabel36)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(txtDoseNotesDateLastChanged, javax.swing.GroupLayout.PREFERRED_SIZE, 135, javax.swing.GroupLayout.PREFERRED_SIZE))
                     .addGroup(jPanel4Layout.createSequentialGroup()
                         .addComponent(jLabel15)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
@@ -767,20 +779,15 @@ public class ManagementFrm extends javax.swing.JFrame {
                         .addGroup(jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addComponent(jLabel17)
                             .addComponent(jLabel16))
+                        .addGroup(jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                            .addComponent(cbDoseNoteLevel, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(cbDoseNoteStatus, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addGap(30, 30, 30)
                         .addGroup(jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addGroup(jPanel4Layout.createSequentialGroup()
-                                .addGroup(jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                                    .addComponent(cbDoseNoteLevel, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                    .addComponent(cbDoseNoteStatus, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                                .addGap(30, 30, 30)
-                                .addGroup(jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                    .addComponent(txtDoseNoteStatusDate, javax.swing.GroupLayout.PREFERRED_SIZE, 123, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                    .addComponent(txtDoseNoteLevelDate, javax.swing.GroupLayout.PREFERRED_SIZE, 123, javax.swing.GroupLayout.PREFERRED_SIZE))
-                                .addContainerGap(24, Short.MAX_VALUE))
-                            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel4Layout.createSequentialGroup()
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                                .addComponent(jLabel25)
-                                .addGap(85, 85, 85))))
+                            .addComponent(txtDoseNoteStatusDate, javax.swing.GroupLayout.PREFERRED_SIZE, 123, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(txtDoseNoteLevelDate, javax.swing.GroupLayout.PREFERRED_SIZE, 123, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(jLabel25))
+                        .addContainerGap(24, Short.MAX_VALUE))
                     .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel4Layout.createSequentialGroup()
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                         .addComponent(jLayeredPane4, javax.swing.GroupLayout.PREFERRED_SIZE, 210, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -819,19 +826,22 @@ public class ManagementFrm extends javax.swing.JFrame {
                         .addGroup(jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                             .addComponent(cbDoseNoteIndex, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addComponent(jLabel26)
-                            .addComponent(txtDoseNotesDateCreated, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                            .addComponent(txtDoseNotesDateCreated, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(jLabel36)
+                            .addComponent(txtDoseNotesDateLastChanged, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                         .addGap(18, 18, 18)
                         .addGroup(jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addComponent(jScrollPane3, javax.swing.GroupLayout.PREFERRED_SIZE, 52, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addComponent(jLabel15)))
                     .addGroup(jPanel4Layout.createSequentialGroup()
-                        .addComponent(jLabel25)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                        .addGroup(jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                        .addGroup(jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
                             .addGroup(jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                                 .addComponent(jLabel16)
                                 .addComponent(cbDoseNoteLevel, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                            .addComponent(txtDoseNoteLevelDate, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                            .addGroup(jPanel4Layout.createSequentialGroup()
+                                .addComponent(jLabel25)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                .addComponent(txtDoseNoteLevelDate, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                         .addGroup(jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                             .addComponent(jLabel17)
@@ -1474,6 +1484,17 @@ public class ManagementFrm extends javax.swing.JFrame {
         this.txtDoseNotesDateCreated = txtDoseNotesDateCreated;
     }
 
+    public JTextField getTxtDoseNotesDateLastChanged() {
+        return txtDoseNotesDateLastChanged;
+    }
+
+    public void setTxtDoseNotesDateLastChanged(JTextField txtDoseNotesDateLastChanged) {
+        this.txtDoseNotesDateLastChanged = txtDoseNotesDateLastChanged;
+    }
+
+    
+    
+    
     public JComboBox getCbDosimeterNotesAlert() {
         return cbDosimeterNotesAlert;
     }
@@ -1530,6 +1551,17 @@ public class ManagementFrm extends javax.swing.JFrame {
         this.txtDosimeterNotesDateCreated = txtDosimeterNotesDateCreated;
     }
 
+    public JTextField getTxtDosimeterNotesDateLastChanged() {
+        return txtDosimeterNotesDateLastChanged;
+    }
+
+    public void setTxtDosimeterNotesDateLastChanged(JTextField txtDosimeterNotesDateLastChanged) {
+        this.txtDosimeterNotesDateLastChanged = txtDosimeterNotesDateLastChanged;
+    }
+
+    
+    
+    
     public JButton getBtDosimeterInfoCancel() {
         return btDosimeterInfoCancel;
     }
@@ -1637,6 +1669,7 @@ public class ManagementFrm extends javax.swing.JFrame {
     private javax.swing.JLabel jLabel33;
     private javax.swing.JLabel jLabel34;
     private javax.swing.JLabel jLabel35;
+    private javax.swing.JLabel jLabel36;
     private javax.swing.JLabel jLabel4;
     private javax.swing.JLabel jLabel5;
     private javax.swing.JLabel jLabel6;
@@ -1677,6 +1710,7 @@ public class ManagementFrm extends javax.swing.JFrame {
     public javax.swing.JTextField txtDoseNoteLevelDate;
     public javax.swing.JTextField txtDoseNoteStatusDate;
     public javax.swing.JTextField txtDoseNotesDateCreated;
+    public javax.swing.JTextField txtDoseNotesDateLastChanged;
     public javax.swing.JTextArea txtDosimeterNote;
     public javax.swing.JTextField txtDosimeterNoteAlertdate;
     public javax.swing.JTextField txtDosimeterNoteStatusDate;

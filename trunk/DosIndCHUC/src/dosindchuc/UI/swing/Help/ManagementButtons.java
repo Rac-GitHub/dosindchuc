@@ -5,6 +5,7 @@
 package dosindchuc.UI.swing.Help;
 
 import dosindchuc.UI.swing.ManagementFrm;
+import dosindchuc.model.entities.DbPkIDs;
 
 /**
  *
@@ -13,10 +14,12 @@ import dosindchuc.UI.swing.ManagementFrm;
 public class ManagementButtons {
 
     private ManagementFrm frmMan;
+    private DbPkIDs dbPkIDs;
 
     public ManagementButtons(ManagementFrm frmMan) {
 
         this.frmMan = frmMan;
+        dbPkIDs = new DbPkIDs();
 
     }
 
@@ -165,11 +168,14 @@ public class ManagementButtons {
 
     }
     
-     public void setDoseBtsCancel(boolean dsmtBts) {
+     public void setDoseBtsCancel(boolean doseBts) {
 
-        this.frmMan.btDoseInfoCancel.setEnabled(dsmtBts);
-        this.frmMan.btDoseInfoSaveNew.setEnabled(dsmtBts);
-        this.frmMan.btDoseInfoSaveUpdate.setEnabled(dsmtBts);
+         setAllCancelBts();
+         
+        this.frmMan.btDoseInfoCancel.setEnabled(doseBts);
+        this.frmMan.btDoseInfoSaveNew.setEnabled(doseBts);
+        this.frmMan.btDoseInfoSaveUpdate.setEnabled(doseBts);
+        
     
     }
     
@@ -187,9 +193,9 @@ public class ManagementButtons {
 
         this.frmMan.btWorkerNew.setEnabled(!doseBts);
         this.frmMan.btWorkerUpdate.setEnabled(!doseBts);
-        this.frmMan.btDosimeterInfoNew.setEnabled(!doseBts);
-        this.frmMan.btDosimeterInfoUpdate.setEnabled(!doseBts);
 
+        setAllDsmtNoteBtsInit(!doseBts);
+        
         this.frmMan.btNewDoseNote.setEnabled(!doseBts);
         this.frmMan.btUpdateDoseNote.setEnabled(!doseBts);
         this.frmMan.btSaveNewDoseNote.setEnabled(!doseBts);
@@ -211,9 +217,10 @@ public class ManagementButtons {
 
         this.frmMan.btWorkerNew.setEnabled(!doseBts);
         this.frmMan.btWorkerUpdate.setEnabled(!doseBts);
-        this.frmMan.btDosimeterInfoNew.setEnabled(!doseBts);
-        this.frmMan.btDosimeterInfoUpdate.setEnabled(!doseBts);
-
+        
+        setAllDsmtNoteBtsInit(!doseBts);
+        setAllDosimeterBtsInit(!doseBts);
+ 
         this.frmMan.btNewDoseNote.setEnabled(!doseBts);
         this.frmMan.btUpdateDoseNote.setEnabled(!doseBts);
         this.frmMan.btSaveNewDoseNote.setEnabled(!doseBts);
@@ -270,6 +277,10 @@ public class ManagementButtons {
         this.frmMan.btDoseInfoSaveNew.setEnabled(!doseNoteBts);
         this.frmMan.btDoseInfoSaveUpdate.setEnabled(!doseNoteBts);
         this.frmMan.btDoseInfoCancel.setEnabled(!doseNoteBts);
+        
+        setAllDsmtNoteBtsInit(!doseNoteBts);
+        setAllDosimeterBtsInit(!doseNoteBts);
+        
 
     }
 
@@ -287,8 +298,9 @@ public class ManagementButtons {
         this.frmMan.btDoseInfoSaveNew.setEnabled(!doseNoteBts);
         this.frmMan.btDoseInfoSaveUpdate.setEnabled(!doseNoteBts);
         this.frmMan.btDoseInfoCancel.setEnabled(!doseNoteBts);
-
-
+        
+        setAllDsmtNoteBtsInit(!doseNoteBts);
+        setAllDosimeterBtsInit(!doseNoteBts);
 
     }
 
@@ -337,6 +349,9 @@ public class ManagementButtons {
         this.frmMan.btDosimeterInfoSaveNew.setEnabled(!dsmtNoteBts);
         this.frmMan.btDosimeterInfoSaveUpdate.setEnabled(!dsmtNoteBts);
         this.frmMan.btDosimeterInfoCancel.setEnabled(!dsmtNoteBts);
+        
+        setAllDoseNoteBtsInit(!dsmtNoteBts);
+        
 
     }
 
@@ -355,9 +370,43 @@ public class ManagementButtons {
         this.frmMan.btDosimeterInfoSaveNew.setEnabled(!dsmtNoteBts);
         this.frmMan.btDosimeterInfoSaveUpdate.setEnabled(!dsmtNoteBts);
         this.frmMan.btDosimeterInfoCancel.setEnabled(!dsmtNoteBts);
+        
+        
+        setAllDoseNoteBtsInit(!dsmtNoteBts);
+        
+        
 
     }
 
+    
+    
+    public void setButtonsDoseForActiveDsmt() {
+
+
+        // buttons da dose
+        
+        if (dbPkIDs.getDose_id().size() > 0) {
+
+            this.frmMan.btDoseInfoNew.setEnabled(true);
+            this.frmMan.btDoseInfoUpdate.setEnabled(true);
+
+
+        } else {
+
+            for (int i = 0; i < dbPkIDs.getDsmt_id().size(); i++) {
+
+                if (dbPkIDs.getDsmt_id().get(i)[7].toString().equalsIgnoreCase("Activo")) {
+                    this.frmMan.btDoseInfoNew.setEnabled(true);
+                    break;
+
+                }
+
+            }
+        }
+    }
+    
+    
+    
     // all   
     public void setAllCancelBts() {
 

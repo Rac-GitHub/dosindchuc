@@ -82,12 +82,13 @@ public class ManagementDsmtNotes {
             dsmtNote.setTimestamp(this.frmMan.getTxtDosimeterNotesDateCreated().getText());
 
             dsmtNote.setStatus_timestamp(this.frmMan.getTxtDosimeterNoteStatusDate().getText());
-            if (!cbStatus.matches(dbPkIDs.getDsmtNotes_id().get(0, 3).toString())) {
+            if (!cbStatus.matches(dbPkIDs.getDsmtNotes_id().get(0, 4).toString())) {
+                System.out.println(" Estou aqui ...   errado ???? ");
                 dsmtNote.setStatus_timestamp(currDateTime);
             }
 
             dsmtNote.setAlert_level_timestamp(this.frmMan.getTxtDosimeterNoteAlertdate().getText());
-            if (!cbAlertLevel.matches(dbPkIDs.getDsmtNotes_id().get(0, 2).toString())) {
+            if (!cbAlertLevel.matches(dbPkIDs.getDsmtNotes_id().get(0, 3).toString())) {
                 dsmtNote.setAlert_level_timestamp(currDateTime);
             }
 
@@ -123,6 +124,8 @@ public class ManagementDsmtNotes {
         this.frmMan.tableDosimeterInfo.setEnabled(true);
         fillDsmtNoteInfo();
 
+        setButtonsState.setButtonsDoseForActiveDsmt();
+
     }
 
     /**
@@ -154,15 +157,21 @@ public class ManagementDsmtNotes {
         this.frmMan.tableDosimeterInfo.setEnabled(true);
         fillDsmtNoteInfo();
 
+         setButtonsState.setButtonsDoseForActiveDsmt();
+
     }
 
     public void cancelDsmtNote() {
 
         this.frmMan.getTxtInfoAction().setText("Dosimeter note action cancelled");
+
         setButtonsState.setAllCancelBts();
         setCleanState.cleanDsmtNotes();
         setButtonsState.setAllDsmtNoteBtsInit(false);
         this.frmMan.tableDosimeterInfo.setEnabled(true);
+
+         setButtonsState.setButtonsDoseForActiveDsmt();
+
 
     }
 
@@ -177,10 +186,7 @@ public class ManagementDsmtNotes {
      * history
      * 
      */
-   
-
     private void recordHist(Dsmt_notes dsmtNote, String dsmtNote_id, int dsmtRow) {
-
 
         System.out.println(" .... -> dsmtRow -- > " + dsmtRow);
 
@@ -210,7 +216,6 @@ public class ManagementDsmtNotes {
 
         }
     }
-    
 
     private void saveDsmtNoteHist(String dsmtNote_id, String id_change, String value) {
 
@@ -223,5 +228,4 @@ public class ManagementDsmtNotes {
         dsmtNoteHistdao.insertDsmtNoteHist(dsmtNoteHist);
 
     }
-    
 }
