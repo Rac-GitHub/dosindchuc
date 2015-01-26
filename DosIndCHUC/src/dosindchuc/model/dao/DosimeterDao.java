@@ -6,11 +6,13 @@ package dosindchuc.model.dao;
 
 import dosindchuc.globals.Conn_db;
 import dosindchuc.globals.Tbl_dosimeters;
+import dosindchuc.globals.Tbl_dsmt_hist;
 import dosindchuc.model.dao.Help.ArrayList2D;
 import dosindchuc.model.dao.Help.DaoConnections;
 import dosindchuc.model.dao.Help.DaoExceptions;
 import dosindchuc.model.dao.Help.QueryMapper;
 import dosindchuc.model.dao.Help.RandomNumbers;
+import dosindchuc.model.entities.ActiveDsmt;
 import dosindchuc.model.entities.Dosimeter;
 import dosindchuc.model.entities.Help.SetEnums;
 import java.sql.ResultSet;
@@ -30,6 +32,7 @@ public class DosimeterDao {
     private RandomNumbers random;
 
     String table_dsmt = Conn_db.tbl_dsmt;
+    String table_dsmtHist = Conn_db.tbl_dsmtHist;
     
     
     public DosimeterDao () {
@@ -225,5 +228,6 @@ public class DosimeterDao {
 
     }
       
+    
     
 }

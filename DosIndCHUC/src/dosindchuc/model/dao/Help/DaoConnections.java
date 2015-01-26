@@ -153,7 +153,6 @@ public class DaoConnections {
      */
     public String executePreparedUpdateAndReturnGeneratedKeys(String query, Object... params) {
 
-        Connection conn = null;
         PreparedStatement pstmt = null;
         ResultSet rset = null;
 
@@ -161,12 +160,20 @@ public class DaoConnections {
 
         try {
 
-            conn = getConnectionFromThread();
+            Connection conn = getConnectionFromThread();
+            
+            System.out.println(" connnn --- : " + conn);
 
             pstmt = conn.prepareStatement(query,
                     PreparedStatement.RETURN_GENERATED_KEYS);
+            
+            System.out.println(" query --- : " + query);
+            System.out.println(" pstmt --- : " + pstmt);
+            
             int i = 0;
             for (Object param : params) {
+                            System.out.println(" parammmdmad --- : " + param);
+
                 pstmt.setObject(++i, param);
             }
 
@@ -190,11 +197,10 @@ public class DaoConnections {
 
     public void executePreparedUpdate(String query, Object... params) {
 
-        Connection conn = null;
         PreparedStatement pstmt = null;
 
         try {
-            conn = getConnectionFromThread();
+            Connection conn = getConnectionFromThread();
 
             pstmt = conn.prepareStatement(query);
             int i = 0;
@@ -208,17 +214,16 @@ public class DaoConnections {
             release(pstmt);
         }
     }
+    
+       public <T> List<T> executePreparedQuery(String query, QueryMapper<T> mapper) {
 
-    public <T> List<T> executePreparedQuery(String query, QueryMapper<T> mapper) {
-
-        Connection conn = null;
         Statement pstmt = null;
         ResultSet rset = null;
 
         List<T> list = new ArrayList<>();
 
         try {
-            conn = getConnectionFromThread();
+            Connection conn = getConnectionFromThread();
 
             pstmt = conn.prepareStatement(query);
             rset = pstmt.executeQuery(query);
@@ -234,7 +239,8 @@ public class DaoConnections {
         return list;
 
     }
-
+    
+    
     public String buildQueryWhere(String[][][] searchWhere) {
 
         String where = "";
@@ -280,6 +286,7 @@ public class DaoConnections {
 
     }
 
+    
     public void update(String query, Object[] param) {
         executePreparedUpdate(query, param);
 

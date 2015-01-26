@@ -12,6 +12,7 @@ import dosindchuc.model.entities.DbPkIDs;
 import dosindchuc.model.service.ManagementDose;
 import dosindchuc.model.service.ManagementDoseNotes;
 import dosindchuc.model.service.ManagementDosimeter;
+import dosindchuc.model.service.ManagementDsmtHist;
 import dosindchuc.model.service.ManagementDsmtNotes;
 import dosindchuc.model.service.ManagementSearch;
 import dosindchuc.model.service.ManagementWorker;
@@ -35,6 +36,7 @@ public final class ManagementActionListener implements ActionListener, MouseList
     private ManagementDose serviceDose;
     private ManagementDoseNotes serviceDoseNotes;
     private ManagementDsmtNotes serviceDsmtNotes;
+    private ManagementDsmtHist serviceDsmtHist;
     public DbPkIDs dbPkIDs;
     public ActionListener Listeners;
 
@@ -52,6 +54,7 @@ public final class ManagementActionListener implements ActionListener, MouseList
         serviceDsmtNotes = new ManagementDsmtNotes(this.frmMan);
         serviceDose = new ManagementDose(this.frmMan);
         serviceDoseNotes = new ManagementDoseNotes(this.frmMan);
+        serviceDsmtHist = new ManagementDsmtHist(this.frmMan);
 
         addListeners();
 
@@ -154,7 +157,7 @@ public final class ManagementActionListener implements ActionListener, MouseList
                 serviceDose.saveUpdateDose();
                 break;
             case "btDoseInfoCancel":
-                this.frmMan.getTxtInfoAction().setText("Action on dose cancelled");
+                this.frmMan.getTxtInfoAction().setText("Action on dose canceled");
          //       serviceBtns.setAllCancelBts();
          //       serviceDose.fillWokerDoseInfo();
                 serviceDose.fillWokerDoseInfoCancel();
@@ -179,7 +182,7 @@ public final class ManagementActionListener implements ActionListener, MouseList
                 serviceDoseNotes.saveUpdateDoseNote();
                 break;
             case "btCancelDoseNote":
-                this.frmMan.getTxtInfoAction().setText("Action on dose note cancelled");
+                this.frmMan.getTxtInfoAction().setText("Action on dose note canceled");
                 serviceDoseNotes.cancelDoseNote();
                 break;
 
@@ -215,7 +218,7 @@ public final class ManagementActionListener implements ActionListener, MouseList
                 tableDosimeterInfoMouseClicked(evt);
             }
         });
-
+        
         frmMan.cbDoseNoteIndex.addActionListener(this);
         frmMan.cbDosimeterNotesIndex.addActionListener(this);
 
@@ -314,6 +317,13 @@ public final class ManagementActionListener implements ActionListener, MouseList
         dbPkIDs.setDsmtNotes_id(dsmtNoteInfo);
 
         serviceSearch.fillDosimeterNotesCBIndex();
+ 
+        
+        // fill dsmt hist table
+        
+        int row = frmMan.tableDosimeterInfo.getSelectedRow();
+        serviceDsmtHist.dsmtHist(dbPkIDs.getDsmt_id().get(row)[0].toString());
+        
 
     }
 

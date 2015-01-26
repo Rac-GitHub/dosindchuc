@@ -29,6 +29,7 @@ public class ManagementWorker {
     private ManagementButtons setButtonsState;
     private ManagementClean setCleanState;
     private ManagementSearch setWorkerInfo;
+    private ManagementCumulDose setCumulDose;
     
     
     public ManagementWorker (ManagementFrm frmMan) {
@@ -40,6 +41,7 @@ public class ManagementWorker {
         setButtonsState = new ManagementButtons(this.frmMan);
         setCleanState = new ManagementClean(this.frmMan);
         setWorkerInfo = new ManagementSearch(this.frmMan, null);
+        setCumulDose = new ManagementCumulDose(frmMan);
         dateAndTime = new DateAndTime();
 
 
@@ -128,7 +130,9 @@ public class ManagementWorker {
 
         setFieldsState.setWorkerAllEdit(false);
         setButtonsState.setAllWorkerBtsInit(true);
-
+        
+        setCumulDose.newCumulDose(id);
+ 
     }
 
     /**

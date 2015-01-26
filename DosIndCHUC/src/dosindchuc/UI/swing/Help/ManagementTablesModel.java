@@ -33,6 +33,7 @@ public class ManagementTablesModel {
     private DefaultTableModel searchTable;
     private DefaultTableModel doseTable;
     private DefaultTableModel dsmtTable;
+    private DefaultTableModel dsmtHistTable;
 
     public ManagementTablesModel(MainFrm frmMain, ManagementFrm frmMan) {
         this.frmMan = frmMan;
@@ -66,9 +67,25 @@ public class ManagementTablesModel {
         this.dsmtTable = dsmtTable;
     }
 
+    public DefaultTableModel getDsmtHistTable() {
+        return dsmtHistTable;
+    }
+
+    public void setDsmtHistTable(DefaultTableModel dsmtHistTable) {
+        this.dsmtHistTable = dsmtHistTable;
+    }
+    
+    
+    
     public void setDefaultSearchTable() {
 
         setSearchTable(setDefaultSettingsSearchTable());
+
+    }
+    
+    public void setDefaultDsmtHistTable() {
+
+        setDsmtHistTable(setDefaultSettingsDsmtHist());
 
     }
 
@@ -333,9 +350,6 @@ public class ManagementTablesModel {
                 dosimeter.getType(), dosimeter.getPeriodicity(), dosimeter.getSupplier(), dosimeter.getComments(), 
                 dosimeter.getStatus()}; */
 
-        System.out.println("  size --- > " + dbPkIDs.getDsmt_id().size());
-        System.out.println("  pos 7 --- > " + dbPkIDs.getDsmt_id().get(0)[0]);
-        System.out.println("  pos 7 --- > " + dbPkIDs.getDsmt_id().get(0)[1]);
         for (int i = 0; i < dbPkIDs.getDsmt_id().size(); ++i) {
             if ((dbPkIDs.getDsmt_id().get(i)[7]).toString().equalsIgnoreCase("Activo")) {
                 idActDsmt.add(dbPkIDs.getDsmt_id().get(i)[1]);
@@ -343,16 +357,6 @@ public class ManagementTablesModel {
         }
 
         
-        System.out.println("    --->  " + idActDsmt.size());
-  /*      
-        if ( idActDsmt.size() < 1 ) {
-            // falta buttons ????
-             System.out.println("   11  --->  " + idActDsmt.size());
-            this.frmMan.getTxtInfoAction().setText("exist dsmks");
-            setButtonsState.setDoseBtsSearch(true);
-            return;
-        }
-  */      
         int yearNow = Integer.parseInt(dateAndTime.currYear());
 
         for (int i = yearNow; i > 1999; --i) {
@@ -372,7 +376,6 @@ public class ManagementTablesModel {
 
         String dsmtPeriodicity = dbPkIDs.getDsmt_id().get(0)[4].toString();
         System.out.println(" Man tables dsmtPeriodicity -->  " +    dsmtPeriodicity);
-        //= dbPkIDs.getDsmt_id().get(0)[3].toString();
         if (dsmtPeriodicity.equalsIgnoreCase("Mensal")) {
             Object newRow[] = new Object[]{idActDsmt.get(0), yearNow, SetEnums.Trimester.NULL, SetEnums.month.Jan,
                 "", "", "", "", ""};
@@ -448,6 +451,39 @@ public class ManagementTablesModel {
 
     }
 
+    
+    /*
+     * 
+     *  Dsmt Hist models  - Default
+     *   
+     */
+    private DefaultTableModel setDefaultSettingsDsmtHist() {
+
+        table = this.frmMan.tableDsmtHist;
+
+        String[] colNames = dsmtHistTable("name");
+
+        DefaultTableModel model = new DefaultTableModel(new Object[][]{},
+                colNames) {
+            @Override
+            public boolean isCellEditable(int rowIndex, int colIndex) {
+                return false; //Disallow the editing of any cell
+            }
+        };
+
+        table.setModel(model);
+
+        tableDefaultSettings();
+
+        String[] colWidths = dsmtHistTable("width");
+        tableColumnsSettings(colWidths);
+
+        return model;
+
+    }
+    
+    
+    
     /**
      *
      * @param table
@@ -503,6 +539,18 @@ public class ManagementTablesModel {
             return widths;
         }
     }
+    
+    private String[] dsmtHistTable(String nameOrwidth) {
+
+        if (nameOrwidth.equalsIgnoreCase("name")) {
+            String[] names = {"Id_value", "Value", "LastChanged"};
+            return names;
+        } else {
+            String[] widths = {"20", "50", "80"};
+            return widths;
+        }
+    }
+    
 
     private String[] doseTable(String nameOrwidth) {
 

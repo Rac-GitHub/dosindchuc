@@ -81,6 +81,9 @@ public class ManagementClean {
         //    frmMan.btWorkerNew.setEnabled(true);
         //    frmMan.btWorkerUpdate.setEnabled(false);
         frmMan.getTxtInfoAction().setText(null);
+        
+        cleanWorkerActiveDsmt();
+        cleanWorkerCumulDose();
 
 
     }
@@ -90,6 +93,7 @@ public class ManagementClean {
 
         dsmt_idClear();
 
+        cleanDsmtHist();
         cleanDsmtNotes();
 
         tableModel.setDefaultDsmtTable("readonly");
@@ -100,8 +104,14 @@ public class ManagementClean {
 
     }
 
+    public void cleanDsmtHist() {
+
+        tableModel.setDefaultDsmtHistTable();
+
+    }
+
     public void cleanDsmtNotes() {
-        
+
         dsmtNotes_idClear();
 
         this.frmMan.txtDosimeterNote.setText(null);
@@ -122,7 +132,7 @@ public class ManagementClean {
     public void cleanDose() {
 
         dose_idClear();
-        
+
         cleanDoseNotes();
 
         tableModel.setDefaultDoseTable("readonly");
@@ -137,7 +147,7 @@ public class ManagementClean {
     public void cleanDoseNotes() {
 
         doseNotes_idClear();
-        
+
         this.frmMan.txtDoseNote.setText(null);
         this.frmMan.txtDoseNote.setEditable(false);
         this.frmMan.txtDoseNoteLevelDate.setText(null);
@@ -151,10 +161,81 @@ public class ManagementClean {
 
     }
 
+    public void cleanWorkerActiveDsmt() {
+
+        this.frmMan.txtWorkerActiveDsmt1.setText(null);
+        this.frmMan.txtWorkerActDsmtPeriod1.setText(null);
+        this.frmMan.txtWorkerActDsmtStatus1.setText(null);
+        this.frmMan.txtWorkerActDsmtSupp1.setText(null);
+        this.frmMan.txtWorkerActDsmtType1.setText(null);
+        this.frmMan.txtWorkerActDsmtLastChange1.setText(null);
+
+        this.frmMan.txtWorkerActiveDsmt2.setText(null);
+        this.frmMan.txtWorkerActDsmtPeriod2.setText(null);
+        this.frmMan.txtWorkerActDsmtStatus2.setText(null);
+        this.frmMan.txtWorkerActDsmtSupp2.setText(null);
+        this.frmMan.txtWorkerActDsmtType2.setText(null);
+        this.frmMan.txtWorkerActDsmtLastChange2.setText(null);
+
+        this.frmMan.txtWorkerActiveDsmt3.setText(null);
+        this.frmMan.txtWorkerActDsmtPeriod3.setText(null);
+        this.frmMan.txtWorkerActDsmtStatus3.setText(null);
+        this.frmMan.txtWorkerActDsmtSupp3.setText(null);
+        this.frmMan.txtWorkerActDsmtType3.setText(null);
+        this.frmMan.txtWorkerActDsmtLastChange3.setText(null);
+
+    }
+
+    // cumulative dose (clear)
+    
+    public void cleanWorkerCumulDose() {
+
+        this.frmMan.txtDoseHp007_1year.setText(null);
+        this.frmMan.txtDoseHp10_1year.setText(null);
+
+        this.frmMan.txtDoseHp007_5year.setText(null);
+        this.frmMan.txtDoseHp10_5year.setText(null);
+
+        this.frmMan.txtDsmtID1Hp007_1year.setText(null);
+        this.frmMan.txtDsmtID2Hp007_1year.setText(null);
+        this.frmMan.txtDsmtID3Hp007_1year.setText(null);
+        this.frmMan.txtDsmtID1Hp10_1year.setText(null);
+        this.frmMan.txtDsmtID2Hp10_1year.setText(null);
+        this.frmMan.txtDsmtID3Hp10_1year.setText(null);
+
+        this.frmMan.txtDsmtID1Hp007_5year.setText(null);
+        this.frmMan.txtDsmtID2Hp007_5year.setText(null);
+        this.frmMan.txtDsmtID3Hp007_5year.setText(null);
+        this.frmMan.txtDsmtID1Hp10_5year.setText(null);
+        this.frmMan.txtDsmtID2Hp10_5year.setText(null);
+        this.frmMan.txtDsmtID3Hp10_5year.setText(null);
+       
+        this.frmMan.txtNumDsmtID1Hp007_1year.setText(null);
+        this.frmMan.txtNumDsmtID2Hp007_1year.setText(null);
+        this.frmMan.txtNumDsmtID3Hp007_1year.setText(null);
+        this.frmMan.txtNumDsmtID1Hp10_1year.setText(null);
+        this.frmMan.txtNumDsmtID2Hp10_1year.setText(null);
+        this.frmMan.txtNumDsmtID3Hp10_1year.setText(null);
+        
+        this.frmMan.txtNumDsmtID1Hp007_5year.setText(null);
+        this.frmMan.txtNumDsmtID2Hp007_5year.setText(null);
+        this.frmMan.txtNumDsmtID3Hp007_5year.setText(null);
+        this.frmMan.txtNumDsmtID1Hp10_5year.setText(null);
+        this.frmMan.txtNumDsmtID2Hp10_5year.setText(null);
+        this.frmMan.txtNumDsmtID3Hp10_5year.setText(null);
+
+        this.frmMan.txtSymbNoteHp007_1year.setText(null);
+        this.frmMan.txtSymbNoteHp10_1year.setText(null);
+        this.frmMan.txtSymbNoteHp007_5year.setText(null);
+        this.frmMan.txtSymbNoteHp10_5year.setText(null);
+        
+        
+    }
+    
+    
     /*
      *  clear all saved info
      */
-    
     public void dsmt_idClear() {
 
         ArrayList<Object[]> dsmtIds = new ArrayList();
@@ -174,23 +255,22 @@ public class ManagementClean {
         ArrayList2D dsmtNotes_id = new ArrayList2D();
         dbPkIDs.setDsmtNotes_id(dsmtNotes_id);
     }
-    
+
     public void doseNotes_idClear() {
 
         ArrayList2D doseNotes_id = new ArrayList2D();
         dbPkIDs.setDoseNotes_id(doseNotes_id);
     }
-    
+
     public void alertNoteClear() {
 
         ArrayList<Object[]> alertNote = new ArrayList();
         dbPkIDs.setAlertNote(alertNote);
     }
-    
-     public void div_dsmtIDClear() {
+
+    public void div_dsmtIDClear() {
 
         ArrayList<Object[]> div_dsmtID = new ArrayList();
         dbPkIDs.setAlertNote(div_dsmtID);
     }
-    
 }
