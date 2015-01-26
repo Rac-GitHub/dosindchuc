@@ -94,6 +94,7 @@ public class ManagementDosimeter {
 
         setButtonsState.setDosimeterBtsNew(true);
         setCleanState.cleanDsmtNotes();
+        setCleanState.cleanDsmtHist();
 
         this.frmMan.getTxtInfoAction().setText("Inserting a New dosimeter");
 
@@ -285,7 +286,7 @@ public class ManagementDosimeter {
 
         Dsmt_hist dsmtHist = new Dsmt_hist();
 
-        dsmtHist.setPk_dsmt_notes(dsmt_id);
+        dsmtHist.setPk_dsmt(dsmt_id);
         dsmtHist.setId_change(id_change);
         dsmtHist.setValue(value);
 

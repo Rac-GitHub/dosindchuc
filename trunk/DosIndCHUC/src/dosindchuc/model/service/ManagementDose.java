@@ -32,6 +32,7 @@ public class ManagementDose {
     private ManagementTablesModel tableModel;
     private ManagementSearch setDoseInfo;
     private JTable table;
+    private ManagementCumulDose setCumulDose;
 
     public ManagementDose(ManagementFrm frmMan) {
 
@@ -42,6 +43,7 @@ public class ManagementDose {
         setButtonsState = new ManagementButtons(this.frmMan);
         setCleanState = new ManagementClean(this.frmMan);
         setDoseInfo = new ManagementSearch(this.frmMan, null);
+        setCumulDose = new ManagementCumulDose(frmMan);
 
     }
 
@@ -125,6 +127,9 @@ public class ManagementDose {
 
         dose.setPk_dose(id);
 
+        // actualiza cumulDose
+        setCumulDose.updateCumulDose(worker_id);
+        
         this.frmMan.getTxtInfoAction().setText("Dose info to dsmt_id = " + dose.getDsmt_id() + " saved into database");
 
         // actualiza info
@@ -175,8 +180,14 @@ public class ManagementDose {
 
         Dose dose = getDoseInfo("update");
         String dose_id = dose.getPk_dose();
-        dose.setPk_id(dbPkIDs.getWorker_id());
+        String worker_id = dbPkIDs.getWorker_id();
+        dose.setPk_id(worker_id);
         dosedao.updateDose(dose, dose_id);
+        
+        // actualiza cumulDose
+        setCumulDose.updateCumulDose(worker_id);
+        
+        
         this.frmMan.getTxtInfoAction().setText("Dose for dsmt = " + dose.getDsmt_id() + " updated into database");
 
         // actualiza info

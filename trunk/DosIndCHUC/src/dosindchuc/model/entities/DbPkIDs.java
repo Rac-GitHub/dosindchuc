@@ -15,6 +15,7 @@ public class DbPkIDs {
 
     private static String worker_id;
     private static ArrayList<Object[]> dsmt_id;
+    private static ArrayList<Object[]> dsmt_hist;
     private static ArrayList2D dsmtNotes_id;
     private static ArrayList dose_id;
     private static ArrayList2D doseNotes_id;
@@ -48,6 +49,15 @@ public class DbPkIDs {
     public void setDsmt_id(ArrayList<Object[]> dsmt_id) {
         DbPkIDs.dsmt_id = dsmt_id;
     }
+
+    public ArrayList<Object[]> getDsmt_hist() {
+        return dsmt_hist;
+    }
+
+    public void setDsmt_hist(ArrayList<Object[]> dsmt_hist) {
+        DbPkIDs.dsmt_hist = dsmt_hist;
+    }
+    
     
     public ArrayList2D getDsmtNotes_id() {
         return dsmtNotes_id;

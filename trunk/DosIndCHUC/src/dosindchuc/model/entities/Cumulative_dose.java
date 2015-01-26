@@ -12,7 +12,6 @@ public class Cumulative_dose {
 
     private String pk_cumulative_dose;
     private String pk_id;
-    private String dsmt_link;
     private String hp007_1year;
     private String hp10_1year;
     private String ndsmt_1year;
@@ -21,6 +20,10 @@ public class Cumulative_dose {
     private String ndsmt_5year;
     private String lastchange;
 
+    private String cumulDose;
+    private String numDsmtCumulDose;
+
+    
     // constructors
     public Cumulative_dose() {
     }
@@ -39,14 +42,6 @@ public class Cumulative_dose {
 
     public void setPk_id(String pk_id) {
         this.pk_id = pk_id;
-    }
-
-    public String getDsmt_link() {
-        return dsmt_link;
-    }
-
-    public void setDsmt_link(String dsmt_link) {
-        this.dsmt_link = dsmt_link;
     }
 
     public String getHp007_1year() {
@@ -103,6 +98,22 @@ public class Cumulative_dose {
 
     public void setLastchange(String lastchange) {
         this.lastchange = lastchange;
+    }
+
+    public String getCumulDose() {
+        return cumulDose;
+    }
+
+    public void setCumulDose(String cumulDose) {
+        this.cumulDose = cumulDose;
+    }
+
+    public String getNumDsmtCumulDose() {
+        return numDsmtCumulDose;
+    }
+
+    public void setNumDsmtCumulDose(String numDsmtCumulDose) {
+        this.numDsmtCumulDose = numDsmtCumulDose;
     }
 
 

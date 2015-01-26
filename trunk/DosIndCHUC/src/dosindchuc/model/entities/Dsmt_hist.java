@@ -11,9 +11,7 @@ package dosindchuc.model.entities;
 public class Dsmt_hist {
 
     private String pk_dsmt_hist;
-    private String pk_dsmt_status;
-    private String pk_dsmt_notes;
-    private String id_trigger;
+    private String pk_dsmt;
     private String id_change;
     private String value;
     private String lastchange;
@@ -30,28 +28,12 @@ public class Dsmt_hist {
         this.pk_dsmt_hist = pk_dsmt_hist;
     }
 
-    public String getPk_dsmt_status() {
-        return pk_dsmt_status;
+    public String getPk_dsmt() {
+        return pk_dsmt;
     }
 
-    public void setPk_dsmt_status(String pk_dsmt_status) {
-        this.pk_dsmt_status = pk_dsmt_status;
-    }
-
-    public String getPk_dsmt_notes() {
-        return pk_dsmt_notes;
-    }
-
-    public void setPk_dsmt_notes(String pk_dsmt_notes) {
-        this.pk_dsmt_notes = pk_dsmt_notes;
-    }
-
-    public String getId_trigger() {
-        return id_trigger;
-    }
-
-    public void setId_trigger(String id_trigger) {
-        this.id_trigger = id_trigger;
+    public void setPk_dsmt(String pk_dsmt) {
+        this.pk_dsmt = pk_dsmt;
     }
 
     public String getId_change() {
