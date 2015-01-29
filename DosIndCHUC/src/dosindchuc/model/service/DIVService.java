@@ -335,6 +335,9 @@ public class DIVService {
 
                 int trimester = yearMonthTrimester.Trimester();
                 year = yearMonthTrimester.Year();
+                
+                System.out.println(" trimester --- setDivPeriod -- : " + trimester);
+                System.out.println(" year --- setDivPeriod -- : " + year);
 
                 divPeriod[0] = Trimester[trimester];
                 divPeriod[1] = year;

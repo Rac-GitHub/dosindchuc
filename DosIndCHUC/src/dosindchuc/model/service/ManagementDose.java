@@ -129,6 +129,7 @@ public class ManagementDose {
 
         // actualiza cumulDose
         setCumulDose.updateCumulDose(worker_id);
+        setCumulDose.fillCumulDoseInfo(worker_id);
         
         this.frmMan.getTxtInfoAction().setText("Dose info to dsmt_id = " + dose.getDsmt_id() + " saved into database");
 
@@ -186,6 +187,7 @@ public class ManagementDose {
         
         // actualiza cumulDose
         setCumulDose.updateCumulDose(worker_id);
+        setCumulDose.fillCumulDoseInfo(worker_id);
         
         
         this.frmMan.getTxtInfoAction().setText("Dose for dsmt = " + dose.getDsmt_id() + " updated into database");

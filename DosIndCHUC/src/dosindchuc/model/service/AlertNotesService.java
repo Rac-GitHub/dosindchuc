@@ -63,6 +63,9 @@ public class AlertNotesService {
 
         int nResultsDsmt = alertNotes.size();
 
+        
+        System.out.println(" alertnotes Service -- size dose : " + nResultsDose + "    size dsmt :" + nResultsDsmt);
+        
         if (nResultsDsmt > 0) {
 
             for (int i = 0; i < nResultsDsmt; i++) {

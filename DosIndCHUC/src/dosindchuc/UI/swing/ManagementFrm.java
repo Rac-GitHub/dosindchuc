@@ -400,6 +400,7 @@ public class ManagementFrm extends javax.swing.JFrame {
         jLayeredPane1.add(btSaveWorkerUpdate, javax.swing.JLayeredPane.DEFAULT_LAYER);
         btSaveWorkerUpdate.getAccessibleContext().setAccessibleName("btSaveWorkerUpdate");
 
+        txtWorkerActiveDsmt1.setEditable(false);
         txtWorkerActiveDsmt1.setBackground(new java.awt.Color(238, 238, 238));
         txtWorkerActiveDsmt1.setHorizontalAlignment(javax.swing.JTextField.RIGHT);
         txtWorkerActiveDsmt1.setBorder(javax.swing.BorderFactory.createEtchedBorder());
@@ -407,6 +408,7 @@ public class ManagementFrm extends javax.swing.JFrame {
 
         jSeparator2.setOrientation(javax.swing.SwingConstants.VERTICAL);
 
+        txtWorkerActDsmtSupp1.setEditable(false);
         txtWorkerActDsmtSupp1.setFont(new java.awt.Font("Dialog", 0, 10)); // NOI18N
         txtWorkerActDsmtSupp1.setHorizontalAlignment(javax.swing.JTextField.LEFT);
         txtWorkerActDsmtSupp1.setText("jTextField1");
@@ -414,6 +416,7 @@ public class ManagementFrm extends javax.swing.JFrame {
         txtWorkerActDsmtSupp1.setMargin(new java.awt.Insets(0, 8, 0, 0));
         txtWorkerActDsmtSupp1.setOpaque(false);
 
+        txtWorkerActDsmtType1.setEditable(false);
         txtWorkerActDsmtType1.setFont(new java.awt.Font("Dialog", 0, 10)); // NOI18N
         txtWorkerActDsmtType1.setHorizontalAlignment(javax.swing.JTextField.LEFT);
         txtWorkerActDsmtType1.setText("jTextField1");
@@ -421,12 +424,14 @@ public class ManagementFrm extends javax.swing.JFrame {
         txtWorkerActDsmtType1.setMargin(new java.awt.Insets(0, 2, 0, 0));
         txtWorkerActDsmtType1.setOpaque(false);
 
+        txtWorkerActDsmtPeriod1.setEditable(false);
         txtWorkerActDsmtPeriod1.setFont(new java.awt.Font("Dialog", 0, 10)); // NOI18N
         txtWorkerActDsmtPeriod1.setText("jTextField1");
         txtWorkerActDsmtPeriod1.setBorder(null);
         txtWorkerActDsmtPeriod1.setMargin(new java.awt.Insets(0, 2, 0, 0));
         txtWorkerActDsmtPeriod1.setOpaque(false);
 
+        txtWorkerActDsmtStatus1.setEditable(false);
         txtWorkerActDsmtStatus1.setFont(new java.awt.Font("Dialog", 0, 10)); // NOI18N
         txtWorkerActDsmtStatus1.setHorizontalAlignment(javax.swing.JTextField.RIGHT);
         txtWorkerActDsmtStatus1.setText("jTextField1");
@@ -434,6 +439,7 @@ public class ManagementFrm extends javax.swing.JFrame {
         txtWorkerActDsmtStatus1.setMargin(new java.awt.Insets(0, 2, 0, 2));
         txtWorkerActDsmtStatus1.setOpaque(false);
 
+        txtWorkerActDsmtLastChange1.setEditable(false);
         txtWorkerActDsmtLastChange1.setFont(new java.awt.Font("Dialog", 0, 10)); // NOI18N
         txtWorkerActDsmtLastChange1.setHorizontalAlignment(javax.swing.JTextField.RIGHT);
         txtWorkerActDsmtLastChange1.setText("jTextField1");
@@ -441,11 +447,13 @@ public class ManagementFrm extends javax.swing.JFrame {
         txtWorkerActDsmtLastChange1.setMargin(new java.awt.Insets(0, 2, 0, 2));
         txtWorkerActDsmtLastChange1.setOpaque(false);
 
+        txtWorkerActiveDsmt2.setEditable(false);
         txtWorkerActiveDsmt2.setBackground(new java.awt.Color(238, 238, 238));
         txtWorkerActiveDsmt2.setHorizontalAlignment(javax.swing.JTextField.RIGHT);
         txtWorkerActiveDsmt2.setBorder(javax.swing.BorderFactory.createEtchedBorder());
         txtWorkerActiveDsmt2.setOpaque(false);
 
+        txtWorkerActDsmtSupp2.setEditable(false);
         txtWorkerActDsmtSupp2.setFont(new java.awt.Font("Dialog", 0, 10)); // NOI18N
         txtWorkerActDsmtSupp2.setHorizontalAlignment(javax.swing.JTextField.LEFT);
         txtWorkerActDsmtSupp2.setText("jTextField1");
@@ -453,6 +461,7 @@ public class ManagementFrm extends javax.swing.JFrame {
         txtWorkerActDsmtSupp2.setMargin(new java.awt.Insets(0, 2, 0, 0));
         txtWorkerActDsmtSupp2.setOpaque(false);
 
+        txtWorkerActDsmtType2.setEditable(false);
         txtWorkerActDsmtType2.setFont(new java.awt.Font("Dialog", 0, 10)); // NOI18N
         txtWorkerActDsmtType2.setHorizontalAlignment(javax.swing.JTextField.LEFT);
         txtWorkerActDsmtType2.setText("jTextField1");
@@ -460,6 +469,7 @@ public class ManagementFrm extends javax.swing.JFrame {
         txtWorkerActDsmtType2.setMargin(new java.awt.Insets(0, 2, 0, 0));
         txtWorkerActDsmtType2.setOpaque(false);
 
+        txtWorkerActDsmtPeriod2.setEditable(false);
         txtWorkerActDsmtPeriod2.setFont(new java.awt.Font("Dialog", 0, 10)); // NOI18N
         txtWorkerActDsmtPeriod2.setHorizontalAlignment(javax.swing.JTextField.LEFT);
         txtWorkerActDsmtPeriod2.setText("jTextField1");
@@ -467,6 +477,7 @@ public class ManagementFrm extends javax.swing.JFrame {
         txtWorkerActDsmtPeriod2.setMargin(new java.awt.Insets(0, 2, 0, 0));
         txtWorkerActDsmtPeriod2.setOpaque(false);
 
+        txtWorkerActDsmtStatus2.setEditable(false);
         txtWorkerActDsmtStatus2.setFont(new java.awt.Font("Dialog", 0, 10)); // NOI18N
         txtWorkerActDsmtStatus2.setHorizontalAlignment(javax.swing.JTextField.RIGHT);
         txtWorkerActDsmtStatus2.setText("jTextField1");
@@ -474,6 +485,7 @@ public class ManagementFrm extends javax.swing.JFrame {
         txtWorkerActDsmtStatus2.setMargin(new java.awt.Insets(0, 2, 0, 2));
         txtWorkerActDsmtStatus2.setOpaque(false);
 
+        txtWorkerActDsmtLastChange2.setEditable(false);
         txtWorkerActDsmtLastChange2.setFont(new java.awt.Font("Dialog", 0, 10)); // NOI18N
         txtWorkerActDsmtLastChange2.setHorizontalAlignment(javax.swing.JTextField.RIGHT);
         txtWorkerActDsmtLastChange2.setText("jTextField1");
@@ -481,11 +493,13 @@ public class ManagementFrm extends javax.swing.JFrame {
         txtWorkerActDsmtLastChange2.setMargin(new java.awt.Insets(0, 2, 0, 2));
         txtWorkerActDsmtLastChange2.setOpaque(false);
 
+        txtWorkerActiveDsmt3.setEditable(false);
         txtWorkerActiveDsmt3.setBackground(new java.awt.Color(238, 238, 238));
         txtWorkerActiveDsmt3.setHorizontalAlignment(javax.swing.JTextField.RIGHT);
         txtWorkerActiveDsmt3.setBorder(javax.swing.BorderFactory.createEtchedBorder());
         txtWorkerActiveDsmt3.setOpaque(false);
 
+        txtWorkerActDsmtSupp3.setEditable(false);
         txtWorkerActDsmtSupp3.setFont(new java.awt.Font("Dialog", 0, 10)); // NOI18N
         txtWorkerActDsmtSupp3.setHorizontalAlignment(javax.swing.JTextField.LEFT);
         txtWorkerActDsmtSupp3.setText("jTextField1");
@@ -493,6 +507,7 @@ public class ManagementFrm extends javax.swing.JFrame {
         txtWorkerActDsmtSupp3.setMargin(new java.awt.Insets(0, 2, 0, 0));
         txtWorkerActDsmtSupp3.setOpaque(false);
 
+        txtWorkerActDsmtType3.setEditable(false);
         txtWorkerActDsmtType3.setFont(new java.awt.Font("Dialog", 0, 10)); // NOI18N
         txtWorkerActDsmtType3.setHorizontalAlignment(javax.swing.JTextField.LEFT);
         txtWorkerActDsmtType3.setText("jTextField1");
@@ -500,6 +515,7 @@ public class ManagementFrm extends javax.swing.JFrame {
         txtWorkerActDsmtType3.setMargin(new java.awt.Insets(0, 2, 0, 0));
         txtWorkerActDsmtType3.setOpaque(false);
 
+        txtWorkerActDsmtPeriod3.setEditable(false);
         txtWorkerActDsmtPeriod3.setFont(new java.awt.Font("Dialog", 0, 10)); // NOI18N
         txtWorkerActDsmtPeriod3.setHorizontalAlignment(javax.swing.JTextField.LEFT);
         txtWorkerActDsmtPeriod3.setText("jTextField1");
@@ -507,6 +523,7 @@ public class ManagementFrm extends javax.swing.JFrame {
         txtWorkerActDsmtPeriod3.setMargin(new java.awt.Insets(0, 2, 0, 0));
         txtWorkerActDsmtPeriod3.setOpaque(false);
 
+        txtWorkerActDsmtStatus3.setEditable(false);
         txtWorkerActDsmtStatus3.setFont(new java.awt.Font("Dialog", 0, 10)); // NOI18N
         txtWorkerActDsmtStatus3.setHorizontalAlignment(javax.swing.JTextField.RIGHT);
         txtWorkerActDsmtStatus3.setText("jTextField1");
@@ -514,6 +531,7 @@ public class ManagementFrm extends javax.swing.JFrame {
         txtWorkerActDsmtStatus3.setMargin(new java.awt.Insets(0, 2, 0, 2));
         txtWorkerActDsmtStatus3.setOpaque(false);
 
+        txtWorkerActDsmtLastChange3.setEditable(false);
         txtWorkerActDsmtLastChange3.setFont(new java.awt.Font("Dialog", 0, 10)); // NOI18N
         txtWorkerActDsmtLastChange3.setHorizontalAlignment(javax.swing.JTextField.RIGHT);
         txtWorkerActDsmtLastChange3.setText("jTextField1");
@@ -529,42 +547,51 @@ public class ManagementFrm extends javax.swing.JFrame {
 
         jLabel39.setText("Hp(0.07)");
 
+        txtDoseHp007_1year.setEditable(false);
         txtDoseHp007_1year.setFont(new java.awt.Font("Dialog", 2, 18)); // NOI18N
+        txtDoseHp007_1year.setHorizontalAlignment(javax.swing.JTextField.CENTER);
         txtDoseHp007_1year.setText("jTextField1");
 
+        txtDsmtID1Hp007_1year.setEditable(false);
         txtDsmtID1Hp007_1year.setFont(new java.awt.Font("Dialog", 0, 8)); // NOI18N
         txtDsmtID1Hp007_1year.setHorizontalAlignment(javax.swing.JTextField.TRAILING);
         txtDsmtID1Hp007_1year.setText("j");
         txtDsmtID1Hp007_1year.setBorder(null);
         txtDsmtID1Hp007_1year.setOpaque(false);
 
+        txtNumDsmtID1Hp007_1year.setEditable(false);
         txtNumDsmtID1Hp007_1year.setFont(new java.awt.Font("Dialog", 0, 8)); // NOI18N
         txtNumDsmtID1Hp007_1year.setText("(1)");
         txtNumDsmtID1Hp007_1year.setBorder(null);
         txtNumDsmtID1Hp007_1year.setOpaque(false);
 
+        txtDsmtID3Hp007_1year.setEditable(false);
         txtDsmtID3Hp007_1year.setFont(new java.awt.Font("Dialog", 0, 8)); // NOI18N
         txtDsmtID3Hp007_1year.setHorizontalAlignment(javax.swing.JTextField.TRAILING);
         txtDsmtID3Hp007_1year.setText("jTextField2");
         txtDsmtID3Hp007_1year.setBorder(null);
         txtDsmtID3Hp007_1year.setOpaque(false);
 
+        txtDsmtID2Hp007_1year.setEditable(false);
         txtDsmtID2Hp007_1year.setFont(new java.awt.Font("Dialog", 0, 8)); // NOI18N
         txtDsmtID2Hp007_1year.setHorizontalAlignment(javax.swing.JTextField.TRAILING);
         txtDsmtID2Hp007_1year.setText("jTextField2");
         txtDsmtID2Hp007_1year.setBorder(null);
         txtDsmtID2Hp007_1year.setOpaque(false);
 
+        txtNumDsmtID2Hp007_1year.setEditable(false);
         txtNumDsmtID2Hp007_1year.setFont(new java.awt.Font("Dialog", 0, 8)); // NOI18N
         txtNumDsmtID2Hp007_1year.setText("jTextField2");
         txtNumDsmtID2Hp007_1year.setBorder(null);
         txtNumDsmtID2Hp007_1year.setOpaque(false);
 
+        txtNumDsmtID3Hp007_1year.setEditable(false);
         txtNumDsmtID3Hp007_1year.setFont(new java.awt.Font("Dialog", 0, 8)); // NOI18N
         txtNumDsmtID3Hp007_1year.setText("jTextField2");
         txtNumDsmtID3Hp007_1year.setBorder(null);
         txtNumDsmtID3Hp007_1year.setOpaque(false);
 
+        txtSymbNoteHp007_1year.setEditable(false);
         txtSymbNoteHp007_1year.setFont(new java.awt.Font("Dialog", 0, 8)); // NOI18N
         txtSymbNoteHp007_1year.setText("jTextField2");
         txtSymbNoteHp007_1year.setBorder(null);
@@ -572,39 +599,48 @@ public class ManagementFrm extends javax.swing.JFrame {
 
         jLabel40.setText("Hp(10)");
 
+        txtSymbNoteHp10_1year.setEditable(false);
         txtSymbNoteHp10_1year.setFont(new java.awt.Font("Dialog", 0, 8)); // NOI18N
         txtSymbNoteHp10_1year.setText("jTextField2");
         txtSymbNoteHp10_1year.setBorder(null);
         txtSymbNoteHp10_1year.setOpaque(false);
 
+        txtDoseHp10_1year.setEditable(false);
         txtDoseHp10_1year.setFont(new java.awt.Font("Dialog", 2, 18)); // NOI18N
+        txtDoseHp10_1year.setHorizontalAlignment(javax.swing.JTextField.CENTER);
         txtDoseHp10_1year.setText("jTextField1");
 
+        txtDsmtID1Hp10_1year.setEditable(false);
         txtDsmtID1Hp10_1year.setFont(new java.awt.Font("Dialog", 0, 8)); // NOI18N
         txtDsmtID1Hp10_1year.setText("jTextField2");
         txtDsmtID1Hp10_1year.setBorder(null);
         txtDsmtID1Hp10_1year.setOpaque(false);
 
+        txtDsmtID2Hp10_1year.setEditable(false);
         txtDsmtID2Hp10_1year.setFont(new java.awt.Font("Dialog", 0, 8)); // NOI18N
         txtDsmtID2Hp10_1year.setText("jTextField2");
         txtDsmtID2Hp10_1year.setBorder(null);
         txtDsmtID2Hp10_1year.setOpaque(false);
 
+        txtDsmtID3Hp10_1year.setEditable(false);
         txtDsmtID3Hp10_1year.setFont(new java.awt.Font("Dialog", 0, 8)); // NOI18N
         txtDsmtID3Hp10_1year.setText("jTextField2");
         txtDsmtID3Hp10_1year.setBorder(null);
         txtDsmtID3Hp10_1year.setOpaque(false);
 
+        txtNumDsmtID1Hp10_1year.setEditable(false);
         txtNumDsmtID1Hp10_1year.setFont(new java.awt.Font("Dialog", 0, 8)); // NOI18N
         txtNumDsmtID1Hp10_1year.setText("jTextField2");
         txtNumDsmtID1Hp10_1year.setBorder(null);
         txtNumDsmtID1Hp10_1year.setOpaque(false);
 
+        txtNumDsmtID2Hp10_1year.setEditable(false);
         txtNumDsmtID2Hp10_1year.setFont(new java.awt.Font("Dialog", 0, 8)); // NOI18N
         txtNumDsmtID2Hp10_1year.setText("jTextField2");
         txtNumDsmtID2Hp10_1year.setBorder(null);
         txtNumDsmtID2Hp10_1year.setOpaque(false);
 
+        txtNumDsmtID3Hp10_1year.setEditable(false);
         txtNumDsmtID3Hp10_1year.setFont(new java.awt.Font("Dialog", 0, 8)); // NOI18N
         txtNumDsmtID3Hp10_1year.setText("jTextField2");
         txtNumDsmtID3Hp10_1year.setBorder(null);
@@ -725,39 +761,48 @@ public class ManagementFrm extends javax.swing.JFrame {
 
         jLabel41.setText("Hp(0.07)");
 
+        txtDoseHp007_5year.setEditable(false);
         txtDoseHp007_5year.setFont(new java.awt.Font("Dialog", 2, 18)); // NOI18N
+        txtDoseHp007_5year.setHorizontalAlignment(javax.swing.JTextField.CENTER);
         txtDoseHp007_5year.setText("jTextField1");
 
+        txtDsmtID1Hp007_5year.setEditable(false);
         txtDsmtID1Hp007_5year.setFont(new java.awt.Font("Dialog", 0, 8)); // NOI18N
         txtDsmtID1Hp007_5year.setText("jTextField2");
         txtDsmtID1Hp007_5year.setBorder(null);
         txtDsmtID1Hp007_5year.setOpaque(false);
 
+        txtNumDsmtID1Hp007_5year.setEditable(false);
         txtNumDsmtID1Hp007_5year.setFont(new java.awt.Font("Dialog", 0, 8)); // NOI18N
         txtNumDsmtID1Hp007_5year.setText("jTextField2");
         txtNumDsmtID1Hp007_5year.setBorder(null);
         txtNumDsmtID1Hp007_5year.setOpaque(false);
 
+        txtDsmtID3Hp007_5year.setEditable(false);
         txtDsmtID3Hp007_5year.setFont(new java.awt.Font("Dialog", 0, 8)); // NOI18N
         txtDsmtID3Hp007_5year.setText("jTextField2");
         txtDsmtID3Hp007_5year.setBorder(null);
         txtDsmtID3Hp007_5year.setOpaque(false);
 
+        txtDsmtID2Hp007_5year.setEditable(false);
         txtDsmtID2Hp007_5year.setFont(new java.awt.Font("Dialog", 0, 8)); // NOI18N
         txtDsmtID2Hp007_5year.setText("jTextField2");
         txtDsmtID2Hp007_5year.setBorder(null);
         txtDsmtID2Hp007_5year.setOpaque(false);
 
+        txtNumDsmtID2Hp007_5year.setEditable(false);
         txtNumDsmtID2Hp007_5year.setFont(new java.awt.Font("Dialog", 0, 8)); // NOI18N
         txtNumDsmtID2Hp007_5year.setText("jTextField2");
         txtNumDsmtID2Hp007_5year.setBorder(null);
         txtNumDsmtID2Hp007_5year.setOpaque(false);
 
+        txtNumDsmtID3Hp007_5year.setEditable(false);
         txtNumDsmtID3Hp007_5year.setFont(new java.awt.Font("Dialog", 0, 8)); // NOI18N
         txtNumDsmtID3Hp007_5year.setText("jTextField2");
         txtNumDsmtID3Hp007_5year.setBorder(null);
         txtNumDsmtID3Hp007_5year.setOpaque(false);
 
+        txtSymbNoteHp007_5year.setEditable(false);
         txtSymbNoteHp007_5year.setFont(new java.awt.Font("Dialog", 0, 8)); // NOI18N
         txtSymbNoteHp007_5year.setText("jTextField2");
         txtSymbNoteHp007_5year.setBorder(null);
@@ -765,39 +810,48 @@ public class ManagementFrm extends javax.swing.JFrame {
 
         jLabel42.setText("Hp(10)");
 
+        txtSymbNoteHp10_5year.setEditable(false);
         txtSymbNoteHp10_5year.setFont(new java.awt.Font("Dialog", 0, 8)); // NOI18N
         txtSymbNoteHp10_5year.setText("jTextField2");
         txtSymbNoteHp10_5year.setBorder(null);
         txtSymbNoteHp10_5year.setOpaque(false);
 
+        txtDoseHp10_5year.setEditable(false);
         txtDoseHp10_5year.setFont(new java.awt.Font("Dialog", 2, 18)); // NOI18N
+        txtDoseHp10_5year.setHorizontalAlignment(javax.swing.JTextField.CENTER);
         txtDoseHp10_5year.setText("jTextField1");
 
+        txtDsmtID1Hp10_5year.setEditable(false);
         txtDsmtID1Hp10_5year.setFont(new java.awt.Font("Dialog", 0, 8)); // NOI18N
         txtDsmtID1Hp10_5year.setText("jTextField2");
         txtDsmtID1Hp10_5year.setBorder(null);
         txtDsmtID1Hp10_5year.setOpaque(false);
 
+        txtDsmtID2Hp10_5year.setEditable(false);
         txtDsmtID2Hp10_5year.setFont(new java.awt.Font("Dialog", 0, 8)); // NOI18N
         txtDsmtID2Hp10_5year.setText("jTextField2");
         txtDsmtID2Hp10_5year.setBorder(null);
         txtDsmtID2Hp10_5year.setOpaque(false);
 
+        txtDsmtID3Hp10_5year.setEditable(false);
         txtDsmtID3Hp10_5year.setFont(new java.awt.Font("Dialog", 0, 8)); // NOI18N
         txtDsmtID3Hp10_5year.setText("jTextField2");
         txtDsmtID3Hp10_5year.setBorder(null);
         txtDsmtID3Hp10_5year.setOpaque(false);
 
+        txtNumDsmtID1Hp10_5year.setEditable(false);
         txtNumDsmtID1Hp10_5year.setFont(new java.awt.Font("Dialog", 0, 8)); // NOI18N
         txtNumDsmtID1Hp10_5year.setText("jTextField2");
         txtNumDsmtID1Hp10_5year.setBorder(null);
         txtNumDsmtID1Hp10_5year.setOpaque(false);
 
+        txtNumDsmtID2Hp10_5year.setEditable(false);
         txtNumDsmtID2Hp10_5year.setFont(new java.awt.Font("Dialog", 0, 8)); // NOI18N
         txtNumDsmtID2Hp10_5year.setText("jTextField2");
         txtNumDsmtID2Hp10_5year.setBorder(null);
         txtNumDsmtID2Hp10_5year.setOpaque(false);
 
+        txtNumDsmtID3Hp10_5year.setEditable(false);
         txtNumDsmtID3Hp10_5year.setFont(new java.awt.Font("Dialog", 0, 8)); // NOI18N
         txtNumDsmtID3Hp10_5year.setText("jTextField2");
         txtNumDsmtID3Hp10_5year.setBorder(null);

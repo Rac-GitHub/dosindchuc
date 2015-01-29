@@ -914,6 +914,7 @@
                 </Container>
                 <Component class="javax.swing.JTextField" name="txtWorkerActiveDsmt1">
                   <Properties>
+                    <Property name="editable" type="boolean" value="false"/>
                     <Property name="background" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
                       <Color blue="ee" green="ee" red="ee" type="rgb"/>
                     </Property>
@@ -933,6 +934,7 @@
                 </Component>
                 <Component class="javax.swing.JTextField" name="txtWorkerActDsmtSupp1">
                   <Properties>
+                    <Property name="editable" type="boolean" value="false"/>
                     <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
                       <Font name="Dialog" size="10" style="0"/>
                     </Property>
@@ -952,6 +954,7 @@
                 </Component>
                 <Component class="javax.swing.JTextField" name="txtWorkerActDsmtType1">
                   <Properties>
+                    <Property name="editable" type="boolean" value="false"/>
                     <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
                       <Font name="Dialog" size="10" style="0"/>
                     </Property>
@@ -971,6 +974,7 @@
                 </Component>
                 <Component class="javax.swing.JTextField" name="txtWorkerActDsmtPeriod1">
                   <Properties>
+                    <Property name="editable" type="boolean" value="false"/>
                     <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
                       <Font name="Dialog" size="10" style="0"/>
                     </Property>
@@ -989,6 +993,7 @@
                 </Component>
                 <Component class="javax.swing.JTextField" name="txtWorkerActDsmtStatus1">
                   <Properties>
+                    <Property name="editable" type="boolean" value="false"/>
                     <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
                       <Font name="Dialog" size="10" style="0"/>
                     </Property>
@@ -1008,6 +1013,7 @@
                 </Component>
                 <Component class="javax.swing.JTextField" name="txtWorkerActDsmtLastChange1">
                   <Properties>
+                    <Property name="editable" type="boolean" value="false"/>
                     <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
                       <Font name="Dialog" size="10" style="0"/>
                     </Property>
@@ -1027,6 +1033,7 @@
                 </Component>
                 <Component class="javax.swing.JTextField" name="txtWorkerActiveDsmt2">
                   <Properties>
+                    <Property name="editable" type="boolean" value="false"/>
                     <Property name="background" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
                       <Color blue="ee" green="ee" red="ee" type="rgb"/>
                     </Property>
@@ -1041,6 +1048,7 @@
                 </Component>
                 <Component class="javax.swing.JTextField" name="txtWorkerActDsmtSupp2">
                   <Properties>
+                    <Property name="editable" type="boolean" value="false"/>
                     <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
                       <Font name="Dialog" size="10" style="0"/>
                     </Property>
@@ -1060,6 +1068,7 @@
                 </Component>
                 <Component class="javax.swing.JTextField" name="txtWorkerActDsmtType2">
                   <Properties>
+                    <Property name="editable" type="boolean" value="false"/>
                     <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
                       <Font name="Dialog" size="10" style="0"/>
                     </Property>
@@ -1079,6 +1088,7 @@
                 </Component>
                 <Component class="javax.swing.JTextField" name="txtWorkerActDsmtPeriod2">
                   <Properties>
+                    <Property name="editable" type="boolean" value="false"/>
                     <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
                       <Font name="Dialog" size="10" style="0"/>
                     </Property>
@@ -1098,6 +1108,7 @@
                 </Component>
                 <Component class="javax.swing.JTextField" name="txtWorkerActDsmtStatus2">
                   <Properties>
+                    <Property name="editable" type="boolean" value="false"/>
                     <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
                       <Font name="Dialog" size="10" style="0"/>
                     </Property>
@@ -1117,6 +1128,7 @@
                 </Component>
                 <Component class="javax.swing.JTextField" name="txtWorkerActDsmtLastChange2">
                   <Properties>
+                    <Property name="editable" type="boolean" value="false"/>
                     <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
                       <Font name="Dialog" size="10" style="0"/>
                     </Property>
@@ -1136,6 +1148,7 @@
                 </Component>
                 <Component class="javax.swing.JTextField" name="txtWorkerActiveDsmt3">
                   <Properties>
+                    <Property name="editable" type="boolean" value="false"/>
                     <Property name="background" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
                       <Color blue="ee" green="ee" red="ee" type="rgb"/>
                     </Property>
@@ -1150,6 +1163,7 @@
                 </Component>
                 <Component class="javax.swing.JTextField" name="txtWorkerActDsmtSupp3">
                   <Properties>
+                    <Property name="editable" type="boolean" value="false"/>
                     <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
                       <Font name="Dialog" size="10" style="0"/>
                     </Property>
@@ -1169,6 +1183,7 @@
                 </Component>
                 <Component class="javax.swing.JTextField" name="txtWorkerActDsmtType3">
                   <Properties>
+                    <Property name="editable" type="boolean" value="false"/>
                     <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
                       <Font name="Dialog" size="10" style="0"/>
                     </Property>
@@ -1188,6 +1203,7 @@
                 </Component>
                 <Component class="javax.swing.JTextField" name="txtWorkerActDsmtPeriod3">
                   <Properties>
+                    <Property name="editable" type="boolean" value="false"/>
                     <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
                       <Font name="Dialog" size="10" style="0"/>
                     </Property>
@@ -1207,6 +1223,7 @@
                 </Component>
                 <Component class="javax.swing.JTextField" name="txtWorkerActDsmtStatus3">
                   <Properties>
+                    <Property name="editable" type="boolean" value="false"/>
                     <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
                       <Font name="Dialog" size="10" style="0"/>
                     </Property>
@@ -1226,6 +1243,7 @@
                 </Component>
                 <Component class="javax.swing.JTextField" name="txtWorkerActDsmtLastChange3">
                   <Properties>
+                    <Property name="editable" type="boolean" value="false"/>
                     <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
                       <Font name="Dialog" size="10" style="0"/>
                     </Property>
@@ -1404,14 +1422,17 @@
                     </Component>
                     <Component class="javax.swing.JTextField" name="txtDoseHp007_1year">
                       <Properties>
+                        <Property name="editable" type="boolean" value="false"/>
                         <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
                           <Font name="Dialog" size="18" style="2"/>
                         </Property>
+                        <Property name="horizontalAlignment" type="int" value="0"/>
                         <Property name="text" type="java.lang.String" value="jTextField1"/>
                       </Properties>
                     </Component>
                     <Component class="javax.swing.JTextField" name="txtDsmtID1Hp007_1year">
                       <Properties>
+                        <Property name="editable" type="boolean" value="false"/>
                         <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
                           <Font name="Dialog" size="8" style="0"/>
                         </Property>
@@ -1425,6 +1446,7 @@
                     </Component>
                     <Component class="javax.swing.JTextField" name="txtNumDsmtID1Hp007_1year">
                       <Properties>
+                        <Property name="editable" type="boolean" value="false"/>
                         <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
                           <Font name="Dialog" size="8" style="0"/>
                         </Property>
@@ -1437,6 +1459,7 @@
                     </Component>
                     <Component class="javax.swing.JTextField" name="txtDsmtID3Hp007_1year">
                       <Properties>
+                        <Property name="editable" type="boolean" value="false"/>
                         <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
                           <Font name="Dialog" size="8" style="0"/>
                         </Property>
@@ -1450,6 +1473,7 @@
                     </Component>
                     <Component class="javax.swing.JTextField" name="txtDsmtID2Hp007_1year">
                       <Properties>
+                        <Property name="editable" type="boolean" value="false"/>
                         <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
                           <Font name="Dialog" size="8" style="0"/>
                         </Property>
@@ -1463,6 +1487,7 @@
                     </Component>
                     <Component class="javax.swing.JTextField" name="txtNumDsmtID2Hp007_1year">
                       <Properties>
+                        <Property name="editable" type="boolean" value="false"/>
                         <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
                           <Font name="Dialog" size="8" style="0"/>
                         </Property>
@@ -1475,6 +1500,7 @@
                     </Component>
                     <Component class="javax.swing.JTextField" name="txtNumDsmtID3Hp007_1year">
                       <Properties>
+                        <Property name="editable" type="boolean" value="false"/>
                         <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
                           <Font name="Dialog" size="8" style="0"/>
                         </Property>
@@ -1487,6 +1513,7 @@
                     </Component>
                     <Component class="javax.swing.JTextField" name="txtSymbNoteHp007_1year">
                       <Properties>
+                        <Property name="editable" type="boolean" value="false"/>
                         <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
                           <Font name="Dialog" size="8" style="0"/>
                         </Property>
@@ -1504,6 +1531,7 @@
                     </Component>
                     <Component class="javax.swing.JTextField" name="txtSymbNoteHp10_1year">
                       <Properties>
+                        <Property name="editable" type="boolean" value="false"/>
                         <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
                           <Font name="Dialog" size="8" style="0"/>
                         </Property>
@@ -1516,14 +1544,17 @@
                     </Component>
                     <Component class="javax.swing.JTextField" name="txtDoseHp10_1year">
                       <Properties>
+                        <Property name="editable" type="boolean" value="false"/>
                         <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
                           <Font name="Dialog" size="18" style="2"/>
                         </Property>
+                        <Property name="horizontalAlignment" type="int" value="0"/>
                         <Property name="text" type="java.lang.String" value="jTextField1"/>
                       </Properties>
                     </Component>
                     <Component class="javax.swing.JTextField" name="txtDsmtID1Hp10_1year">
                       <Properties>
+                        <Property name="editable" type="boolean" value="false"/>
                         <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
                           <Font name="Dialog" size="8" style="0"/>
                         </Property>
@@ -1536,6 +1567,7 @@
                     </Component>
                     <Component class="javax.swing.JTextField" name="txtDsmtID2Hp10_1year">
                       <Properties>
+                        <Property name="editable" type="boolean" value="false"/>
                         <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
                           <Font name="Dialog" size="8" style="0"/>
                         </Property>
@@ -1548,6 +1580,7 @@
                     </Component>
                     <Component class="javax.swing.JTextField" name="txtDsmtID3Hp10_1year">
                       <Properties>
+                        <Property name="editable" type="boolean" value="false"/>
                         <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
                           <Font name="Dialog" size="8" style="0"/>
                         </Property>
@@ -1560,6 +1593,7 @@
                     </Component>
                     <Component class="javax.swing.JTextField" name="txtNumDsmtID1Hp10_1year">
                       <Properties>
+                        <Property name="editable" type="boolean" value="false"/>
                         <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
                           <Font name="Dialog" size="8" style="0"/>
                         </Property>
@@ -1572,6 +1606,7 @@
                     </Component>
                     <Component class="javax.swing.JTextField" name="txtNumDsmtID2Hp10_1year">
                       <Properties>
+                        <Property name="editable" type="boolean" value="false"/>
                         <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
                           <Font name="Dialog" size="8" style="0"/>
                         </Property>
@@ -1584,6 +1619,7 @@
                     </Component>
                     <Component class="javax.swing.JTextField" name="txtNumDsmtID3Hp10_1year">
                       <Properties>
+                        <Property name="editable" type="boolean" value="false"/>
                         <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
                           <Font name="Dialog" size="8" style="0"/>
                         </Property>
@@ -1769,14 +1805,17 @@
                     </Component>
                     <Component class="javax.swing.JTextField" name="txtDoseHp007_5year">
                       <Properties>
+                        <Property name="editable" type="boolean" value="false"/>
                         <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
                           <Font name="Dialog" size="18" style="2"/>
                         </Property>
+                        <Property name="horizontalAlignment" type="int" value="0"/>
                         <Property name="text" type="java.lang.String" value="jTextField1"/>
                       </Properties>
                     </Component>
                     <Component class="javax.swing.JTextField" name="txtDsmtID1Hp007_5year">
                       <Properties>
+                        <Property name="editable" type="boolean" value="false"/>
                         <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
                           <Font name="Dialog" size="8" style="0"/>
                         </Property>
@@ -1789,6 +1828,7 @@
                     </Component>
                     <Component class="javax.swing.JTextField" name="txtNumDsmtID1Hp007_5year">
                       <Properties>
+                        <Property name="editable" type="boolean" value="false"/>
                         <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
                           <Font name="Dialog" size="8" style="0"/>
                         </Property>
@@ -1801,6 +1841,7 @@
                     </Component>
                     <Component class="javax.swing.JTextField" name="txtDsmtID3Hp007_5year">
                       <Properties>
+                        <Property name="editable" type="boolean" value="false"/>
                         <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
                           <Font name="Dialog" size="8" style="0"/>
                         </Property>
@@ -1813,6 +1854,7 @@
                     </Component>
                     <Component class="javax.swing.JTextField" name="txtDsmtID2Hp007_5year">
                       <Properties>
+                        <Property name="editable" type="boolean" value="false"/>
                         <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
                           <Font name="Dialog" size="8" style="0"/>
                         </Property>
@@ -1825,6 +1867,7 @@
                     </Component>
                     <Component class="javax.swing.JTextField" name="txtNumDsmtID2Hp007_5year">
                       <Properties>
+                        <Property name="editable" type="boolean" value="false"/>
                         <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
                           <Font name="Dialog" size="8" style="0"/>
                         </Property>
@@ -1837,6 +1880,7 @@
                     </Component>
                     <Component class="javax.swing.JTextField" name="txtNumDsmtID3Hp007_5year">
                       <Properties>
+                        <Property name="editable" type="boolean" value="false"/>
                         <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
                           <Font name="Dialog" size="8" style="0"/>
                         </Property>
@@ -1849,6 +1893,7 @@
                     </Component>
                     <Component class="javax.swing.JTextField" name="txtSymbNoteHp007_5year">
                       <Properties>
+                        <Property name="editable" type="boolean" value="false"/>
                         <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
                           <Font name="Dialog" size="8" style="0"/>
                         </Property>
@@ -1866,6 +1911,7 @@
                     </Component>
                     <Component class="javax.swing.JTextField" name="txtSymbNoteHp10_5year">
                       <Properties>
+                        <Property name="editable" type="boolean" value="false"/>
                         <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
                           <Font name="Dialog" size="8" style="0"/>
                         </Property>
@@ -1878,14 +1924,17 @@
                     </Component>
                     <Component class="javax.swing.JTextField" name="txtDoseHp10_5year">
                       <Properties>
+                        <Property name="editable" type="boolean" value="false"/>
                         <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
                           <Font name="Dialog" size="18" style="2"/>
                         </Property>
+                        <Property name="horizontalAlignment" type="int" value="0"/>
                         <Property name="text" type="java.lang.String" value="jTextField1"/>
                       </Properties>
                     </Component>
                     <Component class="javax.swing.JTextField" name="txtDsmtID1Hp10_5year">
                       <Properties>
+                        <Property name="editable" type="boolean" value="false"/>
                         <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
                           <Font name="Dialog" size="8" style="0"/>
                         </Property>
@@ -1898,6 +1947,7 @@
                     </Component>
                     <Component class="javax.swing.JTextField" name="txtDsmtID2Hp10_5year">
                       <Properties>
+                        <Property name="editable" type="boolean" value="false"/>
                         <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
                           <Font name="Dialog" size="8" style="0"/>
                         </Property>
@@ -1910,6 +1960,7 @@
                     </Component>
                     <Component class="javax.swing.JTextField" name="txtDsmtID3Hp10_5year">
                       <Properties>
+                        <Property name="editable" type="boolean" value="false"/>
                         <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
                           <Font name="Dialog" size="8" style="0"/>
                         </Property>
@@ -1922,6 +1973,7 @@
                     </Component>
                     <Component class="javax.swing.JTextField" name="txtNumDsmtID1Hp10_5year">
                       <Properties>
+                        <Property name="editable" type="boolean" value="false"/>
                         <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
                           <Font name="Dialog" size="8" style="0"/>
                         </Property>
@@ -1934,6 +1986,7 @@
                     </Component>
                     <Component class="javax.swing.JTextField" name="txtNumDsmtID2Hp10_5year">
                       <Properties>
+                        <Property name="editable" type="boolean" value="false"/>
                         <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
                           <Font name="Dialog" size="8" style="0"/>
                         </Property>
@@ -1946,6 +1999,7 @@
                     </Component>
                     <Component class="javax.swing.JTextField" name="txtNumDsmtID3Hp10_5year">
                       <Properties>
+                        <Property name="editable" type="boolean" value="false"/>
                         <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
                           <Font name="Dialog" size="8" style="0"/>
                         </Property>

@@ -61,6 +61,8 @@ public class DoseDao {
             query = query + " WHERE " + Tbl_doses.pk_dsmt + " = " + dsmt_pkid + " AND " + Tbl_doses.pk_id + " = " + worker_id + sort;
         }
 
+        System.out.println( "  query getDoseInfo + DoseDao " +  query);
+        
         daoConnection.executePreparedQuery(query, new QueryMapper<Dose>() {
             @Override
             public List<Dose> mapping(ResultSet rset) {

@@ -63,13 +63,16 @@ public class AlertNotesDao {
         
         String from = " FROM " + table_doseNotes + " as p1, " + table_doses + " as p2, " 
                 + table_workers + " as p3";
-        
+   
         String where = " WHERE p1." + Tbl_dose_notes.status + " = 'O' and p1." + Tbl_dose_notes.pk_dose + " = p2." + Tbl_doses.pk_dose 
                 + " and p3." + Tbl_workers.pk_id + " = p2." + Tbl_doses.pk_id;
         
         String sort = " ORDER BY p1." + Tbl_dose_notes.alert_level + " DESC, p1." + Tbl_dose_notes.lastchange + " DESC";
 
         query = query + from + where + sort;
+        
+        
+        System.out.println("   query ->  getDoseAlerNotes : " + query);
  
         daoConnection.executePreparedQuery(query, new QueryMapper<AlertNotes>() {
             @Override
@@ -99,6 +102,8 @@ public class AlertNotesDao {
             }
         });
 
+        System.out.println("   size ->  getDoseAlerNotes : " + alertNotes.size());
+        
         return alertNotes;
 
     }
@@ -109,18 +114,21 @@ public class AlertNotesDao {
 
         String query = "SELECT DISTINCT p1." + Tbl_dsmt_notes.pk_dsmt + ", p1." + Tbl_dsmt_notes.alert_level 
                 + ", p3." + Tbl_workers.id_mec + ", p3." + Tbl_workers.name + ", p3." + Tbl_workers.department 
-                + ", p1." + Tbl_dsmt_notes.note + ", p2." + Tbl_dosimeters.status + ", p1." + Tbl_dsmt_notes.lastchange;
+                + ", p1." + Tbl_dsmt_notes.note + ", p1." + Tbl_dsmt_notes.status + ", p1." + Tbl_dsmt_notes.lastchange;
         
         String from = " FROM " + table_dmstNotes + " as p1, " + table_dmst + " as p2, " 
                 + table_workers + " as p3";
         
-        String where = " WHERE p2." + Tbl_dosimeters.status + " = 'O' and p1." + Tbl_dsmt_notes.pk_dsmt + " = p2. " 
+        String where = " WHERE p1." + Tbl_dsmt_notes.status + " = 'O' and p1." + Tbl_dsmt_notes.pk_dsmt + " = p2." 
                 + Tbl_dosimeters.pk_dsmt + " and p3." + Tbl_workers.pk_id + " = p2." + Tbl_dosimeters.pk_id;
         
         String sort = " ORDER BY p1." + Tbl_dsmt_notes.alert_level + " DESC, p2." + Tbl_dsmt_notes.lastchange + " DESC";
 
         query = query + from + where + sort;
 
+        
+        System.out.println("   query ->  getDsmtAlerNotes : " + query);
+        
         daoConnection.executePreparedQuery(query, new QueryMapper<AlertNotes>() {
             @Override
             public List<AlertNotes> mapping(ResultSet rset) {
@@ -149,6 +157,8 @@ public class AlertNotesDao {
             }
         });
 
+         System.out.println("   size ->  getDsmtAlerNotes   : " + alertNotes.size());
+        
         return alertNotes;
 
     }
