@@ -9,11 +9,13 @@ import dosindchuc.UI.swing.Help.AlertTableInMainFrm;
 import dosindchuc.UI.swing.MainFrm;
 import dosindchuc.UI.swing.ManagementFrm;
 import dosindchuc.model.dao.UsersDao;
+import dosindchuc.model.entities.Users;
 import dosindchuc.model.service.AlertNotesService;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
+import java.util.List;
 import javax.swing.JOptionPane;
 
 /**
@@ -50,12 +52,15 @@ public final class MainActionListener implements ActionListener, MouseListener {
             login();
 
         } else if (command.equalsIgnoreCase("LoginCancel")) {
+            
+            this.frm.getBtLoginOk().setEnabled(true);
+            this.frm.txtUsername.setEditable(true);
             this.frm.txtUsername.setText(null);
+            this.frm.txtPassword.setEditable(true);
             this.frm.txtPassword.setText(null);
-
-        } else if (command.equalsIgnoreCase("LoginCancel")) {
-            this.frm.txtUsername.setText(null);
-            this.frm.txtPassword.setText(null);
+            initState();
+            alertNotesTable.setSettingsAlertTable("newToActionListeners");
+            
 
         } else if (command.equalsIgnoreCase("Management")) {
 
@@ -150,31 +155,41 @@ public final class MainActionListener implements ActionListener, MouseListener {
 
     public void login() {
 
-        String NameOfUser = this.service.loginUsers(this.frm.getTxtUsername().getText(), this.frm.getTxtPassword().getText());
+        List<Users> users = this.service.loginUsers(this.frm.getTxtUsername().getText(), this.frm.getTxtPassword().getText());
 
-        {
-            if (NameOfUser != null) {
+        if (users.size() > 0) {
 
-                this.frm.getBtProfInfo().setEnabled(true);
-                this.frm.getBtInsertIndDosimetry().setEnabled(true);
+            String NameOfUser = users.get(0).getName();
+
+            this.frm.getBtProfInfo().setEnabled(true);
+            this.frm.getBtInsertIndDosimetry().setEnabled(true);
+
+            if (users.get(0).getAdmin().equals("Y")) {
                 this.frm.getBtAdministration().setEnabled(true);
-
-                this.frm.txtNameOfUser.setText(NameOfUser);
-                this.frm.txtNameOfUser.setEditable(false);
-                this.frm.txtUsername.setText(null);
-                this.frm.txtPassword.setText(null);
-
-                // alert note table
-                addNoteTableListeners();
-                // alertNotetable fill.
-                alertNoteService.fillAlertNotesTable();
-
-            } else {
-                this.frm.txtUsername.setText(null);
-                this.frm.txtPassword.setText(null);
-                JOptionPane.showMessageDialog(this.frm, "Incorrect username or password ");
             }
+
+            this.frm.txtNameOfUser.setText(NameOfUser);
+            this.frm.txtNameOfUser.setEditable(false);
+            this.frm.txtUsername.setText(null);
+            this.frm.txtPassword.setText(null);
+
+            // alert note table
+            addNoteTableListeners();
+            // alertNotetable fill.
+            alertNoteService.fillAlertNotesTable();
+
+            // disable buttons and input fields for new re-login before cancel
+            this.frm.getBtLoginOk().setEnabled(false);
+            this.frm.txtUsername.setEditable(false);
+            this.frm.txtPassword.setEditable(false);
+
+
+        } else {
+            this.frm.txtUsername.setText(null);
+            this.frm.txtPassword.setText(null);
+            JOptionPane.showMessageDialog(this.frm, "Incorrect username or password ");
         }
+
 
     }
 

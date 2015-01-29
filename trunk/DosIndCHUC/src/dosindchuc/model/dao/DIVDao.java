@@ -5,6 +5,8 @@
 package dosindchuc.model.dao;
 
 import dosindchuc.globals.Conn_db;
+import dosindchuc.globals.Tbl_dose_notes;
+import dosindchuc.globals.Tbl_doses;
 import dosindchuc.globals.Tbl_dosimeters;
 import dosindchuc.globals.Tbl_workers;
 import dosindchuc.model.dao.Help.ArrayList2D;
@@ -31,13 +33,11 @@ public class DIVDao {
     private ArrayList2D queryList;
     private DateAndTime dateAndTime = new DateAndTime();
     private DIVinfo divINFO;
-
     String table_workers = Conn_db.tbl_workers;
     String table_dmst = Conn_db.tbl_dsmt;
     String table_doses = Conn_db.tbl_doses;
     String table_doseNotes = Conn_db.tbl_doseNotes;
-    
-    
+
     public DIVDao() {
 
         daoConnection = new DaoConnections();
@@ -49,13 +49,13 @@ public class DIVDao {
 
         final List<DIVinfo> divInfo = new ArrayList<>();
 
-        String query = "SELECT p1." + Tbl_workers.pk_id + ",  p2." +  Tbl_dosimeters.pk_dsmt + ", p1." + Tbl_workers.name 
-                + ", p1." + Tbl_workers.id_mec + ", p1." + Tbl_workers.department + ", p1." + Tbl_workers.category 
+        String query = "SELECT p1." + Tbl_workers.pk_id + ",  p2." + Tbl_dosimeters.pk_dsmt + ", p1." + Tbl_workers.name
+                + ", p1." + Tbl_workers.id_mec + ", p1." + Tbl_workers.department + ", p1." + Tbl_workers.category
                 + ", p2." + Tbl_dosimeters.id + ", p2." + Tbl_dosimeters.periodicity;
 
         String from = " FROM " + table_workers + " as p1, " + table_dmst + " as p2 ";
 
-        String defaulWhere = " p1." + Tbl_workers.status + " = 'Activo' and p2." + Tbl_dosimeters.status + "= 'Activo' and p1." 
+        String defaulWhere = " p1." + Tbl_workers.status + " = 'Activo' and p2." + Tbl_dosimeters.status + "= 'Activo' and p1."
                 + Tbl_workers.pk_id + " = p2." + Tbl_dosimeters.pk_id;
 
         String[][][] searchWhere = {{{Tbl_workers.name, "LIKE", name}},
@@ -76,7 +76,7 @@ public class DIVDao {
 
         }
 
-        String sort = " ORDER BY p1." + Tbl_workers.name + ", p1." + Tbl_workers.department + " DESC, p2." 
+        String sort = " ORDER BY p1." + Tbl_workers.name + ", p1." + Tbl_workers.department + " DESC, p2."
                 + Tbl_dosimeters.pk_dsmt + " DESC ";
 
         query = query + from + where + sort;
@@ -121,12 +121,15 @@ public class DIVDao {
         final List<Boolean> divAlready = new ArrayList<>();
 
 
-        String query = "SELECT pk_dose FROM dose_info WHERE"
-                + " pk_dsmt='" + testeDIVAlready[0] + "' and (trimester = '"
+        String query = "SELECT " + Tbl_doses.pk_dose
+                + " FROM " + table_doses
+                + " WHERE " + Tbl_doses.pk_dsmt + " = '" + testeDIVAlready[0] + "' and (trimester = '"
                 + testeDIVAlready[1] + "' or month = '"
                 + testeDIVAlready[1] + "') and year = '"
                 + testeDIVAlready[2] + "'";
 
+
+        System.out.println(" --- > query getDIVAlreadyInserted -- > " + query);
 
         daoConnection.executePreparedQuery(query, new QueryMapper<Boolean>() {
             @Override
@@ -151,14 +154,16 @@ public class DIVDao {
 
         final List<DIVOldInfo> oldDIVInfo = new ArrayList<>();
 
-        String query = "SELECT p1.pk_dose, p2.periodicity, p2.id, p1.trimester,"
-                + " p1.month, p1.year, p1.hp007, p1.hp10, p1.timestamp, p1.comments, p1.lastchange";
-        
+        String query = "SELECT p1." + Tbl_doses.pk_dose + ", p2." + Tbl_dosimeters.periodicity
+                + ", p2." + Tbl_dosimeters.id + ", p1." + Tbl_doses.trimester + ", p1." + Tbl_doses.month
+                + ", p1." + Tbl_doses.year + ", p1." + Tbl_doses.hp007 + ", p1." + Tbl_doses.hp10 + ", p1." + Tbl_doses.timestamp
+                + ", p1." + Tbl_doses.comments + ", p1." + Tbl_doses.lastchange;
+
         String from = " FROM " + table_doses + " as p1, " + table_dmst + " as p2 ";
 
-        String where = " WHERE p1.pk_id = " + pk_id + " and p1.pk_dsmt = p2.pk_dsmt ";
+        String where = " WHERE p1." + Tbl_doses.pk_id + "= " + pk_id + " and p1." + Tbl_doses.pk_dsmt + "= p2." + Tbl_dosimeters.pk_dsmt;
 
-        String sort = " ORDER BY p1.timestamp DESC ";
+        String sort = " ORDER BY p1." + Tbl_doses.timestamp + " DESC ";
 
         String limit = " LIMIT 0, 10 ";
 
@@ -171,17 +176,17 @@ public class DIVDao {
                 try {
                     while (rset.next()) {
                         DIVOldInfo olddivinfo = new DIVOldInfo();
-                        olddivinfo.setPk_dose(rset.getString("pk_dose"));
-                        olddivinfo.setPeriodicity(rset.getString("periodicity"));
-                        olddivinfo.setId_dsmt(rset.getString("id"));
-                        olddivinfo.setTrimester(rset.getString("trimester"));
-                        olddivinfo.setMonth(rset.getString("month"));
-                        olddivinfo.setYear(rset.getString("year"));
-                        olddivinfo.setHp007(rset.getString("hp007"));
-                        olddivinfo.setHp10(rset.getString("hp10"));
-                        olddivinfo.setTimestamp(rset.getString("timestamp"));
-                        olddivinfo.setComments(rset.getString("comments"));
-                        olddivinfo.setLastchange(rset.getString("lastchange"));
+                        olddivinfo.setPk_dose(rset.getString(Tbl_doses.pk_dose));
+                        olddivinfo.setPeriodicity(rset.getString(Tbl_dosimeters.periodicity));
+                        olddivinfo.setId_dsmt(rset.getString(Tbl_dosimeters.id));
+                        olddivinfo.setTrimester(rset.getString(Tbl_doses.trimester));
+                        olddivinfo.setMonth(rset.getString(Tbl_doses.month));
+                        olddivinfo.setYear(rset.getString(Tbl_doses.year));
+                        olddivinfo.setHp007(rset.getString(Tbl_doses.hp007));
+                        olddivinfo.setHp10(rset.getString(Tbl_doses.hp10));
+                        olddivinfo.setTimestamp(rset.getString(Tbl_doses.timestamp));
+                        olddivinfo.setComments(rset.getString(Tbl_doses.comments));
+                        olddivinfo.setLastchange(rset.getString(Tbl_doses.lastchange));
 
                         oldDIVInfo.add(olddivinfo);
                     }
@@ -201,12 +206,14 @@ public class DIVDao {
 
         final List<DIVnotes> notesDIV = new ArrayList<>();
 
-        String query = "SELECT note, status, alert_level, lastchange";
-        String from = " FROM dose_notes  ";
+        String query = "SELECT " + Tbl_dose_notes.note + ", " + Tbl_dose_notes.status
+                + ", " + Tbl_dose_notes.alert_level + ", " + Tbl_dose_notes.lastchange;
 
-        String where = " WHERE pk_dose = " + pk_dose;
+        String from = " FROM " + table_doseNotes;
 
-        String sort = " ORDER BY lastchange DESC ";
+        String where = " WHERE " + Tbl_dose_notes.pk_dose + " = " + pk_dose;
+
+        String sort = " ORDER BY " + Tbl_dose_notes.lastchange + " DESC ";
 
         String limit = " LIMIT 0, 5 ";
 
@@ -219,10 +226,10 @@ public class DIVDao {
                 try {
                     while (rset.next()) {
                         DIVnotes notesdiv = new DIVnotes();
-                        notesdiv.setNote(rset.getString("note"));
-                        notesdiv.setStatus(rset.getString("status"));
-                        notesdiv.setAlert_level(rset.getString("alert_level"));
-                        notesdiv.setLastchange(rset.getString("lastchange"));
+                        notesdiv.setNote(rset.getString(Tbl_dose_notes.note));
+                        notesdiv.setStatus(rset.getString(Tbl_dose_notes.status));
+                        notesdiv.setAlert_level(rset.getString(Tbl_dose_notes.alert_level));
+                        notesdiv.setLastchange(rset.getString(Tbl_dose_notes.lastchange));
 
                         notesDIV.add(notesdiv);
                     }
@@ -244,7 +251,7 @@ public class DIVDao {
 
         int sizeNparam = queryList.getNumRows();
 
-        String query = "INSERT INTO dose_info (";
+        String query = "INSERT INTO " + table_doses + " (";
         String valuesInt = " VALUES (";
         Object param[] = new Object[sizeNparam];
 
@@ -252,6 +259,8 @@ public class DIVDao {
             query += queryList.get(i, 0);
             valuesInt += queryList.get(i, 1);
             param[i] = queryList.get(i, 2);
+            System.out.println(" saveDIV_doseInfo ---param  > " + param[i]);
+            
         }
 
         queryList.remove();
@@ -259,6 +268,8 @@ public class DIVDao {
         query += ")";
         valuesInt += ")";
         query += valuesInt;
+        
+        System.out.println(" saveDIV_doseInfo ---query  > " + query);
 
         return daoConnection.insert(query, param);
 
@@ -272,26 +283,26 @@ public class DIVDao {
 
         int i = 0;
 
-        queryList.Add("pk_dsmt", i);
+        queryList.Add(Tbl_doses.pk_dsmt, i);
         queryList.Add(" ? ", i);
         queryList.Add(divINFO.getPk_dsmt(), i);
 
         i += 1;
-        queryList.Add(", pk_id", i);
+        queryList.Add(", " + Tbl_doses.pk_id, i);
         queryList.Add(", ? ", i);
         queryList.Add(divINFO.getPk_id(), i);
 
         i += 1;
-        queryList.Add(", year", i);
+        queryList.Add(", " + Tbl_doses.year, i);
         queryList.Add(", ? ", i);
         queryList.Add(divINFO.getYear(), i);
 
         i += 1;
         if (divINFO.getPeriodicity().toString().equalsIgnoreCase("Mensal")) {
-            queryList.Add(", month", i);
+            queryList.Add(", " + Tbl_doses.month, i);
         } else {
             if (divINFO.getPeriodicity().toString().equalsIgnoreCase("Trimestral")) {
-                queryList.Add(", trimester", i);
+                queryList.Add(", " + Tbl_doses.trimester, i);
             }
         }
         queryList.Add(", ? ", i);
@@ -299,27 +310,27 @@ public class DIVDao {
 
 
         i += 1;
-        queryList.Add(", hp007", i);
+        queryList.Add(", " + Tbl_doses.hp007, i);
         queryList.Add(", ? ", i);
         queryList.Add(divINFO.getHp007(), i);
 
         i += 1;
-        queryList.Add(", hp10", i);
+        queryList.Add(", " + Tbl_doses.hp10, i);
         queryList.Add(", ? ", i);
         queryList.Add(divINFO.getHp10(), i);
 
         i += 1;
-        queryList.Add(", comments", i);
+        queryList.Add(", " + Tbl_doses.comments, i);
         queryList.Add(", ? ", i);
         queryList.Add(divINFO.getComments(), i);
 
         i += 1;
-        queryList.Add(", timestamp", i);
+        queryList.Add(", " + Tbl_doses.timestamp, i);
         queryList.Add(", ? ", i);
         queryList.Add(newDate, i);
 
         i += 1;
-        queryList.Add(", lastchange", i);
+        queryList.Add(", " + Tbl_doses.lastchange, i);
         queryList.Add(", ? ", i);
         queryList.Add(newDate, i);
 
@@ -331,7 +342,7 @@ public class DIVDao {
 
         int sizeNparam = queryList.getNumRows();
 
-        String query = "INSERT INTO dose_notes (";
+        String query = "INSERT INTO " + table_doseNotes + " (";
         String valuesInt = " VALUES (";
         Object param[] = new Object[sizeNparam];
 
@@ -359,43 +370,43 @@ public class DIVDao {
 
         int i = 0;
 
-        queryList.Add("pk_dose", i);
+        queryList.Add(Tbl_dose_notes.pk_dose, i);
         queryList.Add(" ? ", i);
         queryList.Add(pk_dose, i);
 
         i += 1;
-        queryList.Add(", note", i);
+        queryList.Add(", " + Tbl_dose_notes.note, i);
         queryList.Add(", ? ", i);
         queryList.Add(divINFO.getDose_note(), i);
 
         i += 1;
-        queryList.Add(", timestamp", i);
+        queryList.Add(", " + Tbl_dose_notes.timestamp, i);
         queryList.Add(", ? ", i);
         queryList.Add(newDate, i);
 
         i += 1;
-        queryList.Add(", status", i);
+        queryList.Add(", " + Tbl_dose_notes.status, i);
         queryList.Add(", ? ", i);
         queryList.Add(divINFO.getNoteStatus().toString(), i);
 
         i += 1;
-        queryList.Add(", status_timestamp", i);
+        queryList.Add(", " + Tbl_dose_notes.status_timestamp, i);
         queryList.Add(", ? ", i);
         queryList.Add(newDate, i);
 
 
         i += 1;
-        queryList.Add(", alert_level", i);
+        queryList.Add(", " + Tbl_dose_notes.alert_level, i);
         queryList.Add(", ? ", i);
         queryList.Add(divINFO.getNoteAlertlevel().toString(), i);
 
         i += 1;
-        queryList.Add(", alert_level_timestamp", i);
+        queryList.Add(", " + Tbl_dose_notes.alert_level_timestamp, i);
         queryList.Add(", ? ", i);
         queryList.Add(newDate, i);
 
         i += 1;
-        queryList.Add(", lastchange", i);
+        queryList.Add(", " + Tbl_dose_notes.lastchange, i);
         queryList.Add(", ? ", i);
         queryList.Add(newDate, i);
 

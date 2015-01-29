@@ -16,6 +16,7 @@ import dosindchuc.model.entities.DbPkIDs;
 import dosindchuc.model.entities.Dose;
 import dosindchuc.model.entities.Help.DateAndTime;
 import dosindchuc.model.entities.Help.SetEnums;
+import java.util.List;
 import javax.swing.JTable;
 
 /**
@@ -29,6 +30,7 @@ public class ManagementCumulDose {
  //   private DoseDao dosedao;
     private CumulDoseDao cumuldosedao;
     private DateAndTime dateAndTime = new DateAndTime();
+    private List<Cumulative_dose> cumulDose;
  //   private DbPkIDs dbPkIDs;
  //   private DateAndTime dateAndTime = new DateAndTime();
  //   private ManagementButtons setButtonsState;
@@ -49,23 +51,27 @@ public class ManagementCumulDose {
 
     }
 
-    /* ############################################### */
-    /*                                                  */
-    /*              dose  info                       */
-    /*                                                  */
-    /* ###############################################  */
- 
+    
+    
     
     public void fillCumulDoseInfo(String worker_id) {
 
+        cumulDose = cumuldosedao.getCumulDoseInfo(worker_id);
 
-        String cumuldose = cumuldosedao.getCumulDoseInfo(worker_id).get(1).getHp007_1year(); // calcCumulDose("hp10", "1", worker_id);
-        
-        System.out.println(" cumuldose hp007 1 year --- > "  + cumuldose);
+        System.out.println(" Fill cumul -- dose --- : " + cumulDose.size() + " worker id " + worker_id);
 
-    
+        if ( cumulDose.size() > 0 ) {
+
+            this.frmMan.txtDoseHp007_1year.setText(cumulDose.get(0).getHp007_1year().toString());
+            this.frmMan.txtDoseHp10_1year.setText(cumulDose.get(0).getHp10_1year().toString());
+
+            this.frmMan.txtDoseHp007_5year.setText(cumulDose.get(0).getHp007_5year().toString());
+            this.frmMan.txtDoseHp10_5year.setText(cumulDose.get(0).getHp10_5year().toString());
+        }
 
     }
+    
+    
     
     public void fillNumDsmtCumulDose(String worker_id) {
 
@@ -102,12 +108,19 @@ public class ManagementCumulDose {
         
         Cumulative_dose cumuldose = new Cumulative_dose();
 
+        System.out.println(" Mang Update cumul -- dose --- : " +  " worker id " + worker_id);
+        
+        cumuldose.setPk_id(worker_id);
         cumuldose.setHp007_1year(cumuldosedao.calcCumulDose("hp007", "1", worker_id));
         cumuldose.setHp10_1year(cumuldosedao.calcCumulDose("hp10", "1", worker_id));
         cumuldose.setNdsmt_1year(cumuldosedao.calcNumDsmtCumulDose("1", worker_id));
         cumuldose.setHp007_5year(cumuldosedao.calcCumulDose("hp007", "5", worker_id));
         cumuldose.setHp10_5year(cumuldosedao.calcCumulDose("hp10", "5", worker_id));
         cumuldose.setNdsmt_5year(cumuldosedao.calcNumDsmtCumulDose("5", worker_id));
+        
+        
+        System.out.println(" Mang Update cumul -- dose --- : " +  " hp007_1yer " + cumuldose.getHp007_1year().toString() );
+        
         
         cumuldosedao.updateCumulDose(cumuldose, worker_id);
         

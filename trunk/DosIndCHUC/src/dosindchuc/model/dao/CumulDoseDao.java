@@ -182,6 +182,20 @@ public class CumulDoseDao {
         }
 
         query += " WHERE " + Tbl_cumulDose.pk_id + " = " + worker_id;
+        
+        
+        System.out.println( " UPDATE --- cumul dose -- : " );
+        System.out.println( " introduzir --- cumul dose -- : " + query + " param " + param );
+        System.out.println( " introduzir --- param 0 : " + param[0] );
+        System.out.println( " introduzir --- param 0 : " + param[1] );
+        System.out.println( " introduzir --- param 0 : " + param[2] );
+        System.out.println( " introduzir --- param 0 : " + param[3] );
+        System.out.println( " introduzir --- param 0 : " + param[4] );
+        System.out.println( " introduzir --- param 0 : " + param[5] );
+        System.out.println( " introduzir --- param 0 : " + param[6] );
+        System.out.println( " introduzir --- param 0 : " + sizeNparam );
+        System.out.println( " worker id : " +  worker_id);
+        
 
         daoConnection.update(query, param);
 

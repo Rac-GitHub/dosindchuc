@@ -16,6 +16,7 @@ public class Users {
     private String name;
     private String username;
     private String password;
+    private String admin;
     private worker_category job;
     private String department;
     private String comments;
@@ -57,6 +58,14 @@ public class Users {
 
     public void setPassword(String password) {
         this.password = password;
+    }
+
+    public String getAdmin() {
+        return admin;
+    }
+
+    public void setAdmin(String admin) {
+        this.admin = admin;
     }
 
     public worker_category getJob() {

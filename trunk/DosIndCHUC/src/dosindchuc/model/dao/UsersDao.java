@@ -29,11 +29,11 @@ public class UsersDao {
 	daoConnection = new DaoConnections();
     }
     
-      public String loginUsers(String username, String password) {
+      public List<Users> loginUsers(String username, String password) {
           
         final List<Users> users = new ArrayList<>();
      
-        String query = "SELECT " + Tbl_users.name + ", " + Tbl_users.username + ", " + Tbl_users.password;
+        String query = "SELECT " + Tbl_users.name + ", " + Tbl_users.username + ", " + Tbl_users.password + ", " + Tbl_users.admin;
         String from = " FROM " + Conn_db.tbl_users;
         String[][][] searchWhere = {{{Tbl_users.username, "null", username}}, {{Tbl_users.password, "null", password}}};
 
@@ -49,6 +49,7 @@ public class UsersDao {
                       while (rset.next()) {
                           Users usersInfo = new Users();
                           usersInfo.setName(rset.getString(Tbl_users.name));
+                          usersInfo.setAdmin(rset.getString(Tbl_users.admin));
                           users.add(usersInfo);
                       }
                       return users;
@@ -60,12 +61,16 @@ public class UsersDao {
               
           });
 
-        if (users.size() > 0) {
+      /*  if (users.size() > 0) {
             return users.get(0).getName().toString();
         } else {
             return null;
-        }
-    }
+        } */
+          
+                  return users;
+    } 
+          
+  
 
     
 }

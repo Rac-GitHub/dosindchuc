@@ -32,19 +32,25 @@ public class YearMonthAndTrimester {
 
         c.add(Calendar.MONTH, -1);
 
+        System.out.println(" Dentro do month ---> " + c.get(Calendar.MONTH) + 1);
         return c.get(Calendar.MONTH);
+        
 
     }
 
     public int Trimester() {
 
-        c.add(Calendar.MONTH, -4);
+       // c.add(Calendar.MONTH, -4);
+        c.add(Calendar.MONTH, -3);
+        System.out.println("  --- > yara --- " + c.get(Calendar.YEAR));
         
-        System.out.println(" Dentro do trimester ---> " + c.get(Calendar.MONTH));
+        System.out.println(" Dentro do trimester ---> " + ( c.get(Calendar.MONTH) + 1 ) );
+        
+        System.out.println(" Dentro do trimester nnn ---> " + ( c.get(Calendar.MONTH) / 3  ));
         
 
-        //return (c.get(Calendar.MONTH) / 3 );
-        return ( c.get(Calendar.MONTH) - 1 );
+        return (c.get(Calendar.MONTH) / 3  );
+ //       return ( c.get(Calendar.MONTH) - 1 );
 
     }
 

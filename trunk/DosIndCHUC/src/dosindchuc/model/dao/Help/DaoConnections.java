@@ -292,22 +292,12 @@ public class DaoConnections {
 
     }
 
-    /*  
+      
     
-     public void delete(String worker_id) throws DeleteDaoException {
-
-     try {
-
-     final String query = "DELETE FROM worker WHERE pk_id = " + worker_id;
-
-     executePreparedUpdate(query);
-
-     } catch (SQLException e) {
-     throw new DeleteDaoException("Not possible to make the transaction: ", e);
-     }
-
+     public void delete(String query, Object[] param) {
+        executePreparedUpdate(query, param);
        
      }
     
-     */
+     
 }
