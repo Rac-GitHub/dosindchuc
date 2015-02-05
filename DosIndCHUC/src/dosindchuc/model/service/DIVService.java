@@ -134,6 +134,10 @@ public class DIVService {
         String dsmt_id = frmDIV.txtDIV_dsmtID.getText();
         String name = frmDIV.getTxtDIV_Name().getText();
         String category = frmDIV.getCbDIV_Category().getSelectedItem().toString();
+        
+        
+        
+        System.out.println("searchDIVInfo +++ ->  dep " + department + " dsmt_id " + dsmt_id + " name " +  name + " category " + category);
 
         divInfo = divdao.getDIVInfo(name, department, category, dsmt_id);
 

@@ -80,6 +80,9 @@ public class DIVDao {
                 + Tbl_dosimeters.pk_dsmt + " DESC ";
 
         query = query + from + where + sort;
+        
+        
+        System.out.println("getDIVInfo  query --->  " + query );
 
         daoConnection.executePreparedQuery(query, new QueryMapper<DIVinfo>() {
             @Override

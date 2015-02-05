@@ -9,6 +9,7 @@ import dosindchuc.UI.swing.ManagementFrm;
 import dosindchuc.model.entities.DbPkIDs;
 import dosindchuc.model.entities.Help.DateAndTime;
 import dosindchuc.model.entities.Help.SetEnums;
+import dosindchuc.model.service.Help.YearMonthAndTrimester;
 import java.util.ArrayList;
 import javax.swing.DefaultCellEditor;
 import javax.swing.JComboBox;
@@ -26,6 +27,7 @@ public class ManagementTablesModel {
 
     private ManagementFrm frmMan;
     private ManagementButtons setButtonsState;
+    private YearMonthAndTrimester yearMonthTrimester;
  //   private MainFrm frmMain;
     private DbPkIDs dbPkIDs;
     private DateAndTime dateAndTime = new DateAndTime();
@@ -40,6 +42,7 @@ public class ManagementTablesModel {
         setButtonsState = new ManagementButtons(this.frmMan);
   //      this.frmMain = frmMain;
         dbPkIDs = new DbPkIDs();
+        yearMonthTrimester = new YearMonthAndTrimester();
 
     }
 
@@ -362,7 +365,12 @@ public class ManagementTablesModel {
         for (int i = yearNow; i > 1999; --i) {
             year.add(i);
         }
-
+    
+        
+        
+        
+        
+        
         JComboBox cbDsmt = new JComboBox(idActDsmt.toArray());
         JComboBox cbYear = new JComboBox(year.toArray());
         JComboBox cbTrimester = new JComboBox(SetEnums.Trimester.values());
@@ -377,12 +385,17 @@ public class ManagementTablesModel {
         String dsmtPeriodicity = dbPkIDs.getDsmt_id().get(0)[4].toString();
         System.out.println(" Man tables dsmtPeriodicity -->  " +    dsmtPeriodicity);
         if (dsmtPeriodicity.equalsIgnoreCase("Mensal")) {
-            Object newRow[] = new Object[]{idActDsmt.get(0), yearNow, SetEnums.Trimester.NULL, SetEnums.month.Jan,
+            SetEnums.month Month[] = SetEnums.month.values();
+            int month =  yearMonthTrimester.Month();
+            int yearDose = yearMonthTrimester.Year();
+            Object newRow[] = new Object[]{idActDsmt.get(0), yearDose, SetEnums.Trimester.NULL, Month[month],
                 "", "", "", "", ""};
             model.addRow(newRow);
         } else if (dsmtPeriodicity.equalsIgnoreCase("Trimestral")) {
-
-            Object newRow[] = new Object[]{idActDsmt.get(0), yearNow, SetEnums.Trimester.P, SetEnums.month.NULL, 
+            SetEnums.Trimester Trimester[] = SetEnums.Trimester.values();
+            int trimester = yearMonthTrimester.Trimester();
+            int yearDose = yearMonthTrimester.Year();
+            Object newRow[] = new Object[]{idActDsmt.get(0), yearDose, Trimester[trimester], SetEnums.month.NULL, 
                 "", "", "", "", ""};
             model.addRow(newRow);
         } else {

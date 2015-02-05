@@ -123,8 +123,11 @@ public class ManagementWorker {
         } else {
             worker.setPk_id(id);
             this.frmMan.getTxtInfoAction().setText("Worker with id= " + id + " saved into database");
+
             // actualiza info
-            setWorkerInfo.fillWorkerInfo(id);
+         //   setWorkerInfo.fillWorkerInfo(id);
+            
+        setWorkerInfo.fillAllManagementAfterSave(id);
             dbPkIDs.setWorker_id(id);
         }
 
@@ -157,7 +160,9 @@ public class ManagementWorker {
         this.frmMan.getTxtInfoAction().setText("Worker with id= " + worker_id + " updated into database");
 
         // actualiza info
-        setWorkerInfo.fillWorkerInfo(worker_id);
+        //setWorkerInfo.fillWorkerInfo(worker_id);
+        setWorkerInfo.fillAllManagementAfterSave(worker_id);
+        //
         setButtonsState.setAllWorkerBtsInit(true);
         this.frmMan.btWorkerUpdate.setEnabled(true);
 
