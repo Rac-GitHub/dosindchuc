@@ -196,8 +196,11 @@ public class ManagementDosimeter {
     public void fillWokerDsmtInfo() {
 
         // actualiza info
-        setCleanState.cleanDosimeter();
+        setDsmtInfo.fillAllManagementAfterSave(dbPkIDs.getWorker_id());
+/*        setCleanState.cleanDosimeter();
         setDsmtInfo.fillDosimeterInfo(dbPkIDs.getWorker_id(), "new");
+        setCleanState.cleanDose();
+        setDsmtInfo.fillDoseInfo(dbPkIDs.getWorker_id(), "new"); */
 
 
         //     setButtonsState.setDosimeterBtsSearch(true);

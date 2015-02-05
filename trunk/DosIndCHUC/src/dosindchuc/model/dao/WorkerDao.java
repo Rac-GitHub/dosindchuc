@@ -50,11 +50,26 @@ public class WorkerDao {
             {{Tbl_workers.category, "null", category}},
             {{Tbl_workers.id_mec, "LIKE", id_mec}}};
 
-        String where = " WHERE " + daoConnection.buildQueryWhere(searchWhere);
+        
+        String where = daoConnection.buildQueryWhere(searchWhere);
 
+        if (where.isEmpty()) {
+
+            where = "";
+
+        } else {
+
+            where = " WHERE " + where;
+
+        }
+        
+   
 //       String sort = " ORDER BY p1.name , p1.department DESC, p2.pk_dsmt DESC ";
 //        query = query + from + where + sort;
         query = query + from + where;
+        
+        
+        System.out.println("getSearchWorker  query --->  " + query );
 
           daoConnection.executePreparedQuery(query, new QueryMapper<Worker>() {
               @Override
@@ -286,10 +301,15 @@ public class WorkerDao {
         for (int i = 0; i < sizeNparam; i++) {
             query += queryList.get(i, 0) + " = ? ";
             param[i] = queryList.get(i, 2);
+            System.out.println(" Param --->  " + param[i]);
         }
 
         query += " WHERE pk_id = " + worker_id;
 
+        
+        System.out.println(" Query --->  " + query);
+        
+        
         daoConnection.update(query, param);
 
         queryList.remove();

@@ -118,6 +118,28 @@ public class ManagementSearch {
 
     /* ###############################################  */
     /*                                                  */
+    /*        Fill All Management info  after save dsmt or dose        */
+    /*                                                  */
+    /* ###############################################  */
+    public void fillAllManagementAfterSave(String worker_id) {
+
+    //    String worker_id = this.workerList.get(frmMan.searchTable.getSelectedRow()).getPk_id();
+
+    //    dbPkIDs.setWorker_id(worker_id);
+
+        fillWorkerInfo(worker_id);
+        fillDosimeterInfo(worker_id, "list");
+        fillDoseInfo(worker_id, "list");
+        manActiveDsmt.fillActiveDsmt(worker_id);
+        manCumulDose.fillCumulDoseInfo(worker_id);
+        manCumulDose.fillNumDsmtCumulDose(worker_id);
+
+    }
+    
+    
+    
+    /* ###############################################  */
+    /*                                                  */
     /*               Worker  info                       */
     /*                                                  */
     /* ###############################################  */
@@ -150,9 +172,9 @@ public class ManagementSearch {
             frmMan.getTxtWorkerBirthMonth().setText(worker.getBirth().split("-")[1]);
             frmMan.getTxtWorkerBirthDay().setText(worker.getBirth().split("-")[2]);
         } else {
-            frmMan.getTxtWorkerBirthYear().setText("----");
-            frmMan.getTxtWorkerBirthMonth().setText("--");
-            frmMan.getTxtWorkerBirthDay().setText("--");
+            frmMan.getTxtWorkerBirthYear().setText("");
+            frmMan.getTxtWorkerBirthMonth().setText("");
+            frmMan.getTxtWorkerBirthDay().setText("");
         }
 // 
         frmMan.getTxtWorkerComments().setText(worker.getComments());

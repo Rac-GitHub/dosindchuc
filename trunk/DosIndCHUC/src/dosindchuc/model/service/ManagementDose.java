@@ -200,8 +200,9 @@ public class ManagementDose {
 
     public void fillWokerDoseInfo() {
 
-        setCleanState.cleanDose();
-        setDoseInfo.fillDoseInfo(dbPkIDs.getWorker_id(), "new");
+        //setCleanState.cleanDose();
+        //setDoseInfo.fillDoseInfo(dbPkIDs.getWorker_id(), "new");
+        setDoseInfo.fillAllManagementAfterSave(dbPkIDs.getWorker_id());
 //        setButtonsState.setDoseBtsSearch(true);
 
     }
