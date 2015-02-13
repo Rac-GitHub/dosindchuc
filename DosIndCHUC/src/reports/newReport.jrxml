@@ -1,0 +1,207 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="report name" pageWidth="595" pageHeight="842" columnWidth="535" leftMargin="20" rightMargin="20" topMargin="20" bottomMargin="20" uuid="e3806bb6-c607-4487-9f3b-39a937ed0f8f">
+	<property name="ireport.zoom" value="2.0"/>
+	<property name="ireport.x" value="0"/>
+	<property name="ireport.y" value="0"/>
+	<style name="table">
+		<box>
+			<pen lineWidth="1.0" lineColor="#000000"/>
+		</box>
+	</style>
+	<style name="table_TH" mode="Opaque" backcolor="#F0F8FF">
+		<box>
+			<topPen lineWidth="0.5" lineColor="#000000"/>
+			<bottomPen lineWidth="0.5" lineColor="#000000"/>
+		</box>
+	</style>
+	<style name="table_CH" mode="Opaque" backcolor="#BFE1FF">
+		<box>
+			<topPen lineWidth="0.5" lineColor="#000000"/>
+			<bottomPen lineWidth="0.5" lineColor="#000000"/>
+		</box>
+	</style>
+	<style name="table_TD" mode="Opaque" backcolor="#FFFFFF">
+		<box>
+			<topPen lineWidth="0.5" lineColor="#000000"/>
+			<bottomPen lineWidth="0.5" lineColor="#000000"/>
+		</box>
+	</style>
+	<style name="table 1">
+		<box>
+			<pen lineWidth="1.0" lineColor="#000000"/>
+		</box>
+	</style>
+	<style name="table 1_TH" mode="Opaque" backcolor="#F0F8FF">
+		<box>
+			<topPen lineWidth="0.5" lineColor="#000000"/>
+			<bottomPen lineWidth="0.5" lineColor="#000000"/>
+		</box>
+	</style>
+	<style name="table 1_CH" mode="Opaque" backcolor="#BFE1FF">
+		<box>
+			<topPen lineWidth="0.5" lineColor="#000000"/>
+			<bottomPen lineWidth="0.5" lineColor="#000000"/>
+		</box>
+	</style>
+	<style name="table 1_TD" mode="Opaque" backcolor="#FFFFFF">
+		<box>
+			<topPen lineWidth="0.5" lineColor="#000000"/>
+			<bottomPen lineWidth="0.5" lineColor="#000000"/>
+		</box>
+	</style>
+	<subDataset name="New Dataset 1" uuid="d1a20181-e9f2-46b3-8c0a-5d263cf68608">
+		<queryString language="SQL">
+			<![CDATA[SELECT
+     doses.`hp007` AS doses_hp007,
+     doses.`hp10` AS doses_hp10,
+     workers.`id_mec` AS workers_id_mec,
+     workers.`name` AS workers_name,
+     workers.`nick` AS workers_nick,
+     workers.`category` AS workers_category
+FROM
+     `workers` workers INNER JOIN `doses` doses ON workers.`pk_id` = doses.`pk_id`
+WHERE
+     workers.`department` = 'Img']]>
+		</queryString>
+		<field name="workers_id_mec" class="java.lang.String"/>
+		<field name="workers_nick" class="java.lang.String"/>
+		<field name="workers_name" class="java.lang.String"/>
+		<field name="doses_hp007" class="java.math.BigDecimal"/>
+		<field name="doses_hp10" class="java.math.BigDecimal"/>
+		<field name="workers_category" class="java.lang.String"/>
+	</subDataset>
+	<subDataset name="New Dataset 2" uuid="b313fe63-c23e-46d8-9a00-5e4124caa65b">
+		<queryString language="SQL">
+			<![CDATA[SELECT
+     doses.`hp007` AS doses_hp007,
+     workers.`id_mec` AS workers_id_mec,
+     workers.`name` AS workers_name
+FROM
+     `workers` workers INNER JOIN `doses` doses ON workers.`pk_id` = doses.`pk_id`]]>
+		</queryString>
+		<field name="doses_hp007" class="java.math.BigDecimal"/>
+		<field name="workers_id_mec" class="java.lang.String"/>
+		<field name="workers_name" class="java.lang.String"/>
+	</subDataset>
+	<subDataset name="dataset1" uuid="f424bd64-714f-4de5-9806-696c66b04e4a"/>
+	<queryString>
+		<![CDATA[SELECT
+     doses.`hp007` AS doses_hp007,
+     workers.`id_mec` AS workers_id_mec,
+     workers.`name` AS workers_name
+FROM
+     `workers` workers INNER JOIN `doses` doses ON workers.`pk_id` = doses.`pk_id`]]>
+	</queryString>
+	<field name="doses_hp007" class="java.math.BigDecimal"/>
+	<field name="workers_id_mec" class="java.lang.String"/>
+	<field name="workers_name" class="java.lang.String"/>
+	<background>
+		<band splitType="Stretch"/>
+	</background>
+	<title>
+		<band height="63" splitType="Stretch"/>
+	</title>
+	<pageHeader>
+		<band height="45" splitType="Stretch">
+			<staticText>
+				<reportElement x="227" y="15" width="100" height="20" uuid="866e2ce0-603c-42ce-8fb0-ca6ae578ae1d"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle"/>
+				<text><![CDATA[Teste 1]]></text>
+			</staticText>
+		</band>
+	</pageHeader>
+	<columnHeader>
+		<band height="61" splitType="Stretch"/>
+	</columnHeader>
+	<detail>
+		<band height="184" splitType="Stretch">
+			<componentElement>
+				<reportElement key="table 1" style="table 1" stretchType="RelativeToBandHeight" isPrintRepeatedValues="false" mode="Transparent" x="42" y="0" width="360" height="71" isRemoveLineWhenBlank="true" isPrintInFirstWholeBand="true" uuid="e165aad6-2117-4f5b-b5e6-8fe7d5c65e10"/>
+				<jr:table xmlns:jr="http://jasperreports.sourceforge.net/jasperreports/components" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports/components http://jasperreports.sourceforge.net/xsd/components.xsd">
+					<datasetRun subDataset="New Dataset 2" uuid="43d6c6fd-0ecc-497d-b66c-71e2eb3315d0">
+						<connectionExpression><![CDATA[$P{REPORT_CONNECTION}]]></connectionExpression>
+					</datasetRun>
+					<jr:column width="90" uuid="ee560c09-d0d8-49de-8263-03457d0f595a">
+						<jr:tableHeader style="table 1_TH" height="30"/>
+						<jr:tableFooter style="table 1_TH" height="30"/>
+						<jr:columnHeader style="table 1_CH" height="30">
+							<staticText>
+								<reportElement x="0" y="0" width="90" height="30" uuid="ade50bc2-89b2-491c-a153-ab796be99b70"/>
+								<text><![CDATA[doses_hp007]]></text>
+							</staticText>
+						</jr:columnHeader>
+						<jr:columnFooter style="table 1_CH" height="30"/>
+						<jr:detailCell style="table 1_TD" height="20">
+							<textField>
+								<reportElement x="0" y="0" width="90" height="20" uuid="fa3ce13b-1dd9-4501-a833-11cade0a93b1"/>
+								<textFieldExpression><![CDATA[$F{doses_hp007}]]></textFieldExpression>
+							</textField>
+						</jr:detailCell>
+					</jr:column>
+					<jr:column width="90" uuid="04e7ce3f-efb7-4175-b193-446ffb84e3c1">
+						<jr:tableHeader style="table 1_TH" height="30"/>
+						<jr:tableFooter style="table 1_TH" height="30"/>
+						<jr:columnHeader style="table 1_CH" height="30">
+							<staticText>
+								<reportElement x="0" y="0" width="90" height="30" uuid="dd9a4085-c954-4354-a9fd-a21e6c90e741"/>
+								<text><![CDATA[workers_id_mec]]></text>
+							</staticText>
+						</jr:columnHeader>
+						<jr:columnFooter style="table 1_CH" height="30"/>
+						<jr:detailCell style="table 1_TD" height="20">
+							<textField>
+								<reportElement x="0" y="0" width="90" height="20" uuid="beb5909c-9f2a-4d29-96b0-31221396dc49"/>
+								<textFieldExpression><![CDATA[$F{workers_id_mec}]]></textFieldExpression>
+							</textField>
+						</jr:detailCell>
+					</jr:column>
+					<jr:column width="90" uuid="48502037-5a33-4bdb-9cd2-2856de98fe4c">
+						<jr:tableHeader style="table 1_TH" height="30"/>
+						<jr:tableFooter style="table 1_TH" height="30"/>
+						<jr:columnHeader style="table 1_CH" height="30">
+							<staticText>
+								<reportElement x="0" y="0" width="90" height="30" uuid="2586b78d-092a-4d26-9e80-e5c6a9643d3b"/>
+								<text><![CDATA[workers_name]]></text>
+							</staticText>
+						</jr:columnHeader>
+						<jr:columnFooter style="table 1_CH" height="30"/>
+						<jr:detailCell style="table 1_TD" height="20">
+							<textField>
+								<reportElement x="0" y="0" width="90" height="20" uuid="714a6ade-7341-4ed0-8876-9cd2567a2be6"/>
+								<textFieldExpression><![CDATA[$F{workers_name}]]></textFieldExpression>
+							</textField>
+						</jr:detailCell>
+					</jr:column>
+				</jr:table>
+			</componentElement>
+			<componentElement>
+				<reportElement x="29" y="110" width="400" height="50" uuid="dd314274-9163-4f5f-bc5e-90988e4dc0f5"/>
+				<jr:list xmlns:jr="http://jasperreports.sourceforge.net/jasperreports/components" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports/components http://jasperreports.sourceforge.net/xsd/components.xsd">
+					<datasetRun subDataset="New Dataset 2" uuid="56babdc4-7e43-4238-b3a1-10e6771fcf88">
+						<dataSourceExpression><![CDATA[new net.sf.jasperreports.engine.JREmptyDataSource(1)]]></dataSourceExpression>
+					</datasetRun>
+					<jr:listContents height="50" width="400"/>
+				</jr:list>
+			</componentElement>
+		</band>
+	</detail>
+	<columnFooter>
+		<band height="45" splitType="Stretch"/>
+	</columnFooter>
+	<pageFooter>
+		<band height="54" splitType="Stretch">
+			<textField>
+				<reportElement x="243" y="12" width="80" height="20" uuid="44b8553b-e9d5-4cba-9bb4-c0b05f6bf8a9"/>
+				<textElement textAlignment="Right"/>
+				<textFieldExpression><![CDATA["Page "+$V{PAGE_NUMBER}+" of"]]></textFieldExpression>
+			</textField>
+			<textField evaluationTime="Report">
+				<reportElement x="323" y="12" width="40" height="20" uuid="7bf116c0-1f69-47c8-b616-176f81ad53c9"/>
+				<textFieldExpression><![CDATA[" " + $V{PAGE_NUMBER}]]></textFieldExpression>
+			</textField>
+		</band>
+	</pageFooter>
+	<summary>
+		<band height="42" splitType="Stretch"/>
+	</summary>
+</jasperReport>

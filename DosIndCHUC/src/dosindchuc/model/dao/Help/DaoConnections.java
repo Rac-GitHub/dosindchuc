@@ -30,7 +30,7 @@ public class DaoConnections {
      * @return conn
      * @throws SQLException
      */
-    private Connection getConnection() {
+    public Connection getConnection() {
 
  
 

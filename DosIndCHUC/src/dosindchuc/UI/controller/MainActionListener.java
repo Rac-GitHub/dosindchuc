@@ -11,12 +11,17 @@ import dosindchuc.UI.swing.ManagementFrm;
 import dosindchuc.model.dao.UsersDao;
 import dosindchuc.model.entities.Users;
 import dosindchuc.model.service.AlertNotesService;
+import dosindchuc.reports.PdfFromJasperFile;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
+import java.io.IOException;
 import java.util.List;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javax.swing.JOptionPane;
+import net.sf.jasperreports.engine.JRException;
 
 /**
  *
@@ -28,6 +33,7 @@ public final class MainActionListener implements ActionListener, MouseListener {
     private UsersDao service;
     private AlertNotesService alertNoteService;
     private AlertTableInMainFrm alertNotesTable;
+    private PdfFromJasperFile pdfFromJasperFile;
 
     public MainActionListener(MainFrm frm) {
 
@@ -39,6 +45,7 @@ public final class MainActionListener implements ActionListener, MouseListener {
 
         addListeners();
         initState();
+        pdfFromJasperFile = new PdfFromJasperFile();
 
     }
 
@@ -94,6 +101,17 @@ public final class MainActionListener implements ActionListener, MouseListener {
             });
 
             MainFrm.btInsertIndDosimetry.setEnabled(false);
+
+        }
+        
+        else if (command.equalsIgnoreCase("Administration")) {
+            try {
+                pdfFromJasperFile.report1();
+            } catch (JRException ex) {
+                Logger.getLogger(MainActionListener.class.getName()).log(Level.SEVERE, null, ex);
+            } catch (IOException ex) {
+                Logger.getLogger(MainActionListener.class.getName()).log(Level.SEVERE, null, ex);
+            }
 
         }
     }
