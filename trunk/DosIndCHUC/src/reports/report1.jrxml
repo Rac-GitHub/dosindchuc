@@ -1,0 +1,145 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="null" language="groovy" pageWidth="595" pageHeight="842" columnWidth="535" leftMargin="20" rightMargin="20" topMargin="20" bottomMargin="20" uuid="7a5fe4ae-ad4c-4df5-81b8-29c99429bce4">
+	<property name="ireport.zoom" value="4.0"/>
+	<property name="ireport.x" value="0"/>
+	<property name="ireport.y" value="0"/>
+	<style name="Title" fontName="Arial" fontSize="26" isBold="true" pdfFontName="Helvetica-Bold"/>
+	<style name="SubTitle" forecolor="#666666" fontName="Arial" fontSize="18"/>
+	<style name="Column header" forecolor="#666666" fontName="Arial" fontSize="12" isBold="true"/>
+	<style name="Detail" fontName="Arial" fontSize="12"/>
+	<parameter name="department" class="java.lang.String">
+		<defaultValueExpression><![CDATA['Img']]></defaultValueExpression>
+	</parameter>
+	<queryString>
+		<![CDATA[SELECT
+     doses.`hp007` AS doses_hp007,
+     workers.`id_mec` AS workers_id_mec,
+     workers.`name` AS workers_name
+FROM
+     `workers` workers INNER JOIN `doses` doses ON workers.`pk_id` = doses.`pk_id`
+WHERE
+     workers.`department` = $P{department}]]>
+	</queryString>
+	<field name="doses_hp007" class="java.math.BigDecimal"/>
+	<field name="workers_id_mec" class="java.lang.String"/>
+	<field name="workers_name" class="java.lang.String"/>
+	<background>
+		<band splitType="Stretch"/>
+	</background>
+	<title>
+		<band height="83" splitType="Stretch">
+			<image vAlign="Middle">
+				<reportElement x="0" y="0" width="141" height="77" uuid="1dbb0065-b7d0-49cf-aed3-9d0ba45edbcb"/>
+				<imageExpression><![CDATA["logotipo_chuc_novo.png"]]></imageExpression>
+			</image>
+			<staticText>
+				<reportElement style="Title" x="109" y="15" width="281" height="33" uuid="42e4c35d-318e-495a-b487-3fdf08f6af1d"/>
+				<textElement verticalAlignment="Middle"/>
+				<text><![CDATA[Dosimetria Individual]]></text>
+			</staticText>
+			<staticText>
+				<reportElement style="SubTitle" x="272" y="55" width="197" height="22" uuid="e0503a04-9a32-4154-8c0d-fe0414f9c6a1"/>
+				<text><![CDATA[Serviço de Radioterapia]]></text>
+			</staticText>
+		</band>
+	</title>
+	<pageHeader>
+		<band splitType="Stretch"/>
+	</pageHeader>
+	<columnHeader>
+		<band height="31" splitType="Stretch">
+			<line>
+				<reportElement positionType="FixRelativeToBottom" x="0" y="30" width="555" height="1" uuid="2ac84731-4bb8-4747-a6f8-827551738cae"/>
+				<graphicElement>
+					<pen lineWidth="0.5" lineColor="#999999"/>
+				</graphicElement>
+			</line>
+			<staticText>
+				<reportElement x="72" y="11" width="100" height="20" uuid="c9870a0a-40e5-4518-8883-2d71522419fd"/>
+				<textElement verticalAlignment="Middle"/>
+				<text><![CDATA[Id Mec]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="172" y="11" width="100" height="20" uuid="df7ac743-b8f8-426d-be07-57763cf8aa95"/>
+				<textElement verticalAlignment="Middle"/>
+				<text><![CDATA[Name]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="272" y="11" width="100" height="20" uuid="9f2271c3-94f7-482b-9d6c-48871f19ac82"/>
+				<textElement verticalAlignment="Middle">
+					<font isItalic="true"/>
+				</textElement>
+				<text><![CDATA[Hp007 (mSv)]]></text>
+			</staticText>
+		</band>
+	</columnHeader>
+	<detail>
+		<band height="32" splitType="Stretch">
+			<textField pattern="" isBlankWhenNull="true">
+				<reportElement stretchType="RelativeToBandHeight" x="172" y="0" width="100" height="20" isRemoveLineWhenBlank="true" uuid="dbee07ae-8828-4a6a-9b26-95be9bbe4802"/>
+				<textElement verticalAlignment="Middle"/>
+				<textFieldExpression><![CDATA[$F{workers_name}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="72" y="1" width="100" height="19" uuid="5c964cc6-a76a-4829-9875-0e669597d95f"/>
+				<textElement verticalAlignment="Middle"/>
+				<textFieldExpression><![CDATA[$F{workers_id_mec}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement stretchType="RelativeToBandHeight" x="272" y="0" width="100" height="20" uuid="d44d1992-29a7-4210-9f7f-21ead393e23b"/>
+				<textElement verticalAlignment="Middle"/>
+				<textFieldExpression><![CDATA[$F{doses_hp007}]]></textFieldExpression>
+			</textField>
+			<line>
+				<reportElement x="72" y="24" width="303" height="1" uuid="91979808-7666-4505-b92c-6cf578054675"/>
+				<graphicElement>
+					<pen lineWidth="0.5"/>
+				</graphicElement>
+			</line>
+		</band>
+	</detail>
+	<columnFooter>
+		<band height="45" splitType="Stretch">
+			<line>
+				<reportElement positionType="FixRelativeToBottom" x="0" y="3" width="555" height="1" uuid="6490d5ac-311f-4e74-9ba8-d6fb20d18093"/>
+				<graphicElement>
+					<pen lineWidth="0.5" lineColor="#999999"/>
+				</graphicElement>
+			</line>
+			<line>
+				<reportElement positionType="FixRelativeToBottom" x="0" y="2" width="555" height="1" uuid="5542ae8f-10f7-4723-bdc5-02baeb28cd54"/>
+				<graphicElement>
+					<pen lineWidth="0.5" lineColor="#999999"/>
+				</graphicElement>
+			</line>
+		</band>
+	</columnFooter>
+	<pageFooter>
+		<band height="20" splitType="Stretch">
+			<textField>
+				<reportElement style="Column header" x="433" y="0" width="80" height="20" uuid="747e30b7-43f3-49ad-a6b9-e5034e4e50ef"/>
+				<textElement textAlignment="Right">
+					<font size="10" isBold="false"/>
+				</textElement>
+				<textFieldExpression><![CDATA["Page "+$V{PAGE_NUMBER}+" of"]]></textFieldExpression>
+			</textField>
+			<textField evaluationTime="Report">
+				<reportElement style="Column header" x="513" y="0" width="40" height="20" uuid="7b0e836d-46bb-4cc5-91d9-ff652026602f"/>
+				<textElement>
+					<font size="10" isBold="false"/>
+				</textElement>
+				<textFieldExpression><![CDATA[" " + $V{PAGE_NUMBER}]]></textFieldExpression>
+			</textField>
+			<textField pattern="EEEEE dd MMMMM yyyy">
+				<reportElement style="Column header" x="0" y="0" width="197" height="20" uuid="94c0ba73-4a58-4605-9e9b-5e3cd43eb8ff"/>
+				<textElement>
+					<font size="10" isBold="false"/>
+				</textElement>
+				<textFieldExpression><![CDATA[new java.util.Date()]]></textFieldExpression>
+			</textField>
+		</band>
+	</pageFooter>
+	<summary>
+		<band splitType="Stretch"/>
+	</summary>
+</jasperReport>
