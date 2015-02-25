@@ -7,6 +7,8 @@ package dosindchuc.UI.swing;
 import dosindchuc.UI.controller.ManagementActionListener;
 import dosindchuc.UI.swing.Help.ManagementButtons;
 import dosindchuc.UI.swing.Help.ManagementFields;
+import dosindchuc.model.entities.Help.SetEnums;
+import javax.swing.DefaultComboBoxModel;
 import javax.swing.JButton;
 import javax.swing.JComboBox;
 import javax.swing.JTabbedPane;
@@ -332,17 +334,14 @@ public class ManagementFrm extends javax.swing.JFrame {
         jLabel10.setText("Sex:");
 
         cbWorkerSex.setFont(new java.awt.Font("Dialog", 1, 10)); // NOI18N
-        cbWorkerSex.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "F", "M" }));
 
         jLabel11.setText("Category:");
 
         cbWorkerCat.setFont(new java.awt.Font("Dialog", 1, 10)); // NOI18N
-        cbWorkerCat.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "Médico", "Físico", "Técnico", "Secretário", "Enfermeiro", "Auxiliar", "NoDef" }));
 
         jLabel12.setText("Department:");
 
         cbWorkerDept.setFont(new java.awt.Font("Dialog", 1, 10)); // NOI18N
-        cbWorkerDept.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "RT", "Img", "Orto", "BOC", "MN", "NoDef" }));
 
         jLabel13.setText("Sector:");
 
@@ -401,7 +400,6 @@ public class ManagementFrm extends javax.swing.JFrame {
         btSaveWorkerUpdate.getAccessibleContext().setAccessibleName("btSaveWorkerUpdate");
 
         txtWorkerActiveDsmt1.setEditable(false);
-        txtWorkerActiveDsmt1.setBackground(new java.awt.Color(238, 238, 238));
         txtWorkerActiveDsmt1.setHorizontalAlignment(javax.swing.JTextField.RIGHT);
         txtWorkerActiveDsmt1.setBorder(javax.swing.BorderFactory.createEtchedBorder());
         txtWorkerActiveDsmt1.setOpaque(false);
@@ -411,7 +409,6 @@ public class ManagementFrm extends javax.swing.JFrame {
         txtWorkerActDsmtSupp1.setEditable(false);
         txtWorkerActDsmtSupp1.setFont(new java.awt.Font("Dialog", 0, 10)); // NOI18N
         txtWorkerActDsmtSupp1.setHorizontalAlignment(javax.swing.JTextField.LEFT);
-        txtWorkerActDsmtSupp1.setText("jTextField1");
         txtWorkerActDsmtSupp1.setBorder(null);
         txtWorkerActDsmtSupp1.setMargin(new java.awt.Insets(0, 8, 0, 0));
         txtWorkerActDsmtSupp1.setOpaque(false);
@@ -419,14 +416,12 @@ public class ManagementFrm extends javax.swing.JFrame {
         txtWorkerActDsmtType1.setEditable(false);
         txtWorkerActDsmtType1.setFont(new java.awt.Font("Dialog", 0, 10)); // NOI18N
         txtWorkerActDsmtType1.setHorizontalAlignment(javax.swing.JTextField.LEFT);
-        txtWorkerActDsmtType1.setText("jTextField1");
         txtWorkerActDsmtType1.setBorder(null);
         txtWorkerActDsmtType1.setMargin(new java.awt.Insets(0, 2, 0, 0));
         txtWorkerActDsmtType1.setOpaque(false);
 
         txtWorkerActDsmtPeriod1.setEditable(false);
         txtWorkerActDsmtPeriod1.setFont(new java.awt.Font("Dialog", 0, 10)); // NOI18N
-        txtWorkerActDsmtPeriod1.setText("jTextField1");
         txtWorkerActDsmtPeriod1.setBorder(null);
         txtWorkerActDsmtPeriod1.setMargin(new java.awt.Insets(0, 2, 0, 0));
         txtWorkerActDsmtPeriod1.setOpaque(false);
@@ -434,7 +429,6 @@ public class ManagementFrm extends javax.swing.JFrame {
         txtWorkerActDsmtStatus1.setEditable(false);
         txtWorkerActDsmtStatus1.setFont(new java.awt.Font("Dialog", 0, 10)); // NOI18N
         txtWorkerActDsmtStatus1.setHorizontalAlignment(javax.swing.JTextField.RIGHT);
-        txtWorkerActDsmtStatus1.setText("jTextField1");
         txtWorkerActDsmtStatus1.setBorder(null);
         txtWorkerActDsmtStatus1.setMargin(new java.awt.Insets(0, 2, 0, 2));
         txtWorkerActDsmtStatus1.setOpaque(false);
@@ -442,13 +436,11 @@ public class ManagementFrm extends javax.swing.JFrame {
         txtWorkerActDsmtLastChange1.setEditable(false);
         txtWorkerActDsmtLastChange1.setFont(new java.awt.Font("Dialog", 0, 10)); // NOI18N
         txtWorkerActDsmtLastChange1.setHorizontalAlignment(javax.swing.JTextField.RIGHT);
-        txtWorkerActDsmtLastChange1.setText("jTextField1");
         txtWorkerActDsmtLastChange1.setBorder(null);
         txtWorkerActDsmtLastChange1.setMargin(new java.awt.Insets(0, 2, 0, 2));
         txtWorkerActDsmtLastChange1.setOpaque(false);
 
         txtWorkerActiveDsmt2.setEditable(false);
-        txtWorkerActiveDsmt2.setBackground(new java.awt.Color(238, 238, 238));
         txtWorkerActiveDsmt2.setHorizontalAlignment(javax.swing.JTextField.RIGHT);
         txtWorkerActiveDsmt2.setBorder(javax.swing.BorderFactory.createEtchedBorder());
         txtWorkerActiveDsmt2.setOpaque(false);
@@ -456,7 +448,6 @@ public class ManagementFrm extends javax.swing.JFrame {
         txtWorkerActDsmtSupp2.setEditable(false);
         txtWorkerActDsmtSupp2.setFont(new java.awt.Font("Dialog", 0, 10)); // NOI18N
         txtWorkerActDsmtSupp2.setHorizontalAlignment(javax.swing.JTextField.LEFT);
-        txtWorkerActDsmtSupp2.setText("jTextField1");
         txtWorkerActDsmtSupp2.setBorder(null);
         txtWorkerActDsmtSupp2.setMargin(new java.awt.Insets(0, 2, 0, 0));
         txtWorkerActDsmtSupp2.setOpaque(false);
@@ -464,7 +455,6 @@ public class ManagementFrm extends javax.swing.JFrame {
         txtWorkerActDsmtType2.setEditable(false);
         txtWorkerActDsmtType2.setFont(new java.awt.Font("Dialog", 0, 10)); // NOI18N
         txtWorkerActDsmtType2.setHorizontalAlignment(javax.swing.JTextField.LEFT);
-        txtWorkerActDsmtType2.setText("jTextField1");
         txtWorkerActDsmtType2.setBorder(null);
         txtWorkerActDsmtType2.setMargin(new java.awt.Insets(0, 2, 0, 0));
         txtWorkerActDsmtType2.setOpaque(false);
@@ -472,7 +462,6 @@ public class ManagementFrm extends javax.swing.JFrame {
         txtWorkerActDsmtPeriod2.setEditable(false);
         txtWorkerActDsmtPeriod2.setFont(new java.awt.Font("Dialog", 0, 10)); // NOI18N
         txtWorkerActDsmtPeriod2.setHorizontalAlignment(javax.swing.JTextField.LEFT);
-        txtWorkerActDsmtPeriod2.setText("jTextField1");
         txtWorkerActDsmtPeriod2.setBorder(null);
         txtWorkerActDsmtPeriod2.setMargin(new java.awt.Insets(0, 2, 0, 0));
         txtWorkerActDsmtPeriod2.setOpaque(false);
@@ -480,7 +469,6 @@ public class ManagementFrm extends javax.swing.JFrame {
         txtWorkerActDsmtStatus2.setEditable(false);
         txtWorkerActDsmtStatus2.setFont(new java.awt.Font("Dialog", 0, 10)); // NOI18N
         txtWorkerActDsmtStatus2.setHorizontalAlignment(javax.swing.JTextField.RIGHT);
-        txtWorkerActDsmtStatus2.setText("jTextField1");
         txtWorkerActDsmtStatus2.setBorder(null);
         txtWorkerActDsmtStatus2.setMargin(new java.awt.Insets(0, 2, 0, 2));
         txtWorkerActDsmtStatus2.setOpaque(false);
@@ -488,13 +476,11 @@ public class ManagementFrm extends javax.swing.JFrame {
         txtWorkerActDsmtLastChange2.setEditable(false);
         txtWorkerActDsmtLastChange2.setFont(new java.awt.Font("Dialog", 0, 10)); // NOI18N
         txtWorkerActDsmtLastChange2.setHorizontalAlignment(javax.swing.JTextField.RIGHT);
-        txtWorkerActDsmtLastChange2.setText("jTextField1");
         txtWorkerActDsmtLastChange2.setBorder(null);
         txtWorkerActDsmtLastChange2.setMargin(new java.awt.Insets(0, 2, 0, 2));
         txtWorkerActDsmtLastChange2.setOpaque(false);
 
         txtWorkerActiveDsmt3.setEditable(false);
-        txtWorkerActiveDsmt3.setBackground(new java.awt.Color(238, 238, 238));
         txtWorkerActiveDsmt3.setHorizontalAlignment(javax.swing.JTextField.RIGHT);
         txtWorkerActiveDsmt3.setBorder(javax.swing.BorderFactory.createEtchedBorder());
         txtWorkerActiveDsmt3.setOpaque(false);
@@ -502,7 +488,6 @@ public class ManagementFrm extends javax.swing.JFrame {
         txtWorkerActDsmtSupp3.setEditable(false);
         txtWorkerActDsmtSupp3.setFont(new java.awt.Font("Dialog", 0, 10)); // NOI18N
         txtWorkerActDsmtSupp3.setHorizontalAlignment(javax.swing.JTextField.LEFT);
-        txtWorkerActDsmtSupp3.setText("jTextField1");
         txtWorkerActDsmtSupp3.setBorder(null);
         txtWorkerActDsmtSupp3.setMargin(new java.awt.Insets(0, 2, 0, 0));
         txtWorkerActDsmtSupp3.setOpaque(false);
@@ -510,7 +495,6 @@ public class ManagementFrm extends javax.swing.JFrame {
         txtWorkerActDsmtType3.setEditable(false);
         txtWorkerActDsmtType3.setFont(new java.awt.Font("Dialog", 0, 10)); // NOI18N
         txtWorkerActDsmtType3.setHorizontalAlignment(javax.swing.JTextField.LEFT);
-        txtWorkerActDsmtType3.setText("jTextField1");
         txtWorkerActDsmtType3.setBorder(null);
         txtWorkerActDsmtType3.setMargin(new java.awt.Insets(0, 2, 0, 0));
         txtWorkerActDsmtType3.setOpaque(false);
@@ -518,7 +502,6 @@ public class ManagementFrm extends javax.swing.JFrame {
         txtWorkerActDsmtPeriod3.setEditable(false);
         txtWorkerActDsmtPeriod3.setFont(new java.awt.Font("Dialog", 0, 10)); // NOI18N
         txtWorkerActDsmtPeriod3.setHorizontalAlignment(javax.swing.JTextField.LEFT);
-        txtWorkerActDsmtPeriod3.setText("jTextField1");
         txtWorkerActDsmtPeriod3.setBorder(null);
         txtWorkerActDsmtPeriod3.setMargin(new java.awt.Insets(0, 2, 0, 0));
         txtWorkerActDsmtPeriod3.setOpaque(false);
@@ -526,7 +509,6 @@ public class ManagementFrm extends javax.swing.JFrame {
         txtWorkerActDsmtStatus3.setEditable(false);
         txtWorkerActDsmtStatus3.setFont(new java.awt.Font("Dialog", 0, 10)); // NOI18N
         txtWorkerActDsmtStatus3.setHorizontalAlignment(javax.swing.JTextField.RIGHT);
-        txtWorkerActDsmtStatus3.setText("jTextField1");
         txtWorkerActDsmtStatus3.setBorder(null);
         txtWorkerActDsmtStatus3.setMargin(new java.awt.Insets(0, 2, 0, 2));
         txtWorkerActDsmtStatus3.setOpaque(false);
@@ -534,7 +516,6 @@ public class ManagementFrm extends javax.swing.JFrame {
         txtWorkerActDsmtLastChange3.setEditable(false);
         txtWorkerActDsmtLastChange3.setFont(new java.awt.Font("Dialog", 0, 10)); // NOI18N
         txtWorkerActDsmtLastChange3.setHorizontalAlignment(javax.swing.JTextField.RIGHT);
-        txtWorkerActDsmtLastChange3.setText("jTextField1");
         txtWorkerActDsmtLastChange3.setBorder(null);
         txtWorkerActDsmtLastChange3.setMargin(new java.awt.Insets(0, 2, 0, 2));
         txtWorkerActDsmtLastChange3.setOpaque(false);
@@ -550,50 +531,42 @@ public class ManagementFrm extends javax.swing.JFrame {
         txtDoseHp007_1year.setEditable(false);
         txtDoseHp007_1year.setFont(new java.awt.Font("Dialog", 2, 18)); // NOI18N
         txtDoseHp007_1year.setHorizontalAlignment(javax.swing.JTextField.CENTER);
-        txtDoseHp007_1year.setText("jTextField1");
 
         txtDsmtID1Hp007_1year.setEditable(false);
         txtDsmtID1Hp007_1year.setFont(new java.awt.Font("Dialog", 0, 8)); // NOI18N
         txtDsmtID1Hp007_1year.setHorizontalAlignment(javax.swing.JTextField.TRAILING);
-        txtDsmtID1Hp007_1year.setText("j");
         txtDsmtID1Hp007_1year.setBorder(null);
         txtDsmtID1Hp007_1year.setOpaque(false);
 
         txtNumDsmtID1Hp007_1year.setEditable(false);
         txtNumDsmtID1Hp007_1year.setFont(new java.awt.Font("Dialog", 0, 8)); // NOI18N
-        txtNumDsmtID1Hp007_1year.setText("(1)");
         txtNumDsmtID1Hp007_1year.setBorder(null);
         txtNumDsmtID1Hp007_1year.setOpaque(false);
 
         txtDsmtID3Hp007_1year.setEditable(false);
         txtDsmtID3Hp007_1year.setFont(new java.awt.Font("Dialog", 0, 8)); // NOI18N
         txtDsmtID3Hp007_1year.setHorizontalAlignment(javax.swing.JTextField.TRAILING);
-        txtDsmtID3Hp007_1year.setText("jTextField2");
         txtDsmtID3Hp007_1year.setBorder(null);
         txtDsmtID3Hp007_1year.setOpaque(false);
 
         txtDsmtID2Hp007_1year.setEditable(false);
         txtDsmtID2Hp007_1year.setFont(new java.awt.Font("Dialog", 0, 8)); // NOI18N
         txtDsmtID2Hp007_1year.setHorizontalAlignment(javax.swing.JTextField.TRAILING);
-        txtDsmtID2Hp007_1year.setText("jTextField2");
         txtDsmtID2Hp007_1year.setBorder(null);
         txtDsmtID2Hp007_1year.setOpaque(false);
 
         txtNumDsmtID2Hp007_1year.setEditable(false);
         txtNumDsmtID2Hp007_1year.setFont(new java.awt.Font("Dialog", 0, 8)); // NOI18N
-        txtNumDsmtID2Hp007_1year.setText("jTextField2");
         txtNumDsmtID2Hp007_1year.setBorder(null);
         txtNumDsmtID2Hp007_1year.setOpaque(false);
 
         txtNumDsmtID3Hp007_1year.setEditable(false);
         txtNumDsmtID3Hp007_1year.setFont(new java.awt.Font("Dialog", 0, 8)); // NOI18N
-        txtNumDsmtID3Hp007_1year.setText("jTextField2");
         txtNumDsmtID3Hp007_1year.setBorder(null);
         txtNumDsmtID3Hp007_1year.setOpaque(false);
 
         txtSymbNoteHp007_1year.setEditable(false);
         txtSymbNoteHp007_1year.setFont(new java.awt.Font("Dialog", 0, 8)); // NOI18N
-        txtSymbNoteHp007_1year.setText("jTextField2");
         txtSymbNoteHp007_1year.setBorder(null);
         txtSymbNoteHp007_1year.setOpaque(false);
 
@@ -601,48 +574,40 @@ public class ManagementFrm extends javax.swing.JFrame {
 
         txtSymbNoteHp10_1year.setEditable(false);
         txtSymbNoteHp10_1year.setFont(new java.awt.Font("Dialog", 0, 8)); // NOI18N
-        txtSymbNoteHp10_1year.setText("jTextField2");
         txtSymbNoteHp10_1year.setBorder(null);
         txtSymbNoteHp10_1year.setOpaque(false);
 
         txtDoseHp10_1year.setEditable(false);
         txtDoseHp10_1year.setFont(new java.awt.Font("Dialog", 2, 18)); // NOI18N
         txtDoseHp10_1year.setHorizontalAlignment(javax.swing.JTextField.CENTER);
-        txtDoseHp10_1year.setText("jTextField1");
 
         txtDsmtID1Hp10_1year.setEditable(false);
         txtDsmtID1Hp10_1year.setFont(new java.awt.Font("Dialog", 0, 8)); // NOI18N
-        txtDsmtID1Hp10_1year.setText("jTextField2");
         txtDsmtID1Hp10_1year.setBorder(null);
         txtDsmtID1Hp10_1year.setOpaque(false);
 
         txtDsmtID2Hp10_1year.setEditable(false);
         txtDsmtID2Hp10_1year.setFont(new java.awt.Font("Dialog", 0, 8)); // NOI18N
-        txtDsmtID2Hp10_1year.setText("jTextField2");
         txtDsmtID2Hp10_1year.setBorder(null);
         txtDsmtID2Hp10_1year.setOpaque(false);
 
         txtDsmtID3Hp10_1year.setEditable(false);
         txtDsmtID3Hp10_1year.setFont(new java.awt.Font("Dialog", 0, 8)); // NOI18N
-        txtDsmtID3Hp10_1year.setText("jTextField2");
         txtDsmtID3Hp10_1year.setBorder(null);
         txtDsmtID3Hp10_1year.setOpaque(false);
 
         txtNumDsmtID1Hp10_1year.setEditable(false);
         txtNumDsmtID1Hp10_1year.setFont(new java.awt.Font("Dialog", 0, 8)); // NOI18N
-        txtNumDsmtID1Hp10_1year.setText("jTextField2");
         txtNumDsmtID1Hp10_1year.setBorder(null);
         txtNumDsmtID1Hp10_1year.setOpaque(false);
 
         txtNumDsmtID2Hp10_1year.setEditable(false);
         txtNumDsmtID2Hp10_1year.setFont(new java.awt.Font("Dialog", 0, 8)); // NOI18N
-        txtNumDsmtID2Hp10_1year.setText("jTextField2");
         txtNumDsmtID2Hp10_1year.setBorder(null);
         txtNumDsmtID2Hp10_1year.setOpaque(false);
 
         txtNumDsmtID3Hp10_1year.setEditable(false);
         txtNumDsmtID3Hp10_1year.setFont(new java.awt.Font("Dialog", 0, 8)); // NOI18N
-        txtNumDsmtID3Hp10_1year.setText("jTextField2");
         txtNumDsmtID3Hp10_1year.setBorder(null);
         txtNumDsmtID3Hp10_1year.setOpaque(false);
 
@@ -680,11 +645,12 @@ public class ManagementFrm extends javax.swing.JFrame {
                 .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
                     .addGroup(jPanel2Layout.createSequentialGroup()
                         .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                            .addComponent(txtSymbNoteHp10_1year, javax.swing.GroupLayout.PREFERRED_SIZE, 50, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(jLabel40, javax.swing.GroupLayout.PREFERRED_SIZE, 43, javax.swing.GroupLayout.PREFERRED_SIZE))
+                            .addComponent(jLabel40, javax.swing.GroupLayout.PREFERRED_SIZE, 49, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(txtSymbNoteHp10_1year, javax.swing.GroupLayout.PREFERRED_SIZE, 56, javax.swing.GroupLayout.PREFERRED_SIZE))
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(txtDoseHp10_1year, javax.swing.GroupLayout.PREFERRED_SIZE, 80, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addComponent(txtDoseHp10_1year))
                     .addGroup(jPanel2Layout.createSequentialGroup()
+                        .addGap(0, 36, Short.MAX_VALUE)
                         .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
                             .addComponent(txtDsmtID1Hp10_1year, javax.swing.GroupLayout.PREFERRED_SIZE, 50, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addComponent(txtDsmtID3Hp10_1year, javax.swing.GroupLayout.PREFERRED_SIZE, 50, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -694,7 +660,7 @@ public class ManagementFrm extends javax.swing.JFrame {
                             .addComponent(txtNumDsmtID1Hp10_1year, javax.swing.GroupLayout.PREFERRED_SIZE, 50, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addComponent(txtNumDsmtID2Hp10_1year, javax.swing.GroupLayout.PREFERRED_SIZE, 50, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addComponent(txtNumDsmtID3Hp10_1year, javax.swing.GroupLayout.PREFERRED_SIZE, 50, javax.swing.GroupLayout.PREFERRED_SIZE))))
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addContainerGap())
         );
         jPanel2Layout.setVerticalGroup(
             jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -764,47 +730,39 @@ public class ManagementFrm extends javax.swing.JFrame {
         txtDoseHp007_5year.setEditable(false);
         txtDoseHp007_5year.setFont(new java.awt.Font("Dialog", 2, 18)); // NOI18N
         txtDoseHp007_5year.setHorizontalAlignment(javax.swing.JTextField.CENTER);
-        txtDoseHp007_5year.setText("jTextField1");
 
         txtDsmtID1Hp007_5year.setEditable(false);
         txtDsmtID1Hp007_5year.setFont(new java.awt.Font("Dialog", 0, 8)); // NOI18N
-        txtDsmtID1Hp007_5year.setText("jTextField2");
         txtDsmtID1Hp007_5year.setBorder(null);
         txtDsmtID1Hp007_5year.setOpaque(false);
 
         txtNumDsmtID1Hp007_5year.setEditable(false);
         txtNumDsmtID1Hp007_5year.setFont(new java.awt.Font("Dialog", 0, 8)); // NOI18N
-        txtNumDsmtID1Hp007_5year.setText("jTextField2");
         txtNumDsmtID1Hp007_5year.setBorder(null);
         txtNumDsmtID1Hp007_5year.setOpaque(false);
 
         txtDsmtID3Hp007_5year.setEditable(false);
         txtDsmtID3Hp007_5year.setFont(new java.awt.Font("Dialog", 0, 8)); // NOI18N
-        txtDsmtID3Hp007_5year.setText("jTextField2");
         txtDsmtID3Hp007_5year.setBorder(null);
         txtDsmtID3Hp007_5year.setOpaque(false);
 
         txtDsmtID2Hp007_5year.setEditable(false);
         txtDsmtID2Hp007_5year.setFont(new java.awt.Font("Dialog", 0, 8)); // NOI18N
-        txtDsmtID2Hp007_5year.setText("jTextField2");
         txtDsmtID2Hp007_5year.setBorder(null);
         txtDsmtID2Hp007_5year.setOpaque(false);
 
         txtNumDsmtID2Hp007_5year.setEditable(false);
         txtNumDsmtID2Hp007_5year.setFont(new java.awt.Font("Dialog", 0, 8)); // NOI18N
-        txtNumDsmtID2Hp007_5year.setText("jTextField2");
         txtNumDsmtID2Hp007_5year.setBorder(null);
         txtNumDsmtID2Hp007_5year.setOpaque(false);
 
         txtNumDsmtID3Hp007_5year.setEditable(false);
         txtNumDsmtID3Hp007_5year.setFont(new java.awt.Font("Dialog", 0, 8)); // NOI18N
-        txtNumDsmtID3Hp007_5year.setText("jTextField2");
         txtNumDsmtID3Hp007_5year.setBorder(null);
         txtNumDsmtID3Hp007_5year.setOpaque(false);
 
         txtSymbNoteHp007_5year.setEditable(false);
         txtSymbNoteHp007_5year.setFont(new java.awt.Font("Dialog", 0, 8)); // NOI18N
-        txtSymbNoteHp007_5year.setText("jTextField2");
         txtSymbNoteHp007_5year.setBorder(null);
         txtSymbNoteHp007_5year.setOpaque(false);
 
@@ -812,48 +770,40 @@ public class ManagementFrm extends javax.swing.JFrame {
 
         txtSymbNoteHp10_5year.setEditable(false);
         txtSymbNoteHp10_5year.setFont(new java.awt.Font("Dialog", 0, 8)); // NOI18N
-        txtSymbNoteHp10_5year.setText("jTextField2");
         txtSymbNoteHp10_5year.setBorder(null);
         txtSymbNoteHp10_5year.setOpaque(false);
 
         txtDoseHp10_5year.setEditable(false);
         txtDoseHp10_5year.setFont(new java.awt.Font("Dialog", 2, 18)); // NOI18N
         txtDoseHp10_5year.setHorizontalAlignment(javax.swing.JTextField.CENTER);
-        txtDoseHp10_5year.setText("jTextField1");
 
         txtDsmtID1Hp10_5year.setEditable(false);
         txtDsmtID1Hp10_5year.setFont(new java.awt.Font("Dialog", 0, 8)); // NOI18N
-        txtDsmtID1Hp10_5year.setText("jTextField2");
         txtDsmtID1Hp10_5year.setBorder(null);
         txtDsmtID1Hp10_5year.setOpaque(false);
 
         txtDsmtID2Hp10_5year.setEditable(false);
         txtDsmtID2Hp10_5year.setFont(new java.awt.Font("Dialog", 0, 8)); // NOI18N
-        txtDsmtID2Hp10_5year.setText("jTextField2");
         txtDsmtID2Hp10_5year.setBorder(null);
         txtDsmtID2Hp10_5year.setOpaque(false);
 
         txtDsmtID3Hp10_5year.setEditable(false);
         txtDsmtID3Hp10_5year.setFont(new java.awt.Font("Dialog", 0, 8)); // NOI18N
-        txtDsmtID3Hp10_5year.setText("jTextField2");
         txtDsmtID3Hp10_5year.setBorder(null);
         txtDsmtID3Hp10_5year.setOpaque(false);
 
         txtNumDsmtID1Hp10_5year.setEditable(false);
         txtNumDsmtID1Hp10_5year.setFont(new java.awt.Font("Dialog", 0, 8)); // NOI18N
-        txtNumDsmtID1Hp10_5year.setText("jTextField2");
         txtNumDsmtID1Hp10_5year.setBorder(null);
         txtNumDsmtID1Hp10_5year.setOpaque(false);
 
         txtNumDsmtID2Hp10_5year.setEditable(false);
         txtNumDsmtID2Hp10_5year.setFont(new java.awt.Font("Dialog", 0, 8)); // NOI18N
-        txtNumDsmtID2Hp10_5year.setText("jTextField2");
         txtNumDsmtID2Hp10_5year.setBorder(null);
         txtNumDsmtID2Hp10_5year.setOpaque(false);
 
         txtNumDsmtID3Hp10_5year.setEditable(false);
         txtNumDsmtID3Hp10_5year.setFont(new java.awt.Font("Dialog", 0, 8)); // NOI18N
-        txtNumDsmtID3Hp10_5year.setText("jTextField2");
         txtNumDsmtID3Hp10_5year.setBorder(null);
         txtNumDsmtID3Hp10_5year.setOpaque(false);
 
@@ -891,9 +841,9 @@ public class ManagementFrm extends javax.swing.JFrame {
                     .addGroup(jPanel7Layout.createSequentialGroup()
                         .addGroup(jPanel7Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
                             .addComponent(txtSymbNoteHp10_5year, javax.swing.GroupLayout.PREFERRED_SIZE, 50, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(jLabel42, javax.swing.GroupLayout.PREFERRED_SIZE, 43, javax.swing.GroupLayout.PREFERRED_SIZE))
+                            .addComponent(jLabel42, javax.swing.GroupLayout.PREFERRED_SIZE, 49, javax.swing.GroupLayout.PREFERRED_SIZE))
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(txtDoseHp10_5year, javax.swing.GroupLayout.PREFERRED_SIZE, 80, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addComponent(txtDoseHp10_5year, javax.swing.GroupLayout.PREFERRED_SIZE, 74, javax.swing.GroupLayout.PREFERRED_SIZE))
                     .addGroup(jPanel7Layout.createSequentialGroup()
                         .addGroup(jPanel7Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
                             .addComponent(txtDsmtID1Hp10_5year, javax.swing.GroupLayout.PREFERRED_SIZE, 50, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -904,7 +854,7 @@ public class ManagementFrm extends javax.swing.JFrame {
                             .addComponent(txtNumDsmtID1Hp10_5year, javax.swing.GroupLayout.PREFERRED_SIZE, 50, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addComponent(txtNumDsmtID2Hp10_5year, javax.swing.GroupLayout.PREFERRED_SIZE, 50, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addComponent(txtNumDsmtID3Hp10_5year, javax.swing.GroupLayout.PREFERRED_SIZE, 50, javax.swing.GroupLayout.PREFERRED_SIZE))))
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addContainerGap(18, Short.MAX_VALUE))
         );
         jPanel7Layout.setVerticalGroup(
             jPanel7Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -1171,10 +1121,8 @@ public class ManagementFrm extends javax.swing.JFrame {
 
         cbDosimeterNotesIndex.setActionCommand("cbDosimeterNotesIndex");
 
-        cbDosimeterNotesAlert.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "PI", "N", "I", "MI", "C" }));
         cbDosimeterNotesAlert.setActionCommand("cbDosimeterNotesAlert");
 
-        cbDosimeterNotesStatus.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "O", "C" }));
         cbDosimeterNotesStatus.setActionCommand("cbDosimeterNotesStatus");
 
         jLabel27.setFont(new java.awt.Font("Dialog", 3, 10)); // NOI18N
@@ -1418,11 +1366,7 @@ public class ManagementFrm extends javax.swing.JFrame {
 
         jLabel16.setText("Level:");
 
-        cbDoseNoteLevel.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "PI", "N", "I", "MI", "C" }));
-
         jLabel17.setText("Status:");
-
-        cbDoseNoteStatus.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "O", "C" }));
 
         txtDoseNoteLevelDate.setEditable(false);
         txtDoseNoteLevelDate.setFont(new java.awt.Font("Dialog", 0, 10)); // NOI18N
@@ -1534,7 +1478,7 @@ public class ManagementFrm extends javax.swing.JFrame {
                             .addComponent(txtDoseNoteStatusDate, javax.swing.GroupLayout.PREFERRED_SIZE, 123, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addComponent(txtDoseNoteLevelDate, javax.swing.GroupLayout.PREFERRED_SIZE, 123, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addComponent(jLabel25))
-                        .addContainerGap(24, Short.MAX_VALUE))
+                        .addContainerGap(33, Short.MAX_VALUE))
                     .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel4Layout.createSequentialGroup()
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                         .addComponent(jLayeredPane4, javax.swing.GroupLayout.PREFERRED_SIZE, 210, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -1613,7 +1557,6 @@ public class ManagementFrm extends javax.swing.JFrame {
         txtInfoAction.setOpaque(false);
 
         cbWorkerStatus.setFont(new java.awt.Font("Dialog", 1, 10)); // NOI18N
-        cbWorkerStatus.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "Activo", "Inactivo" }));
 
         jLabel31.setText("Status:");
 
@@ -1751,15 +1694,11 @@ public class ManagementFrm extends javax.swing.JFrame {
         jLabel20.setText("Department:");
 
         searchCBCategory.setFont(new java.awt.Font("Dialog", 1, 10)); // NOI18N
-        searchCBCategory.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "Médico", "Físico", "Técnico", "Secretário", "Enfermeiro", "Auxiliar", "NoDef" }));
-        searchCBCategory.setSelectedIndex(6);
         searchCBCategory.setToolTipText("");
 
         jLabel21.setText("Category:");
 
         searchCBdepartment.setFont(new java.awt.Font("Dialog", 1, 10)); // NOI18N
-        searchCBdepartment.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "RT", "Img", "Orto", "BOC", "MN", "NoDef" }));
-        searchCBdepartment.setSelectedIndex(5);
 
         searchBtSeach.setIcon(new javax.swing.ImageIcon(getClass().getResource("/images/search48.png"))); // NOI18N
         searchBtSeach.setActionCommand("searchManagement");
@@ -1931,7 +1870,23 @@ public class ManagementFrm extends javax.swing.JFrame {
 
         setButtonsState.setAllDoseNoteBtsInit(false);
         setButtonsState.setAllDsmtNoteBtsInit(false);
-
+        
+        // initialize cbBox with eNums
+        this.cbWorkerStatus.setModel(new DefaultComboBoxModel(SetEnums.worker_status.values()));
+        this.cbWorkerSex.setModel(new DefaultComboBoxModel(SetEnums.worker_sex.values()));
+        this.cbWorkerCat.setModel(new DefaultComboBoxModel(SetEnums.worker_category.values()));
+        this.cbWorkerDept.setModel(new DefaultComboBoxModel(SetEnums.worker_department.values()));
+        
+        this.searchCBCategory.setModel(new DefaultComboBoxModel(SetEnums.worker_category.values()));
+        this.searchCBCategory.setSelectedItem("NULL");
+        this.searchCBdepartment.setModel(new DefaultComboBoxModel(SetEnums.worker_department.values()));
+        this.searchCBdepartment.setSelectedItem("NULL");
+        
+        this.cbDosimeterNotesAlert.setModel(new DefaultComboBoxModel(SetEnums.note_alertlevel.values()));
+        this.cbDosimeterNotesStatus.setModel(new DefaultComboBoxModel(SetEnums.note_status.values()));
+        this.cbDoseNoteLevel.setModel(new DefaultComboBoxModel(SetEnums.note_alertlevel.values()));
+        this.cbDoseNoteStatus.setModel(new DefaultComboBoxModel(SetEnums.note_status.values()));
+  
     }
 
     // getter and setters 

@@ -96,14 +96,19 @@ public class ManagementWorker {
     public void newWorker() {
 
         /* tudo ok para escrever */
-
         setFieldsState.setWorkerAllEdit(true);
         setButtonsState.setSaveWorkerNew(false);
         setCleanState.cleanAllInfo();
+        
+        /* to disable buttons */
         setButtonsState.setAllDoseBtsInit(false);
         setButtonsState.setAllDoseNoteBtsInit(false);
         setButtonsState.setAllDosimeterBtsInit(false);
         setButtonsState.setAllDsmtNoteBtsInit(false);
+        
+        setFieldsState.setAllSearchEdit(false);
+        setButtonsState.setAllSearchBts(false);
+        this.frmMan.searchTable.setEnabled(false);
 
         this.frmMan.getTxtInfoAction().setText("Inserting a New Worker");
 
@@ -124,8 +129,8 @@ public class ManagementWorker {
             worker.setPk_id(id);
             this.frmMan.getTxtInfoAction().setText("Worker with id= " + id + " saved into database");
 
-            // actualiza info
-         //   setWorkerInfo.fillWorkerInfo(id);
+         // actualiza info
+         // setWorkerInfo.fillWorkerInfo(id);
             
         setWorkerInfo.fillAllManagementAfterSave(id);
             dbPkIDs.setWorker_id(id);
@@ -133,6 +138,11 @@ public class ManagementWorker {
 
         setFieldsState.setWorkerAllEdit(false);
         setButtonsState.setAllWorkerBtsInit(true);
+        
+         setFieldsState.setAllSearchEdit(true);
+        setButtonsState.setAllSearchBts(true);
+        this.frmMan.searchTable.setEnabled(true);
+        
         
         setCumulDose.newCumulDose(id);
  
@@ -145,6 +155,15 @@ public class ManagementWorker {
 
         setFieldsState.setWorkerAllEdit(true);
         setButtonsState.setSaveWorkerUpdate(false);
+
+        setButtonsState.setAllDoseBtsInit(false);
+        setButtonsState.setAllDoseNoteBtsInit(false);
+        setButtonsState.setAllDosimeterBtsInit(false);
+        setButtonsState.setAllDsmtNoteBtsInit(false);
+        
+        setFieldsState.setAllSearchEdit(false);
+        setButtonsState.setAllSearchBts(false);
+        this.frmMan.searchTable.setEnabled(false);
 
         this.frmMan.getTxtInfoAction().setText("Updating Worker info");
 
@@ -165,13 +184,26 @@ public class ManagementWorker {
         //
         setButtonsState.setAllWorkerBtsInit(true);
         this.frmMan.btWorkerUpdate.setEnabled(true);
+        
+         setFieldsState.setAllSearchEdit(true);
+        setButtonsState.setAllSearchBts(true);
+        this.frmMan.searchTable.setEnabled(true);
+        
 
     }
 
     public void btWorkerCancel() {
+ 
+         String worker_id = dbPkIDs.getWorker_id();
+         setWorkerInfo.fillAllManagementAfterSave(worker_id);
 
-        setButtonsState.setAllSearchClearBts();
-        setCleanState.cleanAllInfo();
+        setFieldsState.setWorkerAllEdit(false);
+        setButtonsState.setAllWorkerBtsInit(true);
+        
+        setFieldsState.setAllSearchEdit(true);
+        setButtonsState.setAllSearchBts(true);
+        this.frmMan.searchTable.setEnabled(true);
+        
         this.frmMan.getTxtInfoAction().setText("Cancel");
 
     }

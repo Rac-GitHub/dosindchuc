@@ -36,7 +36,7 @@ public class PdfFromJasperFile {
        daoConnection = new DaoConnections();
         // Create arguments    // Map 
  
-       params = new HashMap();  
+       params = new HashMap();
        
        params.put("department", "Img");
        

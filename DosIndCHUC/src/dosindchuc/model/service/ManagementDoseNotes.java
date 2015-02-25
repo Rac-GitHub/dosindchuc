@@ -108,6 +108,11 @@ public class ManagementDoseNotes {
         this.frmMan.tableDoseInfo.setEnabled(false);
 
         this.frmMan.getTxtInfoAction().setText("Inserting a New dose note");
+        
+        setFieldState.setAllSearchEdit(false);
+        setButtonsState.setAllSearchBts(false);
+        this.frmMan.searchTable.setEnabled(false);
+        
 
     }
 
@@ -127,6 +132,11 @@ public class ManagementDoseNotes {
         
         this.frmMan.btDoseInfoNew.setEnabled(true);
         this.frmMan.btDoseInfoUpdate.setEnabled(true);
+        
+        setFieldState.setAllSearchEdit(true);
+        setButtonsState.setAllSearchBts(true);
+        this.frmMan.searchTable.setEnabled(true);
+        
 
     }
 
@@ -140,6 +150,10 @@ public class ManagementDoseNotes {
 
         this.frmMan.tableDoseInfo.setEnabled(false);
         this.frmMan.getTxtInfoAction().setText("Updating Dose note info");
+        
+        setFieldState.setAllSearchEdit(false);
+        setButtonsState.setAllSearchBts(false);
+        this.frmMan.searchTable.setEnabled(false);
 
     }
 
@@ -161,6 +175,10 @@ public class ManagementDoseNotes {
         
         this.frmMan.btDoseInfoNew.setEnabled(true);
         this.frmMan.btDoseInfoUpdate.setEnabled(true);
+        
+       setFieldState.setAllSearchEdit(true);
+        setButtonsState.setAllSearchBts(true);
+        this.frmMan.searchTable.setEnabled(true);
 
     }
 
@@ -177,6 +195,10 @@ public class ManagementDoseNotes {
         
         this.frmMan.btDoseInfoNew.setEnabled(true);
         this.frmMan.btDoseInfoUpdate.setEnabled(true);
+        
+         setFieldState.setAllSearchEdit(true);
+        setButtonsState.setAllSearchBts(true);
+        this.frmMan.searchTable.setEnabled(true);
     
     }
     

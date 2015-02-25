@@ -1,3 +1,5 @@
+package dosindchuc.main;
+
 
 import dosindchuc.UI.swing.MainFrm;
 
@@ -10,7 +12,7 @@ import dosindchuc.UI.swing.MainFrm;
  *
  * @author ir
  */
-public class RunDosIndCHUC {
+public class RunDosIndCHUC { 
   
   
  /**

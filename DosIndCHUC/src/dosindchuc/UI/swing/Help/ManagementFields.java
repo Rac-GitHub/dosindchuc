@@ -15,12 +15,12 @@ public class ManagementFields {
 
     private ManagementFrm frmMan;
     private MainFrm frmMain;
-    private ManagementTablesModel tableModel;
+ //   private ManagementTablesModel tableModel;
 
     public ManagementFields(ManagementFrm frmMan) {
 
         this.frmMan = frmMan;
-        tableModel = new ManagementTablesModel(this.frmMain, this.frmMan);
+   //     tableModel = new ManagementTablesModel(this.frmMain, this.frmMan);
 
     }
 
@@ -32,6 +32,16 @@ public class ManagementFields {
 
     }
 
+    
+    public void setAllSearchEdit (boolean searchEdit) {
+    
+        this.frmMan.searchTxtMec.setEnabled(searchEdit);
+        this.frmMan.searchWorkerName.setEnabled(searchEdit);
+        this.frmMan.searchCBCategory.setEnabled(searchEdit);
+        this.frmMan.searchCBdepartment.setEnabled(searchEdit);
+        
+    }
+    
     public void setWorkerAllEdit(boolean workerEdit) {
 
         this.frmMan.txtWorkerName.setEditable(workerEdit);

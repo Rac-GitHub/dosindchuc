@@ -26,7 +26,7 @@ import javax.swing.table.DefaultTableModel;
 public class ManagementTablesModel {
 
     private ManagementFrm frmMan;
-    private ManagementButtons setButtonsState;
+ //   private ManagementButtons setButtonsState;
     private YearMonthAndTrimester yearMonthTrimester;
  //   private MainFrm frmMain;
     private DbPkIDs dbPkIDs;
@@ -39,7 +39,7 @@ public class ManagementTablesModel {
 
     public ManagementTablesModel(MainFrm frmMain, ManagementFrm frmMan) {
         this.frmMan = frmMan;
-        setButtonsState = new ManagementButtons(this.frmMan);
+  //      setButtonsState = new ManagementButtons(this.frmMan);
   //      this.frmMain = frmMain;
         dbPkIDs = new DbPkIDs();
         yearMonthTrimester = new YearMonthAndTrimester();
@@ -226,8 +226,8 @@ public class ManagementTablesModel {
         table.getColumnModel().getColumn(4).setCellEditor(new DefaultCellEditor(cbSuppl));
         table.getColumnModel().getColumn(7).setCellEditor(new DefaultCellEditor(cbStatus));
 
-        Object newRow[] = new Object[]{"", "", SetEnums.dsmt_type.CI, SetEnums.dsmt_periodicity.Trimestral, 
-            SetEnums.dsmt_supplier.MedicalConsult, "", "", SetEnums.dsmt_status.Pedido, ""};
+        Object newRow[] = new Object[]{"", "", SetEnums.dsmt_type.CI, SetEnums.dsmt_periodicity.Mensal, 
+            SetEnums.dsmt_supplier.ITN, "", "", SetEnums.dsmt_status.Pedido, ""};
         model.addRow(newRow);
 
     }

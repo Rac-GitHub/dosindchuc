@@ -43,7 +43,7 @@ public final class ManagementActionListener implements ActionListener, MouseList
     public ManagementActionListener(ManagementFrm frmMan) {
 
         this.frmMan = frmMan;
-        Listeners = this;
+ //       Listeners = this;
 
         serviceClean = new ManagementClean(this.frmMan);
         serviceBtns = new ManagementButtons(this.frmMan);
@@ -258,7 +258,29 @@ public final class ManagementActionListener implements ActionListener, MouseList
     }
 
     public void searchTableMouseClicked(MouseEvent mevent) {
+   
+        if (this.frmMan.btWorkerCancel.isEnabled()) {
+            return;
+        }
+        
+        if (this.frmMan.btDoseInfoCancel.isEnabled()) {
+            return;
+        }
+        
+        if (this.frmMan.btDosimeterInfoCancel.isEnabled()) {
+            return;
+        }
+        
+        if (this.frmMan.btCancelDsmtNote.isEnabled()) {
+            return;
+        }
 
+        if (this.frmMan.btCancelDoseNote.isEnabled()) {
+            return;
+        }
+
+        
+        
         if (mevent.getClickCount() == 2) {
             serviceClean.cleanAllInfo();
             serviceBtns.setAllSearchClearBts();

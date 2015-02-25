@@ -117,6 +117,8 @@ public class AlertNotesService {
 
             boolean isToSave = table.getValueAt(i, 8).equals(true);
 
+            System.out.println("  isToSave  saveAlertNotesTable :    " + isToSave);
+            
             if (isToSave) {
 
                 alertNotesDao.updateAlertNote(i, table);

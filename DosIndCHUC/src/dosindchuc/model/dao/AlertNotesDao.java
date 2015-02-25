@@ -112,7 +112,7 @@ public class AlertNotesDao {
 
         final List<AlertNotes> alertNotes = new ArrayList<>();
 
-        String query = "SELECT DISTINCT p1." + Tbl_dsmt_notes.pk_dsmt + ", p1." + Tbl_dsmt_notes.alert_level 
+        String query = "SELECT DISTINCT p1." + Tbl_dsmt_notes.pk_dsmt_notes + ", p1." + Tbl_dsmt_notes.alert_level 
                 + ", p3." + Tbl_workers.id_mec + ", p3." + Tbl_workers.name + ", p3." + Tbl_workers.department 
                 + ", p1." + Tbl_dsmt_notes.note + ", p1." + Tbl_dsmt_notes.status + ", p1." + Tbl_dsmt_notes.lastchange;
         
@@ -138,7 +138,7 @@ public class AlertNotesDao {
                         AlertNotes alertNote = new AlertNotes();
 
                         //alertNote.setPk_notes(rset.getString(Tbl_dsmt_status.pk_dsmt_status));
-                        alertNote.setPk_notes(rset.getString(Tbl_dosimeters.pk_dsmt));
+                        alertNote.setPk_notes(rset.getString(Tbl_dsmt_notes.pk_dsmt_notes));
                         alertNote.setNotesLevel(SetEnums.note_alertlevel.valueOf(rset.getString(Tbl_dsmt_notes.alert_level)));
                         alertNote.setNotesType("dsmt");
                         alertNote.setNotesMec(rset.getString(Tbl_workers.id_mec));
@@ -225,6 +225,7 @@ public class AlertNotesDao {
 
         String query = null;
         String where = null;
+        
         if (noteType.matches("dose")) {
             query = "UPDATE " + table_doseNotes + " SET ";
             where = " WHERE " + Tbl_dose_notes.pk_dose_notes + " = ";
@@ -235,6 +236,7 @@ public class AlertNotesDao {
             where = " WHERE " + Tbl_dsmt_notes.pk_dsmt_notes + " = ";
         }
 
+        
         int sizeNparam = queryList.getNumRows();
         Object param[] = new Object[sizeNparam];
 
@@ -245,6 +247,9 @@ public class AlertNotesDao {
 
         query += where + alertNote[0];
 
+        
+        System.out.println(  " query updateAlertNote --> " + query);
+        
         daoConnection.update(query, param);
 
         queryList.remove();
