@@ -49,8 +49,8 @@ public class ManagementClean {
     public void cleanSearch() {
 
         frmMan.getSearchWorkerName().setText("");
-        frmMan.getSearchCBdepartment().setSelectedItem("NoDef");
-        frmMan.getSearchCBCategory().setSelectedItem("NoDef");
+        frmMan.getSearchCBdepartment().setSelectedItem("NULL");
+        frmMan.getSearchCBCategory().setSelectedItem("NULL");
         frmMan.getSearchTxtMec().setText("");
 //        
         tableModel.setDefaultSearchTable();

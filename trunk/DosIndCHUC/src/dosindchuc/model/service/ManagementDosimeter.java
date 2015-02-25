@@ -6,6 +6,7 @@ package dosindchuc.model.service;
 
 import dosindchuc.UI.swing.Help.ManagementButtons;
 import dosindchuc.UI.swing.Help.ManagementClean;
+import dosindchuc.UI.swing.Help.ManagementFields;
 import dosindchuc.UI.swing.Help.ManagementTablesModel;
 import dosindchuc.UI.swing.MainFrm;
 import dosindchuc.UI.swing.ManagementFrm;
@@ -32,6 +33,7 @@ public class ManagementDosimeter {
     private DsmtHistDao dsmtHistdao;
     private DbPkIDs dbPkIDs;
     private DateAndTime dateAndTime = new DateAndTime();
+    private ManagementFields setFieldsState;
     private ManagementButtons setButtonsState;
     private ManagementClean setCleanState;
     private ManagementTablesModel tableModel;
@@ -45,6 +47,7 @@ public class ManagementDosimeter {
         dsmtdao = new DosimeterDao();
         dsmtHistdao = new DsmtHistDao();
         tableModel = new ManagementTablesModel(this.frmMain, this.frmMan);
+        setFieldsState = new ManagementFields(this.frmMan);
         setButtonsState = new ManagementButtons(this.frmMan);
         setCleanState = new ManagementClean(this.frmMan);
         setDsmtInfo = new ManagementSearch(this.frmMan, null);
@@ -95,6 +98,10 @@ public class ManagementDosimeter {
         setButtonsState.setDosimeterBtsNew(true);
         setCleanState.cleanDsmtNotes();
         setCleanState.cleanDsmtHist();
+                
+        setFieldsState.setAllSearchEdit(false);
+        setButtonsState.setAllSearchBts(false);
+        this.frmMan.searchTable.setEnabled(false);
 
         this.frmMan.getTxtInfoAction().setText("Inserting a New dosimeter");
 
@@ -146,10 +153,15 @@ public class ManagementDosimeter {
         if (!(row > -1)) {
             return;
         }
-
-        setButtonsState.setDosimeterBtsUpdate(true);
+        
         setCleanState.cleanDosimeter();
         setDsmtInfo.fillDosimeterInfo(dbPkIDs.getWorker_id(), "update");
+        
+        setButtonsState.setDosimeterBtsUpdate(true);
+        
+        setFieldsState.setAllSearchEdit(false);
+        setButtonsState.setAllSearchBts(false);
+        this.frmMan.searchTable.setEnabled(false);
 
         this.frmMan.getTxtInfoAction().setText("Updating Dosimeter info");
         table.setSelectionForeground(Color.blue);
@@ -215,6 +227,10 @@ public class ManagementDosimeter {
         setDsmtInfo.fillDosimeterInfo(dbPkIDs.getWorker_id(), "list");
 
         setButtonsState.setDosimeterBtsCancel(false);
+        
+        setFieldsState.setAllSearchEdit(true);
+        setButtonsState.setAllSearchBts(true);
+        this.frmMan.searchTable.setEnabled(true);
 
 
         if (!dbPkIDs.getDsmt_id().isEmpty()) {

@@ -23,6 +23,17 @@ public class ManagementButtons {
 
     }
 
+    
+    //search Management
+    
+     public void setAllSearchBts (boolean searchBts) {
+        
+        this.frmMan.searchBtClean.setEnabled(searchBts);
+        this.frmMan.searchBtSeach.setEnabled(searchBts);
+         
+    }
+    
+    
     // worker     
     public void setAllWorkerBtsInit(boolean workerBts) {
 
@@ -92,7 +103,6 @@ public class ManagementButtons {
         this.frmMan.btDoseInfoNew.setEnabled(!dsmtBts);
         this.frmMan.btDoseInfoUpdate.setEnabled(!dsmtBts);
 
-
         this.frmMan.btNewNoteDosimeter.setEnabled(!dsmtBts);
         this.frmMan.btUpdateNoteDosimeter.setEnabled(!dsmtBts);
         this.frmMan.btSaveNewDsmtNote.setEnabled(!dsmtBts);
@@ -129,6 +139,8 @@ public class ManagementButtons {
         this.frmMan.btSaveNewDsmtNote.setEnabled(!dsmtBts);
         this.frmMan.btSaveUpdateDsmtNote.setEnabled(!dsmtBts);
         this.frmMan.btCancelDsmtNote.setEnabled(!dsmtBts);
+        
+
 
     }
 

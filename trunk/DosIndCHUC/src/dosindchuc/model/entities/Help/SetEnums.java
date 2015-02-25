@@ -115,6 +115,8 @@ public class SetEnums {
 
         Pedido,
         Chegou,
+        Activo,
+        Inactivo,
         Enviado,
         NaoEnviado,
         Recebido,
@@ -122,9 +124,7 @@ public class SetEnums {
         Perdido,
         Recuperado,
         PedCancelamento,
-        Cancelado,
-        Activo,
-        Inactivo
+        Cancelado
    
     }
     

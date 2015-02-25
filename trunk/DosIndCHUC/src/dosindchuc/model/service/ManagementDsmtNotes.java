@@ -105,6 +105,12 @@ public class ManagementDsmtNotes {
         setButtonsState.setNewDsmtNoteBts(true);
 
         this.frmMan.tableDosimeterInfo.setEnabled(false);
+        
+        
+        setFieldState.setAllSearchEdit(false);
+        setButtonsState.setAllSearchBts(false);
+        this.frmMan.searchTable.setEnabled(false);
+
         this.frmMan.getTxtInfoAction().setText("Inserting a New dosimeter note");
 
     }
@@ -125,6 +131,10 @@ public class ManagementDsmtNotes {
         fillDsmtNoteInfo();
 
         setButtonsState.setButtonsDoseForActiveDsmt();
+        
+        setFieldState.setAllSearchEdit(true);
+        setButtonsState.setAllSearchBts(true);
+        this.frmMan.searchTable.setEnabled(true);
 
     }
 
@@ -135,6 +145,10 @@ public class ManagementDsmtNotes {
 
         setButtonsState.setUpdateDsmtNoteBts(true);
         setFieldState.setUpdateDsmtNotes(true);
+        
+        setFieldState.setAllSearchEdit(false);
+        setButtonsState.setAllSearchBts(false);
+        this.frmMan.searchTable.setEnabled(false);
 
         this.frmMan.tableDosimeterInfo.setEnabled(false);
         this.frmMan.getTxtInfoAction().setText("Updating Dosimeter note info");
@@ -158,6 +172,11 @@ public class ManagementDsmtNotes {
         fillDsmtNoteInfo();
 
          setButtonsState.setButtonsDoseForActiveDsmt();
+         
+        setFieldState.setAllSearchEdit(true);
+        setButtonsState.setAllSearchBts(true);
+        this.frmMan.searchTable.setEnabled(true);
+         
 
     }
 
@@ -170,8 +189,11 @@ public class ManagementDsmtNotes {
         setButtonsState.setAllDsmtNoteBtsInit(false);
         this.frmMan.tableDosimeterInfo.setEnabled(true);
 
-         setButtonsState.setButtonsDoseForActiveDsmt();
+        setButtonsState.setButtonsDoseForActiveDsmt();
 
+        setFieldState.setAllSearchEdit(true);
+        setButtonsState.setAllSearchBts(true);
+        this.frmMan.searchTable.setEnabled(true);
 
     }
 

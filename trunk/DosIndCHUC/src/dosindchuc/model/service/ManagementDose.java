@@ -6,6 +6,7 @@ package dosindchuc.model.service;
 
 import dosindchuc.UI.swing.Help.ManagementButtons;
 import dosindchuc.UI.swing.Help.ManagementClean;
+import dosindchuc.UI.swing.Help.ManagementFields;
 import dosindchuc.UI.swing.Help.ManagementTablesModel;
 import dosindchuc.UI.swing.MainFrm;
 import dosindchuc.UI.swing.ManagementFrm;
@@ -27,6 +28,7 @@ public class ManagementDose {
     private DoseDao dosedao;
     private DbPkIDs dbPkIDs;
     private DateAndTime dateAndTime = new DateAndTime();
+    private ManagementFields setFieldsState;
     private ManagementButtons setButtonsState;
     private ManagementClean setCleanState;
     private ManagementTablesModel tableModel;
@@ -40,6 +42,7 @@ public class ManagementDose {
         dbPkIDs = new DbPkIDs();
         dosedao = new DoseDao();
         tableModel = new ManagementTablesModel(this.frmMain, this.frmMan);
+        setFieldsState = new ManagementFields(this.frmMan);
         setButtonsState = new ManagementButtons(this.frmMan);
         setCleanState = new ManagementClean(this.frmMan);
         setDoseInfo = new ManagementSearch(this.frmMan, null);
@@ -109,6 +112,10 @@ public class ManagementDose {
         tableModel.setDefaultDoseTable("newdose");
 
         setButtonsState.setDoseBtsNew(true);
+        
+        setFieldsState.setAllSearchEdit(false);
+        setButtonsState.setAllSearchBts(false);
+        this.frmMan.searchTable.setEnabled(false);
 
         this.frmMan.getTxtInfoAction().setText("Inserting a New dose information");
 
@@ -163,6 +170,10 @@ public class ManagementDose {
         
         setButtonsState.setDoseBtsUpdate(true);
         
+        setFieldsState.setAllSearchEdit(false);
+        setButtonsState.setAllSearchBts(false);
+        this.frmMan.searchTable.setEnabled(false);
+        
     }
 
     public void saveUpdateDose() {
@@ -215,7 +226,11 @@ public class ManagementDose {
         setDoseInfo.fillDoseInfo(dbPkIDs.getWorker_id(), "list");
 
         setButtonsState.setDoseBtsCancel(false);
-
+        
+        setFieldsState.setAllSearchEdit(true);
+        setButtonsState.setAllSearchBts(true);
+        this.frmMan.searchTable.setEnabled(true);
+                
         this.frmMan.btDoseInfoNew.setEnabled(true);
   
         if (!dbPkIDs.getDose_id().isEmpty()) {
