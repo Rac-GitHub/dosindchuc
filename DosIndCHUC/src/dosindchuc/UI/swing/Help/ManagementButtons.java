@@ -63,6 +63,18 @@ public class ManagementButtons {
 
     }
 
+    public void setAllDsmtAndDoseBtsInit() {
+        
+        /* to disable buttons */
+        setAllDoseBtsInit(false);
+        setAllDoseNoteBtsInit(false);
+        setAllDosimeterBtsInit(false);
+        setAllDsmtNoteBtsInit(false);
+ 
+    }
+    
+     
+    
     /*
      * 
      * dosimeter

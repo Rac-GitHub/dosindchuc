@@ -94,7 +94,9 @@ public class DIVService {
                 divINFO.setTimestamp(dateAndTime.currDateTime());
 
                 divINFO.setNoteAlertlevel(SetEnums.note_alertlevel.valueOf(tmodel.getValueAt(i, 14).toString()));
+                System.out.println( " Note Alet level -- > " + SetEnums.note_alertlevel.valueOf(tmodel.getValueAt(i, 14).toString()));
                 divINFO.setNoteStatus(SetEnums.note_status.valueOf(tmodel.getValueAt(i, 15).toString()));
+                System.out.println( " Note Status level -- > " + SetEnums.note_status.valueOf(tmodel.getValueAt(i, 15).toString()));
 
                 divInfo.add(divINFO);
 
