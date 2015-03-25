@@ -6,6 +6,7 @@ package dosindchuc.model.service;
 
 import dosindchuc.UI.swing.Help.ManagementButtons;
 import dosindchuc.UI.swing.Help.ManagementClean;
+import dosindchuc.UI.swing.Help.ManagementCommons;
 import dosindchuc.UI.swing.Help.ManagementFields;
 import dosindchuc.UI.swing.ManagementFrm;
 import dosindchuc.globals.Tbl_dose_notes;
@@ -30,6 +31,7 @@ public class ManagementDoseNotes {
     private DbPkIDs dbPkIDs;
     private DateAndTime dateAndTime = new DateAndTime();
     private ManagementButtons setButtonsState;
+    private ManagementCommons setSearchAllInfoPanel;
     private ManagementClean setCleanState;
     private ManagementFields setFieldState;
     //  private ManagementSearch setDoseNoteInfo;
@@ -43,6 +45,7 @@ public class ManagementDoseNotes {
         doseNotesdao = new Dose_notesDao();
         doseNotesHistdao = new DoseNotesHistDao();
         setButtonsState = new ManagementButtons(this.frmMan);
+        setSearchAllInfoPanel = new ManagementCommons(this.frmMan);
         setCleanState = new ManagementClean(this.frmMan);
         setFieldState = new ManagementFields(this.frmMan);
 
@@ -109,9 +112,8 @@ public class ManagementDoseNotes {
 
         this.frmMan.getTxtInfoAction().setText("Inserting a New dose note");
         
-        setFieldState.setAllSearchEdit(false);
-        setButtonsState.setAllSearchBts(false);
-        this.frmMan.searchTable.setEnabled(false);
+        /* to disable search info */
+        setSearchAllInfoPanel.searchAllEditInfoPanel(false);
         
 
     }
@@ -133,9 +135,8 @@ public class ManagementDoseNotes {
         this.frmMan.btDoseInfoNew.setEnabled(true);
         this.frmMan.btDoseInfoUpdate.setEnabled(true);
         
-        setFieldState.setAllSearchEdit(true);
-        setButtonsState.setAllSearchBts(true);
-        this.frmMan.searchTable.setEnabled(true);
+        /* to enable search info panel */
+        setSearchAllInfoPanel.searchAllEditInfoPanel(true);
         
 
     }
@@ -151,9 +152,8 @@ public class ManagementDoseNotes {
         this.frmMan.tableDoseInfo.setEnabled(false);
         this.frmMan.getTxtInfoAction().setText("Updating Dose note info");
         
-        setFieldState.setAllSearchEdit(false);
-        setButtonsState.setAllSearchBts(false);
-        this.frmMan.searchTable.setEnabled(false);
+        /* to disable search info */
+        setSearchAllInfoPanel.searchAllEditInfoPanel(false);
 
     }
 
@@ -176,9 +176,8 @@ public class ManagementDoseNotes {
         this.frmMan.btDoseInfoNew.setEnabled(true);
         this.frmMan.btDoseInfoUpdate.setEnabled(true);
         
-       setFieldState.setAllSearchEdit(true);
-        setButtonsState.setAllSearchBts(true);
-        this.frmMan.searchTable.setEnabled(true);
+       /* to enable search info panel */
+        setSearchAllInfoPanel.searchAllEditInfoPanel(true);
 
     }
 
@@ -196,9 +195,8 @@ public class ManagementDoseNotes {
         this.frmMan.btDoseInfoNew.setEnabled(true);
         this.frmMan.btDoseInfoUpdate.setEnabled(true);
         
-         setFieldState.setAllSearchEdit(true);
-        setButtonsState.setAllSearchBts(true);
-        this.frmMan.searchTable.setEnabled(true);
+        /* to enable search info panel */
+        setSearchAllInfoPanel.searchAllEditInfoPanel(true);
     
     }
     

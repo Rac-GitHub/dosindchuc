@@ -66,6 +66,7 @@ public class Dose_notesDao {
                         dose_note.setStatus(SetEnums.note_status.valueOf(rset.getString(Tbl_dose_notes.status)));
                         dose_note.setStatus_timestamp(rset.getString(Tbl_dose_notes.status_timestamp));
                         dose_note.setAlert_level(SetEnums.note_alertlevel.valueOf(rset.getString(Tbl_dose_notes.alert_level)));
+                        System.out.print("getDose_notesInfo --- Alert level : " + SetEnums.note_alertlevel.valueOf(rset.getString(Tbl_dose_notes.alert_level)));
                         dose_note.setAlert_level_timestamp(rset.getString(Tbl_dose_notes.alert_level_timestamp));
                         dose_note.setLastchange(rset.getString(Tbl_dose_notes.lastchange));
                         dose_notes.add(dose_note);

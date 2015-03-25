@@ -31,7 +31,6 @@ public class ManagementFields {
         setAllDoseEdit(doseEdit);
 
     }
-
     
     public void setAllSearchEdit (boolean searchEdit) {
     

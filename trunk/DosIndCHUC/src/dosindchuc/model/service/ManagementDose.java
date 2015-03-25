@@ -6,6 +6,7 @@ package dosindchuc.model.service;
 
 import dosindchuc.UI.swing.Help.ManagementButtons;
 import dosindchuc.UI.swing.Help.ManagementClean;
+import dosindchuc.UI.swing.Help.ManagementCommons;
 import dosindchuc.UI.swing.Help.ManagementFields;
 import dosindchuc.UI.swing.Help.ManagementTablesModel;
 import dosindchuc.UI.swing.MainFrm;
@@ -30,6 +31,7 @@ public class ManagementDose {
     private DateAndTime dateAndTime = new DateAndTime();
     private ManagementFields setFieldsState;
     private ManagementButtons setButtonsState;
+    private ManagementCommons setSearchAllInfoPanel;
     private ManagementClean setCleanState;
     private ManagementTablesModel tableModel;
     private ManagementSearch setDoseInfo;
@@ -44,6 +46,7 @@ public class ManagementDose {
         tableModel = new ManagementTablesModel(this.frmMain, this.frmMan);
         setFieldsState = new ManagementFields(this.frmMan);
         setButtonsState = new ManagementButtons(this.frmMan);
+        setSearchAllInfoPanel = new ManagementCommons(this.frmMan);
         setCleanState = new ManagementClean(this.frmMan);
         setDoseInfo = new ManagementSearch(this.frmMan, null);
         setCumulDose = new ManagementCumulDose(frmMan);
@@ -113,9 +116,8 @@ public class ManagementDose {
 
         setButtonsState.setDoseBtsNew(true);
         
-        setFieldsState.setAllSearchEdit(false);
-        setButtonsState.setAllSearchBts(false);
-        this.frmMan.searchTable.setEnabled(false);
+       /* to disable search info */
+        setSearchAllInfoPanel.searchAllEditInfoPanel(false);
 
         this.frmMan.getTxtInfoAction().setText("Inserting a New dose information");
 
@@ -144,6 +146,9 @@ public class ManagementDose {
         fillWokerDoseInfo();
         
         setButtonsState.setDoseBtsSave(true);
+        
+        /* to enable search info panel */
+        setSearchAllInfoPanel.searchAllEditInfoPanel(true);
 
     }
 
@@ -170,9 +175,8 @@ public class ManagementDose {
         
         setButtonsState.setDoseBtsUpdate(true);
         
-        setFieldsState.setAllSearchEdit(false);
-        setButtonsState.setAllSearchBts(false);
-        this.frmMan.searchTable.setEnabled(false);
+         /* to disable search info */
+        setSearchAllInfoPanel.searchAllEditInfoPanel(false);
         
     }
 
@@ -206,6 +210,10 @@ public class ManagementDose {
         // actualiza info
         fillWokerDoseInfo();
         setButtonsState.setDoseBtsSave(true);
+        
+        /* to enable search info panel */
+        setSearchAllInfoPanel.searchAllEditInfoPanel(true);
+        
 
     }
 
@@ -227,9 +235,8 @@ public class ManagementDose {
 
         setButtonsState.setDoseBtsCancel(false);
         
-        setFieldsState.setAllSearchEdit(true);
-        setButtonsState.setAllSearchBts(true);
-        this.frmMan.searchTable.setEnabled(true);
+        /* to enable search info panel */
+        setSearchAllInfoPanel.searchAllEditInfoPanel(true);
                 
         this.frmMan.btDoseInfoNew.setEnabled(true);
   
@@ -237,9 +244,6 @@ public class ManagementDose {
             this.frmMan.btDoseInfoUpdate.setEnabled(true);
         }
 
-
-
     }
 
-    
 }

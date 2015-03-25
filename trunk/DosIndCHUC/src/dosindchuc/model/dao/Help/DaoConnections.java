@@ -248,7 +248,7 @@ public class DaoConnections {
         int iand = 0;
         String newWhere = null;
         for (int i = 0; i <= searchWhere.length - 1; i++) {
-            if ((!searchWhere[i][0][2].isEmpty()) && (!searchWhere[i][0][2].equalsIgnoreCase("NoDef"))) {
+            if ((!searchWhere[i][0][2].isEmpty()) && (!searchWhere[i][0][2].equalsIgnoreCase("NULL"))) {
 
                 switch (searchWhere[i][0][1]) {
                     case "LIKE":

@@ -6,6 +6,7 @@ package dosindchuc.model.service;
 
 import dosindchuc.UI.swing.Help.ManagementButtons;
 import dosindchuc.UI.swing.Help.ManagementClean;
+import dosindchuc.UI.swing.Help.ManagementCommons;
 import dosindchuc.UI.swing.Help.ManagementFields;
 import dosindchuc.UI.swing.ManagementFrm;
 import dosindchuc.globals.Tbl_dsmt_notes;
@@ -30,6 +31,7 @@ public class ManagementDsmtNotes {
     private DbPkIDs dbPkIDs;
     private DateAndTime dateAndTime = new DateAndTime();
     private ManagementButtons setButtonsState;
+    private ManagementCommons setSearchAllInfoPanel;
     private ManagementClean setCleanState;
     private ManagementFields setFieldState;
     private JTable table;
@@ -41,6 +43,7 @@ public class ManagementDsmtNotes {
         dsmtNotesdao = new DsmtNotesDao();
         dsmtNoteHistdao = new DsmtNoteHistDao();
         setButtonsState = new ManagementButtons(this.frmMan);
+        setSearchAllInfoPanel = new ManagementCommons(this.frmMan);
         setCleanState = new ManagementClean(this.frmMan);
         setFieldState = new ManagementFields(this.frmMan);
 
@@ -106,10 +109,8 @@ public class ManagementDsmtNotes {
 
         this.frmMan.tableDosimeterInfo.setEnabled(false);
         
-        
-        setFieldState.setAllSearchEdit(false);
-        setButtonsState.setAllSearchBts(false);
-        this.frmMan.searchTable.setEnabled(false);
+        /* to disable search info */
+        setSearchAllInfoPanel.searchAllEditInfoPanel(false);
 
         this.frmMan.getTxtInfoAction().setText("Inserting a New dosimeter note");
 
@@ -132,9 +133,8 @@ public class ManagementDsmtNotes {
 
         setButtonsState.setButtonsDoseForActiveDsmt();
         
-        setFieldState.setAllSearchEdit(true);
-        setButtonsState.setAllSearchBts(true);
-        this.frmMan.searchTable.setEnabled(true);
+        /* to enable search info panel */
+        setSearchAllInfoPanel.searchAllEditInfoPanel(true);
 
     }
 
@@ -146,9 +146,8 @@ public class ManagementDsmtNotes {
         setButtonsState.setUpdateDsmtNoteBts(true);
         setFieldState.setUpdateDsmtNotes(true);
         
-        setFieldState.setAllSearchEdit(false);
-        setButtonsState.setAllSearchBts(false);
-        this.frmMan.searchTable.setEnabled(false);
+        /* to disable search info */
+        setSearchAllInfoPanel.searchAllEditInfoPanel(false);
 
         this.frmMan.tableDosimeterInfo.setEnabled(false);
         this.frmMan.getTxtInfoAction().setText("Updating Dosimeter note info");
@@ -171,11 +170,10 @@ public class ManagementDsmtNotes {
         this.frmMan.tableDosimeterInfo.setEnabled(true);
         fillDsmtNoteInfo();
 
-         setButtonsState.setButtonsDoseForActiveDsmt();
+        setButtonsState.setButtonsDoseForActiveDsmt();
          
-        setFieldState.setAllSearchEdit(true);
-        setButtonsState.setAllSearchBts(true);
-        this.frmMan.searchTable.setEnabled(true);
+        /* to enable search info panel */
+        setSearchAllInfoPanel.searchAllEditInfoPanel(true);
          
 
     }
@@ -191,9 +189,8 @@ public class ManagementDsmtNotes {
 
         setButtonsState.setButtonsDoseForActiveDsmt();
 
-        setFieldState.setAllSearchEdit(true);
-        setButtonsState.setAllSearchBts(true);
-        this.frmMan.searchTable.setEnabled(true);
+        /* to enable search info panel */
+        setSearchAllInfoPanel.searchAllEditInfoPanel(true);
 
     }
 

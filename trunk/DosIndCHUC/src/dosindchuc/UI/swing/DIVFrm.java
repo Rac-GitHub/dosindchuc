@@ -8,6 +8,7 @@ package dosindchuc.UI.swing;
 import dosindchuc.UI.controller.DIVActionListener;
 import dosindchuc.UI.swing.Help.DIVButtons;
 import dosindchuc.model.entities.Help.SetEnums;
+import javax.swing.DefaultComboBoxModel;
 import javax.swing.JButton;
 import javax.swing.JComboBox;
 import javax.swing.JTextField;
@@ -324,6 +325,13 @@ public class DIVFrm extends javax.swing.JFrame {
     
     private void initState () {
         setButtonsState.setAllDIVBtsInit(true);
+        
+        this.cbDIV_Category.setModel(new DefaultComboBoxModel(SetEnums.worker_category.values()));
+        this.cbDIV_Category.setSelectedIndex(SetEnums.worker_category.values().length - 1);
+        this.cbDIV_Department.setModel(new DefaultComboBoxModel(SetEnums.worker_department.values()));
+        this.cbDIV_Department.setSelectedIndex(SetEnums.worker_department.values().length - 1);
+        
+        
     } 
 
     public JButton getBtDIV_Clean() {

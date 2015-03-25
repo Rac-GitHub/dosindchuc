@@ -1878,9 +1878,9 @@ public class ManagementFrm extends javax.swing.JFrame {
         this.cbWorkerDept.setModel(new DefaultComboBoxModel(SetEnums.worker_department.values()));
         
         this.searchCBCategory.setModel(new DefaultComboBoxModel(SetEnums.worker_category.values()));
-        this.searchCBCategory.setSelectedItem("NULL");
+        this.searchCBCategory.setSelectedIndex(SetEnums.worker_category.values().length - 1);
         this.searchCBdepartment.setModel(new DefaultComboBoxModel(SetEnums.worker_department.values()));
-        this.searchCBdepartment.setSelectedItem("NULL");
+        this.searchCBdepartment.setSelectedIndex(SetEnums.worker_department.values().length - 1);
         
         this.cbDosimeterNotesAlert.setModel(new DefaultComboBoxModel(SetEnums.note_alertlevel.values()));
         this.cbDosimeterNotesStatus.setModel(new DefaultComboBoxModel(SetEnums.note_status.values()));

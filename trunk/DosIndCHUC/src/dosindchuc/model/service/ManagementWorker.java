@@ -6,6 +6,7 @@ package dosindchuc.model.service;
 
 import dosindchuc.UI.swing.Help.ManagementButtons;
 import dosindchuc.UI.swing.Help.ManagementClean;
+import dosindchuc.UI.swing.Help.ManagementCommons;
 import dosindchuc.UI.swing.Help.ManagementFields;
 import dosindchuc.UI.swing.ManagementFrm;
 import dosindchuc.model.dao.WorkerDao;
@@ -27,6 +28,7 @@ public class ManagementWorker {
     private DateAndTime dateAndTime; 
     private ManagementFields setFieldsState;
     private ManagementButtons setButtonsState;
+    private ManagementCommons setSearchAllInfoPanel;
     private ManagementClean setCleanState;
     private ManagementSearch setWorkerInfo;
     private ManagementCumulDose setCumulDose;
@@ -39,6 +41,7 @@ public class ManagementWorker {
         workerdao = new WorkerDao();
         setFieldsState = new ManagementFields(this.frmMan);
         setButtonsState = new ManagementButtons(this.frmMan);
+        setSearchAllInfoPanel = new ManagementCommons(this.frmMan);
         setCleanState = new ManagementClean(this.frmMan);
         setWorkerInfo = new ManagementSearch(this.frmMan, null);
         setCumulDose = new ManagementCumulDose(frmMan);
@@ -101,15 +104,11 @@ public class ManagementWorker {
         setCleanState.cleanAllInfo();
         
         /* to disable buttons */
-        setButtonsState.setAllDoseBtsInit(false);
-        setButtonsState.setAllDoseNoteBtsInit(false);
-        setButtonsState.setAllDosimeterBtsInit(false);
-        setButtonsState.setAllDsmtNoteBtsInit(false);
+        setButtonsState.setAllDsmtAndDoseBtsInit();
+  
+        /* to disable search info */
+        setSearchAllInfoPanel.searchAllEditInfoPanel(false);
         
-        setFieldsState.setAllSearchEdit(false);
-        setButtonsState.setAllSearchBts(false);
-        this.frmMan.searchTable.setEnabled(false);
-
         this.frmMan.getTxtInfoAction().setText("Inserting a New Worker");
 
     }
@@ -139,9 +138,8 @@ public class ManagementWorker {
         setFieldsState.setWorkerAllEdit(false);
         setButtonsState.setAllWorkerBtsInit(true);
         
-         setFieldsState.setAllSearchEdit(true);
-        setButtonsState.setAllSearchBts(true);
-        this.frmMan.searchTable.setEnabled(true);
+        /* to enable search info panel */
+        setSearchAllInfoPanel.searchAllEditInfoPanel(true);
         
         
         setCumulDose.newCumulDose(id);
@@ -156,14 +154,11 @@ public class ManagementWorker {
         setFieldsState.setWorkerAllEdit(true);
         setButtonsState.setSaveWorkerUpdate(false);
 
-        setButtonsState.setAllDoseBtsInit(false);
-        setButtonsState.setAllDoseNoteBtsInit(false);
-        setButtonsState.setAllDosimeterBtsInit(false);
-        setButtonsState.setAllDsmtNoteBtsInit(false);
+        /* to disable buttons */
+        setButtonsState.setAllDsmtAndDoseBtsInit();
         
-        setFieldsState.setAllSearchEdit(false);
-        setButtonsState.setAllSearchBts(false);
-        this.frmMan.searchTable.setEnabled(false);
+        /* to disable search info */
+        setSearchAllInfoPanel.searchAllEditInfoPanel(false);
 
         this.frmMan.getTxtInfoAction().setText("Updating Worker info");
 
@@ -185,9 +180,8 @@ public class ManagementWorker {
         setButtonsState.setAllWorkerBtsInit(true);
         this.frmMan.btWorkerUpdate.setEnabled(true);
         
-         setFieldsState.setAllSearchEdit(true);
-        setButtonsState.setAllSearchBts(true);
-        this.frmMan.searchTable.setEnabled(true);
+        /* to enable search info panel */
+        setSearchAllInfoPanel.searchAllEditInfoPanel(true);
         
 
     }
@@ -200,11 +194,13 @@ public class ManagementWorker {
         setFieldsState.setWorkerAllEdit(false);
         setButtonsState.setAllWorkerBtsInit(true);
         
-        setFieldsState.setAllSearchEdit(true);
-        setButtonsState.setAllSearchBts(true);
-        this.frmMan.searchTable.setEnabled(true);
+        /* to enable search info panel */
+        setSearchAllInfoPanel.searchAllEditInfoPanel(true);
         
         this.frmMan.getTxtInfoAction().setText("Cancel");
 
     }
+    
+  
+    
 }
